@@ -10,8 +10,7 @@ public class Order {
     private int id;
     private int user;
     private String orderName;
-    private OrderStatus status;
-
+    private int status;
     private int discount;
     private Timestamp date;
     private String notes;
@@ -22,7 +21,7 @@ public class Order {
     public Order() {
     }
 
-    public Order(int id, int user, String orderName, OrderStatus status, int discount, Timestamp date, String notes, String address, String phone) {
+    public Order(int id, int user, String orderName, int status, int discount, Timestamp date, String notes, String address, String phone) {
         this.id = id;
         this.user = user;
         this.orderName = orderName;
@@ -50,11 +49,11 @@ public class Order {
         this.user = user;
     }
 
-    public OrderStatus getStatus() {
+    public int getStatus() {
         return status;
     }
 
-    public void setStatus(OrderStatus status) {
+    public void setStatus(int status) {
         this.status = status;
     }
 
