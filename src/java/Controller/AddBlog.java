@@ -62,6 +62,7 @@ public class AddBlog extends HttpServlet {
             BlogDao bdao = new BlogDao();
             bdao.addBlog(title, relativeImagePath, userId, content);
         } else {
+            
         }
         response.sendRedirect("ManageBlog");
     }

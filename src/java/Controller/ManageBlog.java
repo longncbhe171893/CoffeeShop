@@ -25,13 +25,12 @@ public class ManageBlog extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try {
-            
-                
-                BlogDao blog = new BlogDao();
-                ArrayList<Blog> bl = blog.getBlogs();
-                request.setAttribute("bl", bl);
-                request.getRequestDispatcher("ManageBlog.jsp").forward(request, response);
-            
+
+            BlogDao blog = new BlogDao();
+            ArrayList<Blog> bl = blog.getBlogs();
+            request.setAttribute("bl", bl);
+            request.getRequestDispatcher("ManageBlog.jsp").forward(request, response);
+
         } catch (Exception e) {
 
         }
@@ -47,26 +46,25 @@ public class ManageBlog extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-        throws ServletException, IOException {
-    String search = request.getParameter("search");
-    String firstDate = request.getParameter("firstDate");
-    String secondDate = request.getParameter("secondDate");
+            throws ServletException, IOException {
+        String search = request.getParameter("search");
+        String firstDate = request.getParameter("firstDate");
+        String secondDate = request.getParameter("secondDate");
 
-    BlogDao blogDao = new BlogDao();
-    List<Blog> blogList = blogDao.getBlogs();
+        BlogDao blogDao = new BlogDao();
+        List<Blog> blogList = blogDao.getBlogs();
 
-    if (search != null) {
-        blogList = blogDao.searchBlog(search);
-    } else if (firstDate != null && secondDate != null) {
-        Date fdate = Date.valueOf(firstDate);
-        Date sdate = Date.valueOf(secondDate);
-        blogList = blogDao.getBlogByDate(fdate, sdate);
+        if (search != null) {
+            blogList = blogDao.searchBlog(search);
+        } else if (firstDate != null && secondDate != null) {
+            Date fdate = Date.valueOf(firstDate);
+            Date sdate = Date.valueOf(secondDate);
+            blogList = blogDao.getBlogByDate(fdate, sdate);
+        }
+
+        request.setAttribute("bl", blogList);
+        request.getRequestDispatcher("ManageBlog.jsp").forward(request, response);
     }
-
-    request.setAttribute("bl", blogList);
-    request.getRequestDispatcher("ManageBlog.jsp").forward(request, response);
-}
-
 
     @Override
     public String getServletInfo() {

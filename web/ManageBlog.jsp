@@ -157,7 +157,7 @@
                                 </td>
                                 <td><img style="width:150px;height:150px;"src="${bl.getBlog_image()}"></td>
                                 <td>
-                                    <a href="DeleteBlog?bid=${bl.getBlog_id()}" class="btn- btn-danger  btn-lg" style="display: block;" onclick="return confirm('Bạn có chắc chắn muốn xóa không?')">Delete</a>
+                                    <a href="DeleteBlog?bid=${bl.getBlog_id()}" class="btn- btn-danger  btn-lg" style="display: block;" onclick="return confirm('Bạn có chắc chắn muốn xóa blog này không?')">Delete</a>
                                 </td>
 
                                 <td> <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#myModal${bl.getBlog_id()}">Edit</button></td>

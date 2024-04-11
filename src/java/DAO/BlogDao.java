@@ -9,10 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- *
- * @author ASUS
- */
+
 public class BlogDao extends DBContext {
 
     public Blog getBlogByBlogId(int blogId) {
@@ -189,10 +186,8 @@ public class BlogDao extends DBContext {
 
     public static void main(String[] args) {
         BlogDao bld = new BlogDao();
-        List<Blog> lb = bld.getBlogs();
-        for (Blog blog : lb) {
-            System.out.println(blog);
-        }
+        bld.DeleteBlog(4);
+        
 
     }
 }

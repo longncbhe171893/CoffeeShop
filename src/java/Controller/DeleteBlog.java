@@ -13,10 +13,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-/**
- *
- * @author Hoàng Vũ
- */
 public class DeleteBlog extends HttpServlet {
  
    
@@ -27,7 +23,7 @@ public class DeleteBlog extends HttpServlet {
        int id = Integer.valueOf(request.getParameter("bid"));
         BlogDao bdao = new BlogDao();
         bdao.DeleteBlog(id);
-        response.sendRedirect("./ManageBlog");
+        response.sendRedirect("ManageBlog");
     } 
 
     @Override
