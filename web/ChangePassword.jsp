@@ -63,7 +63,7 @@
         <jsp:include page="header.jsp"/>
         <div style="margin-top: 200px; margin-left: 539px" class="ipform">
             
-            <form action="ChangePassword" method="POST">
+            <form action="PasswordChange" method="POST">
                 <h2>Change your password</h2>
                 <label for="current-password">Old password</label>
                 <input type="password" id="current-password" name="oldpass" required><br><br>
