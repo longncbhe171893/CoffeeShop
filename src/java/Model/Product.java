@@ -15,15 +15,15 @@ public class Product {
     private String name; 
     private double price; 
     private String image; 
-    private Category category; 
+    private Setting category; 
     private String decription; 
-    private ProductStatus status ; 
+    private int status ; 
     private Date createDate; 
 
     public Product() {
     }
     
-    public Product(int id, String name, double price, String image, Category category, String decription, ProductStatus status, Date createDate) {
+    public Product(int id, String name, double price, String image, Setting category, String decription, int status, Date createDate) {
         this.id = id;
         this.name = name;
         this.price = price;
@@ -76,11 +76,11 @@ public class Product {
         this.image = image;
     }
 
-    public Category getCategory() {
+    public Setting getCategory() {
         return category;
     }
 
-    public void setCategory(Category category) {
+    public void setCategory(Setting category) {
         this.category = category;
     }
 
@@ -92,11 +92,11 @@ public class Product {
         this.decription = decription;
     }
 
-    public ProductStatus getStatus() {
+    public int getStatus() {
         return status;
     }
 
-    public void setStatus(ProductStatus status) {
+    public void setStatus(int status) {
         this.status = status;
     }
 
@@ -107,7 +107,5 @@ public class Product {
     public void setCreateDate(Date createDate) {
         this.createDate = createDate;
     }
-
-    
-    
+   
 }

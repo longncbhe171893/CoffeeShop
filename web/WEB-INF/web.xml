@@ -145,10 +145,6 @@
         <servlet-class>Controller.ChangeStatus</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ManageBlog</servlet-name>
-        <servlet-class>Controller.ManageBlog</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>AddBlog</servlet-name>
         <servlet-class>Controller.AddBlog</servlet-class>
     </servlet>
@@ -371,10 +367,6 @@
     <servlet-mapping>
         <servlet-name>ChangeStatus</servlet-name>
         <url-pattern>/changeStatus</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ManageBlog</servlet-name>
-        <url-pattern>/ManageBlog</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AddBlog</servlet-name>
