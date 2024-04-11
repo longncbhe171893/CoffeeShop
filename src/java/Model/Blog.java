@@ -78,4 +78,9 @@ public class Blog {
         this.content = content;
     }
 
+    @Override
+    public String toString() {
+        return "Blog{" + "blog_id=" + blog_id + ", blog_title=" + blog_title + ", blog_image=" + blog_image + ", user=" + user + ", post_date=" + post_date + ", content=" + content + '}';
+    }
+    
 }

@@ -17,7 +17,7 @@
         <!-- My CSS -->
         <link rel="stylesheet" href="CSSsimple/sellerDashbord.css">
 
-        <title>Seller Dashbord</title>     
+        <title>Seller Dashboard</title>     
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     </head>
