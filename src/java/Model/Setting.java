@@ -17,6 +17,13 @@ public class Setting {
 
     public Setting() {
     }
+
+    public Setting(int settingId, String settingName, String description, String type) {
+        this.settingId = settingId;
+        this.settingName = settingName;
+        this.description = description;
+        this.type = type;
+    }
     
     
 

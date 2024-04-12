@@ -61,15 +61,12 @@ public class SettingLists extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         SettingDAO settingDAO = new SettingDAO();
-        try {
-            List<Setting> settings = settingDAO.getAllSettings();
-            request.setAttribute("settings", settings);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("SettingList.jsp");
-            dispatcher.forward(request, response);
-        } catch (SQLException e) {
-            e.printStackTrace();
-            // Handle database error
-        }
+        
+        List<Setting> settings = settingDAO.getAllSettings();
+        request.setAttribute("settings", settings);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("SettingList.jsp");
+        dispatcher.forward(request, response);
+        
     } 
 
     /** 
@@ -82,7 +79,7 @@ public class SettingLists extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        
     }
 
     /** 

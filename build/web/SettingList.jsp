@@ -5,6 +5,10 @@
 --%>
 
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page import="java.util.*" %>
+<%@page import="model.*" %>
+<%@page import="DAO.*" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,7 +23,7 @@
             <th>Setting Name</th>
             <th>Description</th>
             <th>Type</th>
-            <th>Setting Sort</th>
+            
         </tr>
         <c:forEach var="setting" items="${settings}">
             <tr>
@@ -27,7 +31,7 @@
                 <td>${setting.settingName}</td>
                 <td>${setting.description}</td>
                 <td>${setting.type}</td>
-                <td>${setting.settingSort}</td>
+                
             </tr>
         </c:forEach>
     </table>

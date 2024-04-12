@@ -80,11 +80,11 @@ public class UserProfile extends HttpServlet {
         UserDAO udao = new UserDAO();
         HttpSession session = request.getSession();
         try {
-            udao.UpdateUser(name, Integer.valueOf(id), email, sex, phone, address);
+            udao.UpdateUser(name, Integer.valueOf(id), sex, phone, address);
             User u = new User();
             u.setId(Integer.valueOf(id));
             u.setName(name);
-            u.setEmail(email);
+            
             u.setSex(sex);
             u.setPhone(phone);
             u.setAddress(address);

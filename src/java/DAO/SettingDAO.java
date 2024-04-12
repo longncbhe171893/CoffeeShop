@@ -17,7 +17,7 @@ import java.util.List;
  * @author HP
  */
 public class SettingDAO extends DBContext {
-    private Connection connection;
+    
 
     public SettingDAO(Connection connection) {
         this.connection = connection;
@@ -28,22 +28,38 @@ public class SettingDAO extends DBContext {
     
     
 
-    public List<Setting> getAllSettings() throws SQLException {
+    public List<Setting> getAllSettings() {
+        String query = "SELECT setting_id, setting_name, description, type FROM setting;";
         List<Setting> settings = new ArrayList<>();
-        String query = "SELECT * FROM setting";
-        try (PreparedStatement statement = connection.prepareStatement(query)) {
+
+        try {
+            PreparedStatement statement = connection.prepareStatement(query);
             ResultSet resultSet = statement.executeQuery();
+
             while (resultSet.next()) {
-                Setting setting = new Setting();
-                setting.setSettingId(resultSet.getInt("setting_id"));
-                setting.setSettingName(resultSet.getString("setting_name"));
-                setting.setDescription(resultSet.getString("description"));
-                setting.setType(resultSet.getString("type"));
-                setting.setSettingSort(resultSet.getInt("setting_sort"));
+                int settingId = resultSet.getInt("setting_id");
+                String settingName = resultSet.getString("setting_name");
+                String description = resultSet.getString("description");
+                String type = resultSet.getString("type");
+
+                Setting setting = new Setting(settingId, settingName, description, type);
                 settings.add(setting);
             }
+
+            resultSet.close();
+            statement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
+
         return settings;
     }
+    
+    public static void main(String[] args) {
+        SettingDAO dao = new SettingDAO();
+        System.out.println(dao.getAllSettings());
+    }
+
+
 }
 
