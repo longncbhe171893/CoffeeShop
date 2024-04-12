@@ -111,7 +111,7 @@
                 <h3>My Profile</h3>
                 <label class="nameprofile">Name</label><input class="nameprofile1" type="text" value="${sessionScope['account'].getName()}" name="name"><br/>
                 <label class="emailprofile">Email</label><input readonly class="emailprofile1" value="${sessionScope['account'].getEmail()}" name="email"><br/>
-                <label class="genderprofile">Gender</label><input class="genderprofile1" type="text" value="${sessionScope['account'].getSex()}" name="gender"><br/>
+                <label class="genderprofile">Gender</label><input class="genderprofile1" type="text" value="${sessionScope['account'].getSex()}" name="sex"><br/>
                 <label class="phoneprofile">Phone</label><input class="phoneprofile1" type="number" value="${sessionScope['account'].getPhone()}" name="phone"><br/>
                 <label class="addressprofile">Address</label><input class="addressprofile1" type="text" value="${sessionScope['account'].getAddress()}" name="address"><br/>
                 <a href="ChangePassword.jsp" class="change-container">

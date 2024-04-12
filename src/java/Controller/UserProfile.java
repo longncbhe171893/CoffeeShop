@@ -5,6 +5,8 @@
 
 package Controller;
 
+import DAO.UserDAO;
+import Model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -12,6 +14,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 /**
  *
@@ -55,7 +58,7 @@ public class UserProfile extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        
     } 
 
     /** 
@@ -68,7 +71,30 @@ public class UserProfile extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        String name = request.getParameter("name");
+        String email = request.getParameter("email");
+        String sex = request.getParameter("sex");
+        int phone = Integer.parseInt(request.getParameter("phone"));
+        String address = request.getParameter("address");
+        String id = request.getParameter("id");
+        UserDAO udao = new UserDAO();
+        HttpSession session = request.getSession();
+        try {
+            udao.UpdateUser(name, Integer.valueOf(id), email, sex, phone, address);
+            User u = new User();
+            u.setId(Integer.valueOf(id));
+            u.setName(name);
+            u.setEmail(email);
+            u.setSex(sex);
+            u.setPhone(phone);
+            u.setAddress(address);
+            session.removeAttribute("account");
+            session.setAttribute("account", u);
+            request.setAttribute("mess", "Updated Success");
+            request.getRequestDispatcher("UserProfile.jsp").forward(request, response);
+        } catch (Exception e) {
+            response.getWriter().println(e);
+        }
     }
 
     /** 

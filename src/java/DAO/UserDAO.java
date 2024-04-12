@@ -5,6 +5,7 @@
 package DAO;
 
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 /**
  *
@@ -22,6 +23,22 @@ public class UserDAO extends DBContext{
             stm.setString(2, id);
             stm.executeUpdate();
         } catch (Exception e) {
+        }
+    }
+    
+    public void UpdateUser(String name, int userid, String email, String sex, int phone, String address) {
+        String sql = " update `Users` set `user_name`=? where `user_id` =?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, name);
+            ps.setInt(2, userid);
+            ps.setString(3, email);
+            ps.setString(4, sex);
+            ps.setInt(5, phone);
+            ps.setString(6, address);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
         }
     }
 }
