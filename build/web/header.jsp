@@ -59,7 +59,7 @@
                         </li>
                         <li class="nav-item"><a href="Home" class="nav-link">Home</a></li>
                         <li class="nav-item"><a href="#" class="nav-link">Menu</a></li>
-                        <li class="nav-item"><a href="#" class="nav-link">Blog</a></li>
+                        <li class="nav-item"><a href="Blog" class="nav-link">Blog</a></li>
                         <li class="nav-item">
                             <c:if test="${sessionScope['account'].getRole().getId() == 3}">
                                 <a href="#" class="nav-link" >MY ORDER</a>
