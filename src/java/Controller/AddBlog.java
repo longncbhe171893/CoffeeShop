@@ -64,7 +64,7 @@ public class AddBlog extends HttpServlet {
         } else {
             
         }
-        response.sendRedirect("ManageBlog");
+        response.sendRedirect("./ManageBlog");
     }
 
     /**
