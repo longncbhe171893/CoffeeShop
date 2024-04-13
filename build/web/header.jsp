@@ -61,12 +61,12 @@
                         <li class="nav-item"><a href="#" class="nav-link">Menu</a></li>
                         <li class="nav-item"><a href="#" class="nav-link">Blog</a></li>
                         <li class="nav-item">
-                            <c:if test="${sessionScope['account'].getRole().getId() == 3}">
+                            <c:if test="${sessionScope['account'].getSetting_id() == 3}">
                                 <a href="#" class="nav-link" >MY ORDER</a>
                             </c:if>
                         </li>
                         <li class="nav-item">
-                            <c:if test="${sessionScope['account'].getRole().getId() == 1}">
+                            <c:if test="${sessionScope['account'].getSetting_id() == 1}">
                                 <a href="#" class="nav-link" >MANAGER PAGE</a>
                             </c:if>
                         </li>

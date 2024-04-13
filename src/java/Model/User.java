@@ -13,49 +13,29 @@ public class User {
     private String name;
     private String email;
     private String password;
-    private Role role;
-    private UserStatus userStatus;
+    private String address;
+    private int phone;
+    private String sex;
+    private String image;
+    private int setting_id;
+    private int status;
     private double point; 
 
     public User() {
-    }    
-    
-    public User(String name) {
-        this.name = name;
     }
 
-    public User(int id, String name, String email, String password, Role role, UserStatus userStatus, double point) {
+    public User(int id, String name, String email, String password, String address, int phone, String sex, String image, int setting_id, int status, double point) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.password = password;
-        this.role = role;
-        this.userStatus = userStatus;
+        this.address = address;
+        this.phone = phone;
+        this.sex = sex;
+        this.image = image;
+        this.setting_id = setting_id;
+        this.status = status;
         this.point = point;
-    } 
-
-    public User(String name, String email, Role role) {
-        this.name = name;
-        this.email = email;
-        this.role = role;
-    }
-
-    public User(String name, Role role) {
-        this.name = name;
-        this.role = role;
-    }
-
-    public User(int id, String name, String email, Role role, UserStatus userStatus, double point) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
-        this.role = role;
-        this.userStatus = userStatus;
-        this.point = point;
-    }
-     
-    public User(int id) {
-        this.id = id;
     }
 
     public int getId() {
@@ -90,12 +70,52 @@ public class User {
         this.password = password;
     }
 
-    public Role getRole() {
-        return role;
+    public String getAddress() {
+        return address;
     }
 
-    public void setRole(Role role) {
-        this.role = role;
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public int getPhone() {
+        return phone;
+    }
+
+    public void setPhone(int phone) {
+        this.phone = phone;
+    }
+
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public int getSetting_id() {
+        return setting_id;
+    }
+
+    public void setSetting_id(int setting_id) {
+        this.setting_id = setting_id;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 
     public double getPoint() {
@@ -106,17 +126,10 @@ public class User {
         this.point = point;
     }
 
-    public UserStatus getUserStatus() {
-        return userStatus;
-    }
-
-    public void setUserStatus(UserStatus userStatus) {
-        this.userStatus = userStatus;
-    }
-
     @Override
     public String toString() {
-        return "User{" + "id=" + id + ", name=" + name + ", email=" + email + ", password=" + password + ", role=" + role + ", userStatus=" + userStatus + ", point=" + point + '}';
+        return "User{" + "id=" + id + ", name=" + name + ", email=" + email + ", password=" + password + ", address=" + address + ", phone=" + phone + ", sex=" + sex + ", image=" + image + ", setting_id=" + setting_id + ", status=" + status + ", point=" + point + '}';
     }
+
     
 }

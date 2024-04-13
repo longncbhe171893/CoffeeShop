@@ -10,6 +10,21 @@
             <file>file:/D:/CoffeeShopp/CoffeeShopp/src/java/DAO/UserDAO.java</file>
             <file>file:/D:/CoffeeShopp/CoffeeShopp/src/java/DAO/RoleDAO.java</file>
         </group>
-        <group name="PE"/>
+        <group name="PE">
+            <file>file:/F:/SWP/ProjectCoffee/CoffeeShop/src/java/Model/User.java</file>
+            <file>file:/F:/SWP/ProjectCoffee/CoffeeShop/src/java/Model/Setting.java</file>
+            <file>file:/F:/SWP/ProjectCoffee/CoffeeShop/web/Home.jsp</file>
+            <file>file:/F:/SWP/ProjectCoffee/CoffeeShop/web/Verify.jsp</file>
+            <file>file:/F:/SWP/ProjectCoffee/CoffeeShop/src/java/DAO/DBContext.java</file>
+            <file>file:/F:/SWP/ProjectCoffee/CoffeeShop/web/Register.jsp</file>
+            <file>file:/F:/SWP/ProjectCoffee/CoffeeShop/src/java/DAO/UserDAO.java</file>
+            <file>file:/F:/SWP/ProjectCoffee/CoffeeShop/src/java/Model/Product.java</file>
+            <file>file:/F:/SWP/ProjectCoffee/CoffeeShop/src/java/Model/Role.java</file>
+            <file>file:/F:/SWP/ProjectCoffee/CoffeeShop/web/header.jsp</file>
+            <file>file:/F:/SWP/ProjectCoffee/CoffeeShop/src/java/Controller/Login.java</file>
+            <file>file:/F:/SWP/ProjectCoffee/CoffeeShop/src/java/Controller/Register.java</file>
+            <file>file:/F:/SWP/ProjectCoffee/CoffeeShop/src/java/Controller/VerifyEmail.java</file>
+            <file>file:/F:/SWP/ProjectCoffee/CoffeeShop/src/java/DAO/SettingDAO.java</file>
+        </group>
     </open-files>
 </project-private>
