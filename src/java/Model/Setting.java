@@ -9,7 +9,7 @@ package Model;
  * @author HP
  */
 public class Setting {
-    private int settingId;
+    private int setting_id;
     private String settingName;
     private String description;
     private String type;
@@ -18,29 +18,20 @@ public class Setting {
     public Setting() {
     }
 
-    public Setting(int settingId, String settingName, String description, String type) {
-        this.settingId = settingId;
-        this.settingName = settingName;
-        this.description = description;
-        this.type = type;
-    }
-    
-    
-
-    public Setting(int settingId, String settingName, String description, String type, int settingSort) {
-        this.settingId = settingId;
+    public Setting(int setting_id, String settingName, String description, String type, int settingSort) {
+        this.setting_id = setting_id;
         this.settingName = settingName;
         this.description = description;
         this.type = type;
         this.settingSort = settingSort;
     }
 
-    public int getSettingId() {
-        return settingId;
+    public int getSetting_id() {
+        return setting_id;
     }
 
-    public void setSettingId(int settingId) {
-        this.settingId = settingId;
+    public void setSetting_id(int setting_id) {
+        this.setting_id = setting_id;
     }
 
     public String getSettingName() {
@@ -74,5 +65,6 @@ public class Setting {
     public void setSettingSort(int settingSort) {
         this.settingSort = settingSort;
     }
+
     
 }
