@@ -21,10 +21,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-/**
- *
- * @author asus
- */
 public class Home extends HttpServlet {
 
     /**
