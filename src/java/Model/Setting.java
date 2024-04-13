@@ -26,6 +26,15 @@ public class Setting {
         this.settingSort = settingSort;
     }
 
+    public Setting(int setting_id, String settingName, String description, String type) {
+        this.setting_id = setting_id;
+        this.settingName = settingName;
+        this.description = description;
+        this.type = type;
+    }
+    
+    
+
     public int getSetting_id() {
         return setting_id;
     }
