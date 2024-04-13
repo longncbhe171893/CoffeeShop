@@ -25,7 +25,7 @@ public class ManageBlog extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try {
-
+            
             BlogDao blog = new BlogDao();
             ArrayList<Blog> bl = blog.getBlogs();
             request.setAttribute("bl", bl);

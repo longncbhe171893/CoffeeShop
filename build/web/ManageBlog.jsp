@@ -1,8 +1,4 @@
-<%-- 
-    Document   : ManageBlog
-    Created on : Jun 18, 2023, 11:14:15 PM
-    Author     : Tuong
---%>
+
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 

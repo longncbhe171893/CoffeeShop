@@ -19,7 +19,7 @@ public class OrderDetail {
     private int quanlity;
     private int psId;
     private String orderName;
-    private String orderStatusName;
+    private int order_status;
     private Date orderDate;
     private int quantity;
     private String notes;
@@ -41,10 +41,10 @@ public class OrderDetail {
         this.psId = psId;
     }
 
-    public OrderDetail(int orderId, String orderName, String orderStatusName, Date orderDate, Product product, String productSizeName, double orderPrice, int quantity,int discount ,String notes, String orderAddress, String orderPhone, double amount, int userId) {
+    public OrderDetail(int orderId, String orderName, int order_status, Date orderDate, Product product, String productSizeName, double orderPrice, int quantity,int discount ,String notes, String orderAddress, String orderPhone, double amount, int userId) {
         this.orderId = orderId;
         this.orderName = orderName;
-        this.orderStatusName = orderStatusName;
+        this.order_status = order_status;
         this.orderDate = orderDate;
         this.product = product;
         this.productSizeName = productSizeName;
@@ -98,20 +98,68 @@ public class OrderDetail {
         this.quanlity = quanlity;
     }
 
-    public int getpsId() {
+    public int getPsId() {
         return psId;
     }
 
-    public void setpsId(int psId) {
+    public void setPsId(int psId) {
         this.psId = psId;
     }
 
-    public String getProductSizeName() {
-        return productSizeName;
+    public String getOrderName() {
+        return orderName;
     }
 
-    public void setProductSizeName(String productSizeName) {
-        this.productSizeName = productSizeName;
+    public void setOrderName(String orderName) {
+        this.orderName = orderName;
+    }
+
+    public int getOrder_status() {
+        return order_status;
+    }
+
+    public void setOrder_status(int order_status) {
+        this.order_status = order_status;
+    }
+
+    public Date getOrderDate() {
+        return orderDate;
+    }
+
+    public void setOrderDate(Date orderDate) {
+        this.orderDate = orderDate;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public String getNotes() {
+        return notes;
+    }
+
+    public void setNotes(String notes) {
+        this.notes = notes;
+    }
+
+    public String getOrderAddress() {
+        return orderAddress;
+    }
+
+    public void setOrderAddress(String orderAddress) {
+        this.orderAddress = orderAddress;
+    }
+
+    public String getOrderPhone() {
+        return orderPhone;
+    }
+
+    public void setOrderPhone(String orderPhone) {
+        this.orderPhone = orderPhone;
     }
 
     public double getAmount() {
@@ -122,6 +170,22 @@ public class OrderDetail {
         this.amount = amount;
     }
 
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public String getProductSizeName() {
+        return productSizeName;
+    }
+
+    public void setProductSizeName(String productSizeName) {
+        this.productSizeName = productSizeName;
+    }
+
     public int getDiscount() {
         return discount;
     }
@@ -129,13 +193,6 @@ public class OrderDetail {
     public void setDiscount(int discount) {
         this.discount = discount;
     }
-    
-    
-    
-    
 
-    @Override
-    public String toString() {
-        return "Product Name: " + product.getName() + ", orderPrice: " + orderPrice + ", quanlity: " + quanlity + ", Size: " + productSizeName;
-    }
+    
 }
