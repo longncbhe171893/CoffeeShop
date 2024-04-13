@@ -54,9 +54,7 @@ public class Register extends HttpServlet {
                     User u = new User();
                     u.setName(name);
                     u.setEmail(email);         
-                    u.setPassword(pass);
-                    u.setSetting_id(3);
-                    
+                    u.setPassword(pass);                                      
                     request.getSession().setAttribute("newuser", u);
                     response.sendRedirect("./SendMail");
                 } else {
