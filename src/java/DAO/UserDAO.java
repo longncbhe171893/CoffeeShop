@@ -26,18 +26,19 @@ public class UserDAO extends DBContext{
         }
     }
     
-    public void UpdateUser(String name, int userid, String sex, int phone, String address) {
-        String sql = " update `Users` set `user_name`=? where `user_id` =?";
+    public void UpdateUser(String name, int userid, String sex, String phone, String address) {
+        String sql = "UPDATE `Users` SET `user_name`=?, `sex`=?, `phone`=?, `address`=? WHERE `user_id`=?";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, name);
-            ps.setInt(2, userid);
-            ps.setString(3, sex);
-            ps.setInt(4, phone);
-            ps.setString(5, address);
+            ps.setString(2, sex);
+            ps.setString(3, phone);
+            ps.setString(4, address);
+            ps.setInt(5, userid);
             ps.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
     }
+
 }

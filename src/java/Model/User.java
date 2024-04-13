@@ -14,7 +14,7 @@ public class User {
     private String email;
     private String password;
     private String address;
-    private int phone;
+    private String phone;
     private String sex;
     private String image;
     private Setting role;
@@ -28,7 +28,7 @@ public class User {
         this.name = name;
     }
 
-    public User(int id, String name, String email, String password, String address,int phone, String sex,String image, Setting role, int status, double point) {
+    public User(int id, String name, String email, String password, String address,String phone, String sex,String image, Setting role, int status, double point) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -104,11 +104,11 @@ public class User {
     public void setAddress(String address) {
         this.address = address;
     }
-  public int getPhone() {
+  public String getPhone() {
         return phone;
     }
 
-    public void setPhone(int phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
       public String getSex() {

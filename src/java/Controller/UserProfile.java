@@ -58,7 +58,7 @@ public class UserProfile extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        
+        doPost(request, response);
     } 
 
     /** 
@@ -74,7 +74,7 @@ public class UserProfile extends HttpServlet {
         String name = request.getParameter("name");
         String email = request.getParameter("email");
         String sex = request.getParameter("sex");
-        int phone = Integer.parseInt(request.getParameter("phone"));
+        String phone = request.getParameter("phone");
         String address = request.getParameter("address");
         String id = request.getParameter("id");
         UserDAO udao = new UserDAO();
@@ -83,8 +83,8 @@ public class UserProfile extends HttpServlet {
             udao.UpdateUser(name, Integer.valueOf(id), sex, phone, address);
             User u = new User();
             u.setId(Integer.valueOf(id));
-            u.setName(name);
-            
+            u.setName(name);  
+            u.setEmail(email);
             u.setSex(sex);
             u.setPhone(phone);
             u.setAddress(address);

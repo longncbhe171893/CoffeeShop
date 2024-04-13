@@ -73,7 +73,7 @@
 
                         <li class="nav-item">
                             <c:if test="${sessionScope['account']!=null}">
-                                <a href="#" class="nav-link"><i class="biolife-icon icon-login"></i>PROFILE</a>
+                                <a href="UserProfile.jsp" class="nav-link"><i class="biolife-icon icon-login"></i>PROFILE</a>
                             </c:if>
                         </li>
                         <li class="nav-item">
