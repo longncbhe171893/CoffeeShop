@@ -4,10 +4,9 @@
  */
 package DAO;
 
-import Model.Role;
+
 import Model.Setting;
 import Model.User;
-import Model.UserStatus;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -21,16 +20,17 @@ public class UserDAO extends DBContext {
 
     private MD5 md5 = new MD5();
 
-    public static void main(String[] args) {
-        UserDAO ud = new UserDAO();
-        User ls = ud.getUserByEmail("abc@gmail.com");
-//        for (User l : ls) {
+//    public static void main(String[] args) {
+//        UserDAO ud = new UserDAO();
+////        User ls = ud.getUserByEmail("abc@gmail.com");
+////        System.out.println(ls);
+////        User a = new User(0, "name", "email", "password", "address", null , "sex", "image", 3, 0, 0);
+////        ud.inserUser(a.getName(), a.getEmail(), a.getPassword());
+//            ArrayList<User> ls= ud.getAllUser();
+//            for (User l : ls) {
 //            System.out.println(l);
-//        }
-        System.out.println(ls);
-        User a = new User(0, "name", "email", "password", "address", 0, "sex", "image", 3, 0, 0);
-        ud.inserUser(a.getName(), a.getEmail(), a.getPassword());
-    }
+//    }
+//}
 
     public User getUserByEmail(String email) {
         String sql = "select * from `Users` where `email`= ?";
@@ -41,7 +41,7 @@ public class UserDAO extends DBContext {
             while (rs.next()) {
 
                 User user = new User(rs.getInt("user_id"), rs.getString("user_name"),
-                        rs.getString("email"), rs.getString("password"), rs.getString("address"), rs.getInt("phone"), rs.getString("sex"),
+                        rs.getString("email"), rs.getString("password"), rs.getString("address"), rs.getString("phone"), rs.getString("sex"),
                         rs.getString("user_image"), rs.getInt("setting_id"), rs.getInt("user_status"), rs.getDouble("user_point"));
                 return user;
             }
@@ -51,17 +51,7 @@ public class UserDAO extends DBContext {
         }
         return null;
     }
-    ////        private int id;
-//    private String name;
-//    private String email;
-//    private String password;
-//    private String address;
-//    private int phone;
-//    private String sex;
-//    private String image;
-//    private int setting_id;
-//    private int status;
-//    private double point; 
+
 
     public void inserUser(String name, String email, String pass) {
 //        String sql = "  insert into `Users` (`user_name`,`email`,`password`,`address`,`phone`,`sex`,`setting_id`,`user_status`,`user_point`) \n"
@@ -79,6 +69,7 @@ public class UserDAO extends DBContext {
         }
     }
 
+
     public ArrayList<User> getAllUser() {
         ArrayList<User> listUser = new ArrayList<>();
         String sql = "select * from `Users`";
@@ -88,9 +79,9 @@ public class UserDAO extends DBContext {
                 rs = ps.executeQuery();
                 while (rs.next()) {
 
-                    UserStatus st = new UserStatus(rs.getInt(6));
+                    
                     User user = new User(rs.getInt("user_id"), rs.getString("user_name"),
-                            rs.getString("email"), rs.getString("password"), rs.getString("address"), rs.getInt("phone"), rs.getString("sex"),
+                            rs.getString("email"), rs.getString("password"), rs.getString("address"), rs.getString("phone"), rs.getString("sex"),
                             rs.getString("user_image"), rs.getInt("setting_id"), rs.getInt("user_status"), rs.getDouble("user_point"));
                     listUser.add(user);
                 }
@@ -104,7 +95,7 @@ public class UserDAO extends DBContext {
     }
 
     public void updateUserbyStatus(String email, int stId) {
-        String sql = "update `Users` set `UserStatus_id` = ? where `email` = ?";
+        String sql = "update `Users` set `user_status` = ? where `email` = ?";
         try {
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setInt(1, stId);
@@ -139,29 +130,6 @@ public class UserDAO extends DBContext {
         }
     }
 
-    public ArrayList<User> SearchUser(String name, String srole) {
-        ArrayList<User> list = new ArrayList<>();
-        try {
-            String sql = "SELECT u.user_id, u.user_name, u.email, u.password, u.UserStatus_id, u.user_point, r.*\n"
-                    + "FROM `Users` u\n"
-                    + "INNER JOIN `Roles` r ON u.`role_id` = r.`role_id`\n"
-                    + "WHERE u.`user_name` LIKE ? OR r.`role_name` LIKE ?;";
-            PreparedStatement ps = connection.prepareStatement(sql);
-
-            ps.setString(1, "%" + name + "%");
-
-            ps.setString(2, "%" + srole + "%");
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                Role r = new Role(rs.getInt(7), rs.getString(8));
-                UserStatus st = new UserStatus(rs.getInt(5));
-                list.add(new User(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), r, st, rs.getDouble(6)));
-            }
-        } catch (SQLException e) {
-
-        }
-        return list;
-    }
 
     public void changePassword(String id, String password) {
         String sql = "update `Users` set `password`=? where `user_id` =?";

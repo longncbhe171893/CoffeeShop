@@ -31,7 +31,7 @@ public class Login extends HttpServlet {
         ArrayList<User> userList = udao.getAllUser();
         String mess = "Email or password wrong!";
         User userI = userList.stream()
-                .filter(user -> user.getEmail().equals(email) && user.getStatus() == 1 && user.getPassword().equals(md5.getMd5(pass)))
+                .filter(user -> user.getEmail().equals(email) && user.getUserStatus() == 1 && user.getPassword().equals(md5.getMd5(pass)))
                 .findFirst().orElse(null);
         if (userI != null) {
             switch (userI.getSetting_id()) {
