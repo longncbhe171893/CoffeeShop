@@ -65,10 +65,11 @@
                                 <a href="#" class="nav-link" >MY ORDER</a>
                             </c:if>
                         </li>
-                        <li class="nav-item">
-                            <c:if test="${sessionScope['account'].getRole().getId() == 1}">
+                        <c:if test="${sessionScope['account'].getRole().getId() == 1}">
                                 <a href="#" class="nav-link" >MANAGER PAGE</a>
                             </c:if>
+                        <li class="nav-item">
+                            <a href="ManageBlog" class="nav-link" >MANAGER PAGE</a>
                         </li>
 
                         <li class="nav-item">

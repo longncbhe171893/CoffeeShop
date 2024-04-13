@@ -40,7 +40,7 @@ public class AuthorizationFilter implements Filter {
         String servletPath = httpRequest.getServletPath();
         // CHeck role
         if (user != null) {
-            switch (user.getRole().getId()) {
+            switch (user.getSetting_id()) {
                 case 1:
                     if (servletPath.equals("/UsersList")
                             || servletPath.equals("/UserDetails")

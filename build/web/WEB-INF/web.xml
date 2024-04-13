@@ -176,6 +176,10 @@
         <servlet-name>EditRole</servlet-name>
         <servlet-class>Controller.EditRole</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>DeleteBlog</servlet-name>
+        <servlet-class>Controller.DeleteBlog</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Register</servlet-name>
         <url-pattern>/Register</url-pattern>
@@ -403,6 +407,10 @@
     <servlet-mapping>
         <servlet-name>EditRole</servlet-name>
         <url-pattern>/EditRole</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteBlog</servlet-name>
+        <url-pattern>/DeleteBlog</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
