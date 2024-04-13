@@ -1,3 +1,8 @@
+<%-- 
+    Document   : headerAdmin
+    Created on : Apr 14, 2024, 2:59:02 AM
+    Author     : HP
+--%>
 
 <section id="sidebar">
     <a href="Home" class="brand">
@@ -8,20 +13,20 @@
         <li class="active">
             <a href="SellerDashboard">
                 <i class='bx bxs-dashboard' ></i>
-                <span class="text">Seller Manage</span>
+                <span class="text">Admin Manage</span>
             </a>
         </li>
 
         <li class="active">
-            <a href="ManageBlog">
+            <a href="SettingLists">
                <i class='bx bxs-dashboard' ></i>
-                <span class="text">Manage Blog</span>
+                <span class="text">Manage Setting</span>
             </a>
         </li>
         <li class="active">
-            <a href="ManageOrder">
+            <a href="#">
                 <i class='bx bxs-dashboard' ></i>
-                <span class="text">Manage Order</span>
+                <span class="text">Manage User</span>
             </a>
         </li>
        

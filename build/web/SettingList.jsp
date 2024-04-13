@@ -70,40 +70,7 @@
         </style>
     </head>
     <body>
-    <div class="container">
-        <!-- SIDEBAR -->
-        <section id="sidebar">
-            <a href="Home" class="brand">
-                <i class='bx bxs-coffee'></i>
-                <span class="text">Coffee Blend</span>
-            </a>
-            <ul class="side-menu top">
-                <li class="active">
-                    <a href="SellerDashboard">
-                        <i class='bx bxs-dashboard' ></i>
-                        <span class="text">Seller Manage</span>
-                    </a>
-                </li>
-                <li class="active">
-                    <a href="ManageBlog">
-                        <i class='bx bxs-dashboard' ></i>
-                        <span class="text">Manage Blog</span>
-                    </a>
-                </li>
-                <li class="active">
-                    <a href="ManageOrder">
-                        <i class='bx bxs-dashboard' ></i>
-                        <span class="text">Manage Order</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="LogOut" class="logout">
-                        <i class='bx bxs-log-out-circle' ></i>
-                        <span class="text">Logout</span>
-                    </a>
-                </li>
-            </ul>
-        </section>
+    <   <jsp:include page="headerAdmin.jsp"/>
         <!-- CONTENT -->
         <section id="content">
             <!-- NAVBAR -->
@@ -126,10 +93,11 @@
                     </thead>
                     <c:forEach var="setting" items="${settings}">
                             <tr>
-                                <th scope="row">${setting.settingId}</th>
+                                <td>${setting.setting_id}</td>
                                 <td>${setting.settingName}</td>
                                 <td>${setting.description}</td>   
                                 <td>${setting.type}</td>
+                                <td>Detail</td>
                                 
                         </c:forEach>
                     <!-- Use JSTL to iterate over settings -->
@@ -137,42 +105,10 @@
             </main>
             <!-- MAIN -->
         </section>
-    </div>
+    
 </body>
 
-        <!-- CONTENT -->
-        <script>
-            // Lắng nghe sự kiện khi nút "View" được bấm
-            var viewButtons = document.getElementsByClassName("viewButton");
-            for (var i = 0; i < viewButtons.length; i++) {
-                viewButtons[i].addEventListener("click", function () {
-                    // Lấy giá trị blog_id từ thuộc tính data-blog-id
-                    var blogId = this.dataset.blogId;
-
-                    // Mở một cửa sổ mới với URL BlogController và tham số blogId
-                    window.open("BlogController?blogId=" + blogId, "_blank");
-                });
-            }
-        </script>
-        <script>
-            function checkDate() {
-                var firstDate = document.getElementsByName("firstDate")[0].value;
-                var secondDate = document.getElementsByName("secondDate")[0].value;
-
-                if (firstDate && secondDate && new Date(secondDate) < new Date(firstDate)) {
-                    alert("Second date must be after the first date.");
-                    return false;
-                }
-                return true;
-            }
-        </script>
-        <script >
-
-            CKEDITOR.replace('edit', {
-                filebrowserBrowseUrl: 'ckfinder/ckfinder.html',
-                filebrowserUploadUrl: 'ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files'
-            });
-        </script>
+        
         <script src="js/adminDashbord.js"></script>
         <script src="js/jquery-3.4.1.min.js"></script>
         <script src="js/bootstrap.min.js"></script>

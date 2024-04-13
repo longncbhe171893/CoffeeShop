@@ -37,7 +37,7 @@ public class Login extends HttpServlet {
             switch (userI.getSetting_id()) {
                 case 1:
                     session.setAttribute("account", userI);
-                    response.sendRedirect("AdminDashbord");
+                    response.sendRedirect("Home");
                     break;
                 case 2:
                     session.setAttribute("account", userI);

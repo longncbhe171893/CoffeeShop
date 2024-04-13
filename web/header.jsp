@@ -63,7 +63,7 @@
                         </li>
                         <li class="nav-item">
                             <c:if test="${sessionScope['account'].getSetting_id() == 1}">
-                                <a href="#" class="nav-link" >MANAGER PAGE</a>
+                                <a href="SettingLists" class="nav-link" >MANAGER PAGE</a>
                             </c:if>
 
                             <c:if test="${sessionScope['account'].getSetting_id() == 2}">
