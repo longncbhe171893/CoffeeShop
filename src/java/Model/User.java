@@ -4,27 +4,35 @@
  */
 package Model;
 
-/**
- *
- * @author asus
- */
 public class User {
+
     private int id;
     private String name;
     private String email;
     private String password;
     private String address;
-    private int phone;
+    private String phone;
     private String sex;
     private String image;
     private int setting_id;
-    private int status;
-    private double point; 
+    private int userStatus;
+    private double point;
 
     public User() {
     }
 
-    public User(int id, String name, String email, String password, String address, int phone, String sex, String image, int setting_id, int status, double point) {
+    
+    public User(int id, String name, String email, String password, int setting_id, int userStatus, double point) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.setting_id = setting_id;
+        this.userStatus = userStatus;
+        this.point = point;
+    }
+
+    public User(int id, String name, String email, String password, String address, String phone, String sex, String image, int setting_id, int userStatus, double point) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -34,7 +42,7 @@ public class User {
         this.sex = sex;
         this.image = image;
         this.setting_id = setting_id;
-        this.status = status;
+        this.userStatus = userStatus;
         this.point = point;
     }
 
@@ -78,11 +86,11 @@ public class User {
         this.address = address;
     }
 
-    public int getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(int phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 
@@ -110,12 +118,12 @@ public class User {
         this.setting_id = setting_id;
     }
 
-    public int getStatus() {
-        return status;
+    public int getUserStatus() {
+        return userStatus;
     }
 
-    public void setStatus(int status) {
-        this.status = status;
+    public void setUserStatus(int userStatus) {
+        this.userStatus = userStatus;
     }
 
     public double getPoint() {
@@ -126,10 +134,6 @@ public class User {
         this.point = point;
     }
 
-    @Override
-    public String toString() {
-        return "User{" + "id=" + id + ", name=" + name + ", email=" + email + ", password=" + password + ", address=" + address + ", phone=" + phone + ", sex=" + sex + ", image=" + image + ", setting_id=" + setting_id + ", status=" + status + ", point=" + point + '}';
-    }
+  
 
-    
 }

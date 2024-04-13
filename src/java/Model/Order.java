@@ -10,7 +10,7 @@ public class Order {
     private int id;
     private User user;
     private String orderName;
-    private OrderStatus status;
+    private int status;
     private int discount;
     private Timestamp date;
     private String notes;
@@ -21,7 +21,7 @@ public class Order {
     public Order() {
     }
 
-    public Order(int id, User user, String orderName, OrderStatus status, int discount, Timestamp date, String notes, String address, String phone) {
+    public Order(int id, User user, String orderName, int status, int discount, Timestamp date, String notes, String address, String phone) {
         this.id = id;
         this.user = user;
         this.orderName = orderName;
@@ -31,6 +31,7 @@ public class Order {
         this.notes = notes;
         this.address = address;
         this.phone = phone;
+        
     }
 
     public int getId() {
@@ -49,11 +50,19 @@ public class Order {
         this.user = user;
     }
 
-    public OrderStatus getStatus() {
+    public String getOrderName() {
+        return orderName;
+    }
+
+    public void setOrderName(String orderName) {
+        this.orderName = orderName;
+    }
+
+    public int getStatus() {
         return status;
     }
 
-    public void setStatus(OrderStatus status) {
+    public void setStatus(int status) {
         this.status = status;
     }
 
@@ -67,15 +76,6 @@ public class Order {
 
     public Timestamp getDate() {
         return date;
-    }
-
-    public Date convertTimestampToDate(Timestamp timestamp) {
-        return new Date(timestamp.getTime());
-    }
-
-    public Date getDateAsDate() {
-        Timestamp timestamp = getDate();
-        return convertTimestampToDate(timestamp);
     }
 
     public void setDate(Timestamp date) {
@@ -105,14 +105,9 @@ public class Order {
     public void setPhone(String phone) {
         this.phone = phone;
     }
+    
 
-    public String getOrderName() {
-        return orderName;
-    }
-
-    public void setOrderName(String orderName) {
-        this.orderName = orderName;
-    }
+   
 
     public String formatDate() {
         Timestamp date = this.getDate();
@@ -141,6 +136,11 @@ public class Order {
 
     public void setOrderdetails(ArrayList<OrderDetail> orderdetails) {
         this.orderdetails = orderdetails;
+    }
+
+    @Override
+    public String toString() {
+        return "Order{" + "id=" + id + ", user=" + user + ", orderName=" + orderName + ", status=" + status + ", discount=" + discount + ", date=" + date + ", notes=" + notes + ", address=" + address + ", phone=" + phone + ", orderdetails=" + orderdetails + '}';
     }
     
     

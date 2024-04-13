@@ -61,14 +61,15 @@
                         <li class="nav-item"><a href="#" class="nav-link">Menu</a></li>
                         <li class="nav-item"><a href="#" class="nav-link">Blog</a></li>
                         <li class="nav-item">
-                            <c:if test="${sessionScope['account'].getSetting_id() == 3}">
+                            <c:if test="${sessionScope['account'].getRole().getId() == 3}">
                                 <a href="#" class="nav-link" >MY ORDER</a>
                             </c:if>
                         </li>
-                        <li class="nav-item">
-                            <c:if test="${sessionScope['account'].getSetting_id() == 1}">
+                        <c:if test="${sessionScope['account'].getRole().getId() == 1}">
                                 <a href="#" class="nav-link" >MANAGER PAGE</a>
                             </c:if>
+                        <li class="nav-item">
+                            <a href="ManageBlog" class="nav-link" >MANAGER PAGE</a>
                         </li>
 
                         <li class="nav-item">
@@ -78,7 +79,7 @@
                         </li>
                         <li class="nav-item">
                             <c:if test="${sessionScope['account']==null}">
-                                <a href="Login.jsp" class="nav-link"><i style="font-size: 23px;" class="icon icon-person"></i></a>
+                                <a href="#" class="nav-link"><i style="font-size: 23px;" class="icon icon-person"></i></a>
                                 </c:if>
                         </li>
                         <li class="nav-item">
