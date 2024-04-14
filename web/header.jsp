@@ -67,7 +67,7 @@
                             </c:if>
 
                             <c:if test="${sessionScope['account'].getSetting_id() == 2}">
-                                <a href="ManageBlog" class="nav-link" >MANAGER PAGE</a>
+                                <a href="SellerDashboard.jsp" class="nav-link" >MANAGER PAGE</a>
                             </c:if>
                         </li>
 
