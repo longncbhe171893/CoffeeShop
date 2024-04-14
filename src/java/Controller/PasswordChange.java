@@ -34,18 +34,7 @@ public class PasswordChange extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet PasswordChange</title>");  
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet PasswordChange at " + request.getContextPath () + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
+        request.getRequestDispatcher("ChangePassword.jsp").forward(request, response);
     } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -73,11 +62,12 @@ public class PasswordChange extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         HttpSession session = request.getSession();
+        User u = (User) session.getAttribute("account");
         String oldpass = request.getParameter("oldpass");
         String newpass = request.getParameter("newpass");
         String renewpass = request.getParameter("renewpass");
         MD5 md5 = new MD5();
-        User u = (User) session.getAttribute("account");
+        
         if (!md5.getMd5(oldpass).equals(u.getPassword())) {
             request.setAttribute("mess", "Old password not correct");
             request.getRequestDispatcher("ChangePassword.jsp").forward(request, response);
@@ -87,7 +77,7 @@ public class PasswordChange extends HttpServlet {
         } else {
             UserDAO dao = new UserDAO();
             dao.changePassword(String.valueOf(u.getId()), newpass);
-            
+            u.setPassword(md5.getMd5(newpass));
             session.invalidate();
             response.sendRedirect(request.getContextPath() + "/Login.jsp");
         }

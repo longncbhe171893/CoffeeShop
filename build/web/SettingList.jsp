@@ -93,10 +93,10 @@
                     </thead>
                     <c:forEach var="setting" items="${settings}">
                             <tr>
-                                <td>${setting.setting_id}</td>
-                                <td>${setting.settingName}</td>
-                                <td>${setting.description}</td>   
-                                <td>${setting.type}</td>
+                                <td>${setting.getId()}</td>
+                                <td>${setting.getName()}</td>
+                                <td>${setting.getDescription()}</td>   
+                                <td>${setting.getType()}</td>
                                 <td>Detail</td>
                                 
                         </c:forEach>
