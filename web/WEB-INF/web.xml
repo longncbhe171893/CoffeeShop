@@ -172,6 +172,10 @@
         <servlet-name>AddUser</servlet-name>
         <servlet-class>Controller.AddUser</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ManageBlog</servlet-name>
+        <servlet-class>Controller.ManageBlog</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Register</servlet-name>
         <url-pattern>/Register</url-pattern>
@@ -403,6 +407,10 @@
     <servlet-mapping>
         <servlet-name>AddUser</servlet-name>
         <url-pattern>/AddUser</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManageBlog</servlet-name>
+        <url-pattern>/ManageBlog</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
