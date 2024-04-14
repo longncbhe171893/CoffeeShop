@@ -26,10 +26,11 @@ public class UserDAO extends DBContext {
 ////        System.out.println(ls);
 ////        User a = new User(0, "name", "email", "password", "address", null , "sex", "image", 3, 0, 0);
 ////        ud.inserUser(a.getName(), a.getEmail(), a.getPassword());
-//            ArrayList<User> ls= ud.getAllUser();
-//            for (User l : ls) {
-//            System.out.println(l);
-//    }
+////            ArrayList<User> ls= ud.getAllUser();
+////            for (User l : ls) {
+////            System.out.println(l);
+////    }
+//           ud.changePasswordByEmail("LongNCBHE171893@fpt.edu.vn", "12345678");
 //}
 
     public User getUserByEmail(String email) {
@@ -57,7 +58,7 @@ public class UserDAO extends DBContext {
 //        String sql = "  insert into `Users` (`user_name`,`email`,`password`,`address`,`phone`,`sex`,`setting_id`,`user_status`,`user_point`) \n"
 //                + "  values (?,?,?,3,2)";
         String sql = "insert into `Users` (`user_name`, `email`, `password`, `setting_id`, `user_status`, `user_point`) \n"
-                + "values (?, ?, ?, 3, 1, 0)";
+                + "values (?, ?, ?, 3, 0, 0)";
 
         try {
             PreparedStatement ps = connection.prepareStatement(sql);

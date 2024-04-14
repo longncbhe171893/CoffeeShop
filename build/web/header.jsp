@@ -83,7 +83,7 @@
                         </li>
                         <li class="nav-item">
                             <c:if test="${sessionScope['account']!=null}">
-                                <a href="#" class="nav-link"> <i style="font-size: 23px;" class='bx bxs-log-in-circle' ></i></a>
+                                <a href="LogOut" class="nav-link"> <i style="font-size: 23px;" class='bx bxs-log-in-circle' ></i></a>
                                 </c:if>
                         </li>
                         <li class="nav-item cart"><a href="#" class="nav-link"><span class="icon icon-shopping_cart"></span><span class="bag d-flex justify-content-center align-items-center"><small>${sessionScope.map.size()}</small></span></a></li>
