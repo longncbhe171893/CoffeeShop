@@ -236,5 +236,23 @@ public class UserDAO extends DBContext {
             return -1;
         }
     }
-
+public void updateUser(String name, String email, String password, String address, String phone, String sex,String image, double userpoint,int id) {
+        String sql = "UPDATE `Users`\n"
+                + "SET `user_name` = ?, `email` = ?, `password` = ?, `address` = ?,`phone`= ?,`sex`=?,`user_image`=?,`user_point`=?\n"
+                + "WHERE `user_id` = ?;";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, name);
+            ps.setString(2, email);
+            ps.setString(3, password);
+            ps.setString(4, address);
+            ps.setString(5, phone);
+            ps.setString(6, sex);
+            ps.setString(7, image);
+            ps.setDouble(8, userpoint);
+            ps.setInt(9, id);
+            ps.executeUpdate();
+        } catch (Exception e) {
+        }
+    } 
 }
