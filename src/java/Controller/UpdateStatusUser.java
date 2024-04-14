@@ -4,24 +4,19 @@
  */
 package Controller;
 
-import com.google.gson.Gson;
+import DAO.UserDAO;
+import java.io.IOException;
+import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 /**
  *
- *
+ * 
  */
-public class Home extends HttpServlet {
+public class UpdateStatusUser extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,9 +29,16 @@ public class Home extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       
-            request.getRequestDispatcher("Home.jsp").forward(request, response);
-
+        response.setContentType("text/html;charset=UTF-8");
+        int uid =Integer.parseInt(request.getParameter("uid"));
+        int sid =Integer.parseInt(request.getParameter("sid"));
+        UserDAO dao = new UserDAO();      
+        if(sid == 1){
+            dao.UpdateStatusUser(2, uid);
+        }else{
+            dao.UpdateStatusUser(1, uid);
+        }
+         response.sendRedirect("ManagerUser");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

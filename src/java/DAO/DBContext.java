@@ -17,22 +17,22 @@ public class DBContext {
     public DBContext() {
         try {
             String user = "root";
-            String pass = "01111996";
-            String url = "jdbc:mysql://localhost:3306/swp391";
+            String pass = "Manh123@";
+            String url = "jdbc:mysql://localhost:3060/swp391";
             Class.forName("com.mysql.jdbc.Driver");
             connection = DriverManager.getConnection(url, user, pass);
         } catch (Exception ex) {
             Logger.getLogger(DBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-//    public static void main(String[] args) {
-//        DBContext db= new DBContext();
-//    
-//        Connection con = db.connection;
-//        if (con != null){
-//            System.out.println("ket noi thanh cong");
-//        }else{
-//            System.out.println("ket noi that bai");
-//        }
-//}
+    public static void main(String[] args) {
+        DBContext db= new DBContext();
+    
+        Connection con = db.connection;
+        if (con != null){
+            System.out.println("ket noi thanh cong");
+        }else{
+            System.out.println("ket noi that bai");
+        }
+}
 }

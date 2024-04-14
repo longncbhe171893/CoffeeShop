@@ -4,9 +4,12 @@
  */
 package Model;
 
+/**
+ *
+ * 
+ */
 public class User {
-
-    private int id;
+   private int id;
     private String name;
     private String email;
     private String password;
@@ -17,20 +20,6 @@ public class User {
     private int setting_id;
     private int userStatus;
     private double point;
-
-    public User() {
-    }
-
-    
-    public User(int id, String name, String email, String password, int setting_id, int userStatus, double point) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
-        this.password = password;
-        this.setting_id = setting_id;
-        this.userStatus = userStatus;
-        this.point = point;
-    }
 
     public User(int id, String name, String email, String password, String address, String phone, String sex, String image, int setting_id, int userStatus, double point) {
         this.id = id;
@@ -44,6 +33,23 @@ public class User {
         this.setting_id = setting_id;
         this.userStatus = userStatus;
         this.point = point;
+    }
+public User(int id, String name, String email, String password, int setting_id, int userStatus, double point) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.setting_id = setting_id;
+        this.userStatus = userStatus;
+        this.point = point;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" + "id=" + id + ", name=" + name + ", email=" + email + ", password=" + password + ", address=" + address + ", phone=" + phone + ", sex=" + sex + ", image=" + image + ", setting_id=" + setting_id + ", userStatus=" + userStatus + ", point=" + point + '}';
+    }
+
+    public User() {
     }
 
     public int getId() {
@@ -133,12 +139,5 @@ public class User {
     public void setPoint(double point) {
         this.point = point;
     }
-
-    @Override
-    public String toString() {
-        return "User{" + "id=" + id + ", name=" + name + ", email=" + email + ", password=" + password + ", address=" + address + ", phone=" + phone + ", sex=" + sex + ", image=" + image + ", setting_id=" + setting_id + ", userStatus=" + userStatus + ", point=" + point + '}';
-    }
-
-  
 
 }

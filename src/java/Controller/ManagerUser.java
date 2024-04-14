@@ -4,39 +4,32 @@
  */
 package Controller;
 
-import com.google.gson.Gson;
+import DAO.UserDAO;
+import Model.User;
+import java.io.IOException;
+import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
-/**
- *
- *
- */
-public class Home extends HttpServlet {
-
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+public class ManagerUser extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       
-            request.getRequestDispatcher("Home.jsp").forward(request, response);
-
+        response.setContentType("text/html;charset=UTF-8");
+        HttpSession session = request.getSession();
+        UserDAO udao = new UserDAO();
+        ArrayList<User> userlist = udao.getAllUser();
+        ArrayList<User> userList = new ArrayList<>();
+        for (User u : userlist) {
+            if (u.getSetting_id()== 3 || u.getSetting_id()== 2) {
+                userList.add(u);
+            }
+        }
+        request.setAttribute("pl", userList);
+        request.getRequestDispatcher("ManagerUser.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -65,7 +58,11 @@ public class Home extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String search = request.getParameter("search");
+        UserDAO udao = new UserDAO();
+        ArrayList<User> userlist = udao.searchUser(search);
+        request.setAttribute("pl", userlist);
+        request.getRequestDispatcher("ManagerUser.jsp").forward(request, response);
     }
 
     /**

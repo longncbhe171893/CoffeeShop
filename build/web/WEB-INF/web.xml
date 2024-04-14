@@ -145,10 +145,6 @@
         <servlet-class>Controller.ChangeStatus</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ManageBlog</servlet-name>
-        <servlet-class>Controller.ManageBlog</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>AddBlog</servlet-name>
         <servlet-class>Controller.AddBlog</servlet-class>
     </servlet>
@@ -177,8 +173,8 @@
         <servlet-class>Controller.EditRole</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>DeleteBlog</servlet-name>
-        <servlet-class>Controller.DeleteBlog</servlet-class>
+        <servlet-name>AddUser</servlet-name>
+        <servlet-class>Controller.AddUser</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Register</servlet-name>
@@ -377,10 +373,6 @@
         <url-pattern>/changeStatus</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ManageBlog</servlet-name>
-        <url-pattern>/ManageBlog</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>AddBlog</servlet-name>
         <url-pattern>/AddBlog</url-pattern>
     </servlet-mapping>
@@ -409,8 +401,8 @@
         <url-pattern>/EditRole</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>DeleteBlog</servlet-name>
-        <url-pattern>/DeleteBlog</url-pattern>
+        <servlet-name>AddUser</servlet-name>
+        <url-pattern>/AddUser</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
