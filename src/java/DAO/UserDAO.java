@@ -4,7 +4,6 @@
  */
 package DAO;
 
-
 import Model.Setting;
 import Model.User;
 import java.sql.PreparedStatement;
@@ -32,7 +31,6 @@ public class UserDAO extends DBContext {
 ////    }
 //           ud.changePasswordByEmail("LongNCBHE171893@fpt.edu.vn", "12345678");
 //}
-
     public User getUserByEmail(String email) {
         String sql = "select * from `Users` where `email`= ?";
         try {
@@ -53,7 +51,6 @@ public class UserDAO extends DBContext {
         return null;
     }
 
-
     public void inserUser(String name, String email, String pass) {
 //        String sql = "  insert into `Users` (`user_name`,`email`,`password`,`address`,`phone`,`sex`,`setting_id`,`user_status`,`user_point`) \n"
 //                + "  values (?,?,?,3,2)";
@@ -70,7 +67,6 @@ public class UserDAO extends DBContext {
         }
     }
 
-
     public ArrayList<User> getAllUser() {
         ArrayList<User> listUser = new ArrayList<>();
         String sql = "select * from `Users`";
@@ -80,7 +76,6 @@ public class UserDAO extends DBContext {
                 rs = ps.executeQuery();
                 while (rs.next()) {
 
-                    
                     User user = new User(rs.getInt("user_id"), rs.getString("user_name"),
                             rs.getString("email"), rs.getString("password"), rs.getString("address"), rs.getString("phone"), rs.getString("sex"),
                             rs.getString("user_image"), rs.getInt("setting_id"), rs.getInt("user_status"), rs.getDouble("user_point"));
@@ -131,7 +126,6 @@ public class UserDAO extends DBContext {
         }
     }
 
-
     public void changePassword(String id, String password) {
         String sql = "update `Users` set `password`=? where `user_id` =?";
         try {
@@ -154,6 +148,80 @@ public class UserDAO extends DBContext {
         }
     }
 
-   
+    public ArrayList<User> searchUser(String nameOrrole) {
+        ArrayList<User> list = new ArrayList<>();
+        String sql;
+        int settingid;
+        PreparedStatement ps;
+        try {
+            if (getSettingidbyString(nameOrrole) != -1) {
+                settingid = getSettingidbyString(nameOrrole);
+                sql = "SELECT * FROM users WHERE setting_id = ?";
+                ps = connection.prepareStatement(sql);
+                ps.setInt(1, settingid);
+            } else {
+                sql = "SELECT * FROM users WHERE user_name LIKE ?";
+                ps = connection.prepareStatement(sql);
+                ps.setString(1, "%" + nameOrrole + "%");
+            }
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                list.add(new User(
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getString(6),
+                        rs.getString(7),
+                        rs.getString(8),
+                        rs.getInt(9),
+                        rs.getInt(10),
+                        rs.getDouble(11)
+                ));
+            }
+        } catch (SQLException e) {
+            // Xử lý ngoại lệ nếu cần
+        }
+        return list;
+    }
+
+    public void addUser(String name, String email, String password, String address, String phone, String sex, double userpoint) {
+        String sql = "INSERT INTO `Users`\n"
+                + "  (`user_name`, `email`, `password`, `address`, `phone`, `sex`,`setting_id`,`user_status`, `user_point`)\n"
+                + "VALUES\n"
+                + "  (?, ?, ?, ?, ?, ?,3,1, ?);";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, name);
+            ps.setString(2, email);
+            ps.setString(3, md5.getMd5(password));
+            ps.setString(4, address);
+            ps.setString(5, phone);
+            ps.setString(6, sex);
+            ps.setDouble(7, userpoint);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            // Xử lý ngoại lệ nếu cần
+        }
+    }
+
+    private int getSettingidbyString(String srole) {
+        String sql = "select * from `Setting` where `setting_name`like ?";
+        int settingid;
+
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, srole);
+            ResultSet rs = ps.executeQuery();
+            rs.next();
+            settingid = rs.getInt(1);
+
+            return settingid;
+        } catch (SQLException e) {
+            return -1;
+        }
+    }
 
 }
