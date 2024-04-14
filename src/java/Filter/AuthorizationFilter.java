@@ -46,7 +46,7 @@ public class AuthorizationFilter implements Filter {
                             || servletPath.equals("/SettingLists")
                             || servletPath.equals("/SettingDetails")
                             || servletPath.equals("/NewUser")
-                            || servletPath.equals("/UserList")
+                            || servletPath.equals("/ManagerUser")
                             || servletPath.equals("/SellerDashboard")
                             || servletPath.equals("/OrderDetails")
                             || servletPath.equals("/ManageBlog")
@@ -62,11 +62,9 @@ public class AuthorizationFilter implements Filter {
                             || servletPath.equals("/ManageBlog")
                             || servletPath.equals("/SellerDashboard")) {
                         chain.doFilter(request, response);
-                        break;
+                        
                     }
-                }
-                default: {
-                    sendAuthor(response);
+                    break;
                 }
             }
         } else {

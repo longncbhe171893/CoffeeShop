@@ -44,7 +44,8 @@ public class ManagerUser extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        
+        request.getRequestDispatcher("ManagerUser.jsp").forward(request, response);
     }
 
     /**

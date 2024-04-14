@@ -128,7 +128,7 @@ public class UserDAO extends DBContext {
     }
 
     public void UpdateStatusUser(int sid, int uid) {
-        String sql = " update `Users` set `UserStatus_id`=? where `user_id` =?";
+        String sql = " update `Users` set `user_status`=? where `user_id` =?";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setInt(1, sid);
