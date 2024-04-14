@@ -4,24 +4,24 @@
  */
 package Model;
 
-/**
- *
- * 
- */
 public class User {
-   private int id;
+
+    private int id;
     private String name;
     private String email;
     private String password;
     private String address;
-    private String phone;
+    private int phone;
     private String sex;
     private String image;
     private int setting_id;
     private int userStatus;
     private double point;
 
-    public User(int id, String name, String email, String password, String address, String phone, String sex, String image, int setting_id, int userStatus, double point) {
+    public User() {
+    }
+
+    public User(int id, String name, String email, String password, String address, int phone, String sex, String image, int setting_id, int userStatus, double point) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -34,7 +34,8 @@ public class User {
         this.userStatus = userStatus;
         this.point = point;
     }
-public User(int id, String name, String email, String password, int setting_id, int userStatus, double point) {
+    
+    public User(int id, String name, String email, String password, int setting_id, int userStatus, double point) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -42,14 +43,6 @@ public User(int id, String name, String email, String password, int setting_id, 
         this.setting_id = setting_id;
         this.userStatus = userStatus;
         this.point = point;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" + "id=" + id + ", name=" + name + ", email=" + email + ", password=" + password + ", address=" + address + ", phone=" + phone + ", sex=" + sex + ", image=" + image + ", setting_id=" + setting_id + ", userStatus=" + userStatus + ", point=" + point + '}';
-    }
-
-    public User() {
     }
 
     public int getId() {
@@ -84,38 +77,6 @@ public User(int id, String name, String email, String password, int setting_id, 
         this.password = password;
     }
 
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public String getSex() {
-        return sex;
-    }
-
-    public void setSex(String sex) {
-        this.sex = sex;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
-
     public int getSetting_id() {
         return setting_id;
     }
@@ -138,6 +99,11 @@ public User(int id, String name, String email, String password, int setting_id, 
 
     public void setPoint(double point) {
         this.point = point;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" + "id=" + id + ", name=" + name + ", email=" + email + ", password=" + password + ", setting_id=" + setting_id + ", userStatus=" + userStatus + ", point=" + point + '}';
     }
 
 }
