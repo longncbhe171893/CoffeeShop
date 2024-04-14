@@ -13,6 +13,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -31,6 +32,23 @@ public class BlogController extends HttpServlet {
         request.setAttribute("bl", bl);
         System.out.println(blogId);
         request.getRequestDispatcher("BlogDetails.jsp").forward(request, response);
+    }
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String search = request.getParameter("search");
+        BlogDao blogDao = new BlogDao();
+
+        List<Model.Blog> blogList;
+
+        if (search != null && !search.isEmpty()) {
+            blogList = blogDao.searchBlog(search);
+        } else {
+            blogList = blogDao.getBlogs();
+        }
+
+        request.setAttribute("data", blogList);
+        request.getRequestDispatcher("BlogList.jsp").forward(request, response);
     }
     
 }

@@ -17,7 +17,7 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
               integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
-        
+
     </head>
     <body style="background-color: #101012;">
         <jsp:include page="header.jsp"/>
@@ -26,9 +26,18 @@
         <div style="margin-top: 60px"></div>
 
         <div class="container">
+
+            <form action="BlogController" class="search-form" method="post" >
+                <div class="form-group">
+                    <div class="icon">
+                        <span class="icon-search"></span>
+                    </div>
+                    <input type="text" class="form-control" name="search" placeholder="Search...">
+                </div>
+            </form>
             <div class="row">
-                <c:forEach items="${data}" var ="i"> 
-                    <div class="col col-md-4 column-style" >
+                <c:forEach items="${data}" var="i"> 
+                    <div class="col-md-6 column-style">
                         <div class="wrap-item">
                             <a href="BlogController?blogId=${i.getBlog_id()}">
                                 <img class="item-image" src="${i.getBlog_image()}" alt="image">
@@ -37,14 +46,12 @@
                                     <span>${i.getUser().getName()}</span>&ensp;
                                 </div>
                                 <div class="item-title" style="color: gray;">
-
                                     <span style="color: gray">${i.getBlog_title()} </span>
-
                                 </div>
                             </a>
                         </div>
                     </div>
-                </c:forEach>
+                </c:forEach> 
 
                 <!--                <div class="wrap-pagination">
                 
@@ -63,6 +70,7 @@
         </div>-->
             </div>
         </div>
+
         <jsp:include page="Footer.jsp"/>
     </body>
 </html>

@@ -48,7 +48,7 @@
                 <div class="collapse navbar-collapse" id="ftco-nav">
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item">
-                            <form action="#" class="search-form" method="post" >
+                            <form action="Blog" class="search-form" method="post" >
                                 <div class="form-group">
                                     <div class="icon">
                                         <span class="icon-search"></span>
