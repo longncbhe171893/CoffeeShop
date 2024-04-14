@@ -25,13 +25,16 @@ public class ManageBlog extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try {
-            
-            BlogDao blog = new BlogDao();
-            ArrayList<Blog> bl = blog.getBlogs();
-            request.setAttribute("bl", bl);
-            request.getRequestDispatcher("ManageBlog.jsp").forward(request, response);
-
-        } catch (Exception e) {
+            HttpSession session = request.getSession();
+            Object object = session.getAttribute("account");
+            User u = (User) object;
+            if (u.getSetting_id() == 2) {
+                BlogDao blog = new BlogDao();
+                ArrayList<Blog> bl = blog.getBlogs();
+                request.setAttribute("bl", bl);
+                request.getRequestDispatcher("ManageBlog.jsp").forward(request, response);
+            }
+        } catch (ServletException | IOException e) {
 
         }
 
