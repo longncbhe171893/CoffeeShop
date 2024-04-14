@@ -1,12 +1,19 @@
 
 package Model;
 
+/**
+ *
+ *
+ */
 public class Setting {
       private int id;
     private String name;
     private String description;
     private String type;
     private int sort;
+
+    public Setting() {
+    }
 
     public Setting(int id, String name, String description, String type, int sort) {
         this.id = id;
@@ -15,6 +22,14 @@ public class Setting {
         this.type = type;
         this.sort = sort;
     }
+
+    public Setting(int id, String name, String description, String type) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.type = type;
+    }
+    
     public Setting(int id) {
         this.id = id;
     }
