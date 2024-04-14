@@ -14,7 +14,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author asus
+ * 
  */
 public class UpdateStatusUser extends HttpServlet {
 

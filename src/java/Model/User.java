@@ -6,64 +6,50 @@ package Model;
 
 /**
  *
- * @author asus
+ * 
  */
 public class User {
-    private int id;
+   private int id;
     private String name;
     private String email;
     private String password;
     private String address;
-    private int phone;
+    private String phone;
     private String sex;
     private String image;
-    private Setting role;
-    private int status;
-    private double point; 
+    private int setting_id;
+    private int userStatus;
+    private double point;
 
-    public User() {
-    }    
-    
-    public User(String name) {
-        this.name = name;
-    }
-
-    public User(int id, String name, String email, String password, String address,int phone, String sex,String image, Setting role, int status, double point) {
+    public User(int id, String name, String email, String password, String address, String phone, String sex, String image, int setting_id, int userStatus, double point) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.password = password;
-        this.address=address;
-        this.phone=phone;
-        this.sex=sex;
-        this.image=image;
-        this.role = role;
-        this.status = status;
+        this.address = address;
+        this.phone = phone;
+        this.sex = sex;
+        this.image = image;
+        this.setting_id = setting_id;
+        this.userStatus = userStatus;
         this.point = point;
-    } 
-
-    public User(String name, String email, Setting role) {
-        this.name = name;
-        this.email = email;
-        this.role = role;
     }
-
-    public User(String name, Setting role) {
-        this.name = name;
-        this.role = role;
-    }
-
-    public User(int id, String name, String email, Setting role, int status, double point) {
+public User(int id, String name, String email, String password, int setting_id, int userStatus, double point) {
         this.id = id;
         this.name = name;
         this.email = email;
-        this.role = role;
-        this.status = status;
+        this.password = password;
+        this.setting_id = setting_id;
+        this.userStatus = userStatus;
         this.point = point;
     }
-     
-    public User(int id) {
-        this.id = id;
+
+    @Override
+    public String toString() {
+        return "User{" + "id=" + id + ", name=" + name + ", email=" + email + ", password=" + password + ", address=" + address + ", phone=" + phone + ", sex=" + sex + ", image=" + image + ", setting_id=" + setting_id + ", userStatus=" + userStatus + ", point=" + point + '}';
+    }
+
+    public User() {
     }
 
     public int getId() {
@@ -97,40 +83,53 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
-      public String getAddress() {
+
+    public String getAddress() {
         return address;
     }
 
     public void setAddress(String address) {
         this.address = address;
     }
-  public int getPhone() {
+
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(int phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
-      public String getSex() {
+
+    public String getSex() {
         return sex;
     }
 
     public void setSex(String sex) {
         this.sex = sex;
     }
-      public String getImage() {
+
+    public String getImage() {
         return image;
     }
 
     public void setImage(String image) {
         this.image = image;
     }
-    public Setting getRole() {
-        return role;
+
+    public int getSetting_id() {
+        return setting_id;
     }
 
-    public void setRole(Setting role) {
-        this.role = role;
+    public void setSetting_id(int setting_id) {
+        this.setting_id = setting_id;
+    }
+
+    public int getUserStatus() {
+        return userStatus;
+    }
+
+    public void setUserStatus(int userStatus) {
+        this.userStatus = userStatus;
     }
 
     public double getPoint() {
@@ -141,17 +140,4 @@ public class User {
         this.point = point;
     }
 
-    public int getStatus() {
-        return status;
-    }
-
-    public void setStatus(int status) {
-        this.status = status;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" + "id=" + id + ", name=" + name + ", email=" + email + ", password=" + password + ", address=" + address + ", phone=" + phone + ", sex=" + sex + ", image=" + image + ", role=" + role + ", status=" + status + ", point=" + point + '}';
-    }
-    
 }

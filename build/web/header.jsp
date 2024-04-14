@@ -1,8 +1,4 @@
-<%-- 
-    Document   : header.jsp
-    Created on : May 17, 2023, 8:03:38 PM
-    Author     : asus
---%>
+
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>

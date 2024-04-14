@@ -4,10 +4,6 @@
  */
 package Controller;
 
-
-import Model.Product;
-import Model.ProductDTO;
-import Model.ProductSize;
 import com.google.gson.Gson;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.Cookie;
@@ -23,7 +19,7 @@ import java.util.List;
 
 /**
  *
- * @author asus
+ *
  */
 public class Home extends HttpServlet {
 

@@ -15,21 +15,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.util.ArrayList;
 
-/**
- *
- * @author asus
- */
 public class ManagerUser extends HttpServlet {
-
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -38,7 +24,7 @@ public class ManagerUser extends HttpServlet {
         ArrayList<User> userlist = udao.getAllUser();
         ArrayList<User> userList = new ArrayList<>();
         for (User u : userlist) {
-            if (u.getRole().getId()== 3 || u.getRole().getId() == 2) {
+            if (u.getSetting_id()== 3 || u.getSetting_id()== 2) {
                 userList.add(u);
             }
         }
@@ -74,7 +60,7 @@ public class ManagerUser extends HttpServlet {
             throws ServletException, IOException {
         String search = request.getParameter("search");
         UserDAO udao = new UserDAO();
-        ArrayList<User> userlist = udao.SearchUser(search, search);
+        ArrayList<User> userlist = udao.searchUser(search);
         request.setAttribute("pl", userlist);
         request.getRequestDispatcher("ManagerUser.jsp").forward(request, response);
     }

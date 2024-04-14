@@ -6,7 +6,7 @@ package Model;
 
 /**
  *
- * @author admin
+ *
  */
 public class Setting {
       private int id;
@@ -22,15 +22,15 @@ public class Setting {
         this.type = type;
         this.sort = sort;
     }
- public Setting(int id, String name) {
-        this.id = id;
-        this.name = name;
-    }
     public Setting(int id) {
         this.id = id;
     }
      public Setting(String name) {
         this.name = name;
+    }
+      public Setting(int id,String name) {
+        this.id=id;
+          this.name = name;
     }
     public int getId() {
         return id;

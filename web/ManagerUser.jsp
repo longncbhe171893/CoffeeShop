@@ -1,8 +1,3 @@
-<%-- 
-    Document   : AdminDashbord
-    Created on : Jun 6, 2023, 8:26:05 PM
-    Author     : asus
---%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -13,11 +8,11 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
         <!-- Boxicons -->
-        <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
-        <!-- My CSS -->
-        <link rel="stylesheet" href="CSSsimple/adminDashbord.css">
+       <link rel="stylesheet" href="CSSsimple/adminDashbord.css">
         <link href="css/bootstrap.min.css" rel="stylesheet">
-
+        <link href="css/nice-select.css" rel="stylesheet">
+        <script src="ckeditor/ckeditor.js"></script> 
+        <script src="ckfinder/ckfinder.js"></script>
         <title>Admin Dashboard</title>     
     </head>
     <body>
@@ -44,10 +39,38 @@
                 <div class="head-title">
                     <div class="left">
                         <h1>Manage User</h1>
-                        <button type="button" class="btn btn-default btn-lg" data-toggle="modal" >Add User</button>
+                        <button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#myModalAddNew" >Add User</button>
                     </div>
                 </div>
+ <!-- Modal -->
+                    <div class="modal fade" id="myModalAddNew" role="dialog">
+                        <div class="modal-dialog">
 
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title">Add User</h4>
+                                </div>
+                                <form action="AddUser" method="post" enctype="multipart/form-data">
+                                   <div class="modal-body">
+                                     <b>Name: </b><input type="text" class="form-control" value="" required name="name"><br>  
+                                     <b>Email: </b><input type="text" class="form-control" value="" required name="email"><br>  
+                                    <b>Password: </b><input type="password" class="form-control" value="" name="password"><br>
+                                     <b>Address: </b><input type="text" class="form-control" value="" name="address"><br>  
+                                     <b>Phone: </b><input type="text" class="form-control" value="" name="phone"><br>  
+                                     <b>Sex: </b><input type="text" class="form-control" value=""  name="sex"><br>  
+                                     <b>User point: </b><input type="text" class="form-control" value=""  name="userpoint"><br> 
+                                  </div>
+                                    <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-success" value="submit">Submit</button>
+                                </div>
+                             </form>
+                            </div>
+                        </div>
+                    </div>
+                                    
                 <div style="margin-top: 3rem;" class="col-md-12">
                     <table class="table">
                         <thead >
@@ -66,9 +89,9 @@
                                     <th scope="row">${p.getId()}</th>
                                     <td>${p.getName()}</td>
                                     <td>${p.getEmail()}</td>                                
-                                    <td>${p.getRole().getId()==2?"Seller":"User"}</td>
-                                    <td><a onclick="return confirm('Do you want to change your account status?')" href="UpdateStatusUser?uid=${p.getId()}&sid=${p.getStatus()}">
-                                            ${p.getStatus()==1?"Enable":"Disnable"}</a></td>    
+                                    <td>${p.getSetting_id()==2?"Seller":"User"}</td>
+                                    <td><a onclick="return confirm('Do you want to change your account status?')" href="UpdateStatusUser?uid=${p.getId()}&sid=${p.getUserStatus()}">
+                                            ${p.getUserStatus()==1?"Enable":"Disnable"}</a></td>    
                                  <td> <button type="button" class="btn btn-success btn-lg" data-toggle="modal">Details</button></td>
 
                                 </tr>
@@ -81,5 +104,7 @@
         </section>
         <!-- CONTENT -->
 <script src="js/adminDashbord.js"></script>
+        <script src="js/jquery-3.4.1.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
     </body>
 </html>
