@@ -15,6 +15,14 @@ public class Setting {
         this.type = type;
         this.sort = sort;
     }
+
+    public Setting(int id, String name, String description, String type) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.type = type;
+    }
+    
     public Setting(int id) {
         this.id = id;
     }
