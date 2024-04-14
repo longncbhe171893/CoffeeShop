@@ -92,9 +92,36 @@
                                     <td>${p.getSetting_id()==2?"Seller":"User"}</td>
                                     <td><a onclick="return confirm('Do you want to change your account status?')" href="UpdateStatusUser?uid=${p.getId()}&sid=${p.getUserStatus()}">
                                             ${p.getUserStatus()==1?"Enable":"Disnable"}</a></td>    
-                                 <td> <button type="button" class="btn btn-success btn-lg" data-toggle="modal">Details</button></td>
-
+                                  <td> <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#myModal${p.getId()}">Edit</button></td>
                                 </tr>
+                                 <div class="modal fade" id="myModal${p.getId()}" role="dialog">
+                                <div class="modal-dialog">
+                                    <!-- Modal content-->
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                            <h4 class="modal-title">User details:</h4>
+                                        </div>
+                                        <form action="UserDetails" method="post">
+                                            <div class="modal-body">
+                                                <b>Image link:</b><input type="text" class="form-control" value="${p.getImage()}" name="image">
+                                                <b>ID: </b><input type="text" class="form-control" name="id" value="${p.getId()}" readonly=""><br>
+                                                <b>Name: </b><input type="text" class="form-control" value="${p.getName()}" name="name"><br>
+                                                <b>Email: </b><input type="text" class="form-control" value="${p.getEmail()}" name="email" ><br>    
+                                                <b>Password: </b><input type="password" class="form-control" value="${p.getPassword()}" name="password" ><br> 
+                                                <b>Address: </b><input type="text" class="form-control" value="${p.getAddress()}" name="address"><br>
+                                                <b>Phone: </b><input type="text" class="form-control" value="${p.getPhone()}" name="phone"><br>
+                                                <b>Sex: </b><input type="text" class="form-control" value="${p.getSex()}" name="sex"><br>
+                                                <b>User point: </b><input type="text" class="form-control" value="${p.getPoint()}" name="userpoint"><br>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                <button type="submit" class="btn btn-success" value="submit">Submit</button>
+                                            </div>
+                                        </form>                                 
+                                    </div>
+                                </div>
+                            </div>
                             </c:forEach>
                         </tbody>
                     </table>
@@ -103,6 +130,13 @@
             <!-- MAIN -->
         </section>
         <!-- CONTENT -->
+        <script >
+
+            CKEDITOR.replace('edit', {
+                filebrowserBrowseUrl: 'ckfinder/ckfinder.html',
+                filebrowserUploadUrl: 'ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files'
+            });
+        </script>
 <script src="js/adminDashbord.js"></script>
         <script src="js/jquery-3.4.1.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
