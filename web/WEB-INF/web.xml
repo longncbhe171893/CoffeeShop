@@ -25,10 +25,6 @@
         <servlet-class>Controller.SendMailForgotPassword</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ResetPassword</servlet-name>
-        <servlet-class>Controller.ResetPassword</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>Home</servlet-name>
         <servlet-class>Controller.Home</servlet-class>
     </servlet>
@@ -180,6 +176,14 @@
         <servlet-name>Register</servlet-name>
         <url-pattern>/Register</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>ResetPassword</servlet-name>
+        <servlet-class>Controller.ResetPassword</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ResetPassword</servlet-name>
+        <url-pattern>/ResetPassword</url-pattern>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/Login</url-pattern>
@@ -199,10 +203,6 @@
     <servlet-mapping>
         <servlet-name>SendMailForgotPassword</servlet-name>
         <url-pattern>/SendMailForgotPassword</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ResetPassword</servlet-name>
-        <url-pattern>/ResetPassword</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>Home</servlet-name>
