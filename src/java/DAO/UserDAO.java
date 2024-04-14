@@ -4,7 +4,7 @@
  */
 package DAO;
 
-import Model.Setting;
+
 import Model.User;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
