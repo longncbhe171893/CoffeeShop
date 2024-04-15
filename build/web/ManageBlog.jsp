@@ -16,7 +16,7 @@
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <link href="css/nice-select.css" rel="stylesheet">
         <title>Coffee</title>     
-           <script src="ckeditor/ckeditor.js"></script> 
+        <script src="ckeditor/ckeditor.js"></script> 
         <script src="ckfinder/ckfinder.js"></script>
         <title>Seller Dashboard</title>   
         <style>
@@ -50,6 +50,14 @@
                 border: 2px solid limegreen;
                 /* Viền sáng màu xanh lá cây */
             }
+            .filter{
+                display: flex;
+                
+            }
+            .filter_date{
+                margin-left: 15px;
+                margin-top: -15px;
+            }
         </style>
     </head>
 
@@ -63,25 +71,48 @@
             <!-- NAVBAR -->
             <nav>
                 <i class='bx bx-menu' ></i>
-                <form action="ManageBlog" method="post">
-                    <div class="form-input">
-                        <input type="search" name="search" placeholder="Search...">
-                        <button type="submit" class="search-btn"><i class='bx bx-search' ></i></button>
+                <div class="head-title">
+                    <div class="left">
+                        <h1>Manage Blogs</h1>
                     </div>
-                </form>
+                </div>
             </nav>
             <!-- NAVBAR -->
 
             <!-- MAIN -->
             <main>
-                <div class="head-title">
-                    <div class="left">
-                        <h1>Manage Blogs</h1>
+                
+                <div class="filter">
+                    <div>
+                        <form action="FilterBlog">
+                            <label for="Filter">Filter:</label>
+                            <select name="Filter" id="Filter"> 
+
+                                <option value="id">ID</option>
+                                <option value="tittle">Tittle</option>
+                                <option value="creator">Creator</option>
+
+                            </select>
+                        </form>
                     </div>
                     <div>
+                        <form action="FilterBlog">
+                            <label for="Filter">Category:</label>
+                            <select name="Filter" id="Filter"> 
+
+                                <option value="id">ID</option>
+                                <option value="tittle">Tittle</option>
+                                <option value="creator">Creator</option>
+
+                            </select>
+                        </form>   
+                    </div>
+                    <div class="filter_date">
                         <form action="ManageBlog" method="post" onsubmit="return checkDate();">
                             <input required type="date" name="firstDate">
                             <input style="margin: 14px" required type="date" name="secondDate">
+
+
                             <input style="background: var(--blue);
                                    color: white;
                                    border: solid var(--blue);
@@ -90,7 +121,18 @@
                         </form>
                     </div>
                 </div>
+                <nav>  
 
+                    <form action="ManageBlog" method="post">
+                        <div class="form-input">
+                            <input type="search" name="search" placeholder="Search by Tittle">
+                            <button type="submit" class="search-btn"><i class='bx bx-search' ></i></button>
+                        </div>
+                    </form>
+                </nav>
+
+
+                </div>
 
                 <div style="margin-top: 3rem;" class="col-md-12">       
                     <button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#myModalAddNew">Add Blog</button>
@@ -111,7 +153,7 @@
                                         <div class="form-control">
                                             <textarea id="edit" rows="5" name="content" class="form-control" placeholder="Write some thing..." required=""></textarea>
                                         </div>
-                                        
+
                                         <b>Image:</b><input type="file" class="form-control" required  value="" name="img"><br>
                                         <b><input type="hidden" class="form-control" required  value="${sessionScope['account'].getId()}" name="user"></b>
                                     </div>
@@ -136,7 +178,7 @@
                                 <th scope="col">Image</th>
                                 <th scope="col" colspan="2" style="text-align: center">Action</th>
                             </tr>
-                            
+
                         </thead>
 
                         <c:forEach var="bl" items="${bl}">

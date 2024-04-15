@@ -74,6 +74,7 @@
                         </thead>
                         <tbody>
                             <c:forEach var="o" items="${olist}">
+                                
                                 <tr>
                                     <th scope="row">
                                         <a style="color: white" class="btn btn-primary" data-toggle="modal" data-target="#myDialog" onclick="getOrderDetails(this)" data-orderid="${o.getId()}">${o.getId()}</a>

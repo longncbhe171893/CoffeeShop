@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package Controller;
+package Controller.SellerController;
 
 import DAO.OrderDAO;
 import Model.Order;
@@ -28,7 +28,7 @@ public class GetOrderDetail extends HttpServlet {
         // Tính tổng số tiền
         double totalAmount = 0.0;
         for (OrderDetail orderDetail : orderDetails) {
-            double amount = orderDetail.getAmount() - (orderDetail.getAmount() * orderDetail.getDiscount() / 100);
+            double amount = orderDetail.getAmount() - (orderDetail.getAmount() * orderDetail.getOrder().getDiscount() / 100);
             totalAmount += amount;
         }
 

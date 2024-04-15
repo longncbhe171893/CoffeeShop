@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package Controller;
+package Controller.SellerController;
 
 import DAO.BlogDao;
 import Model.Blog;
@@ -25,13 +25,15 @@ public class ManageBlog extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try {
-            
+
             BlogDao blog = new BlogDao();
             ArrayList<Blog> bl = blog.getBlogs();
+            ArrayList<Model.Category> cl = blog.getcategoryBlogBySettingId();
             request.setAttribute("bl", bl);
+            request.setAttribute("cl", cl);
             request.getRequestDispatcher("ManageBlog.jsp").forward(request, response);
 
-        } catch (Exception e) {
+        } catch (ServletException | IOException e) {
 
         }
 

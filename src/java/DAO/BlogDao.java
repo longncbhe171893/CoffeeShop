@@ -1,6 +1,7 @@
 package DAO;
 
 import Model.Blog;
+import Model.Category;
 import Model.User;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -27,7 +28,20 @@ public class BlogDao extends DBContext {
         }
         return null;
     }
+    public ArrayList<Model.Category> getcategoryBlogBySettingId() {
+        ArrayList<Model.Category> list = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM category where `setting_id` = 5;";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                list.add(new Category(rs.getInt(1), rs.getString(2), rs.getInt(3)));                
+            }
+        } catch (SQLException e) {
 
+        }
+        return list;
+    }
     public User getUserById(int id) {
         User u = new User();
         PreparedStatement ps;

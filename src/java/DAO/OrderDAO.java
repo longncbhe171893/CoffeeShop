@@ -4,12 +4,10 @@
  */
 package DAO;
 
+import Model.Category;
 import Model.OrderDetail;
 import Model.Order;
-import Model.OrderStatus;
 import Model.Product;
-import Model.ProductDTO;
-import Model.ProductSize;
 import Model.User;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -19,8 +17,8 @@ import java.util.Date;
 import java.util.List;
 
 public class OrderDAO extends DBContext {
-
-    public void insertOrder(String name, String phone, String address, String note, int discount, Date date, User user, List<ProductDTO> map) {
+    
+    public void insertOrder(User user, String name, int discount, String note, String address, String phone, List<Product> map, int quantity) {
         String sql;
         if (user != null) {
             sql = "INSERT INTO `Order`\n"
@@ -31,7 +29,7 @@ public class OrderDAO extends DBContext {
             sql = "INSERT INTO `Order`\n"
                     + "    (`order_name`, `order_Status`, `order_discount`, `order_date`, `notes`, `order_address`, `order_phone`)\n"
                     + "VALUES\n"
-                    + "    (?, 1, ?, NOW(), ?, ?, ?);";
+                    + "    ( ?, ?, ?, NOW(), ?, ?,?);";
         }
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
@@ -52,6 +50,7 @@ public class OrderDAO extends DBContext {
                 ps.setString(5, phone);
             }
             ps.executeUpdate();
+            
             String xSQL = "SELECT * FROM `Orders` ORDER BY order_id DESC LIMIT 1;";
             ps = connection.prepareStatement(xSQL);
             ResultSet rs = ps.executeQuery();
@@ -67,29 +66,38 @@ public class OrderDAO extends DBContext {
                     + "    (`order_id`, `product_id`, `order_price`, `quantity`)\n"
                     + "VALUES\n"
                     + "    (?, ?, ?, ?);";
-            for (ProductDTO i : map) {
-                if (i.getProductSize() != null) {
-                    ps = connection.prepareStatement(qSQL);
-                    ps.setInt(1, id);
-                    ps.setInt(2, i.getProduct().getId());
-                    ps.setDouble(3, i.getProduct().getPrice() + i.getProductSize().getPrice());
-                    ps.setInt(4, i.getQuantity());
-                    ps.setInt(5, i.getProductSize().getId());
-                    ps.executeUpdate();
-                } else {
-                    ps = connection.prepareStatement(zSQL);
-                    ps.setInt(1, id);
-                    ps.setInt(2, i.getProduct().getId());
-                    ps.setDouble(3, i.getProduct().getPrice());
-                    ps.setInt(4, i.getQuantity());
-                    ps.executeUpdate();
+            for (Product i : map) {
+                ps = connection.prepareStatement(qSQL);
+                ps.setInt(1, id);
+                ps.setInt(2, i.getId());
+                switch (i.getSize()) {
+                    case 1:
+                        ps.setDouble(3, i.getPrice());
+                        break;
+                    case 2:
+                        ps.setDouble(3, i.getPrice() + 10);
+                        break;
+                    default:
+                        ps.setDouble(3, i.getPrice() + 15);
+                        break;
                 }
-
+                ps.setInt(4, i.getQuantity());
+                ps.setInt(5, i.getSize());
+                ps.executeUpdate();
             }
+//                } else {
+//                    ps = connection.prepareStatement(zSQL);
+//                    ps.setInt(1, id);
+//                    ps.setInt(2, i.getProduct().getId());
+//                    ps.setDouble(3, i.getProduct().getPrice());
+//                    ps.setInt(4, i.getQuantity());
+//                    ps.executeUpdate();
+//                }
+
         } catch (SQLException e) {
         }
     }
-
+    
     public void updateUser(int point, int id) {
         try {
             String sql = "UPDATE Users\n"
@@ -100,7 +108,14 @@ public class OrderDAO extends DBContext {
             ps.setInt(2, id);
             ps.executeUpdate();
         } catch (SQLException e) {
-
+            
+        }
+    }
+    public static void main(String[] args) {
+        OrderDAO od = new OrderDAO();
+        ArrayList<OrderDetail> mc= od.getAllOrderDetail();
+        for (OrderDetail category : mc) {
+            System.out.println(category);
         }
     }
 
@@ -113,16 +128,16 @@ public class OrderDAO extends DBContext {
             PreparedStatement ps = connection.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-
+                
                 list.add(new Order(rs.getInt(1), getUserById(rs.getInt(2)), rs.getString(3), rs.getInt(4), rs.getInt(5), rs.getTimestamp(6),
                         rs.getString(7), rs.getString(8), rs.getString(9)));
             }
         } catch (SQLException e) {
-
+            
         }
         return list;
     }
-
+    
     public User getUserById(int id) {
         User u = new User();
         PreparedStatement ps;
@@ -140,7 +155,7 @@ public class OrderDAO extends DBContext {
         }
         return u;
     }
-
+    
     public ArrayList<Order> getOrder() {
         ArrayList<Order> list = new ArrayList<>();
         try {
@@ -148,16 +163,16 @@ public class OrderDAO extends DBContext {
             PreparedStatement ps = connection.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-
+                
                 list.add(new Order(rs.getInt(1), getUserById(rs.getInt(2)), rs.getString(3), rs.getInt(4), rs.getInt(5), rs.getTimestamp(6),
                         rs.getString(7), rs.getString(8), rs.getString(9)));
             }
         } catch (SQLException e) {
-
+            
         }
         return list;
     }
-
+    
     public ArrayList<Order> getOrderSt() {
         ArrayList<Order> list = new ArrayList<>();
         try {
@@ -168,12 +183,12 @@ public class OrderDAO extends DBContext {
                 list.add(new Order(rs.getInt(1), getUserById(rs.getInt(2)), rs.getString(3), rs.getInt(4), rs.getInt(5), rs.getTimestamp(6),
                         rs.getString(7), rs.getString(8), rs.getString(9)));
             }
-
+            
         } catch (SQLException e) {
         }
         return list;
     }
-
+    
     public void UpdateStatusOrder(int osId, int oid) {
         try {
             String sql = "UPDATE `Orders`\n"
@@ -184,10 +199,10 @@ public class OrderDAO extends DBContext {
             ps.setInt(2, oid);
             ps.executeUpdate();
         } catch (SQLException e) {
-
+            
         }
     }
-
+    
     public List<Order> getOrderByUser(int id) {
         ArrayList<Order> list = new ArrayList<>();
         try {
@@ -196,16 +211,16 @@ public class OrderDAO extends DBContext {
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-
+                
                 list.add(new Order(rs.getInt(1), getUserById(rs.getInt(2)), rs.getString(3), rs.getInt(4), rs.getInt(5), rs.getTimestamp(6),
                         rs.getString(7), rs.getString(8), rs.getString(9)));
             }
         } catch (SQLException e) {
-
+            
         }
         return list;
     }
-
+    
     public Order getOrderById(int id) {
         try {
             String sql = "SELECT * FROM `Orders` WHERE `order_id` = ?;";
@@ -217,32 +232,11 @@ public class OrderDAO extends DBContext {
                         rs.getString(7), rs.getString(8), rs.getString(9)));
             }
         } catch (SQLException e) {
-
+            
         }
         return null;
     }
-
-    public ArrayList<ProductDTO> getAllProducts(String id) {
-        ArrayList<ProductDTO> list = new ArrayList<>();
-        String sql = "select * from `OrderDetail` od join `Product` p on od.`product_id` = p.`product_id` where od.`order_id` = ?;";
-        try {
-            PreparedStatement ps = connection.prepareStatement(sql);
-            ps.setInt(1, Integer.parseInt(id));
-            ResultSet rs = ps.executeQuery();
-            ProductDAO pdo = new ProductDAO();
-            ProductSizeDao pdSizeDAO = new ProductSizeDao();
-            while (rs.next()) {
-                Product p = pdo.getProductById(rs.getInt(3));
-                ProductSize pSize = pdSizeDAO.getProductSizeById(rs.getInt(6));
-                int quantity = rs.getInt(5);
-                ProductDTO productDTO = new ProductDTO(p, pSize, quantity);
-                list.add(productDTO);
-            }
-        } catch (Exception e) {
-        }
-        return list;
-    }
-
+    
     public ArrayList<Order> getOrderByDate(Date fdate, Date sdate) {
         ArrayList<Order> list = new ArrayList<>();
         String sql = "select * from `Order`  `order_status` = 2 and  o.`order_date` BETWEEN ? AND ?";
@@ -252,50 +246,46 @@ public class OrderDAO extends DBContext {
             ps.setDate(2, (java.sql.Date) sdate);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-
+                
                 list.add(new Order(rs.getInt(1), getUserById(rs.getInt(2)), rs.getString(3), rs.getInt(4), rs.getInt(5), rs.getTimestamp(6),
                         rs.getString(7), rs.getString(8), rs.getString(9)));
             }
         } catch (SQLException e) {
-
+            
         }
         return list;
     }
-
+    
     public ArrayList<OrderDetail> getOrderDetail(int odid) {
         ArrayList<OrderDetail> list = new ArrayList<>();
         PreparedStatement ps;
         ResultSet rs;
         try {
-            String sql = "SELECT order_id, order_name, order_status, order_date, product_name, productSize_name, order_price, quantity, order_discount, notes, order_address, order_phone, amount, user_id, (order_price * quantity) AS amount_total\n"
-                    + "                    FROM (\n"
-                    + "                    SELECT o.order_id, o.order_name, o.order_status, o.order_date, p.product_name, ps.productSize_name, od.order_price, od.quantity, o.order_discount, o.notes, o.order_address, o.order_phone, (od.order_price * od.quantity) AS amount, o.user_id, 1 AS sort_order\n"
-                    + "                    FROM `Orders` o\n"
-                    + "                    INNER JOIN `OrderDetail` od ON o.`order_id` = od.`order_id`\n"
-                    + "                    INNER JOIN `Product` p ON od.`product_id` = p.`product_id`\n"
-                    + "                    INNER JOIN `ProductSize` ps ON od.`productSize_id` = ps.`productSize_id`\n"
-                    + "                    WHERE o.`order_id` = ?\n"
-                    + "                    ) AS union_result\n"
-                    + "                    ORDER BY sort_order, order_date DESC;";
+            String sql = "SELECT * FROM orderdetail where order_id = ?;";
             ps = connection.prepareStatement(sql);
             ps.setInt(1, odid);
             rs = ps.executeQuery();
             while (rs.next()) {
-                int orderId = rs.getInt("order_id");
-                String orderName = rs.getString("order_name");
-                int order_status = rs.getInt("order_status");
-                Date orderDate = rs.getDate("order_date");
-                String productName = rs.getString("product_name");
-                String productSizeName = rs.getString("productSize_name");
-                double orderPrice = rs.getDouble("order_price");
-                int quantity = rs.getInt("quantity");
-                int discount = rs.getInt("order_discount");
-                String notes = rs.getString("notes");
-                String orderAddress = rs.getString("order_address");
-                String orderPhone = rs.getString("order_phone");
-                double amount = rs.getDouble("amount");
-                int userId = rs.getInt("user_id");
-                OrderDetail orderDetail = new OrderDetail(orderId, orderName, order_status, orderDate, new Product(productName), productSizeName, orderPrice, quantity, discount, notes, orderAddress, orderPhone, amount, userId);
+                Order order = getOrderById(odid);
+                Product product = getProductById(rs.getInt(3));
+                double order_price = rs.getDouble(4);
+                int quantity = rs.getInt(5);
+                int productSize = product.getSize();
+//                int orderId = rs.getInt("order_id");
+//                String orderName = rs.getString("order_name");
+//                int order_status = rs.getInt("order_status");
+//                Date orderDate = rs.getDate("order_date");
+//                String productName = rs.getString("product_name");
+//                String productSizeName = rs.getString("productSize_name");
+//                double orderPrice = rs.getDouble("order_price");
+//                int quantity = rs.getInt("quantity");
+//                int discount = rs.getInt("order_discount");
+//                String notes = rs.getString("notes");
+//                String orderAddress = rs.getString("order_address");
+//                String orderPhone = rs.getString("order_phone");
+//                double amount = rs.getDouble("amount");
+//                int userId = rs.getInt("user_id");
+                OrderDetail orderDetail = new OrderDetail(odid, order, product, order_price, quantity,order_price*quantity);
                 list.add(orderDetail);
             }
             rs.close();
@@ -304,24 +294,29 @@ public class OrderDAO extends DBContext {
         }
         return list;
     }
-
+    
     public ArrayList<OrderDetail> getAllOrderDetail() {
         ArrayList<OrderDetail> list = new ArrayList<>();
         try {
-            String sql = "SELECT *\n"
-                    + "FROM `OrderDetail` od\n"
-                    + "INNER JOIN `Product` p ON od.`product_id` = p.`product_id`;";
+            String sql = "SELECT * FROM orderdetail order by detail_id desc;";
             PreparedStatement ps = connection.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                list.add(new OrderDetail(rs.getInt(1), rs.getInt(2), new Product(rs.getString(8)), rs.getDouble(4), rs.getInt(5), rs.getInt(6)));
+                int odid = rs.getInt(1);
+                Order order = getOrderById(odid);
+                Product product = getProductById(rs.getInt(3));
+                double order_price = rs.getDouble(4);
+                int quantity = rs.getInt(5);
+                int productSize = product.getSize();
+                 OrderDetail orderDetail = new OrderDetail(odid, order, product, order_price, quantity,order_price*quantity);
+                list.add(orderDetail);
             }
         } catch (SQLException e) {
-
+            
         }
         return list;
     }
-
+    
     public int countOrder() {
         int count = 0;
         try {
@@ -333,11 +328,11 @@ public class OrderDAO extends DBContext {
                 return count;
             }
         } catch (Exception e) {
-
+            
         }
         return 0;
     }
-
+    
     public int countUser() {
         int count;
         try {
@@ -347,13 +342,13 @@ public class OrderDAO extends DBContext {
             rs.next();
             count = rs.getInt(1);
             return count;
-
+            
         } catch (SQLException e) {
-
+            
         }
         return 0;
     }
-
+    
     public int sumAmount() {
         int count;
         try {
@@ -374,9 +369,24 @@ public class OrderDAO extends DBContext {
                 return count;
             }
         } catch (SQLException e) {
-
+            
         }
         return 0;
     }
-
+    
+    private Product getProductById(int pro_id) {
+        try {
+            String sql = "SELECT * FROM `product` WHERE `product_id` = ?;";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, pro_id);
+            ResultSet rs = ps.executeQuery();
+            rs.next();
+            return new Product(rs.getInt(1), rs.getString(2), rs.getDouble(3), rs.getInt(4), rs.getString(5), rs.getString(6), rs.getInt(7), rs.getDate(8), rs.getInt(9));
+            
+        } catch (SQLException e) {
+            
+        }
+        return null;
+    }
+    
 }
