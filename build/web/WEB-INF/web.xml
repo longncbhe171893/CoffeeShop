@@ -25,10 +25,6 @@
         <servlet-class>Controller.SendMailForgotPassword</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ResetPassword</servlet-name>
-        <servlet-class>Controller.ResetPassword</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>Home</servlet-name>
         <servlet-class>Controller.Home</servlet-class>
     </servlet>
@@ -176,9 +172,29 @@
         <servlet-name>AddUser</servlet-name>
         <servlet-class>Controller.AddUser</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ManageBlog</servlet-name>
+        <servlet-class>Controller.ManageBlog</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteBlog</servlet-name>
+        <servlet-class>Controller.DeleteBlog</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UserDetails</servlet-name>
+        <servlet-class>Controller.UserDetails</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Register</servlet-name>
         <url-pattern>/Register</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>ResetPassword</servlet-name>
+        <servlet-class>Controller.ResetPassword</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ResetPassword</servlet-name>
+        <url-pattern>/ResetPassword</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
@@ -199,10 +215,6 @@
     <servlet-mapping>
         <servlet-name>SendMailForgotPassword</servlet-name>
         <url-pattern>/SendMailForgotPassword</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ResetPassword</servlet-name>
-        <url-pattern>/ResetPassword</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>Home</servlet-name>
@@ -403,6 +415,18 @@
     <servlet-mapping>
         <servlet-name>AddUser</servlet-name>
         <url-pattern>/AddUser</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManageBlog</servlet-name>
+        <url-pattern>/ManageBlog</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteBlog</servlet-name>
+        <url-pattern>/DeleteBlog</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UserDetails</servlet-name>
+        <url-pattern>/UserDetails</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
