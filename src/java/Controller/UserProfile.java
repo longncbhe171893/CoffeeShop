@@ -62,14 +62,22 @@ public class UserProfile extends HttpServlet {
     throws ServletException, IOException {
         String name = request.getParameter("name");
         String email = request.getParameter("email");
-        String sex = request.getParameter("sex");
+        int sex = Integer.parseInt(request.getParameter("sex"));
         String phone = request.getParameter("phone");
         String address = request.getParameter("address");
+        String image = request.getParameter("image");
         String id = request.getParameter("id");
         UserDAO udao = new UserDAO();
+        
         HttpSession session = request.getSession();
+        if (!udao.checkPhonenumber(phone)){
+            request.setAttribute("mess", "Invalid phone number");
+            request.getRequestDispatcher("UserProfile.jsp").forward(request, response);
+        }
+        
+        
         try {
-            udao.UpdateUser(name, Integer.valueOf(id), sex, phone, address);
+            udao.UpdateUser(name, Integer.valueOf(id), sex, phone, address, udao.encodeImage(image));
             User u = (User) session.getAttribute("account");
             u.setId(Integer.valueOf(id));
             u.setName(name);  
@@ -77,6 +85,7 @@ public class UserProfile extends HttpServlet {
             u.setSex(sex);
             u.setPhone(phone);
             u.setAddress(address);
+            u.setImage(udao.encodeImage(image));
             
             session.setAttribute("account", u);
             request.setAttribute("mess", "Updated Success");

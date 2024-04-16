@@ -81,6 +81,38 @@
                         <h1>Manage Setting</h1>
                     </div>
                 </div>
+                
+                <button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#myModalAddNew">Add Setting</button>
+                    <!-- Modal -->
+                    <div class="modal fade" id="myModalAddNew" role="dialog">
+                        <div class="modal-dialog">
+
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title">Add Setting</h4>
+                                </div>
+                                <form action="AddSetting" method="post" enctype="multipart/form-data">
+                                    <div class="modal-body">
+                                        <b>Setting Name: </b><input type="text" class="form-control" value="" required name="sname"><br>  
+                                        <b>Description: </b>
+                                        <div class="form-control">
+                                            <textarea id="edit" rows="5" name="content" class="form-control" placeholder="Write some thing..." required=""></textarea>
+                                        </div>
+                                        
+                                        <b>Image:</b><input type="file" class="form-control" required  value="" name="img"><br>
+                                        <b><input type="hidden" class="form-control" required  value="${sessionScope['account'].getId()}" name="user"></b>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-success" value="submit">Submit</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                                    
                 <table class="table" style="margin-top: 20px; margin-bottom: 20px;">
                     <thead >
                         <tr style="font-size: 20px;">
@@ -105,10 +137,23 @@
             </main>
             <!-- MAIN -->
         </section>
-    
-</body>
-
         
+        
+
+
+        <script>
+            // Lắng nghe sự kiện khi nút "View" được bấm
+            var viewButtons = document.getElementsByClassName("viewButton");
+            for (var i = 0; i < viewButtons.length; i++) {
+                viewButtons[i].addEventListener("click", function () {
+                    // Lấy giá trị blog_id từ thuộc tính data-blog-id
+                    var blogId = this.dataset.blogId;
+
+                    // Mở một cửa sổ mới với URL BlogController và tham số blogId
+                    window.open("BlogController?blogId=" + blogId, "_blank");
+                });
+            }
+        </script>
         <script src="js/adminDashbord.js"></script>
         <script src="js/jquery-3.4.1.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
