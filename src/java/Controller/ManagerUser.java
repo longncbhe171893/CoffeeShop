@@ -17,20 +17,26 @@ import java.util.ArrayList;
 
 
 public class ManagerUser extends HttpServlet {
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+         try {
         HttpSession session = request.getSession();
+          Object object = session.getAttribute("account");
+            User u = (User) object;
+            if (u.getSetting_id() == 1) {
         UserDAO udao = new UserDAO();
-        ArrayList<User> userlist = udao.getAllUser();
-        ArrayList<User> userList = new ArrayList<>();
-        for (User u : userlist) {
-            if (u.getSetting_id()== 3 || u.getSetting_id()== 2) {
-                userList.add(u);
-            }
-        }
+        ArrayList<User> userList = udao.getAllUser();
         request.setAttribute("pl", userList);
         request.getRequestDispatcher("ManagerUser.jsp").forward(request, response);
+        } else {
+                response.sendRedirect("404.html");
+            }
+    }
+         catch (ServletException | IOException e) {
+
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -61,8 +67,8 @@ public class ManagerUser extends HttpServlet {
             throws ServletException, IOException {
         String search = request.getParameter("search");
         UserDAO udao = new UserDAO();
-        ArrayList<User> userlist = udao.searchUser(search);
-        request.setAttribute("pl", userlist);
+        ArrayList<User> userList = udao.searchUser(search);
+        request.setAttribute("pl", userList);
         request.getRequestDispatcher("ManagerUser.jsp").forward(request, response);
     }
 
@@ -77,3 +83,4 @@ public class ManagerUser extends HttpServlet {
     }// </editor-fold>
 
 }
+

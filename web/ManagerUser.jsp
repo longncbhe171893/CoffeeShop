@@ -103,8 +103,7 @@
                                             <h4 class="modal-title">User details:</h4>
                                         </div>
                                         <form action="UserDetails" method="post">
-                                            <div class="modal-body">
-                                                <b>Image:</b><input type="file" class="form-control" required  value="${p.getImage()}" name="image"><br>            
+                                            <div class="modal-body">   
                                                 <b>ID: </b><input type="text" class="form-control" name="id" value="${p.getId()}" readonly=""><br>
                                                 <b>Name: </b><input type="text" class="form-control" value="${p.getName()}" name="name"><br>
                                                 <b>Email: </b><input type="text" class="form-control" value="${p.getEmail()}" name="email" ><br>    
