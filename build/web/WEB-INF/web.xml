@@ -114,7 +114,7 @@
     </servlet>
     <servlet>
         <servlet-name>BlogController</servlet-name>
-        <servlet-class>Controller.BlogController</servlet-class>
+        <servlet-class>Controller.SellerController.BlogController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>FeedbackController</servlet-name>
@@ -122,7 +122,7 @@
     </servlet>
     <servlet>
         <servlet-name>SellerDashboard</servlet-name>
-        <servlet-class>Controller.SellerDashboard</servlet-class>
+        <servlet-class>Controller.SellerController.SellerDashboard</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>updateOrderStatus</servlet-name>
@@ -130,7 +130,7 @@
     </servlet>
     <servlet>
         <servlet-name>ManageOrder</servlet-name>
-        <servlet-class>Controller.ManageOrder</servlet-class>
+        <servlet-class>Controller.SellerController.ManageOrder</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>MyOrder</servlet-name>
@@ -146,15 +146,15 @@
     </servlet>
     <servlet>
         <servlet-name>ManageBlog</servlet-name>
-        <servlet-class>Controller.ManageBlog</servlet-class>
+        <servlet-class>Controller.SellerController.ManageBlog</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AddBlog</servlet-name>
-        <servlet-class>Controller.AddBlog</servlet-class>
+        <servlet-class>Controller.SellerController.AddBlog</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>EditBlog</servlet-name>
-        <servlet-class>Controller.EditBlog</servlet-class>
+        <servlet-class>Controller.SellerController.EditBlog</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ChangePassword</servlet-name>
@@ -162,7 +162,7 @@
     </servlet>
     <servlet>
         <servlet-name>GetOrderDetail</servlet-name>
-        <servlet-class>Controller.GetOrderDetail</servlet-class>
+        <servlet-class>Controller.SellerController.GetOrderDetail</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>DownloadOrder</servlet-name>
@@ -175,6 +175,14 @@
     <servlet>
         <servlet-name>EditRole</servlet-name>
         <servlet-class>Controller.EditRole</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteBlog</servlet-name>
+        <servlet-class>Controller.SellerController.DeleteBlog</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>FilterBlog</servlet-name>
+        <servlet-class>Controller.SellerController.FilterBlog</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Register</servlet-name>
@@ -403,6 +411,14 @@
     <servlet-mapping>
         <servlet-name>EditRole</servlet-name>
         <url-pattern>/EditRole</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteBlog</servlet-name>
+        <url-pattern>/DeleteBlog</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>FilterBlog</servlet-name>
+        <url-pattern>/FilterBlog</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

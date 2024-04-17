@@ -48,7 +48,7 @@
                 <div class="collapse navbar-collapse" id="ftco-nav">
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item">
-                            <form action="Blog" class="search-form" method="post" >
+                            <form action="#" class="search-form" method="post" >
                                 <div class="form-group">
                                     <div class="icon">
                                         <span class="icon-search"></span>
@@ -59,16 +59,17 @@
                         </li>
                         <li class="nav-item"><a href="Home" class="nav-link">Home</a></li>
                         <li class="nav-item"><a href="#" class="nav-link">Menu</a></li>
-                        <li class="nav-item"><a href="Blog" class="nav-link">Blog</a></li>
+                        <li class="nav-item"><a href="#" class="nav-link">Blog</a></li>
                         <li class="nav-item">
                             <c:if test="${sessionScope['account'].getRole().getId() == 3}">
                                 <a href="#" class="nav-link" >MY ORDER</a>
                             </c:if>
                         </li>
-                        <li class="nav-item">
-                            <c:if test="${sessionScope['account'].getRole().getId() == 1}">
+                        <c:if test="${sessionScope['account'].getRole().getId() == 1}">
                                 <a href="#" class="nav-link" >MANAGER PAGE</a>
                             </c:if>
+                        <li class="nav-item">
+                            <a href="ManageBlog" class="nav-link" >MANAGER PAGE</a>
                         </li>
 
                         <li class="nav-item">
