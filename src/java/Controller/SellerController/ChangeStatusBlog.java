@@ -5,22 +5,18 @@
 package Controller.SellerController;
 
 import DAO.BlogDao;
-import Model.Blog;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  *
  * @author anhvu
  */
-public class FilterBlog extends HttpServlet {
+public class ChangeStatusBlog extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,9 +30,12 @@ public class FilterBlog extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
-        
+        int id = Integer.valueOf(request.getParameter("bid"));
+        BlogDao bdao = new BlogDao();
+        bdao.changeStatusBlog(id);
+        response.sendRedirect("./ManageBlog");
     }
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -64,7 +63,6 @@ public class FilterBlog extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-
     }
 
     /**

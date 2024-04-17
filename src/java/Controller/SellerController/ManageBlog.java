@@ -28,9 +28,12 @@ public class ManageBlog extends HttpServlet {
 
             BlogDao blog = new BlogDao();
             ArrayList<Blog> bl = blog.getBlogs();
-            ArrayList<Model.Category> cl = blog.getcategoryBlogBySettingId();
+            ArrayList<Model.User> creator = blog.getAllSeller();
+            List<Model.Category> category = blog.getcategoryBlogByType();
             request.setAttribute("bl", bl);
-            request.setAttribute("cl", cl);
+            request.setAttribute("creator", creator);
+            request.setAttribute("categoryBlog", category);
+
             request.getRequestDispatcher("ManageBlog.jsp").forward(request, response);
 
         } catch (ServletException | IOException e) {
@@ -63,7 +66,13 @@ public class ManageBlog extends HttpServlet {
             Date sdate = Date.valueOf(secondDate);
             blogList = blogDao.getBlogByDate(fdate, sdate);
         }
+        BlogDao blog = new BlogDao();
 
+        ArrayList<Model.User> creator = blog.getAllSeller();
+        List<Model.Category> category = blog.getcategoryBlogByType();
+
+        request.setAttribute("creator", creator);
+        request.setAttribute("categoryBlog", category);
         request.setAttribute("bl", blogList);
         request.getRequestDispatcher("ManageBlog.jsp").forward(request, response);
     }

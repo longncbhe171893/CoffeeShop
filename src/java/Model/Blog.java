@@ -18,6 +18,7 @@ public class Blog {
     private User user;
     private Date post_date;
     private String content;
+    private setting setting;
     private int blog_status;
     private String description;
     
@@ -25,25 +26,18 @@ public class Blog {
     public Blog() {
     }
 
-    public Blog(int blog_id, String blog_title, String blog_image, User user, Date post_date, String content, int blog_status, String description) {
+    public Blog(int blog_id, String blog_title, String blog_image, User user, Date post_date, String content, setting setting, int blog_status, String description) {
         this.blog_id = blog_id;
         this.blog_title = blog_title;
         this.blog_image = blog_image;
         this.user = user;
         this.post_date = post_date;
         this.content = content;
+        this.setting = setting;
         this.blog_status = blog_status;
         this.description = description;
     }
-    
-    public Blog(int blog_id, String blog_title, String blog_image, User user , Date post_date, String content) {
-        this.blog_id = blog_id;
-        this.blog_title = blog_title;
-        this.blog_image = blog_image;
-        this.user = user;
-        this.post_date = post_date;
-        this.content = content;
-    }
+
     public int getBlog_id() {
         return blog_id;
     }
@@ -92,6 +86,14 @@ public class Blog {
         this.content = content;
     }
 
+    public setting getSetting() {
+        return setting;
+    }
+
+    public void setSetting(setting setting) {
+        this.setting = setting;
+    }
+
     public int getBlog_status() {
         return blog_status;
     }
@@ -107,10 +109,12 @@ public class Blog {
     public void setDescription(String description) {
         this.description = description;
     }
-    
+
     @Override
     public String toString() {
-        return "Blog{" + "blog_id=" + blog_id + ", blog_title=" + blog_title + ", blog_image=" + blog_image + ", user=" + user + ", post_date=" + post_date + ", content=" + content + '}';
+        return "Blog{" + "blog_id=" + blog_id + ", blog_title=" + blog_title + ", blog_image=" + blog_image + ", user=" + user + ", post_date=" + post_date + ", content=" + content + ", setting=" + setting + ", blog_status=" + blog_status + ", description=" + description + '}';
     }
+
+    
     
 }

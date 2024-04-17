@@ -5,6 +5,8 @@
 package Controller.SellerController;
 
 import DAO.BlogDao;
+import Model.Blog;
+import Model.setting;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
@@ -13,6 +15,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 @MultipartConfig(
         fileSizeThreshold = 524288,
@@ -21,22 +25,46 @@ import java.io.File;
         location = "/org"
 )
 public class AddBlog extends HttpServlet {
-    
+
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        try {
+            String title = " > Add Blog";
+            String action = "AddBlog";
+            BlogDao blog = new BlogDao();
+
+            List<Model.Category> category = blog.getcategoryBlogByType();
+
+            request.setAttribute("categoryBlog", category);
+            request.setAttribute("title", title);
+            request.setAttribute("action", action);
+
+            request.getRequestDispatcher("EditBlog.jsp").forward(request, response);
+
+        } catch (ServletException | IOException e) {
+
+        }
+
+    }
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        this.doPost(request, response);
+        processRequest(request, response);
+
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
         String title = request.getParameter("title");
         Part imagePart = request.getPart("img");
         String content = request.getParameter("content");
 //        int userId = Integer.valueOf(request.getParameter("user"));
         int userId = 8;
-        
+
         String fileName = imagePart.getSubmittedFileName();
         String uploadDirectory = getServletContext().getRealPath("/image");// Thay đổi đường dẫn tới thư mục lưu trữ ảnh trên máy chủ
 
@@ -58,11 +86,13 @@ public class AddBlog extends HttpServlet {
                     oldImageFile.delete();
                 }
             }
+            int setting_id = Integer.parseInt(request.getParameter("category"));
+            String short_description = String.valueOf(request.getParameter("short_description"));
             // Tiếp tục xử lý và lưu thông tin từ form vào cơ sở dữ liệu
             BlogDao bdao = new BlogDao();
-            bdao.addBlog(title, relativeImagePath, userId, content);
+            bdao.addBlog(title, relativeImagePath, userId, content, setting_id, short_description);
         } else {
-            
+
         }
         response.sendRedirect("./ManageBlog");
     }
