@@ -5,8 +5,7 @@
 
 package Controller;
 
-import DAO.UserDAO;
-import Model.User;
+import DAO.SettingDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -14,14 +13,13 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 
 /**
  *
  * @author HP
  */
-@WebServlet(name="UserProfile", urlPatterns={"/UserProfile"})
-public class UserProfile extends HttpServlet {
+@WebServlet(name="UpdateStatusSetting", urlPatterns={"/UpdateStatusSetting"})
+public class UpdateStatusSetting extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -33,7 +31,16 @@ public class UserProfile extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
+        int setting_id =Integer.parseInt(request.getParameter("setting_id"));
+        int status =Integer.parseInt(request.getParameter("status"));
+        SettingDAO dao = new SettingDAO();
+        if(status == 1){
+            dao.UpdateStatusSetting(0, setting_id);
+        }else{
+            dao.UpdateStatusSetting(1, setting_id);
+        }
+         response.sendRedirect("SettingLists");
+    
     } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -60,39 +67,7 @@ public class UserProfile extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        String name = request.getParameter("name");
-        String email = request.getParameter("email");
-        int sex = Integer.parseInt(request.getParameter("sex"));
-        String phone = request.getParameter("phone");
-        String address = request.getParameter("address");
-        String image = request.getParameter("image");
-        String id = request.getParameter("id");
-        UserDAO udao = new UserDAO();
-        
-        HttpSession session = request.getSession();
-        if (!udao.checkPhonenumber(phone)){
-            request.setAttribute("mess", "Invalid phone number");
-            request.getRequestDispatcher("UserProfile.jsp").forward(request, response);
-        }
-        
-        
-        try {
-            udao.UpdateUser(name, Integer.valueOf(id), sex, phone, address, udao.encodeImage(image));
-            User u = (User) session.getAttribute("account");
-            u.setId(Integer.valueOf(id));
-            u.setName(name); 
-            u.setEmail(email);
-            u.setSex(sex);
-            u.setPhone(phone);
-            u.setAddress(address);
-            u.setImage(udao.encodeImage(image));
-            
-            session.setAttribute("account", u);
-            request.setAttribute("mess", "Updated Success");
-            request.getRequestDispatcher("UserProfile.jsp").forward(request, response);
-        } catch (Exception e) {
-            response.getWriter().println(e);
-        }
+        processRequest(request, response);
     }
 
     /** 

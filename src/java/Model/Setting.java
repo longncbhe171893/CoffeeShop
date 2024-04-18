@@ -7,7 +7,12 @@ public class Setting {
     private String description;
     private String type;
     private int sort;
+    private int status;
 
+    public Setting() {
+    }
+    
+    
     public Setting(int id, String name, String description, String type, int sort) {
         this.id = id;
         this.name = name;
@@ -69,4 +74,14 @@ public class Setting {
     public void setSort(int sort) {
         this.sort = sort;
     }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+    
+    
 }

@@ -5,6 +5,7 @@
 
 package Controller;
 
+import DAO.SettingDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -68,7 +69,14 @@ public class AddSetting extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        String name = request.getParameter("name");
+        String description = request.getParameter("description");
+        String type = request.getParameter("type");
+        String status = request.getParameter("status");
+        
+        SettingDAO sdao = new SettingDAO();
+        sdao.addSetting(name, description, type, status);
+        response.sendRedirect("SettingLists");
     }
 
     /** 

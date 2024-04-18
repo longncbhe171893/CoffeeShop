@@ -95,14 +95,18 @@
                                 </div>
                                 <form action="AddSetting" method="post" enctype="multipart/form-data">
                                     <div class="modal-body">
-                                        <b>Setting Name: </b><input type="text" class="form-control" value="" required name="sname"><br>  
+                                        <b>Setting Name: </b><input type="text" class="form-control" value="" required name="name"><br>  
                                         <b>Description: </b>
                                         <div class="form-control">
-                                            <textarea id="edit" rows="5" name="content" class="form-control" placeholder="Write some thing..." required=""></textarea>
+                                            <textarea id="edit" rows="5" name="description" class="form-control" placeholder="Write some thing..." required=""></textarea>
                                         </div>
+                                        <b>Type: </b><input type="text" class="form-control" value="" required name="type"><br>  
+                                        <b>Status: </b>
+                                        <input type="radio" id="status_enable" name="status" value="1" checked>
+                                        <label for="status_enable">Enable</label>
+                                        <input type="radio" id="status_disable" name="status" value="0">
+                                        <label for="status_disable">Disable</label><br>
                                         
-                                        <b>Image:</b><input type="file" class="form-control" required  value="" name="img"><br>
-                                        <b><input type="hidden" class="form-control" required  value="${sessionScope['account'].getId()}" name="user"></b>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -118,8 +122,9 @@
                         <tr style="font-size: 20px;">
                             <th scope="col">ID</th>
                             <th scope="col">Setting Name</th>
-                            <th scope="col">Description</th>
-                            <th scope="col">Type</th>                             
+                            
+                            <th scope="col">Type</th>     
+                            <th scope="col">Status</th> 
                             <th scope="col" colspan="2" style="text-align: center">Action</th>
                         </tr>
                     </thead>
@@ -127,8 +132,10 @@
                             <tr>
                                 <td>${setting.getId()}</td>
                                 <td>${setting.getName()}</td>
-                                <td>${setting.getDescription()}</td>   
+                                  
                                 <td>${setting.getType()}</td>
+                                <td><a onclick="return confirm('Do you want to change setting status?')" href="UpdateStatusSetting?setting_id=${setting.getId()}&status=${setting.getStatus()}">
+                                            ${setting.getStatus()==1?"Enable":"Disable"}</a></td> 
                                 <td>Detail</td>
                                 
                         </c:forEach>
@@ -141,19 +148,7 @@
         
 
 
-        <script>
-            // Lắng nghe sự kiện khi nút "View" được bấm
-            var viewButtons = document.getElementsByClassName("viewButton");
-            for (var i = 0; i < viewButtons.length; i++) {
-                viewButtons[i].addEventListener("click", function () {
-                    // Lấy giá trị blog_id từ thuộc tính data-blog-id
-                    var blogId = this.dataset.blogId;
-
-                    // Mở một cửa sổ mới với URL BlogController và tham số blogId
-                    window.open("BlogController?blogId=" + blogId, "_blank");
-                });
-            }
-        </script>
+        
         <script src="js/adminDashbord.js"></script>
         <script src="js/jquery-3.4.1.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
