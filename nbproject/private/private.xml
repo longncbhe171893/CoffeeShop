@@ -3,21 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/SWP391/project-real/CoffeeShop/CoffeeShop/src/java/DAO/ProductSizeDao.java</file>
-            <file>file:/D:/SWP391/project-real/CoffeeShop/CoffeeShop/src/java/Controller/ManageOrder.java</file>
-            <file>file:/D:/SWP391/project-real/CoffeeShop/CoffeeShop/src/java/Controller/DeleteBlog.java</file>
-            <file>file:/D:/SWP391/project-real/CoffeeShop/CoffeeShop/src/java/DAO/BlogDao.java</file>
-            <file>file:/D:/SWP391/project-real/CoffeeShop/CoffeeShop/src/java/Controller/BlogController.java</file>
-            <file>file:/D:/SWP391/project-real/CoffeeShop/CoffeeShop/web/ManageOrder.jsp</file>
-            <file>file:/D:/SWP391/project-real/CoffeeShop/CoffeeShop/src/java/Controller/SellerDashboard.java</file>
-            <file>file:/D:/SWP391/project-real/CoffeeShop/CoffeeShop/web/WEB-INF/web.xml</file>
-            <file>file:/D:/SWP391/project-real/CoffeeShop/CoffeeShop/web/ManageBlog.jsp</file>
-            <file>file:/D:/SWP391/project-real/CoffeeShop/CoffeeShop/src/java/Model/User.java</file>
-            <file>file:/D:/SWP391/project-real/CoffeeShop/CoffeeShop/src/java/Controller/GetOrderDetail.java</file>
-            <file>file:/D:/SWP391/project-real/CoffeeShop/CoffeeShop/src/java/Controller/AddBlog.java</file>
-            <file>file:/D:/SWP391/project-real/CoffeeShop/CoffeeShop/src/java/DAO/OrderDAO.java</file>
-            <file>file:/D:/SWP391/project-real/CoffeeShop/CoffeeShop/src/java/Controller/EditBlog.java</file>
-            <file>file:/D:/SWP391/project-real/CoffeeShop/CoffeeShop/src/java/Model/Blog.java</file>
+            <file>file:/D:/Kì%205/CoffeeShop/src/java/Model/Product.java</file>
+            <file>file:/D:/Kì%205/CoffeeShop/src/java/DAO/BlogDao.java</file>
+            <file>file:/D:/Kì%205/CoffeeShop/src/java/DAO/DBContext.java</file>
         </group>
     </open-files>
 </project-private>
