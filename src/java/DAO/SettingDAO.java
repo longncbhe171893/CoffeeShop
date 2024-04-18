@@ -92,6 +92,21 @@ public class SettingDAO extends DBContext {
         }
     }
     
+    public void updateSetting(int id, String name, String description, String type, int status ) {
+        String sql = " update `Setting` set `setting_name`=?, `description`=?, `type`=?, `status`=? where `setting_id` =?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, name);
+            ps.setString(2, description);
+            ps.setString(3, type);
+            ps.setInt(4, status);
+            ps.setInt(5, id);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    
      // Phương thức để lấy danh sách các setting từ cơ sở dữ liệu
     public List<Setting> getSettings(int startIndex, int itemsPerPage) throws SQLException {
         List<Setting> settings = new ArrayList<>();

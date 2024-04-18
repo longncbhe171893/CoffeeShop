@@ -118,29 +118,59 @@
                     </div>
                                     
                 <table class="table" style="margin-top: 20px; margin-bottom: 20px;">
-                    <thead >
-                        <tr style="font-size: 20px;">
-                            <th scope="col">ID</th>
-                            <th scope="col">Setting Name</th>
-                            
-                            <th scope="col">Type</th>     
-                            <th scope="col">Status</th> 
-                            <th scope="col" colspan="2" style="text-align: center">Action</th>
-                        </tr>
-                    </thead>
-                    <c:forEach var="setting" items="${settings}">
-                            <tr>
-                                <td>${setting.getId()}</td>
-                                <td>${setting.getName()}</td>
-                                  
-                                <td>${setting.getType()}</td>
-                                <td><a onclick="return confirm('Do you want to change setting status?')" href="UpdateStatusSetting?setting_id=${setting.getId()}&status=${setting.getStatus()}">
-                                            ${setting.getStatus()==1?"Enable":"Disable"}</a></td> 
-                                <td>Detail</td>
-                                
-                        </c:forEach>
-                    <!-- Use JSTL to iterate over settings -->
-                </table>
+    <thead>
+        <tr style="font-size: 20px;">
+            <th scope="col">ID</th>
+            <th scope="col">Setting Name</th>
+            <th scope="col">Type</th>     
+            <th scope="col">Status</th> 
+            <th scope="col">Action</th>
+        </tr>
+    </thead>
+    <tbody> <!-- Đặt các phần tử HTML trong một phần tử tbody -->
+        <c:forEach var="setting" items="${settings}">
+            <tr>
+                <td>${setting.getId()}</td>
+                <td>${setting.getName()}</td>
+                <td>${setting.getType()}</td>
+                <td><a onclick="return confirm('Do you want to change setting status?')" href="UpdateStatusSetting?setting_id=${setting.getId()}&status=${setting.getStatus()}">
+                    ${setting.getStatus()==1?"Enable":"Disable"}</a></td> 
+                <td> 
+                    <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#myModal${setting.getId()}">Detail</button>
+                </td>
+            </tr>
+            <div class="modal fade" id="myModal${setting.getId()}" role="dialog">
+                <!-- Modal content -->
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Edit Setting:</h4>
+                        </div>
+                        <form action="EditSetting" method="post">
+                            <div class="modal-body">
+                                <b>ID: </b><input type="text" class="form-control" name="id" value="${setting.getId()}" readonly=""><br>
+                                <b>Name: </b><input type="text" class="form-control" value="${setting.getName()}" readonly="" name="name"><br>
+                                <b>Description: </b><textarea class="form-control"name="content">${setting.getDescription()}</textarea><br>
+                                <b>Type: </b><input type="text" class="form-control" value="${setting.getType()}" name="type" readonly=""><br>    
+                                <b>Status: </b>
+                                <input type="radio" id="status_enable" name="status" value="1" checked>
+                                <label for="status_enable">Enable</label>
+                                <input type="radio" id="status_disable" name="status" value="0">
+                                <label for="status_disable">Disable</label><br>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-success" value="submit">Submit</button>
+                            </div>
+                        </form>                                 
+                    </div>
+                </div>
+            </div>
+        </c:forEach>
+    </tbody>
+</table>
+
             </main>
             <!-- MAIN -->
         </section>
