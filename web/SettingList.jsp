@@ -75,7 +75,7 @@
         <section id="content">
             <nav>
                 <i class='bx bx-menu' ></i>
-                <form action="SettingLists" method="post">
+                <form action="SettingLists" method="get">
                     <div class="form-input">
                         <input type="search" name="search" placeholder="Search...">
                         <button type="submit" class="search-btn"><i class='bx bx-search' ></i></button>
@@ -100,7 +100,7 @@
                                 border-radius: 10px;
                                 margin-left: 47px;
                                 margin-top: 53px;" name="sort" class="form-select"  onchange="this.form.submit()">
-                            <option value="0" ${param['sort']==0?"selected":""}>All</option>
+                            <option value="" ${param['sort']==null?"selected":""}>Sort Default</option>
                             
                             <option value="1" ${param['sort']==1?"selected":""}>Setting Name</option>
                             <option value="2" ${param['sort']==2?"selected":""}>Type</option>

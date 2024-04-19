@@ -83,13 +83,11 @@ public class SettingLists extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        String search = request.getParameter("search") == null ? "" : request.getParameter("search");
-        String sort = request.getParameter("sort") == null ? "" : request.getParameter("sort");
+        
+        String sort = request.getParameter("sort");
         SettingDAO settingDAO = new SettingDAO();       
         List<Setting> settings = settingDAO.getAllSettings();
-        if (search != null) {
-            settings = settingDAO.searchSetting(search);
-        }
+
         if (sort != null) {
             settings = settingDAO.getAllSettingSort(sort);
         }
