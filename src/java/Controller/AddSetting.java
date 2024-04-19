@@ -72,7 +72,7 @@ public class AddSetting extends HttpServlet {
         String name = request.getParameter("name");
         String description = request.getParameter("description");
         String type = request.getParameter("type");
-        String status = request.getParameter("status");
+        int status = Integer.parseInt(request.getParameter("status"));
         
         SettingDAO sdao = new SettingDAO();
         sdao.addSetting(name, description, type, status);

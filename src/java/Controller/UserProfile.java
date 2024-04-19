@@ -70,10 +70,18 @@ public class UserProfile extends HttpServlet {
         UserDAO udao = new UserDAO();
         
         HttpSession session = request.getSession();
+        if (name.length() > 50) {
+            request.setAttribute("mess", "Name must be less than 50 characters");
+            request.getRequestDispatcher("UserProfile.jsp").forward(request, response);
+        } else
         if (!udao.checkPhonenumber(phone)){
             request.setAttribute("mess", "Invalid phone number");
             request.getRequestDispatcher("UserProfile.jsp").forward(request, response);
-        }
+        } else
+        if (address.length() > 255) {
+            request.setAttribute("mess", "Address must be less than 255 characters");
+            request.getRequestDispatcher("UserProfile.jsp").forward(request, response);
+        } else
         
         
         try {
