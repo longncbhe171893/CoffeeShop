@@ -29,10 +29,6 @@
         <servlet-class>Controller.Home</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ProductDetails</servlet-name>
-        <servlet-class>Controller.ProductDetails</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>LogOut</servlet-name>
         <servlet-class>Controller.LogOut</servlet-class>
     </servlet>
@@ -169,10 +165,6 @@
         <servlet-class>Controller.EditRole</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>AddUser</servlet-name>
-        <servlet-class>Controller.AddUser</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>ManageBlog</servlet-name>
         <servlet-class>Controller.ManageBlog</servlet-class>
     </servlet>
@@ -272,10 +264,6 @@
         <filter-name>AuthorizationFilter</filter-name>
         <url-pattern>/AdminDashboard</url-pattern>
     </filter-mapping>
-    <servlet-mapping>
-        <servlet-name>ProductDetails</servlet-name>
-        <url-pattern>/ProductDetails</url-pattern>
-    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>LogOut</servlet-name>
         <url-pattern>/LogOut</url-pattern>
@@ -411,10 +399,6 @@
     <servlet-mapping>
         <servlet-name>EditRole</servlet-name>
         <url-pattern>/EditRole</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>AddUser</servlet-name>
-        <url-pattern>/AddUser</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ManageBlog</servlet-name>

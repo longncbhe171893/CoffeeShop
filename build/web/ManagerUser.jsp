@@ -52,7 +52,7 @@
                                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                                     <h4 class="modal-title">Add User</h4>
                                 </div>
-                                <form action="AddUser" method="post" enctype="multipart/form-data">
+                                <form action="AddUser" method="post" >
                                    <div class="modal-body">
                                      <b>Name: </b><input type="text" class="form-control" value="" required name="name"><br>  
                                      <b>Email: </b><input type="text" class="form-control" value="" required name="email"><br>  

@@ -14,35 +14,26 @@ public class Product {
     private int id; 
     private String name; 
     private double price; 
+    private int setting_id;
     private String image; 
-    private Category category; 
     private String decription; 
-    private ProductStatus status ; 
+    private int productStatus ; 
     private Date createDate; 
-
+    private int size;
     public Product() {
     }
-    
-    public Product(int id, String name, double price, String image, Category category, String decription, ProductStatus status, Date createDate) {
+
+    public Product(int id, String name, double price, int setting_id, String image, String decription, int productStatus, Date createDate, int size) {
         this.id = id;
         this.name = name;
         this.price = price;
+        this.setting_id = setting_id;
         this.image = image;
-        this.category = category;
         this.decription = decription;
-        this.status = status;
+        this.productStatus = productStatus;
         this.createDate = createDate;
+        this.size = size;
     }
-
-    public Product(String name) {
-        this.name = name;
-    }
-
-    public Product(int id) {
-        this.id = id;
-    }
-    
- 
 
     public int getId() {
         return id;
@@ -68,20 +59,20 @@ public class Product {
         this.price = price;
     }
 
+    public int getSetting_id() {
+        return setting_id;
+    }
+
+    public void setSetting_id(int setting_id) {
+        this.setting_id = setting_id;
+    }
+
     public String getImage() {
         return image;
     }
 
     public void setImage(String image) {
         this.image = image;
-    }
-
-    public Category getCategory() {
-        return category;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
     }
 
     public String getDecription() {
@@ -92,12 +83,12 @@ public class Product {
         this.decription = decription;
     }
 
-    public ProductStatus getStatus() {
-        return status;
+    public int getProductStatus() {
+        return productStatus;
     }
 
-    public void setStatus(ProductStatus status) {
-        this.status = status;
+    public void setProductStatus(int productStatus) {
+        this.productStatus = productStatus;
     }
 
     public Date getCreateDate() {
@@ -108,6 +99,16 @@ public class Product {
         this.createDate = createDate;
     }
 
-    
-    
+    public int getSize() {
+        return size;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" + "id=" + id + ", name=" + name + ", price=" + price + ", setting_id=" + setting_id + ", image=" + image + ", decription=" + decription + ", productStatus=" + productStatus + ", createDate=" + createDate + ", size=" + size + '}';
+    }
 }

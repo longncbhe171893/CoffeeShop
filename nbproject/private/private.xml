@@ -3,12 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/SWP391/project-real/CoffeeShop/CoffeeShop/src/java/Filter/AuthorizationFilter.java</file>
-            <file>file:/D:/SWP391/project-real/CoffeeShop/CoffeeShop/src/java/Controller/SellerDashboard.java</file>
-            <file>file:/D:/SWP391/project-real/CoffeeShop/CoffeeShop/src/java/Controller/UserDetails.java</file>
-            <file>file:/D:/SWP391/project-real/CoffeeShop/CoffeeShop/src/java/Controller/DeleteBlog.java</file>
-            <file>file:/D:/SWP391/project-real/CoffeeShop/CoffeeShop/web/header.jsp</file>
-            <file>file:/D:/SWP391/project-real/CoffeeShop/CoffeeShop/web/WEB-INF/web.xml</file>
+            <file>file:/C:/Users/admin/IdeaProjects/CoffeeShop/src/java/DAO/ProductDAO.java</file>
+            <file>file:/C:/Users/admin/IdeaProjects/CoffeeShop/src/java/Controller/ProductLists.java</file>
+            <file>file:/C:/Users/admin/IdeaProjects/CoffeeShop/src/java/Controller/ManageProduct.java</file>
         </group>
     </open-files>
 </project-private>

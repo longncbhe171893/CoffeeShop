@@ -30,6 +30,14 @@ public class Setting {
         this.type = type;
     }
 
+    public Setting(int setting_id, String name) {
+        this.setting_id = setting_id;
+        this.name = name;
+    }
+
+    public Setting(int setting_id) {
+        this.setting_id = setting_id;
+    }
     public int getSetting_id() {
         return setting_id;
     }
