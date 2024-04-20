@@ -6,7 +6,8 @@
 package Controller;
 
 import DAO.SettingDAO;
-import Model.Setting;
+import Model.setting;
+import Model.setting;
 import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -62,7 +63,7 @@ public class SettingLists extends HttpServlet {
     throws ServletException, IOException {
         SettingDAO settingDAO = new SettingDAO();
         
-        List<Setting> settings = settingDAO.getAllSettings();
+        List<setting> settings = settingDAO.getAllSettings();
         request.setAttribute("settings", settings);
         RequestDispatcher dispatcher = request.getRequestDispatcher("SettingList.jsp");
         dispatcher.forward(request, response);
