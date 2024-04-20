@@ -4,15 +4,13 @@
  */
 package Model;
 
-/**
- *
- * @author anhvu
- */
 public class setting {
     private int setting_id;
     private String setting_name;
+    private String description;
     private String type;
-
+    private int sort;
+    private int status;
     public setting() {
     }
 
@@ -22,6 +20,38 @@ public class setting {
         this.type = type;
     }
 
+    public setting(int setting_id, String setting_name, String description, String type) {
+        this.setting_id = setting_id;
+        this.setting_name = setting_name;
+        this.description = description;
+        this.type = type;
+        
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public int getSort() {
+        return sort;
+    }
+
+    public void setSort(int sort) {
+        this.sort = sort;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+    
     public int getSetting_id() {
         return setting_id;
     }

@@ -4,7 +4,7 @@
  */
 package DAO;
 
-import Model.Setting;
+
 import Model.User;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -40,7 +40,7 @@ public class UserDAO extends DBContext {
             while (rs.next()) {
 
                 User user = new User(rs.getInt("user_id"), rs.getString("user_name"),
-                        rs.getString("email"), rs.getString("password"), rs.getString("address"), rs.getString("phone"), rs.getString("sex"),
+                        rs.getString("email"), rs.getString("password"), rs.getString("address"), rs.getString("phone"), rs.getInt("sex"),
                         rs.getString("user_image"), rs.getInt("setting_id"), rs.getInt("user_status"), rs.getDouble("user_point"));
                 return user;
             }
@@ -90,7 +90,7 @@ public class UserDAO extends DBContext {
                 while (rs.next()) {
 
                     User user = new User(rs.getInt("user_id"), rs.getString("user_name"),
-                            rs.getString("email"), rs.getString("password"), rs.getString("address"), rs.getString("phone"), rs.getString("sex"),
+                            rs.getString("email"), rs.getString("password"), rs.getString("address"), rs.getString("phone"), rs.getInt("sex"),
                             rs.getString("user_image"), rs.getInt("setting_id"), rs.getInt("user_status"), rs.getDouble("user_point"));
                     listUser.add(user);
                 }
@@ -187,7 +187,7 @@ public class UserDAO extends DBContext {
                         rs.getString(4),
                         rs.getString(5),
                         rs.getString(6),
-                        rs.getString(7),
+                        rs.getInt(7),
                         rs.getString(8),
                         rs.getInt(9),
                         rs.getInt(10),

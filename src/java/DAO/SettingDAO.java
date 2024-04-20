@@ -4,7 +4,7 @@
  */
 package DAO;
 
-import Model.Setting;
+import Model.setting;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -28,9 +28,9 @@ public class SettingDAO extends DBContext {
     
     
 
-    public List<Setting> getAllSettings() {
+    public List<setting> getAllSettings() {
         String query = "SELECT setting_id, setting_name, description, type FROM setting;";
-        List<Setting> settings = new ArrayList<>();
+        List<setting> settings = new ArrayList<>();
 
         try {
             PreparedStatement statement = connection.prepareStatement(query);
@@ -42,7 +42,7 @@ public class SettingDAO extends DBContext {
                 String description = resultSet.getString("description");
                 String type = resultSet.getString("type");
 
-                Setting setting = new Setting(settingId, settingName, description, type);
+                setting setting = new setting(settingId, settingName, description, type);
                 settings.add(setting);
             }
 
