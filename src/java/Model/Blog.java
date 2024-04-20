@@ -18,7 +18,7 @@ public class Blog {
     private User user;
     private Date post_date;
     private String content;
-    private setting setting;
+    private Setting setting;
     private int blog_status;
     private String description;
     
@@ -26,7 +26,7 @@ public class Blog {
     public Blog() {
     }
 
-    public Blog(int blog_id, String blog_title, String blog_image, User user, Date post_date, String content, setting setting, int blog_status, String description) {
+    public Blog(int blog_id, String blog_title, String blog_image, User user, Date post_date, String content, Setting setting, int blog_status, String description) {
         this.blog_id = blog_id;
         this.blog_title = blog_title;
         this.blog_image = blog_image;
@@ -86,11 +86,11 @@ public class Blog {
         this.content = content;
     }
 
-    public setting getSetting() {
+    public Setting getSetting() {
         return setting;
     }
 
-    public void setSetting(setting setting) {
+    public void setSetting(Setting setting) {
         this.setting = setting;
     }
 
