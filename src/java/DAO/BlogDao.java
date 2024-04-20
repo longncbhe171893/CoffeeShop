@@ -3,7 +3,7 @@ package DAO;
 import Model.Blog;
 import Model.Category;
 import Model.User;
-import Model.setting;
+import Model.Setting;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -247,7 +247,7 @@ public class BlogDao extends DBContext {
 
     }
 
-    private setting getSettingById(int aInt) {
+    private Setting getSettingById(int aInt) {
 
         PreparedStatement ps;
         ResultSet rs;
@@ -257,7 +257,7 @@ public class BlogDao extends DBContext {
             ps.setInt(1, aInt);
             rs = ps.executeQuery();
             rs.next();
-            return new setting(rs.getInt(1), rs.getString(2), rs.getString(4));
+            return new Setting(rs.getInt(1), rs.getString(2), rs.getString(4));
 
         } catch (SQLException e) {
 

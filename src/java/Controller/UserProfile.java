@@ -33,18 +33,7 @@ public class UserProfile extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet UserProfile</title>");  
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet UserProfile at " + request.getContextPath () + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
+        
     } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -58,7 +47,7 @@ public class UserProfile extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        doPost(request, response);
+        processRequest(request, response);
     } 
 
     /** 
@@ -73,22 +62,39 @@ public class UserProfile extends HttpServlet {
     throws ServletException, IOException {
         String name = request.getParameter("name");
         String email = request.getParameter("email");
-        int sex = request.getParameter("sex");
+        int sex = Integer.parseInt(request.getParameter("sex"));
         String phone = request.getParameter("phone");
         String address = request.getParameter("address");
+        String image = request.getParameter("image");
         String id = request.getParameter("id");
         UserDAO udao = new UserDAO();
+        
         HttpSession session = request.getSession();
+        if (name.length() > 50) {
+            request.setAttribute("mess", "Name must be less than 50 characters");
+            request.getRequestDispatcher("UserProfile.jsp").forward(request, response);
+        } else
+        if (!udao.checkPhonenumber(phone)){
+            request.setAttribute("mess", "Invalid phone number");
+            request.getRequestDispatcher("UserProfile.jsp").forward(request, response);
+        } else
+        if (address.length() > 255) {
+            request.setAttribute("mess", "Address must be less than 255 characters");
+            request.getRequestDispatcher("UserProfile.jsp").forward(request, response);
+        } else
+        
+        
         try {
-            udao.UpdateUser(name, Integer.valueOf(id), sex, phone, address);
-            User u = new User();
+            udao.UpdateUser(name, Integer.valueOf(id), sex, phone, address, udao.encodeImage(image));
+            User u = (User) session.getAttribute("account");
             u.setId(Integer.valueOf(id));
-            u.setName(name);  
+            u.setName(name); 
             u.setEmail(email);
             u.setSex(sex);
             u.setPhone(phone);
             u.setAddress(address);
-            session.removeAttribute("account");
+            u.setImage(udao.encodeImage(image));
+            
             session.setAttribute("account", u);
             request.setAttribute("mess", "Updated Success");
             request.getRequestDispatcher("UserProfile.jsp").forward(request, response);

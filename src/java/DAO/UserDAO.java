@@ -6,10 +6,17 @@ package DAO;
 
 import Model.Setting;
 import Model.User;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Base64;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  *
@@ -40,7 +47,7 @@ public class UserDAO extends DBContext {
             while (rs.next()) {
 
                 User user = new User(rs.getInt("user_id"), rs.getString("user_name"),
-                        rs.getString("email"), rs.getString("password"), rs.getString("address"), rs.getString("phone"), rs.getString("sex"),
+                        rs.getString("email"), rs.getString("password"), rs.getString("address"), rs.getString("phone"), rs.getInt("sex"),
                         rs.getString("user_image"), rs.getInt("setting_id"), rs.getInt("user_status"), rs.getDouble("user_point"));
                 return user;
             }
@@ -77,7 +84,7 @@ public class UserDAO extends DBContext {
                 while (rs.next()) {
 
                     User user = new User(rs.getInt("user_id"), rs.getString("user_name"),
-                            rs.getString("email"), rs.getString("password"), rs.getString("address"), rs.getString("phone"), rs.getString("sex"),
+                            rs.getString("email"), rs.getString("password"), rs.getString("address"), rs.getString("phone"), rs.getInt("sex"),
                             rs.getString("user_image"), rs.getInt("setting_id"), rs.getInt("user_status"), rs.getDouble("user_point"));
                     listUser.add(user);
                 }
@@ -174,7 +181,7 @@ public class UserDAO extends DBContext {
                         rs.getString(4),
                         rs.getString(5),
                         rs.getString(6),
-                        rs.getString(7),
+                        rs.getInt(7),
                         rs.getString(8),
                         rs.getInt(9),
                         rs.getInt(10),
@@ -224,19 +231,59 @@ public class UserDAO extends DBContext {
         }
     }
     
-    public void UpdateUser(String name, int userid, String sex, String phone, String address) {
-        String sql = "UPDATE `Users` SET `user_name`=?, `sex`=?, `phone`=?, `address`=? WHERE `user_id`=?";
+    public void UpdateUser(String name, int userid, int sex, String phone, String address, String image) {
+        String sql = "UPDATE `Users` SET `user_name`=?, `sex`=?, `phone`=?, `address`=?, `user_image`=? WHERE `user_id`=?";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, name);
-            ps.setString(2, sex);
+            ps.setInt(2, sex);
             ps.setString(3, phone);
             ps.setString(4, address);
-            ps.setInt(5, userid);
+            ps.setString(5, image);
+            ps.setInt(6, userid);
             ps.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
     }
+    
+    public boolean checkPhonenumber(String phone) {
+        String regex = "^\\d{10}$";
+        Pattern p = Pattern.compile(regex);
+        if (phone == null) {
+            return false;
+        }
 
+        Matcher m = p.matcher(phone);
+        return m.matches();
+    }
+
+    //  Kiểm tra password nhập vào có đúng điều kiện không, điều kiên 
+    //  cụ thể ở đây là password phải có từ 6 đến 20 kí tự bao gồm chữ và số.
+    public boolean checkPassword(String password) {
+        String regex = "^(?=.*[0-9])(?=.*[a-z]).{6,20}$";
+        Pattern p = Pattern.compile(regex);
+        if (password == null) {
+            return false;
+        }
+
+        Matcher m = p.matcher(password);
+        return m.matches();
+    }
+    
+    public String encodeImage(String imagePath) throws IOException {
+        File file = new File(imagePath);
+        try (FileInputStream imageInFile = new FileInputStream(file)) {
+            byte imageData[] = new byte[(int) file.length()];
+            imageInFile.read(imageData);
+            return Base64.getEncoder().encodeToString(imageData);
+        } catch (FileNotFoundException e) {
+            System.out.println("Image not found: " + e);
+        } catch (IOException ioe) {
+            System.out.println("Exception while reading the Image " + ioe);
+        }
+        return null;
+    }
+    
+    
 }

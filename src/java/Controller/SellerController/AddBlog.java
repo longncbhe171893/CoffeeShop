@@ -6,7 +6,7 @@ package Controller.SellerController;
 
 import DAO.BlogDao;
 import Model.Blog;
-import Model.setting;
+import Model.Setting;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
