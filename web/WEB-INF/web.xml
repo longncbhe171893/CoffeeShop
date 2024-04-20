@@ -188,6 +188,18 @@
         <servlet-name>ChangeStatusBlog</servlet-name>
         <servlet-class>Controller.SellerController.ChangeStatusBlog</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ChangeOrderStatus</servlet-name>
+        <servlet-class>Controller.SellerController.ChangeOrderStatus</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditOrder</servlet-name>
+        <servlet-class>Controller.SellerController.EditOrder</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateOrderDetail</servlet-name>
+        <servlet-class>Controller.SellerController.UpdateOrderDetail</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Register</servlet-name>
         <url-pattern>/Register</url-pattern>
@@ -427,6 +439,18 @@
     <servlet-mapping>
         <servlet-name>ChangeStatusBlog</servlet-name>
         <url-pattern>/ChangeStatusBlog</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ChangeOrderStatus</servlet-name>
+        <url-pattern>/ChangeOrderStatus</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditOrder</servlet-name>
+        <url-pattern>/EditOrder</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateOrderDetail</servlet-name>
+        <url-pattern>/UpdateOrderDetail</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

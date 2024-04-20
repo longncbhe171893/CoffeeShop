@@ -25,11 +25,31 @@ public class ManageBlog extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try {
-
+            int numPage = 2;
             BlogDao blog = new BlogDao();
-            ArrayList<Blog> bl = blog.getBlogs();
+            int index = Integer.valueOf(request.getParameter("index"));
+            int count = blog.countBlog();
+            int ePage = count / numPage;
+            if (count % 4 != 0) {
+                ePage++;
+            }
+            ArrayList<Blog> bl = blog.pagingBlogs(index, numPage);
             ArrayList<Model.User> creator = blog.getAllSeller();
             List<Model.Category> category = blog.getcategoryBlogByType();
+            int nextPage, backPage;
+        if (index == 1) {
+            backPage = 1;
+            nextPage=2;
+        } else if ( index == ePage) {
+            backPage=ePage-1;
+            nextPage = ePage;
+        } else {
+            backPage = index - 1;
+            nextPage = index + 1;
+        }
+            request.setAttribute("nextPage", nextPage);
+            request.setAttribute("backPage", backPage);
+            request.setAttribute("ePage", ePage);
             request.setAttribute("bl", bl);
             request.setAttribute("creator", creator);
             request.setAttribute("categoryBlog", category);
@@ -52,13 +72,23 @@ public class ManageBlog extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        BlogDao blogDao = new BlogDao();
+
         String search = request.getParameter("search");
         String firstDate = request.getParameter("firstDate");
         String secondDate = request.getParameter("secondDate");
 
-        BlogDao blogDao = new BlogDao();
-        List<Blog> blogList = blogDao.getBlogs();
+        ArrayList<Model.User> creator = blogDao.getAllSeller();
+        List<Model.Category> category = blogDao.getcategoryBlogByType();
 
+        int numPage = 4;
+        int index = 1;
+        int count = blogDao.countBlog();
+        int ePage = count / numPage;
+        if (count % 4 != 0) {
+            ePage++;
+        }
+        List<Blog> blogList = blogDao.pagingBlogs(index, numPage);
         if (search != null) {
             blogList = blogDao.searchBlog(search);
         } else if (firstDate != null && secondDate != null) {
@@ -66,11 +96,8 @@ public class ManageBlog extends HttpServlet {
             Date sdate = Date.valueOf(secondDate);
             blogList = blogDao.getBlogByDate(fdate, sdate);
         }
-        BlogDao blog = new BlogDao();
 
-        ArrayList<Model.User> creator = blog.getAllSeller();
-        List<Model.Category> category = blog.getcategoryBlogByType();
-
+        request.setAttribute("ePage", ePage);
         request.setAttribute("creator", creator);
         request.setAttribute("categoryBlog", category);
         request.setAttribute("bl", blogList);

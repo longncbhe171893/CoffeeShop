@@ -4,8 +4,6 @@
  */
 package Model;
 
-import java.util.Date;
-
 /**
  *
  * @author asus
@@ -18,6 +16,27 @@ public class OrderDetail {
     private double orderPrice;
     private int quanlity;
     private double amount;
+    private int size;
+
+    public OrderDetail(int id, Order order, Product product, double orderPrice, int quanlity, double amount, int size) {
+        this.id = id;
+        this.order = order;
+        this.product = product;
+        this.orderPrice = orderPrice;
+        this.quanlity = quanlity;
+        this.amount = amount;
+        this.size = size;
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
+    }
+    
+    
     public OrderDetail() {
     }
 

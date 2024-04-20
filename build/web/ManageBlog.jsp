@@ -71,6 +71,27 @@
                 margin: 4px 2px;
                 cursor: pointer;
             }
+            .pagination {
+                display: inline-block;
+            }
+
+            .pagination a {
+                color: black;
+                float: left;
+                padding: 8px 16px;
+                text-decoration: none;
+            }
+
+            .pagination a.active {
+                background-color: #4CAF50;
+                color: white;
+                border-radius: 5px;
+            }
+
+            .pagination a:hover:not(.active) {
+                background-color: #ddd;
+                border-radius: 5px;
+            }
         </style>
     </head>
 
@@ -226,6 +247,14 @@
                             </div>
                         </c:forEach>
                     </table>
+                </div>
+                <div class="pagination">
+
+                    <a href="ManageBlog?index=${backPage}">&laquo;</a>
+                    <c:forEach begin="1" end="${ePage}" var="i">                      
+                        <a href="ManageBlog?index=${i}">${i}</a>
+                    </c:forEach>
+                    <a href="ManageBlog?index=${nextPage}">&raquo;</a>
                 </div>
             </main>
             <!-- MAIN -->

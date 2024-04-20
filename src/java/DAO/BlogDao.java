@@ -154,7 +154,7 @@ public class BlogDao extends DBContext {
             ps.setInt(3, userId);
 
             ps.setString(4, content);
-            ps.setInt(5, setting_id);            
+            ps.setInt(5, setting_id);
             ps.setString(6, short_descreption);
             ps.setInt(7, blogId);
             ps.executeUpdate();
@@ -263,5 +263,39 @@ public class BlogDao extends DBContext {
 
         }
         return null;
+    }
+
+    public int countBlog() {
+        int count;
+        try {
+            String sql = " select count(*) from `blog`";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            rs.next();
+            count = rs.getInt(1);
+            return count;
+
+        } catch (SQLException e) {
+
+        }
+        return 0;
+    }
+
+    public ArrayList<Blog> pagingBlogs(int index, int numPage) {
+        ArrayList<Blog> list = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM `blog`  LIMIT ?, ?;";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            index = (index - 1) * numPage;
+            ps.setInt(1, index);
+            ps.setInt(2, numPage);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                list.add(new Blog(rs.getInt(1), rs.getString(2), rs.getString(3), getUserById(rs.getInt(4)), rs.getDate(5), rs.getString(6), getSettingById(rs.getInt(7)), rs.getInt(8), rs.getString(9)));
+            }
+        } catch (SQLException e) {
+
+        }
+        return list;
     }
 }

@@ -340,7 +340,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    grid-gap: 16px;
+    grid-template-rows: 16px;
     flex-wrap: wrap;
 }
 #content main .head-title .left h1 {
@@ -550,7 +550,7 @@ body {
     }
 
     #content {
-        width: calc(100% - 60px);
+        width: calc(100% - 50px);
         left: 200px;
     }
 
