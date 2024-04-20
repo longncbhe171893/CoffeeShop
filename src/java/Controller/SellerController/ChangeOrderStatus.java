@@ -42,7 +42,7 @@ public class ChangeOrderStatus extends HttpServlet {
             orDao.UpdateStatusOrder(2, id);
         }
 
-        response.sendRedirect("./ManageOrder");
+        response.sendRedirect("./ManageOrder?index=1");
 
     }
 
