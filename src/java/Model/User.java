@@ -34,6 +34,16 @@ public class User {
         this.userStatus = userStatus;
         this.point = point;
     }
+    public User(int id, String name, String email, String password, int setting_id, int userStatus, double point) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.setting_id = setting_id;
+        this.userStatus = userStatus;
+        this.point = point;
+    }
+
 
     public int getId() {
         return id;

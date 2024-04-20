@@ -4,7 +4,7 @@
  */
 package DAO;
 
-
+import Model.Setting;
 import Model.User;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -66,7 +66,20 @@ public class UserDAO extends DBContext {
         } catch (SQLException e) {
         }
     }
-
+    public void UpdateUser(String name, int userid, String sex, String phone, String address) {
+        String sql = "UPDATE `Users` SET `user_name`=?, `sex`=?, `phone`=?, `address`=? WHERE `user_id`=?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, name);
+            ps.setString(2, sex);
+            ps.setString(3, phone);
+            ps.setString(4, address);
+            ps.setInt(5, userid);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
     public ArrayList<User> getAllUser() {
         ArrayList<User> listUser = new ArrayList<>();
         String sql = "select * from `Users`";
@@ -115,7 +128,7 @@ public class UserDAO extends DBContext {
     }
 
     public void UpdateStatusUser(int sid, int uid) {
-        String sql = " update `Users` set `UserStatus_id`=? where `user_id` =?";
+        String sql = " update `Users` set `user_status`=? where `user_id` =?";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setInt(1, sid);
@@ -223,5 +236,23 @@ public class UserDAO extends DBContext {
             return -1;
         }
     }
-
+public void updateUser(String name, String email, String password, String address, String phone, String sex,String image, double userpoint,int id) {
+        String sql = "UPDATE `Users`\n"
+                + "SET `user_name` = ?, `email` = ?, `password` = ?, `address` = ?,`phone`= ?,`sex`=?,`user_image`=?,`user_point`=?\n"
+                + "WHERE `user_id` = ?;";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, name);
+            ps.setString(2, email);
+            ps.setString(3, password);
+            ps.setString(4, address);
+            ps.setString(5, phone);
+            ps.setString(6, sex);
+            ps.setString(7, image);
+            ps.setDouble(8, userpoint);
+            ps.setInt(9, id);
+            ps.executeUpdate();
+        } catch (Exception e) {
+        }
+    } 
 }

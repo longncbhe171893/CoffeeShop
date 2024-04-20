@@ -5,7 +5,6 @@
 package Controller;
 
 import DAO.UserDAO;
-import Model.Role;
 import Model.User;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
@@ -47,18 +46,27 @@ public class Register extends HttpServlet {
             User checkExist = udao.getUserByEmail(email);
             if (pass.equals(confirmpass) == false) {
                 request.setAttribute("messregis", "Confirm Password is not correct");
+                request.setAttribute("name", name);
+                request.setAttribute("email", email);
+                request.setAttribute("pass", pass);
+                request.setAttribute("confirmpass", confirmpass);
+
                 request.getRequestDispatcher("Register.jsp").forward(request, response);
             } else {
                 if (checkExist == null) {
                     udao.inserUser(name, email, pass);
                     User u = new User();
                     u.setName(name);
-                    u.setEmail(email);         
-                    u.setPassword(pass);                                      
+                    u.setEmail(email);
+                    u.setPassword(pass);
                     request.getSession().setAttribute("newuser", u);
                     response.sendRedirect("./SendMail");
                 } else {
                     request.setAttribute("messregis", "Email already exist in system!");
+                    request.setAttribute("name", name);
+                    request.setAttribute("email", email);
+                    request.setAttribute("pass", pass);
+                    request.setAttribute("confirmpass", confirmpass);
                     request.getRequestDispatcher("Register.jsp").forward(request, response);
                 }
             }
