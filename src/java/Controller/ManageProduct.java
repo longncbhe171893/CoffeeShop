@@ -32,43 +32,46 @@ public class ManageProduct extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
-            HttpSession session = request.getSession();
-            Object object = session.getAttribute("account");
-            User u = (User) object;
-            if (u.getSetting_id() == 1) {
-                ProductDAO pdao = new ProductDAO();
-                ArrayList<Product> pl = pdao.getAllProducts("", "");
-    //            ArrayList<Category> clist = pdao.getCategory();
-                request.setAttribute("pl", pl);
-        //        request.setAttribute("clist", clist);
-                request.getRequestDispatcher("ManageProduct.jsp").forward(request, response);
-            } else {
-                response.sendRedirect("404.html");
-            }
-        } catch (Exception e) {
-            response.sendRedirect("login");
+        int numPage = 4;
+
+        ProductDAO pdao = new ProductDAO();
+        // paging
+        int index = Integer.valueOf(request.getParameter("index"));
+         ArrayList<Product> productlist = pdao.pagingProduct(index, numPage);
+        int count = pdao.countProduct();
+        int ePage = count / numPage;
+        if (count % 4 != 0) {
+            ePage++;
         }
+        int nextPage, backPage;
+        if (index == 1) {
+            backPage = 1;
+            nextPage=2;
+        } else if ( index == ePage) {
+            backPage=ePage-1;
+            nextPage = ePage;
+        } else {
+            backPage = index - 1;
+            nextPage = index + 1;
+        }
+        //set attribute for paging
+        request.setAttribute("nextPage", nextPage);
+        request.setAttribute("backPage", backPage);
+       
+        request.setAttribute("ePage", ePage);
+        //set list for manage blog page
+        request.setAttribute("productlist", productlist);
+        request.getRequestDispatcher("ManageProduct.jsp").forward(request, response);
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
-
     /**
      * Handles the HTTP <code>POST</code> method.
      *
@@ -85,17 +88,17 @@ public class ManageProduct extends HttpServlet {
         String secondDate = request.getParameter("secondDate");
 
         ProductDAO pdao = new ProductDAO();
-        ArrayList<Product> pl = new ArrayList<>();
+        ArrayList<Product> productlist = new ArrayList<>();
 
         if (search != null && !search.isEmpty()) {
-            pl = pdao.searchProduct(search);
+            productlist = pdao.searchProduct(search);
         } else if (firstDate != null && secondDate != null && !firstDate.isEmpty() && !secondDate.isEmpty()) {
             Date fdate = Date.valueOf(firstDate);
             Date sdate = Date.valueOf(secondDate);
-            pl = pdao.getProductByDate(fdate, sdate);
+            productlist = pdao.getProductByDate(fdate, sdate);
         }
 
-        request.setAttribute("pl", pl);
+        request.setAttribute("productlist", productlist);
         request.getRequestDispatcher("ManageProduct.jsp").forward(request, response);
     }
 

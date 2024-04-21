@@ -15,23 +15,68 @@ import java.util.*;
 public class ProductDAO extends DBContext {
 
     public static void main(String[] args) {
-ProductDAO productDAO = new ProductDAO();
-
-    // Thêm một sản phẩm mới
-    String name = "New Product"; // Tên sản phẩm mới
-    double price = 10.99; // Giá sản phẩm mới
-    int categoryId = 1; // ID của danh mục sản phẩm
-    String description = "Description of the new product"; // Mô tả sản phẩm mới
-    String image = "product.jpg"; // Ảnh sản phẩm mới
-    int size = 1; // Kích thước sản phẩm mới
-
-    productDAO.AddProduct(name, price, categoryId, description, image, size);
-
-    // In ra thông báo sau khi thêm sản phẩm thành công
-    System.out.println("Product added successfully!");
-
+       ProductDAO productDAO = new ProductDAO();
+        
+        // Gọi phương thức getAllProducts để lấy danh sách sản phẩm
+        ArrayList<Product> productList = productDAO.pagingProduct(1, 4);
+        
+        // In ra thông tin của các sản phẩm trong danh sách
+        for (Product product : productList) {
+            System.out.println("Product ID: " + product.getId());
+            System.out.println("Product Name: " + product.getName());
+            System.out.println("Product Price: " + product.getPrice());
+            System.out.println("Setting ID: " + product.getSetting_id());
+            System.out.println("Image: " + product.getImage());
+            System.out.println("Description: " + product.getDecription());
+            System.out.println("Product Status: " + product.getProductStatus());
+            System.out.println("Create Date: " + product.getCreateDate());
+            System.out.println("Size: " + product.getSize());
+            System.out.println("------------------------------------");
+        }
+    
     }
-   public ArrayList<Product> getProduct(String search, int index, String sort) {
+    public ArrayList<Product> pagingProduct(int index, int numOrOnPage) {
+        ArrayList<Product> list = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM `Product` order by product_status asc LIMIT ?, ?;";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            index = (index - 1) * numOrOnPage;
+            ps.setInt(1, index);
+            ps.setInt(2, numOrOnPage);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                 list.add(new Product(
+                rs.getInt("product_id"),
+                rs.getString("product_name"),
+                rs.getDouble("product_price"),
+                rs.getInt("setting_id"),
+                rs.getString("img"),
+                rs.getString("description"),
+                rs.getInt("product_status"),
+                rs.getDate("create_date"),
+                rs.getInt("size")));
+            }
+        } catch (SQLException e) {
+
+        }
+        return list;
+    }
+     public int countProduct() {
+        int count;
+        try {
+            String sql = " select count(*) from `Product`";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            rs.next();
+            count = rs.getInt(1);
+            return count;
+
+        } catch (SQLException e) {
+
+        }
+        return 0;
+    }
+      public ArrayList<Product> getProduct(String search, int index, String sort) {
     String sortby ="";
     switch (sort) {
         case "1":
@@ -263,21 +308,14 @@ ProductDAO productDAO = new ProductDAO();
         } catch (Exception e) {
         }
     }
-    public ArrayList<Product> getAllProducts(String cid, String search) {
-        ArrayList<Product> list = new ArrayList<>();
-        String sql = " SELECT *\n"
-                + "FROM `Product` p\n"
-                + "WHERE p.`setting_id` LIKE ?\n"
-                + "  AND p.`product_name` LIKE ?\n"
-                + "ORDER BY p.`product_id` ASC;";
-        try {
-            PreparedStatement ps = connection.prepareStatement(sql);
-            ps.setString(1, "%" + cid + "%");
-            ps.setString(2, "%" + search + "%");
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-               while (rs.next()) {
-                list.add(new Product(
+    public ArrayList<Product> getAllProducts() {
+    ArrayList<Product> list = new ArrayList<>();
+    String sql = "SELECT * FROM `Product` ORDER BY `product_id` ASC;";
+    try {
+        PreparedStatement ps = connection.prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()) {
+            list.add(new Product(
                 rs.getInt("product_id"),
                 rs.getString("product_name"),
                 rs.getDouble("product_price"),
@@ -287,12 +325,12 @@ ProductDAO productDAO = new ProductDAO();
                 rs.getInt("product_status"),
                 rs.getDate("create_date"),
                 rs.getInt("size")));
-            }
-            }
-        } catch (Exception e) {
         }
-        return list;
+    } catch (Exception e) {
+        e.printStackTrace(); // In ra lỗi nếu có
     }
+    return list;
+}
 /*
     public ProductSize getProductSizeByID(int id) {
         try {

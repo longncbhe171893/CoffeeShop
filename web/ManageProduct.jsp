@@ -1,22 +1,41 @@
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
-<html class="no-js" lang="en">
-
+<html>
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
         <!-- Boxicons -->
-        <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
-        <!-- My CSS -->
-        <link rel="stylesheet" href="CSSsimple/adminDashbord.css">
+       <link rel="stylesheet" href="CSSsimple/adminDashbord.css">
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <link href="css/nice-select.css" rel="stylesheet">
         <script src="ckeditor/ckeditor.js"></script> 
         <script src="ckfinder/ckfinder.js"></script>
-        <title>Admin Dashboard</title>     
+        <title>Admin Dashboard</title>
+        <style>   
+        .pagination {
+                display: inline-block;
+            }
+
+            .pagination a {
+                color: black;
+                float: left;
+                padding: 8px 16px;
+                text-decoration: none;
+            }
+
+            .pagination a.active {
+                background-color: #4CAF50;
+                color: white;
+                border-radius: 5px;
+            }
+
+            .pagination a:hover:not(.active) {
+                background-color: #ddd;
+                border-radius: 5px;
+            }
+            </style>
     </head>
 
     <body>
@@ -74,8 +93,6 @@
                                 <form action="AddNewProduct" method="post" enctype="multipart/form-data">
                                     <div class="modal-body">
                                         <b>Name: </b><input type="text" class="form-control" value="" required name="name"><br>
-                                        <b>Price: </b><input type="number" min ="0" max ="100" step="0.5" class="form-control"  required value="" name="price"><br>
-                                        <b>Category: </b>
                                         <div style="height: 50px; w30pxidth: 100%">
                                             <select  class="form-control" style="display: block;" name="category" >
                                                 <c:forEach var="c" items="${clist}">
@@ -83,8 +100,10 @@
                                                 </c:forEach>
                                             </select>
                                         </div>
+                                        <b>Price: </b><input type="number" min ="0" max ="100" step="0.5" class="form-control"  required value="" name="price"><br>     
                                         <b>Description: </b><input type="text" class="form-control" required value="" name="descri"><br>
                                         <b>Image link:</b><input type="file" class="form-control" required  value="" name="img"><br>
+                                         <b>Size: </b><input type="text" class="form-control" required value="" name="size"><br>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -101,7 +120,6 @@
                                 <th scope="col">ID</th>
                                 <th scope="col">Name</th>
                                 <th scope="col">Price</th>
-                                <th scope="col">Category</th>
                                 <th scope="col">Status</th>
                                 <th scope="col">Create Date</th>
                                 <th scope="col">Description</th>
@@ -110,17 +128,15 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <c:forEach var="p" items="${pl}">
+                            <c:forEach var="p" items="${productlist}">
                                 <tr>
                                     <th scope="row">${p.getId()}</th>
                                     <td>${p.getName()}</td>
                                     <td>${p.getPrice()}</td>
-                                    <td>${p.getCategory().getName()}</td>
-                                    <td><a href="UpdateStatusProduct?pid=${p.getId()}&psid=${p.getStatus().getId()}">${p.getStatus().getName()}</a></td>
+                                    <td><a href="UpdateStatusProduct?pid=${p.getId()}&psid=${p.getProductStatus()}">${p.getProductStatus()}</a></td>
                                     <td>${p.getCreateDate()}</td>
                                     <td style="width: 30%;">${p.getDecription()}</td>
                                     <td><img style="width:150px;height:150px;"src="${p.getImage()}"></td>
-
                                     <td> <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#myModal${p.getId()}" onclick="showImage('${p.getImage()}')">Edit</button></td>
 
                                 </tr>
@@ -138,14 +154,6 @@
                                                 <b>ID: </b><input type="text" class="form-control" name="id" value="${p.getId()}" readonly=""><br>
                                                 <b>Name: </b><input type="text" class="form-control" value="${p.getName()}" name="name"><br>
                                                 <b>Price: </b><input type="number"  min ="0" max ="4000" step="0.5" class="form-control" value="${p.getPrice()}" name="price"><br>
-                                                <b>Category: </b>
-                                                <div style="height: 50px; width: 100%">
-                                                    <select  class="form-control" style="display: block;" name="category" >
-                                                        <c:forEach var="c" items="${clist}">
-                                                            <option value="${c.getId()}" ${p.getCategory().getName()==c.getName()?"selected":""} >${c.getName()} </option>
-                                                        </c:forEach>
-                                                    </select>
-                                                </div>                         
                                                 <b>Description: </b><textarea class="form-control"name="descri">${p.getDecription()}</textarea> <br>
                                                 <c:if test="${p.getImage() != null}">
                                                     <img style="width:150px;height:150px;" src="${p.getImage()}" id="originalImage">
@@ -160,11 +168,18 @@
                                         </form>                                 
                                     </div>
                                 </div>
-                            </div>
+                            </div>                        
                         </c:forEach>
                         </tbody>
                     </table>
 
+                </div>
+                <div class="pagination">
+                    <a href="ManageProduct?index=${backPage}">&laquo;</a>
+                    <c:forEach begin="1" end="${ePage}" var="i">
+                        <a href="ManageProduct?index=${i}">${i}</a>
+                    </c:forEach>
+                    <a href="ManageProduct?index=${nextPage}">&raquo;</a>
                 </div>
             </main>
             <!-- MAIN -->
@@ -174,4 +189,3 @@
         <script src="js/jquery-3.4.1.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
     </body>
-</html>

@@ -41,10 +41,6 @@
         <servlet-class>Controller.Blog</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ProductLists</servlet-name>
-        <servlet-class>Controller.ProductLists</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>VerifyForgotPassword</servlet-name>
         <servlet-class>Controller.VerifyForgotPassword</servlet-class>
     </servlet>
@@ -67,6 +63,10 @@
     <servlet>
         <servlet-name>EditProduct</servlet-name>
         <servlet-class>Controller.EditProduct</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditUser</servlet-name>
+        <servlet-class>Controller.EditUser</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AdminDashbord</servlet-name>
@@ -174,7 +174,11 @@
     </servlet>
     <servlet>
         <servlet-name>UserDetails</servlet-name>
-        <servlet-class>Controller.UserDetails</servlet-class>
+        <servlet-class>Controller.EditUser</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddUser</servlet-name>
+        <servlet-class>Controller.AddUser</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Register</servlet-name>
@@ -277,10 +281,6 @@
         <url-pattern>/Blog</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ProductLists</servlet-name>
-        <url-pattern>/ProductLists</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>VerifyForgotPassword</servlet-name>
         <url-pattern>/VerifyForgotPassword</url-pattern>
     </servlet-mapping>
@@ -303,6 +303,10 @@
     <servlet-mapping>
         <servlet-name>EditProduct</servlet-name>
         <url-pattern>/EditProduct</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditUser</servlet-name>
+        <url-pattern>/EditUser</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AdminDashbord</servlet-name>
@@ -411,6 +415,10 @@
     <servlet-mapping>
         <servlet-name>UserDetails</servlet-name>
         <url-pattern>/UserDetails</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddUser</servlet-name>
+        <url-pattern>/AddUser</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

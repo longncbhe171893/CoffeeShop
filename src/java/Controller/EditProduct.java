@@ -41,7 +41,7 @@ public class EditProduct extends HttpServlet {
         ProductDAO pdao = new ProductDAO();
         pdao.UpdateProduct(id, name, price, cateId, descri, imagePart,size);
 
-        response.sendRedirect("./ManageProduct");
+        response.sendRedirect("./EditProduct");
     }
 
     /**

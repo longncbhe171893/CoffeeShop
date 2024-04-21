@@ -14,45 +14,59 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class ManagerUser extends HttpServlet {
-    
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-         try {
-        HttpSession session = request.getSession();
-          Object object = session.getAttribute("account");
-            User u = (User) object;
-            if (u.getSetting_id() == 1) {
-        UserDAO udao = new UserDAO();
-        ArrayList<User> userList = udao.getAllUser();
-        request.setAttribute("pl", userList);
-        request.getRequestDispatcher("ManagerUser.jsp").forward(request, response);
-        } else {
-                response.sendRedirect("404.html");
-            }
-    }
-         catch (ServletException | IOException e) {
 
-        }
-    }
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
-     * Handles the HTTP <code>GET</code> method.
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
      *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        int numPage = 4;
+
+        UserDAO udao = new UserDAO();
+        // paging
+        int index = Integer.valueOf(request.getParameter("index"));
+         ArrayList<User> userlist = udao.pagingUser(index, numPage);
+        int count = udao.countUser();
+        int ePage = count / numPage;
+        if (count % 4 != 0) {
+            ePage++;
+        }
+        int nextPage, backPage;
+        if (index == 1) {
+            backPage = 1;
+            nextPage=2;
+        } else if ( index == ePage) {
+            backPage=ePage-1;
+            nextPage = ePage;
+        } else {
+            backPage = index - 1;
+            nextPage = index + 1;
+        }
+        //set attribute for paging
+        request.setAttribute("nextPage", nextPage);
+        request.setAttribute("backPage", backPage);
+       
+        request.setAttribute("ePage", ePage);
+        //set list for manage blog page
+        request.setAttribute("userlist", userlist);
+        request.getRequestDispatcher("ManagerUser.jsp").forward(request, response);
+    }
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        request.getRequestDispatcher("ManagerUser.jsp").forward(request, response);
+        processRequest(request, response);
     }
 
     /**
@@ -68,8 +82,19 @@ public class ManagerUser extends HttpServlet {
             throws ServletException, IOException {
         String search = request.getParameter("search");
         UserDAO udao = new UserDAO();
-        ArrayList<User> userList = udao.searchUser(search);
-        request.setAttribute("pl", userList);
+        int numPage = 4;
+        int index = 1;
+        int count = udao.countUser();
+        int ePage = count / numPage;
+        if (count % 4 != 0) {
+            ePage++;
+        }
+        List<User> userlist = udao.pagingUser(index, numPage);
+         if (search != null) {
+            userlist = udao.searchUser(search);
+        }
+        request.setAttribute("ePage", ePage);
+        request.setAttribute("userlist", userlist);
         request.getRequestDispatcher("ManagerUser.jsp").forward(request, response);
     }
 

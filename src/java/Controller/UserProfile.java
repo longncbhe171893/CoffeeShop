@@ -73,7 +73,7 @@ public class UserProfile extends HttpServlet {
     throws ServletException, IOException {
         String name = request.getParameter("name");
         String email = request.getParameter("email");
-        String sex = request.getParameter("sex");
+        int sex = Integer.parseInt(request.getParameter("sex"));
         String phone = request.getParameter("phone");
         String address = request.getParameter("address");
         String id = request.getParameter("id");
