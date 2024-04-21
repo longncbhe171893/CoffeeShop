@@ -47,6 +47,7 @@ public class ManageOrder extends HttpServlet {
         request.setAttribute("ePage", ePage);
         //set list for manage blog page
         request.setAttribute("olist", orderList);
+        request.setAttribute("index", index);
         request.getRequestDispatcher("ManageOrder.jsp").forward(request, response);
     }
 

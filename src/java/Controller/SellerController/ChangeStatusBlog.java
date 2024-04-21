@@ -33,7 +33,8 @@ public class ChangeStatusBlog extends HttpServlet {
         int id = Integer.valueOf(request.getParameter("bid"));
         BlogDao bdao = new BlogDao();
         bdao.changeStatusBlog(id);
-        response.sendRedirect("./ManageBlog");
+        String index = request.getParameter("index");
+        response.sendRedirect("ManageBlog?index="+index);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -4,10 +4,8 @@
  */
 package Controller.SellerController;
 
-import DAO.BlogDao;
 import DAO.OrderDAO;
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -34,15 +32,22 @@ public class ChangeOrderStatus extends HttpServlet {
         OrderDAO orDao = new OrderDAO();
         int id = Integer.valueOf(request.getParameter("orderId"));
         int status = Integer.valueOf(request.getParameter("ost"));
-        if (status == 3) {
-            orDao.UpdateStatusOrder(status, id);
-        } else if (status == 2) {
-            orDao.UpdateStatusOrder(4, id);
-        } else if (status == 1) {
-            orDao.UpdateStatusOrder(2, id);
+        String index = request.getParameter("index");
+        switch (status) {
+            case 3:
+                orDao.UpdateStatusOrder(status, id);
+                break;
+            case 2:
+                orDao.UpdateStatusOrder(4, id);
+                break;
+            case 1:
+                orDao.UpdateStatusOrder(2, id);
+                break;
+            default:
+                break;
         }
 
-        response.sendRedirect("./ManageOrder");
+        response.sendRedirect("ManageOrder?index=" + index);
 
     }
 
