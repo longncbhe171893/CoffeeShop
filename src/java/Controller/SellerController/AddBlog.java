@@ -5,8 +5,11 @@
 package Controller.SellerController;
 
 import DAO.BlogDao;
+<<<<<<< HEAD
 import Model.Blog;
 import Model.Setting;
+=======
+>>>>>>> TuongMD
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
@@ -15,7 +18,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 
 @MultipartConfig(
@@ -94,7 +96,7 @@ public class AddBlog extends HttpServlet {
         } else {
 
         }
-        response.sendRedirect("./ManageBlog");
+        response.sendRedirect("./ManageBlog?index=1");
     }
 
     /**

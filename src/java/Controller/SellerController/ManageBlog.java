@@ -37,23 +37,23 @@ public class ManageBlog extends HttpServlet {
             ArrayList<Model.User> creator = blog.getAllSeller();
             List<Model.Category> category = blog.getcategoryBlogByType();
             int nextPage, backPage;
-        if (index == 1) {
-            backPage = 1;
-            nextPage=2;
-        } else if ( index == ePage) {
-            backPage=ePage-1;
-            nextPage = ePage;
-        } else {
-            backPage = index - 1;
-            nextPage = index + 1;
-        }
+            if (index == 1) {
+                backPage = 1;
+                nextPage = 2;
+            } else if (index == ePage) {
+                backPage = ePage - 1;
+                nextPage = ePage;
+            } else {
+                backPage = index - 1;
+                nextPage = index + 1;
+            }
             request.setAttribute("nextPage", nextPage);
             request.setAttribute("backPage", backPage);
             request.setAttribute("ePage", ePage);
             request.setAttribute("bl", bl);
             request.setAttribute("creator", creator);
             request.setAttribute("categoryBlog", category);
-
+            request.setAttribute("index", index);
             request.getRequestDispatcher("ManageBlog.jsp").forward(request, response);
 
         } catch (ServletException | IOException e) {

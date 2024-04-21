@@ -20,6 +20,19 @@
             <file>file:/C:/Users/admin/IdeaProjects/CoffeeShop/src/java/Controller/EditProduct.java</file>
             <file>file:/C:/Users/admin/IdeaProjects/CoffeeShop/src/java/DAO/UserDAO.java</file>
             <file>file:/C:/Users/admin/IdeaProjects/CoffeeShop/web/ManagerUser.jsp</file>
+            <file>file:/D:/SWP391/project-real/CoffeeShop/CoffeeShop/src/java/Controller/SellerController/ChangeOrderStatus.java</file>
+            <file>file:/D:/SWP391/project-real/CoffeeShop/CoffeeShop/src/java/Controller/SellerController/ManageOrder.java</file>
+            <file>file:/D:/SWP391/project-real/CoffeeShop/CoffeeShop/src/java/Controller/SellerController/SellerDashboard.java</file>
+            <file>file:/D:/SWP391/project-real/CoffeeShop/CoffeeShop/src/java/Controller/SellerController/UpdateOrderDetail.java</file>
+            <file>file:/D:/SWP391/project-real/CoffeeShop/CoffeeShop/web/ManageOrder.jsp</file>
+            <file>file:/D:/SWP391/project-real/CoffeeShop/CoffeeShop/web/EditOrder.jsp</file>
+            <file>file:/D:/SWP391/project-real/CoffeeShop/CoffeeShop/web/ManageBlog.jsp</file>
+            <file>file:/D:/SWP391/project-real/CoffeeShop/CoffeeShop/web/EditBlog.jsp</file>
+            <file>file:/D:/SWP391/project-real/CoffeeShop/CoffeeShop/src/java/Controller/SellerController/EditOrder.java</file>
+            <file>file:/D:/SWP391/project-real/CoffeeShop/CoffeeShop/src/java/Controller/SellerController/AddBlog.java</file>
+            <file>file:/D:/SWP391/project-real/CoffeeShop/CoffeeShop/src/java/DAO/OrderDAO.java</file>
+            <file>file:/D:/SWP391/project-real/CoffeeShop/CoffeeShop/src/java/Controller/SellerController/ManageBlog.java</file>
+            <file>file:/D:/SWP391/project-real/CoffeeShop/CoffeeShop/src/java/Model/Order.java</file>
         </group>
         <group name="PE"/>
     </open-files>
