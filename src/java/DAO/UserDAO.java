@@ -4,7 +4,7 @@
  */
 package DAO;
 
-import Model.Setting;
+
 import Model.User;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -19,18 +19,18 @@ public class UserDAO extends DBContext {
 
     private MD5 md5 = new MD5();
 
-//    public static void main(String[] args) {
-//        UserDAO ud = new UserDAO();
-////        User ls = ud.getUserByEmail("abc@gmail.com");
-////        System.out.println(ls);
-////        User a = new User(0, "name", "email", "password", "address", null , "sex", "image", 3, 0, 0);
-////        ud.inserUser(a.getName(), a.getEmail(), a.getPassword());
-////            ArrayList<User> ls= ud.getAllUser();
-////            for (User l : ls) {
-////            System.out.println(l);
-////    }
+    public static void main(String[] args) {
+        UserDAO ud = new UserDAO();
+//        User ls = ud.getUserByEmail("abc@gmail.com");
+//        System.out.println(ls);
+//        User a = new User(0, "name", "email", "password", "address", null , "sex", "image", 3, 0, 0);
+//        ud.inserUser(a.getName(), a.getEmail(), a.getPassword());
+            ArrayList<User> ls= ud.getAllUser();
+            for (User l : ls) {
+            System.out.println(l);
+    }
 //           ud.changePasswordByEmail("LongNCBHE171893@fpt.edu.vn", "12345678");
-//}
+}
     public User getUserByEmail(String email) {
         String sql = "select * from `Users` where `email`= ?";
         try {
@@ -40,7 +40,7 @@ public class UserDAO extends DBContext {
             while (rs.next()) {
 
                 User user = new User(rs.getInt("user_id"), rs.getString("user_name"),
-                        rs.getString("email"), rs.getString("password"), rs.getString("address"), rs.getString("phone"), rs.getString("sex"),
+                        rs.getString("email"), rs.getString("password"), rs.getString("address"), rs.getString("phone"), rs.getInt("sex"),
                         rs.getString("user_image"), rs.getInt("setting_id"), rs.getInt("user_status"), rs.getDouble("user_point"));
                 return user;
             }
@@ -66,12 +66,12 @@ public class UserDAO extends DBContext {
         } catch (SQLException e) {
         }
     }
-    public void UpdateUser(String name, int userid, String sex, String phone, String address) {
+    public void UpdateUser(String name, int userid, int sex, String phone, String address) {
         String sql = "UPDATE `Users` SET `user_name`=?, `sex`=?, `phone`=?, `address`=? WHERE `user_id`=?";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, name);
-            ps.setString(2, sex);
+            ps.setInt(2, sex);
             ps.setString(3, phone);
             ps.setString(4, address);
             ps.setInt(5, userid);
@@ -90,7 +90,7 @@ public class UserDAO extends DBContext {
                 while (rs.next()) {
 
                     User user = new User(rs.getInt("user_id"), rs.getString("user_name"),
-                            rs.getString("email"), rs.getString("password"), rs.getString("address"), rs.getString("phone"), rs.getString("sex"),
+                            rs.getString("email"), rs.getString("password"), rs.getString("address"), rs.getString("phone"), rs.getInt("sex"),
                             rs.getString("user_image"), rs.getInt("setting_id"), rs.getInt("user_status"), rs.getDouble("user_point"));
                     listUser.add(user);
                 }
@@ -187,7 +187,7 @@ public class UserDAO extends DBContext {
                         rs.getString(4),
                         rs.getString(5),
                         rs.getString(6),
-                        rs.getString(7),
+                        rs.getInt(7),
                         rs.getString(8),
                         rs.getInt(9),
                         rs.getInt(10),
@@ -200,7 +200,7 @@ public class UserDAO extends DBContext {
         return list;
     }
 
-    public void addUser(String name, String email, String password, String address, String phone, String sex, double userpoint) {
+    public void addUser(String name, String email, String password, String address, String phone, int sex, double userpoint) {
         String sql = "INSERT INTO `Users`\n"
                 + "  (`user_name`, `email`, `password`, `address`, `phone`, `sex`,`setting_id`,`user_status`, `user_point`)\n"
                 + "VALUES\n"
@@ -212,7 +212,7 @@ public class UserDAO extends DBContext {
             ps.setString(3, md5.getMd5(password));
             ps.setString(4, address);
             ps.setString(5, phone);
-            ps.setString(6, sex);
+            ps.setInt(6, sex);
             ps.setDouble(7, userpoint);
             ps.executeUpdate();
         } catch (Exception e) {
@@ -236,7 +236,7 @@ public class UserDAO extends DBContext {
             return -1;
         }
     }
-public void updateUser(String name, String email, String password, String address, String phone, String sex,String image, double userpoint,int id) {
+public void updateUser(String name, String email, String password, String address, String phone, int sex,String image, double userpoint,int id) {
         String sql = "UPDATE `Users`\n"
                 + "SET `user_name` = ?, `email` = ?, `password` = ?, `address` = ?,`phone`= ?,`sex`=?,`user_image`=?,`user_point`=?\n"
                 + "WHERE `user_id` = ?;";
@@ -247,7 +247,7 @@ public void updateUser(String name, String email, String password, String addres
             ps.setString(3, password);
             ps.setString(4, address);
             ps.setString(5, phone);
-            ps.setString(6, sex);
+            ps.setInt(6, sex);
             ps.setString(7, image);
             ps.setDouble(8, userpoint);
             ps.setInt(9, id);

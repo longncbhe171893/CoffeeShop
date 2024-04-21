@@ -14,35 +14,60 @@ public class Product {
     private int id; 
     private String name; 
     private double price; 
+     private int setting_id;
     private String image; 
-    private Category category; 
-    private String decription; 
-    private ProductStatus status ; 
-    private Date createDate; 
+    private String descreption;
+    private int product_status;
+    private Date create_date;
+    private int size;
+    private int quantity;
+    
 
     public Product() {
     }
-    
-    public Product(int id, String name, double price, String image, Category category, String decription, ProductStatus status, Date createDate) {
+
+    public Product(int id, String name, double price, String image, String descreption, int product_status, Date create_date, int size, int quantity) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.image = image;
-        this.category = category;
-        this.decription = decription;
-        this.status = status;
-        this.createDate = createDate;
+        this.descreption = descreption;
+        this.product_status = product_status;
+        this.create_date = create_date;
+        this.size = size;
+        this.quantity = quantity;
     }
 
-    public Product(String name) {
-        this.name = name;
+    public int getQuantity() {
+        return quantity;
     }
 
-    public Product(int id) {
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public Product(int id, String name, double price, int setting_id, String image, String descreption, int product_status, Date create_date, int size) {
         this.id = id;
+        this.name = name;
+        this.price = price;
+        this.setting_id = setting_id;
+        this.image = image;
+        this.descreption = descreption;
+        this.product_status = product_status;
+        this.create_date = create_date;
+        this.size = size;
+    }
+
+    public int getSetting_id() {
+        return setting_id;
+    }
+
+    public void setSetting_id(int setting_id) {
+        this.setting_id = setting_id;
     }
     
- 
+
+
 
     public int getId() {
         return id;
@@ -76,38 +101,43 @@ public class Product {
         this.image = image;
     }
 
-    public Category getCategory() {
-        return category;
+    public String getDescreption() {
+        return descreption;
     }
 
-    public void setCategory(Category category) {
-        this.category = category;
+    public void setDescreption(String descreption) {
+        this.descreption = descreption;
     }
 
-    public String getDecription() {
-        return decription;
+    public int getProduct_status() {
+        return product_status;
     }
 
-    public void setDecription(String decription) {
-        this.decription = decription;
+    public void setProduct_status(int product_status) {
+        this.product_status = product_status;
     }
 
-    public ProductStatus getStatus() {
-        return status;
+    public Date getCreate_date() {
+        return create_date;
     }
 
-    public void setStatus(ProductStatus status) {
-        this.status = status;
+    public void setCreate_date(Date create_date) {
+        this.create_date = create_date;
     }
 
-    public Date getCreateDate() {
-        return createDate;
+    public int getSize() {
+        return size;
     }
 
-    public void setCreateDate(Date createDate) {
-        this.createDate = createDate;
+    public void setSize(int size) {
+        this.size = size;
     }
 
+    @Override
+    public String toString() {
+        return "Product{" + "id=" + id + ", name=" + name + ", price=" + price + ", setting_id=" + setting_id + ", image=" + image + ", descreption=" + descreption + ", product_status=" + product_status + ", create_date=" + create_date + ", size=" + size + ", quantity=" + quantity + '}';
+    }
+    
     
     
 }

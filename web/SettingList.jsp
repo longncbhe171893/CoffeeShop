@@ -93,11 +93,11 @@
                     </thead>
                     <c:forEach var="setting" items="${settings}">
                             <tr>
-                                <td>${setting.setting_id}</td>
-                                <td>${setting.settingName}</td>
-                                <td>${setting.description}</td>   
-                                <td>${setting.type}</td>
-                                <td>Detail</td>
+                                <td>${setting.getSetting_id()}</td>
+                                <td>${setting.getName()}</td>
+                                <td>${setting.getDescription()}</td>   
+                                <td>${setting.getType()}</td>
+                                <td><button>Details</button></td>
                                 
                         </c:forEach>
                     <!-- Use JSTL to iterate over settings -->
