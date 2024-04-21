@@ -4,20 +4,24 @@
  */
 package Controller;
 
-import DAO.UserDAO;
+import DAO.ProductDAO;
+import Model.Product;
 import Model.User;
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.io.PrintWriter;
+import java.sql.Date;
 import java.util.ArrayList;
-import java.util.List;
 
-
-public class ManagerUser extends HttpServlet {
+/**
+ *
+ * @author Hoàng Vũ
+ */
+public class ManageProduct extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,11 +37,11 @@ public class ManagerUser extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         int numPage = 4;
 
-        UserDAO udao = new UserDAO();
+        ProductDAO pdao = new ProductDAO();
         // paging
         int index = Integer.valueOf(request.getParameter("index"));
-         ArrayList<User> userlist = udao.pagingUser(index, numPage);
-        int count = udao.countUser();
+         ArrayList<Product> productlist = pdao.pagingProduct(index, numPage);
+        int count = pdao.countProduct();
         int ePage = count / numPage;
         if (count % 4 != 0) {
             ePage++;
@@ -59,8 +63,8 @@ public class ManagerUser extends HttpServlet {
        
         request.setAttribute("ePage", ePage);
         //set list for manage blog page
-        request.setAttribute("userlist", userlist);
-        request.getRequestDispatcher("ManagerUser.jsp").forward(request, response);
+        request.setAttribute("productlist", productlist);
+        request.getRequestDispatcher("ManageProduct.jsp").forward(request, response);
     }
 
     @Override
@@ -68,7 +72,6 @@ public class ManagerUser extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
     }
-
     /**
      * Handles the HTTP <code>POST</code> method.
      *
@@ -81,21 +84,22 @@ public class ManagerUser extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String search = request.getParameter("search");
-        UserDAO udao = new UserDAO();
-        int numPage = 4;
-        int index = 1;
-        int count = udao.countUser();
-        int ePage = count / numPage;
-        if (count % 4 != 0) {
-            ePage++;
+        String firstDate = request.getParameter("firstDate");
+        String secondDate = request.getParameter("secondDate");
+
+        ProductDAO pdao = new ProductDAO();
+        ArrayList<Product> productlist = new ArrayList<>();
+
+        if (search != null && !search.isEmpty()) {
+            productlist = pdao.searchProduct(search);
+        } else if (firstDate != null && secondDate != null && !firstDate.isEmpty() && !secondDate.isEmpty()) {
+            Date fdate = Date.valueOf(firstDate);
+            Date sdate = Date.valueOf(secondDate);
+            productlist = pdao.getProductByDate(fdate, sdate);
         }
-        List<User> userlist = udao.pagingUser(index, numPage);
-         if (search != null) {
-            userlist = udao.searchUser(search);
-        }
-        request.setAttribute("ePage", ePage);
-        request.setAttribute("userlist", userlist);
-        request.getRequestDispatcher("ManagerUser.jsp").forward(request, response);
+
+        request.setAttribute("productlist", productlist);
+        request.getRequestDispatcher("ManageProduct.jsp").forward(request, response);
     }
 
     /**
@@ -109,4 +113,3 @@ public class ManagerUser extends HttpServlet {
     }// </editor-fold>
 
 }
-
