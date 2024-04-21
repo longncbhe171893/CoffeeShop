@@ -25,16 +25,8 @@
         <servlet-class>Controller.SendMailForgotPassword</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ResetPassword</servlet-name>
-        <servlet-class>Controller.ResetPassword</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>Home</servlet-name>
         <servlet-class>Controller.Home</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>ProductDetails</servlet-name>
-        <servlet-class>Controller.ProductDetails</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>LogOut</servlet-name>
@@ -47,10 +39,6 @@
     <servlet>
         <servlet-name>Blog</servlet-name>
         <servlet-class>Controller.Blog</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>ProductLists</servlet-name>
-        <servlet-class>Controller.ProductLists</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>VerifyForgotPassword</servlet-name>
@@ -75,6 +63,10 @@
     <servlet>
         <servlet-name>EditProduct</servlet-name>
         <servlet-class>Controller.EditProduct</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditUser</servlet-name>
+        <servlet-class>Controller.EditUser</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AdminDashbord</servlet-name>
@@ -114,7 +106,7 @@
     </servlet>
     <servlet>
         <servlet-name>BlogController</servlet-name>
-        <servlet-class>Controller.SellerController.BlogController</servlet-class>
+        <servlet-class>Controller.BlogController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>FeedbackController</servlet-name>
@@ -122,7 +114,7 @@
     </servlet>
     <servlet>
         <servlet-name>SellerDashboard</servlet-name>
-        <servlet-class>Controller.SellerController.SellerDashboard</servlet-class>
+        <servlet-class>Controller.SellerDashboard</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>updateOrderStatus</servlet-name>
@@ -130,7 +122,7 @@
     </servlet>
     <servlet>
         <servlet-name>ManageOrder</servlet-name>
-        <servlet-class>Controller.SellerController.ManageOrder</servlet-class>
+        <servlet-class>Controller.ManageOrder</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>MyOrder</servlet-name>
@@ -145,16 +137,12 @@
         <servlet-class>Controller.ChangeStatus</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ManageBlog</servlet-name>
-        <servlet-class>Controller.SellerController.ManageBlog</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>AddBlog</servlet-name>
-        <servlet-class>Controller.SellerController.AddBlog</servlet-class>
+        <servlet-class>Controller.AddBlog</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>EditBlog</servlet-name>
-        <servlet-class>Controller.SellerController.EditBlog</servlet-class>
+        <servlet-class>Controller.EditBlog</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ChangePassword</servlet-name>
@@ -162,7 +150,7 @@
     </servlet>
     <servlet>
         <servlet-name>GetOrderDetail</servlet-name>
-        <servlet-class>Controller.SellerController.GetOrderDetail</servlet-class>
+        <servlet-class>Controller.GetOrderDetail</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>DownloadOrder</servlet-name>
@@ -177,32 +165,32 @@
         <servlet-class>Controller.EditRole</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>ManageBlog</servlet-name>
+        <servlet-class>Controller.ManageBlog</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>DeleteBlog</servlet-name>
-        <servlet-class>Controller.SellerController.DeleteBlog</servlet-class>
+        <servlet-class>Controller.DeleteBlog</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>FilterBlog</servlet-name>
-        <servlet-class>Controller.SellerController.FilterBlog</servlet-class>
+        <servlet-name>UserDetails</servlet-name>
+        <servlet-class>Controller.EditUser</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ChangeStatusBlog</servlet-name>
-        <servlet-class>Controller.SellerController.ChangeStatusBlog</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>ChangeOrderStatus</servlet-name>
-        <servlet-class>Controller.SellerController.ChangeOrderStatus</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>EditOrder</servlet-name>
-        <servlet-class>Controller.SellerController.EditOrder</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>UpdateOrderDetail</servlet-name>
-        <servlet-class>Controller.SellerController.UpdateOrderDetail</servlet-class>
+        <servlet-name>AddUser</servlet-name>
+        <servlet-class>Controller.AddUser</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Register</servlet-name>
         <url-pattern>/Register</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>ResetPassword</servlet-name>
+        <servlet-class>Controller.ResetPassword</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ResetPassword</servlet-name>
+        <url-pattern>/ResetPassword</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
@@ -223,10 +211,6 @@
     <servlet-mapping>
         <servlet-name>SendMailForgotPassword</servlet-name>
         <url-pattern>/SendMailForgotPassword</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ResetPassword</servlet-name>
-        <url-pattern>/ResetPassword</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>Home</servlet-name>
@@ -285,10 +269,6 @@
         <url-pattern>/AdminDashboard</url-pattern>
     </filter-mapping>
     <servlet-mapping>
-        <servlet-name>ProductDetails</servlet-name>
-        <url-pattern>/ProductDetails</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>LogOut</servlet-name>
         <url-pattern>/LogOut</url-pattern>
     </servlet-mapping>
@@ -299,10 +279,6 @@
     <servlet-mapping>
         <servlet-name>Blog</servlet-name>
         <url-pattern>/Blog</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ProductLists</servlet-name>
-        <url-pattern>/ProductLists</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>VerifyForgotPassword</servlet-name>
@@ -327,6 +303,10 @@
     <servlet-mapping>
         <servlet-name>EditProduct</servlet-name>
         <url-pattern>/EditProduct</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditUser</servlet-name>
+        <url-pattern>/EditUser</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AdminDashbord</servlet-name>
@@ -397,10 +377,6 @@
         <url-pattern>/changeStatus</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ManageBlog</servlet-name>
-        <url-pattern>/ManageBlog</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>AddBlog</servlet-name>
         <url-pattern>/AddBlog</url-pattern>
     </servlet-mapping>
@@ -429,28 +405,20 @@
         <url-pattern>/EditRole</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>ManageBlog</servlet-name>
+        <url-pattern>/ManageBlog</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>DeleteBlog</servlet-name>
         <url-pattern>/DeleteBlog</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>FilterBlog</servlet-name>
-        <url-pattern>/FilterBlog</url-pattern>
+        <servlet-name>UserDetails</servlet-name>
+        <url-pattern>/UserDetails</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ChangeStatusBlog</servlet-name>
-        <url-pattern>/ChangeStatusBlog</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ChangeOrderStatus</servlet-name>
-        <url-pattern>/ChangeOrderStatus</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>EditOrder</servlet-name>
-        <url-pattern>/EditOrder</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>UpdateOrderDetail</servlet-name>
-        <url-pattern>/UpdateOrderDetail</url-pattern>
+        <servlet-name>AddUser</servlet-name>
+        <url-pattern>/AddUser</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
