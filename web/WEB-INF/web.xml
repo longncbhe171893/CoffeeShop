@@ -21,6 +21,15 @@
         <servlet-class>Controller.VerifyEmail</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>SliderController</servlet-name>
+        <servlet-class>com.yourpackage.SliderController</servlet-class>
+    </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>SliderController</servlet-name>
+        <url-pattern>/UpdateStatusSlider</url-pattern>
+    </servlet-mapping>
+    <servlet>
         <servlet-name>ForgotPassword</servlet-name>
         <servlet-class>Controller.ForgotPassword</servlet-class>
     </servlet>
