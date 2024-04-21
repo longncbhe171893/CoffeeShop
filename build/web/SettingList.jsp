@@ -94,8 +94,8 @@
                           margin-top: -94px;
                           margin-bottom: -41px;">
                         <select style="
-                                background-color: blue;
-                                color: wheat;
+                                background-color: #007BFF;
+                                color: white;
                                 height: 40px;
                                 border-radius: 10px;
                                 margin-left: 47px;

@@ -7,15 +7,15 @@
             <file>file:/D:/SWP391BL5/src/java/DAO/UserDAO.java</file>
             <file>file:/D:/SWP391BL5/web/ManagerUser.jsp</file>
             <file>file:/D:/SWP391BL5/src/java/Controller/SettingLists.java</file>
+            <file>file:/D:/SWP391BL5/src/java/DAO/BlogDao.java</file>
             <file>file:/D:/SWP391BL5/web/SettingList.jsp</file>
             <file>file:/D:/SWP391BL5/src/java/Controller/Register.java</file>
-            <file>file:/D:/SWP391BL5/src/java/Controller/ManageBlog.java</file>
-            <file>file:/D:/SWP391BL5/src/java/Controller/AddSetting.java</file>
             <file>file:/D:/SWP391BL5/web/ManageBlog.jsp</file>
-            <file>file:/D:/SWP391BL5/src/java/Controller/EditSetting.java</file>
             <file>file:/D:/SWP391BL5/src/java/Controller/UserProfile.java</file>
             <file>file:/D:/SWP391BL5/src/java/Model/Setting.java</file>
             <file>file:/D:/SWP391BL5/src/java/Controller/ManagerUser.java</file>
+            <file>file:/D:/SWP391BL5/src/java/DAO/SettingDAO.java</file>
+            <file>file:/D:/SWP391BL5/src/java/Model/Blog.java</file>
         </group>
     </open-files>
 </project-private>
