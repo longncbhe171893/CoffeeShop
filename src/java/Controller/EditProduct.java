@@ -28,30 +28,51 @@ import java.io.File;
 public class EditProduct extends HttpServlet {
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        int id = Integer.valueOf(request.getParameter("id"));
-        int cateId = Integer.valueOf(request.getParameter("category"));
-        double price = Double.valueOf(request.getParameter("price"));
-        String imagePart = request.getParameter("img");
-        String descri = request.getParameter("descri");
-        String name = request.getParameter("name");
-        int size = Integer.valueOf(request.getParameter("size"));
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+        throws ServletException, IOException {
+    response.setContentType("text/html;charset=UTF-8");
+    int id = Integer.valueOf(request.getParameter("id"));
+    //int cateId = Integer.valueOf(request.getParameter("category"));
+    double price = Double.valueOf(request.getParameter("price"));
+    Part imagePart = request.getPart("img"); // Lấy thông tin về file ảnh
+    String descri = request.getParameter("descri");
+    String name = request.getParameter("name");
+    int size = Integer.valueOf(request.getParameter("size"));
+    
+    String fileName = imagePart.getSubmittedFileName(); // Lấy tên file ảnh
+    String uploadDirectory = getServletContext().getRealPath("/image"); // Thư mục lưu trữ ảnh trên máy chủ
+
+    // Kiểm tra xem người dùng đã chọn ảnh hay chưa
+    if (fileName != null && !fileName.isEmpty()) {
+        // Tạo tên file mới
+        String uniqueFileName = System.currentTimeMillis() + "_" + fileName;
+        // Tạo đối tượng File mới cho ảnh
+        File imageFile = new File(uploadDirectory, uniqueFileName);
+        // Sao chép tệp tin ảnh vào thư mục lưu trữ
+        imagePart.write(imageFile.getAbsolutePath());
+        // Xử lý đường dẫn tương đối
+        String relativeImagePath = "./image/" + uniqueFileName; // Đường dẫn tương đối đến ảnh lưu trữ trên máy chủ
+        
+        // Tiếp tục xử lý và lưu thông tin từ form vào cơ sở dữ liệu
         ProductDAO pdao = new ProductDAO();
-        pdao.UpdateProduct(id, name, price, cateId, descri, imagePart,size);
-
-        response.sendRedirect("./EditProduct");
+        pdao.UpdateProduct(id, name, price, /*cateId,*/ descri, relativeImagePath, size);
+        
+        // Xóa file ảnh cũ (nếu tồn tại)
+        String oldImage = request.getParameter("oldImage");
+        if (oldImage != null && !oldImage.isEmpty()) {
+            File oldImageFile = new File(uploadDirectory, oldImage);
+            if (oldImageFile.exists()) {
+                oldImageFile.delete();
+            }
+        }
+    } else {
+        // Xử lý khi không có file ảnh được chọn
     }
-
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
+    
+    response.sendRedirect("./ManageProduct?index=1");
+}
+  @Override
     public String getServletInfo() {
         return "Short description";
-    }// </editor-fold>
-
+    }// </editor-fol
 }
