@@ -221,4 +221,121 @@ public class ProductDAO extends DBContext {
 //        return list;
 //    }
 
+    public ArrayList<Product> getSlider() {
+        ArrayList<Product> list = new ArrayList();
+        PreparedStatement ps;
+        ResultSet rs;
+        String sql = "SELECT p.product_id, p.product_name, p.img, p.product_status, p.create_date  FROM `product` p WHERE p.product_status IN (1, 3) order by p.`product_status` desc;";
+        try {
+            ps = connection.prepareStatement(sql);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+
+                Product product = new Product(rs.getInt(1), rs.getString(2), rs.getString("img"), rs.getInt("product_status"), rs.getDate("create_date"));
+                list.add(product);
+            }
+            rs.close();
+            ps.close();
+        } catch (SQLException e) {
+        }
+        return list;
+    }
+
+    public void updateSlider(String title, String img, String id, String status) {
+        String sql = "UPDATE `Product`\n"
+                + "SET `product_name` = ?, `img` = ?,`product_status` = ?,`create_date` = NOW()\n"
+                + "WHERE `product_id` = ?;";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, title);
+            ps.setString(2, img);
+            ps.setString(3, id);
+            ps.setString(4, status);
+
+            ps.executeUpdate();
+        } catch (SQLException e) {
+        }
+    }
+
+    public void UpdateStatusSlider(int status, int id) {
+        String sql = " update `Product` set `product_status`=? where `product_id` =?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, status);
+            ps.setInt(2, id);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void addSlider(String title, String img) {
+        String sql = "INSERT INTO `Product`\n"
+                + "  (`product_name`,`setting_id`, `img`,`product_status`, `create_date`)\n"
+                + "VALUES\n"
+                + "  (?,'4', ?,'3', NOW());";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, title);
+            ps.setString(2, img);
+
+            ps.executeUpdate();
+        } catch (SQLException e) {
+
+        }
+    }
+
+    public ArrayList<Product> getSliderWithPagination(int offset, int recordsPerPage) {
+        ArrayList<Product> list = new ArrayList<>();
+        PreparedStatement ps;
+        ResultSet rs;
+        String sql = "SELECT p.product_id, p.product_name, p.img, p.product_status, p.create_date FROM `product` p WHERE p.product_status IN (1, 3) ORDER BY p.`product_status` DESC LIMIT ?, ?;";
+        try {
+            ps = connection.prepareStatement(sql);
+            ps.setInt(1, offset);
+            ps.setInt(2, recordsPerPage);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Product product = new Product(rs.getInt(1), rs.getString(2), rs.getString("img"), rs.getInt("product_status"), rs.getDate("create_date"));
+                list.add(product);
+            }
+            rs.close();
+            ps.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    public int getTotalSliderCount() {
+        int total = 0;
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+
+        try {
+            String query = "SELECT COUNT(*) AS total FROM `product` WHERE `product_status` IN (1, 3)";
+            pst = connection.prepareStatement(query);
+            rs = pst.executeQuery();
+
+            if (rs.next()) {
+                total = rs.getInt("total");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (pst != null) {
+                    pst.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return total;
+    }
 }

@@ -46,6 +46,16 @@ public class Product {
         this.quantity = quantity;
     }
 
+    public Product(int id, String name, String image, int product_status, Date create_date) {
+        this.id = id;
+        this.name = name;
+        this.image = image;
+        this.product_status = product_status;
+        this.create_date = create_date;
+    }
+    
+    
+
     public Product(int id, String name, double price, int setting_id, String image, String descreption, int product_status, Date create_date, int size) {
         this.id = id;
         this.name = name;
