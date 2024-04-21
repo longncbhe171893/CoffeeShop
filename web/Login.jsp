@@ -9,6 +9,12 @@
         <title>Coffee</title>
         <link rel="stylesheet" href="./CSSsimple/login.css">
         <link rel="stylesheet" href="css/style.css">
+        
+        <style>
+        .hidden {
+            display: none;
+        }
+    </style>
     </head>
     <body style="background:url(image/login.jpg);
           background-size: cover; "  >
@@ -20,6 +26,7 @@
             </nav>  
             <form action="Login" method="Post" id="form-login">
                 <h1 class="form-heading">Login</h1>
+                <p style="color: red;">${alertTitle}</p>
                 <div class="form-group">
                     <i class="far fa-user"></i>
                     <input type="text" class="form-input" name="email" placeholder="Email" required>
@@ -29,6 +36,7 @@
                     <input type="password" class="form-input" name="pass" placeholder="Password" required>
                 </div>
                 <p style="color: red;">${mess}</p>
+
                 <div class="forget">
                     <label for=""><a href="ForgotPassword.jsp">Forgot Password</a></label>
                 </div>

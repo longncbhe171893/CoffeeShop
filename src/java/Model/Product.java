@@ -14,26 +14,70 @@ public class Product {
     private int id; 
     private String name; 
     private double price; 
-    private int setting_id;
+     private int setting_id;
     private String image; 
-    private String decription; 
-    private int productStatus ; 
-    private Date createDate; 
+    private String descreption;
+    private int product_status;
+    private Date create_date;
     private int size;
+    private int quantity;
+    
+
     public Product() {
     }
 
-    public Product(int id, String name, double price, int setting_id, String image, String decription, int productStatus, Date createDate, int size) {
+    public Product(int id, String name, double price, String image, String descreption, int product_status, Date create_date, int size, int quantity) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.image = image;
+        this.descreption = descreption;
+        this.product_status = product_status;
+        this.create_date = create_date;
+        this.size = size;
+        this.quantity = quantity;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public Product(int id, String name, String image, int product_status, Date create_date) {
+        this.id = id;
+        this.name = name;
+        this.image = image;
+        this.product_status = product_status;
+        this.create_date = create_date;
+    }
+    
+    
+
+    public Product(int id, String name, double price, int setting_id, String image, String descreption, int product_status, Date create_date, int size) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.setting_id = setting_id;
         this.image = image;
-        this.decription = decription;
-        this.productStatus = productStatus;
-        this.createDate = createDate;
+        this.descreption = descreption;
+        this.product_status = product_status;
+        this.create_date = create_date;
         this.size = size;
     }
+
+    public int getSetting_id() {
+        return setting_id;
+    }
+
+    public void setSetting_id(int setting_id) {
+        this.setting_id = setting_id;
+    }
+    
+
+
 
     public int getId() {
         return id;
@@ -59,14 +103,6 @@ public class Product {
         this.price = price;
     }
 
-    public int getSetting_id() {
-        return setting_id;
-    }
-
-    public void setSetting_id(int setting_id) {
-        this.setting_id = setting_id;
-    }
-
     public String getImage() {
         return image;
     }
@@ -75,28 +111,28 @@ public class Product {
         this.image = image;
     }
 
-    public String getDecription() {
-        return decription;
+    public String getDescreption() {
+        return descreption;
     }
 
-    public void setDecription(String decription) {
-        this.decription = decription;
+    public void setDescreption(String descreption) {
+        this.descreption = descreption;
     }
 
-    public int getProductStatus() {
-        return productStatus;
+    public int getProduct_status() {
+        return product_status;
     }
 
-    public void setProductStatus(int productStatus) {
-        this.productStatus = productStatus;
+    public void setProduct_status(int product_status) {
+        this.product_status = product_status;
     }
 
-    public Date getCreateDate() {
-        return createDate;
+    public Date getCreate_date() {
+        return create_date;
     }
 
-    public void setCreateDate(Date createDate) {
-        this.createDate = createDate;
+    public void setCreate_date(Date create_date) {
+        this.create_date = create_date;
     }
 
     public int getSize() {
@@ -109,6 +145,9 @@ public class Product {
 
     @Override
     public String toString() {
-        return "Product{" + "id=" + id + ", name=" + name + ", price=" + price + ", setting_id=" + setting_id + ", image=" + image + ", decription=" + decription + ", productStatus=" + productStatus + ", createDate=" + createDate + ", size=" + size + '}';
+        return "Product{" + "id=" + id + ", name=" + name + ", price=" + price + ", setting_id=" + setting_id + ", image=" + image + ", descreption=" + descreption + ", product_status=" + product_status + ", create_date=" + create_date + ", size=" + size + ", quantity=" + quantity + '}';
     }
+    
+    
+    
 }

@@ -13,9 +13,22 @@
         <servlet-class>Controller.SendMail</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>Contact</servlet-name>
+        <servlet-class>Controller.Contact</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>VerifyEmail</servlet-name>
         <servlet-class>Controller.VerifyEmail</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SliderController</servlet-name>
+        <servlet-class>com.yourpackage.SliderController</servlet-class>
+    </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>SliderController</servlet-name>
+        <url-pattern>/UpdateStatusSlider</url-pattern>
+    </servlet-mapping>
     <servlet>
         <servlet-name>ForgotPassword</servlet-name>
         <servlet-class>Controller.ForgotPassword</servlet-class>
@@ -29,6 +42,10 @@
         <servlet-class>Controller.Home</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>ProductDetails</servlet-name>
+        <servlet-class>Controller.ProductDetails</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>LogOut</servlet-name>
         <servlet-class>Controller.LogOut</servlet-class>
     </servlet>
@@ -39,6 +56,10 @@
     <servlet>
         <servlet-name>Blog</servlet-name>
         <servlet-class>Controller.Blog</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ProductLists</servlet-name>
+        <servlet-class>Controller.ProductLists</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>VerifyForgotPassword</servlet-name>
@@ -63,10 +84,6 @@
     <servlet>
         <servlet-name>EditProduct</servlet-name>
         <servlet-class>Controller.EditProduct</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>EditUser</servlet-name>
-        <servlet-class>Controller.EditUser</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AdminDashbord</servlet-name>
@@ -165,6 +182,10 @@
         <servlet-class>Controller.EditRole</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>AddUser</servlet-name>
+        <servlet-class>Controller.AddUser</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>ManageBlog</servlet-name>
         <servlet-class>Controller.ManageBlog</servlet-class>
     </servlet>
@@ -174,11 +195,11 @@
     </servlet>
     <servlet>
         <servlet-name>UserDetails</servlet-name>
-        <servlet-class>Controller.EditUser</servlet-class>
+        <servlet-class>Controller.UserDetails</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>AddUser</servlet-name>
-        <servlet-class>Controller.AddUser</servlet-class>
+        <servlet-name>SliderController</servlet-name>
+        <servlet-class>Controller.SliderController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Register</servlet-name>
@@ -199,6 +220,18 @@
     <servlet-mapping>
         <servlet-name>SendMail</servlet-name>
         <url-pattern>/SendMail</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>Success</servlet-name>
+        <jsp-file>/Success.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Success</servlet-name>
+        <url-pattern>/Success.jsp</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Contact</servlet-name>
+        <url-pattern>/Contact</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>VerifyEmail</servlet-name>
@@ -269,6 +302,10 @@
         <url-pattern>/AdminDashboard</url-pattern>
     </filter-mapping>
     <servlet-mapping>
+        <servlet-name>ProductDetails</servlet-name>
+        <url-pattern>/ProductDetails</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>LogOut</servlet-name>
         <url-pattern>/LogOut</url-pattern>
     </servlet-mapping>
@@ -279,6 +316,14 @@
     <servlet-mapping>
         <servlet-name>Blog</servlet-name>
         <url-pattern>/Blog</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProductLists</servlet-name>
+        <url-pattern>/ProductLists</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManageSlider</servlet-name>
+        <url-pattern>/ManageSlider</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>VerifyForgotPassword</servlet-name>
@@ -303,10 +348,6 @@
     <servlet-mapping>
         <servlet-name>EditProduct</servlet-name>
         <url-pattern>/EditProduct</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>EditUser</servlet-name>
-        <url-pattern>/EditUser</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AdminDashbord</servlet-name>
@@ -381,8 +422,16 @@
         <url-pattern>/AddBlog</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>AddSlider</servlet-name>
+        <url-pattern>/AddSlider</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>EditBlog</servlet-name>
         <url-pattern>/EditBlog</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditSlider</servlet-name>
+        <url-pattern>/EditSlider</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ChangePassword</servlet-name>
@@ -405,6 +454,10 @@
         <url-pattern>/EditRole</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>AddUser</servlet-name>
+        <url-pattern>/AddUser</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>ManageBlog</servlet-name>
         <url-pattern>/ManageBlog</url-pattern>
     </servlet-mapping>
@@ -416,10 +469,6 @@
         <servlet-name>UserDetails</servlet-name>
         <url-pattern>/UserDetails</url-pattern>
     </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>AddUser</servlet-name>
-        <url-pattern>/AddUser</url-pattern>
-    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
@@ -428,8 +477,4 @@
     <welcome-file-list>
         <welcome-file>Home</welcome-file>
     </welcome-file-list>
-    <servlet>
-        <servlet-name>EditRole</servlet-name>
-        <servlet-class>Controller.EditRole</servlet-class>
-    </servlet>
 </web-app>
