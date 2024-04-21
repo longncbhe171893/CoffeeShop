@@ -6,6 +6,7 @@ package DAO;
 
 import Model.Product;
 import Model.Setting;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -38,6 +39,33 @@ public class ProductDAO extends DBContext {
         }
 
         return productList;
+    }
+
+    public ArrayList<Product> searchProduct(String search) {
+        ArrayList<Product> list = new ArrayList<>();
+        String sql = " SELECT *\n"
+                + "FROM `Product` p\n"
+                + "WHERE p.`product_name` LIKE ?\n"
+                + "ORDER BY p.`product_id` ASC;";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, "%" + search + "%");
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                list.add(new Product(
+                        rs.getInt("product_id"),
+                        rs.getString("product_name"),
+                        rs.getDouble("product_price"),
+                        rs.getInt("setting_id"),
+                        rs.getString("img"),
+                        rs.getString("description"),
+                        rs.getInt("product_status"),
+                        rs.getDate("create_date"),
+                        rs.getInt("size")));
+            }
+        } catch (Exception e) {
+        }
+        return list;
     }
 
     public ArrayList<Product> getAllProduct(String cid, String search, int index, String sort) {
@@ -115,6 +143,35 @@ public class ProductDAO extends DBContext {
                 list.add(new Setting(rs.getInt("setting_id"), rs.getString("setting_name"), rs.getString("description"), rs.getString("type"), rs.getInt("setting_sort")));
             }
         } catch (Exception e) {
+        }
+        return list;
+    }
+
+    public ArrayList<Product> getProductByDate(Date fdate, Date sdate) {
+        ArrayList<Product> list = new ArrayList<>();
+        String sql = "SELECT *\n"
+                + "FROM `Product` p\n"
+                + "WHERE p.`create_date` BETWEEN ? AND ?;";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setDate(1, (java.sql.Date) fdate);
+            ps.setDate(2, (java.sql.Date) sdate);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                list.add(new Product(
+                        rs.getInt("product_id"),
+                        rs.getString("product_name"),
+                        rs.getDouble("product_price"),
+                        rs.getInt("setting_id"),
+                        rs.getString("img"),
+                        rs.getString("description"),
+                        rs.getInt("product_status"),
+                        rs.getDate("create_date"),
+                        rs.getInt("size")));
+            }
+        } catch (SQLException e) {
+
         }
         return list;
     }
