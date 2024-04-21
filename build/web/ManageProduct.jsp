@@ -93,13 +93,6 @@
                                 <form action="AddNewProduct" method="post" enctype="multipart/form-data">
                                     <div class="modal-body">
                                         <b>Name: </b><input type="text" class="form-control" value="" required name="name"><br>
-                                        <div style="height: 50px; w30pxidth: 100%">
-                                            <select  class="form-control" style="display: block;" name="category" >
-                                                <c:forEach var="c" items="${clist}">
-                                                    <option value="${c.getId()}" ${p.getCategory().getName()==c.getName()?"selected":""} >${c.getName()} </option>
-                                                </c:forEach>
-                                            </select>
-                                        </div>
                                         <b>Price: </b><input type="number" min ="0" max ="100" step="0.5" class="form-control"  required value="" name="price"><br>     
                                         <b>Description: </b><input type="text" class="form-control" required value="" name="descri"><br>
                                         <b>Image link:</b><input type="file" class="form-control" required  value="" name="img"><br>
@@ -159,7 +152,9 @@
                                                     <img style="width:150px;height:150px;" src="${p.getImage()}" id="originalImage">
                                                 </c:if>
                                                 <br>
-                                                <b>Image link:</b><input type="text" value="${p.getImage()}" class="form-control" name="img">
+                                               <b>Image link:</b><input type="file" class="form-control" required  value="" name="img"><br>
+                                                  <br>
+                                                <b>Size: </b><input type="text" class="form-control" value="${p.getSize()}" name="size"><br>
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

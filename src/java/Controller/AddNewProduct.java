@@ -34,7 +34,7 @@ public class AddNewProduct extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        int cateId = Integer.valueOf(request.getParameter("category"));
+        //int cateId = Integer.valueOf(request.getParameter("category"));
         double price = Double.valueOf(request.getParameter("price"));
         Part imagePart = request.getPart("img");
         String descri = request.getParameter("descri");
@@ -63,10 +63,10 @@ public class AddNewProduct extends HttpServlet {
             }
             // Tiếp tục xử lý và lưu thông tin từ form vào cơ sở dữ liệu
             ProductDAO pdao = new ProductDAO();
-            pdao.AddProduct(name, price, cateId, descri, relativeImagePath,size);
+            pdao.AddProduct(name, price, /*cateId,*/ descri, relativeImagePath,size);
         } else {
         }
-        response.sendRedirect("./AddProduct");
+        response.sendRedirect("./ManageProduct?index=1");
     }
 
     /**

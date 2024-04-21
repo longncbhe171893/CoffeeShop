@@ -261,37 +261,37 @@ public class ProductDAO extends DBContext {
     }
 
 
-    public void AddProduct(String name, double price, int cateId, String descri, String img,int size) {
+    public void AddProduct(String name, double price, /*int cateId,*/ String descri, String img,int size) {
         String sql = "INSERT INTO `Product`\n"
                 + "  (`product_name`, `product_price`, `product_status`, `setting_id`, `img`, `description`, `create_date`,`size`)\n"
                 + "VALUES\n"
-                + "  (?, ?, 1, ?, ?, ?, NOW(),?);";
+                + "  (?, ?, 1, 4, ?, ?, NOW(),?);";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, name);
             ps.setDouble(2, price);
-            ps.setInt(3, cateId);
-            ps.setString(4, descri);
-            ps.setString(5, img);
-            ps.setInt(6, size);
+            //ps.setInt(3, cateId);
+            ps.setString(3, descri);
+            ps.setString(4, img);
+            ps.setInt(5, size);
             ps.executeUpdate();
         } catch (Exception e) {
         }
     }
 
-    public void UpdateProduct(int id, String name, double price, int cateId, String descri, String img,int size) {
+    public void UpdateProduct(int id, String name, double price,  String descri, String img,int size) {
         String sql = "UPDATE `Product`\n"
-                + "SET `product_name` = ?, `product_price` = ?, `setitng_id` = ?,\n"
+                + "SET `product_name` = ?, `product_price` = ?, `setitng_id` = 4,\n"
                 + "    `img` = ?, `description` = ?, `create_date` = NOW(),`size`= ?\n"
                 + "WHERE `product_id` = ?;";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, name);
             ps.setDouble(2, price);
-            ps.setInt(3, cateId);
-            ps.setString(4, descri);
-            ps.setString(5, img);
-            ps.setInt(6, size);
+           // ps.setInt(3, cateId);
+            ps.setString(3, descri);
+            ps.setString(4, img);
+            ps.setInt(5, size);
             ps.executeUpdate();
             ps.executeUpdate();
         } catch (Exception e) {
