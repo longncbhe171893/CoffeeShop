@@ -4,12 +4,8 @@
  */
 package Controller.SellerController;
 
+
 import DAO.BlogDao;
-<<<<<<< HEAD
-import Model.Blog;
-import Model.Setting;
-=======
->>>>>>> TuongMD
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;

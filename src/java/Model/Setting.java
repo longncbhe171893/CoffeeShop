@@ -12,6 +12,11 @@ public class Setting {
     public Setting() {
     }
 
+    public Setting(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
     public Setting(int id, String name, String type) {
         this.id = id;
         this.name = name;

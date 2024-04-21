@@ -47,11 +47,8 @@ public class ChangeOrderStatus extends HttpServlet {
                 break;
         }
 
-<<<<<<< HEAD
-        response.sendRedirect("./ManageOrder?index=1");
-=======
         response.sendRedirect("ManageOrder?index=" + index);
->>>>>>> TuongMD
+
 
     }
 

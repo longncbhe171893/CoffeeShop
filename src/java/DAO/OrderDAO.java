@@ -199,7 +199,7 @@ public class OrderDAO extends DBContext {
         }
         return list;
     }
-/*
+
     public ArrayList<OrderDetail> getOrderDetail(int odid) {
         ArrayList<OrderDetail> list = new ArrayList<>();
         PreparedStatement ps;
@@ -246,7 +246,7 @@ public class OrderDAO extends DBContext {
         }
         return list;
     }
-*/
+ 
     public int countOrder() {
         int count;
         try {
