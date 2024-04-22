@@ -177,10 +177,6 @@
         <servlet-class>Controller.EditRole</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>DeleteBlog</servlet-name>
-        <servlet-class>Controller.SellerController.DeleteBlog</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>FilterBlog</servlet-name>
         <servlet-class>Controller.SellerController.FilterBlog</servlet-class>
     </servlet>
@@ -427,10 +423,6 @@
     <servlet-mapping>
         <servlet-name>EditRole</servlet-name>
         <url-pattern>/EditRole</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>DeleteBlog</servlet-name>
-        <url-pattern>/DeleteBlog</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>FilterBlog</servlet-name>

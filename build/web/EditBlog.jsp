@@ -66,7 +66,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" onclick="window.location.href = 'ManageBlog?index=${index}'">Close</button>
-                            <button type="submit" class="btn btn-success" value="submit">Submit</button>
+                            <button type="submit" ${hidden} class="btn btn-success" value="submit">Submit</button>
                         </div>
                     </form>
                 </div>

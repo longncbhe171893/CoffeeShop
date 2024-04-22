@@ -162,16 +162,6 @@ public class BlogDao extends DBContext {
         }
     }
 
-    public void DeleteBlog(int bid) {
-        String sql = "  DELETE FROM `Blog` WHERE `blog_id` =?";
-        try {
-            PreparedStatement ps = connection.prepareStatement(sql);
-            ps.setInt(1, bid);
-            ps.executeUpdate();
-        } catch (SQLException e) {
-        }
-    }
-
     public ArrayList<Blog> searchBlog(String search) {
 
         ArrayList<Blog> list = new ArrayList<>();

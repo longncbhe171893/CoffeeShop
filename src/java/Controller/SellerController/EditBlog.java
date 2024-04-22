@@ -92,6 +92,7 @@ public class EditBlog extends HttpServlet {
             Blog blog = blogDao.getBlogByBlogId(Integer.valueOf(request.getParameter("blogId")));
             if (request.getParameter("BlogDetail").equals("true")) {
                 request.setAttribute("disable", "disabled");
+                request.setAttribute("hidden", "hidden");
             }
             String title = " > Edit Blog";
             String action = "EditBlog";

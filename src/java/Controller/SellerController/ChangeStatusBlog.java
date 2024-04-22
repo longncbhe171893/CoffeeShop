@@ -31,9 +31,10 @@ public class ChangeStatusBlog extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         int id = Integer.valueOf(request.getParameter("bid"));
+        int index = Integer.valueOf(request.getParameter("index"));
         BlogDao bdao = new BlogDao();
         bdao.changeStatusBlog(id);
-        response.sendRedirect("./ManageBlog");
+        response.sendRedirect("ManageBlog?index="+index);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

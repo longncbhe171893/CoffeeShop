@@ -83,7 +83,7 @@ public class ManageBlog extends HttpServlet {
         List<Model.Category> category = blogDao.getcategoryBlogByType();
 
         int numPage = 4;
-        int index = 1;
+        int index = Integer.valueOf(request.getParameter("index"));
         int count = blogDao.countBlog();
         int ePage = count / numPage;
         if (count % 4 != 0) {
