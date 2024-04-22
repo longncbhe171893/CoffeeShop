@@ -85,7 +85,7 @@
                                                                 <div class="text">
                                                                     <h3><a href="./ProductDetails?pid=${p.getId()}&mode=0">${p.getName()}</a></h3>		
                                                                     <p style="color: #fff" class="price">Price:<span class="priceSpan">${p.getPrice()}</span>đ</p>
-                                                                    <p><a href="./ProductDetails?pid=${p.getId()}&mode=0" class="btn btn-primary btn-outline-primary">Order</a></p>
+                                                                    <p><a href="./ProductDetails?pid=${p.getId()}" class="btn btn-primary btn-outline-primary">Order</a></p>
                                                                 </div>
                                                             </div>
                                                         </div>

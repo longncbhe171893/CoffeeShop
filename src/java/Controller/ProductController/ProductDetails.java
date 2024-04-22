@@ -37,9 +37,9 @@ public class ProductDetails extends HttpServlet {
             //FeedbackDAO feedback = new FeedbackDAO();
             ProductDAO pdao = new ProductDAO();
             String pid = request.getParameter("pid");
-            String mode = request.getParameter("mode");
-            int index = Integer.parseInt(mode);
-            request.setAttribute("index", index);
+            //String mode = request.getParameter("mode");
+            //int index = Integer.parseInt(mode);
+            //request.setAttribute("index", index);
             //int count = feedback.countComment(Integer.parseInt(pid));
 
             Product p = pdao.getProductById(Integer.valueOf(pid));
