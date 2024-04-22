@@ -322,6 +322,7 @@ public class OrderDAO extends DBContext {
         return list;
     }
 */
+    
     public int countOrder() {
         int count = 0;
         try {

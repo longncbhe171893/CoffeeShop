@@ -42,7 +42,7 @@ public class UpdateStatusProduct extends HttpServlet {
         }else{
             pdao.UpdateProductStatus(1, pid);
         }
-        response.sendRedirect("ManageProduct");
+        response.sendRedirect("ManageProduct?index=1");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

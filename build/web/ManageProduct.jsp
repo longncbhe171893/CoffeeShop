@@ -96,7 +96,12 @@
                                         <b>Price: </b><input type="number" min ="0" max ="100" step="0.5" class="form-control"  required value="" name="price"><br>     
                                         <b>Description: </b><input type="text" class="form-control" required value="" name="descri"><br>
                                         <b>Image link:</b><input type="file" class="form-control" required  value="" name="img"><br>
-                                         <b>Size: </b><input type="text" class="form-control" required value="" name="size"><br>
+                                        <b>Size: </b>
+                                        <select class="form-control" required name="size">
+                                        <option value="1">Small</option>
+                                        <option value="2">Medium</option>
+                                         <option value="3">Large</option>
+                                       </select><br>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -126,7 +131,8 @@
                                     <th scope="row">${p.getId()}</th>
                                     <td>${p.getName()}</td>
                                     <td>${p.getPrice()}</td>
-                                    <td><a href="UpdateStatusProduct?pid=${p.getId()}&psid=${p.getProductStatus()}">${p.getProductStatus()}</a></td>
+                                    <td><a onclick="return confirm('Do you want to change product status?')" href="UpdateStatusProduct?pid=${p.getId()}&psid=${p.getProductStatus()}">
+                                            ${p.getProductStatus()==1?"Enable":"Disnable"}</a></td>   
                                     <td>${p.getCreateDate()}</td>
                                     <td style="width: 30%;">${p.getDecription()}</td>
                                     <td><img style="width:150px;height:150px;"src="${p.getImage()}"></td>
@@ -154,7 +160,7 @@
                                                 <br>
                                                <b>Image link:</b><input type="file" class="form-control" required  value="" name="img"><br>
                                                   <br>
-                                                <b>Size: </b><input type="text" class="form-control" value="${p.getSize()}" name="size"><br>
+                                                  <b>Size: </b><input type="text" class="form-control" value="${p.getSize()}" name="size"><br>
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

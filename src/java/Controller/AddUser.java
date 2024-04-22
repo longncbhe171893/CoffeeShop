@@ -57,7 +57,7 @@ public class AddUser extends HttpServlet {
             String address = request.getParameter("address");
             String phone = request.getParameter("phone");
             int sex = Integer.parseInt(request.getParameter("sex"));
-            Part imagePart = request.getPart("imgage");
+            Part imagePart = request.getPart("image");
             String userpointStr = request.getParameter("userpoint");
             double userpoint = 0.0; // Default value if not provided
             if (userpointStr != null && !userpointStr.isEmpty()) {

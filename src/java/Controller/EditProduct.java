@@ -26,7 +26,11 @@ import java.io.File;
         location = "/org"
 )
 public class EditProduct extends HttpServlet {
-
+ @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        doPost(request, response);
+    }
     @Override
 protected void doPost(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException {
@@ -54,8 +58,7 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response)
         String relativeImagePath = "./image/" + uniqueFileName; // Đường dẫn tương đối đến ảnh lưu trữ trên máy chủ
         
         // Tiếp tục xử lý và lưu thông tin từ form vào cơ sở dữ liệu
-        ProductDAO pdao = new ProductDAO();
-        pdao.UpdateProduct(id, name, price, /*cateId,*/ descri, relativeImagePath, size);
+       
         
         // Xóa file ảnh cũ (nếu tồn tại)
         String oldImage = request.getParameter("oldImage");
@@ -65,6 +68,8 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response)
                 oldImageFile.delete();
             }
         }
+         ProductDAO pdao = new ProductDAO();
+        pdao.UpdateProduct(id, name, price, /*cateId,*/ descri, relativeImagePath, size);
     } else {
         // Xử lý khi không có file ảnh được chọn
     }
