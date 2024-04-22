@@ -87,7 +87,7 @@ public class AddUser extends HttpServlet {
                 UserDAO udao = new UserDAO();
                 
                 // Thêm người dùng mới
-                udao.addUser(name, email, password, address, phone, sex, image, userpoint);
+                udao.addUser(name, email, password, address, phone,sex, image, userpoint);
                 
                 // Redirect to user management page
                 response.sendRedirect("./ManagerUser");

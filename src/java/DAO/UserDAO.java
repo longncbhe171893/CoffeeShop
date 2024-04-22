@@ -38,6 +38,60 @@ public class UserDAO extends DBContext {
 ////    }
 //           ud.changePasswordByEmail("LongNCBHE171893@fpt.edu.vn", "12345678");
 //}
+    public ArrayList<User> pagingUser(int index, int numOrOnPage) {
+        ArrayList<User> list = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM `Users` order by user_status asc LIMIT ?, ?;";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            index = (index - 1) * numOrOnPage;
+            ps.setInt(1, index);
+            ps.setInt(2, numOrOnPage);
+            ResultSet rs = ps.executeQuery();
+             while (rs.next()) {
+                 list.add(new User(
+                rs.getInt("user_id"), rs.getString("user_name"),
+                            rs.getString("email"), rs.getString("password"), rs.getString("address"), rs.getString("phone"), rs.getInt("sex"),
+                            rs.getString("user_image"), rs.getInt("setting_id"), rs.getInt("user_status"), rs.getDouble("user_point")));
+            }
+        } catch (SQLException e) {
+
+        }
+        return list;
+    }
+     public int countUser() {
+        int count;
+        try {
+            String sql = " select count(*) from `Users`";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            rs.next();
+            count = rs.getInt(1);
+            return count;
+
+        } catch (SQLException e) {
+
+        }
+        return 0;
+    }
+       public User getUserById(int id) {
+        String sql = "select * from `Users` where `user_id`= ?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+
+                User user = new User(rs.getInt("user_id"), rs.getString("user_name"),
+                        rs.getString("email"), rs.getString("password"), rs.getString("address"), rs.getString("phone"), rs.getInt("sex"),
+                        rs.getString("user_image"), rs.getInt("setting_id"), rs.getInt("user_status"), rs.getDouble("user_point"));
+                return user;
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return null;
+    }
     public User getUserByEmail(String email) {
         String sql = "select * from `Users` where `email`= ?";
         try {
@@ -193,26 +247,27 @@ public class UserDAO extends DBContext {
         }
         return list;
     }
-
-    public void addUser(String name, String email, String password, String address, String phone, String sex, double userpoint) {
+public void addUser(String name, String email, String password, String address, String phone, int sex,String image, double userpoint) {
+   
         String sql = "INSERT INTO `Users`\n"
-                + "  (`user_name`, `email`, `password`, `address`, `phone`, `sex`,`setting_id`,`user_status`, `user_point`)\n"
+                + "  (`user_name`, `email`, `password`, `address`, `phone`, `sex`,`user_image`,`setting_id`,`user_status`, `user_point`)\n"
                 + "VALUES\n"
-                + "  (?, ?, ?, ?, ?, ?,3,1, ?);";
+                + "  (?, ?, ?, ?, ?, ?,?,3,1, ?);";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, name);
-            ps.setString(2, email);
+            ps.setString(2,email);
             ps.setString(3, md5.getMd5(password));
             ps.setString(4, address);
             ps.setString(5, phone);
-            ps.setString(6, sex);
-            ps.setDouble(7, userpoint);
+            ps.setInt(6, sex);
+            ps.setString(7, image);
+            ps.setDouble(8, userpoint);
             ps.executeUpdate();
         } catch (Exception e) {
             // Xử lý ngoại lệ nếu cần
-        }
     }
+}
 
     private int getSettingidbyString(String srole) {
         String sql = "select * from `Setting` where `setting_name`like ?";
@@ -283,6 +338,24 @@ public class UserDAO extends DBContext {
             System.out.println("Exception while reading the Image " + ioe);
         }
         return null;
+    }
+
+    public void updateUser(String name, String email, String password, String address, String phone, int sex, String image, double userpoint, int id) {
+         String sql = "UPDATE `Users` SET `user_name`=?, `email`=?,`password`=?, `address`=?,`phone`=?,`sex`=?, `user_image`=?,`user_point`=? WHERE `user_id`=?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, name);
+            ps.setString(2,email);
+            ps.setString(3, md5.getMd5(password));
+            ps.setString(4, address);
+            ps.setString(5, phone);
+            ps.setInt(6, sex);
+            ps.setString(7, image);
+            ps.setDouble(8, userpoint);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
     
     

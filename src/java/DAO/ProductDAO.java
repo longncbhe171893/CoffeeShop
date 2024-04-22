@@ -123,85 +123,6 @@ public class ProductDAO extends DBContext {
     return list;
 }
 
-    public ArrayList<Product> getTopSelling() {
-        ArrayList<Product> list = new ArrayList<>();
-        String sql = "SELECT p.*\n"
-                + "FROM `Product` p\n"
-                + "JOIN (\n"
-                + "  SELECT SUM(quantity) AS numberSell, product_id\n"
-                + "  FROM `OrderDetail`\n"
-                + "  GROUP BY product_id\n"
-                + ") AS b ON b.product_id = p.product_id\n"
-                + "ORDER BY b.numberSell DESC\n"
-                + "LIMIT 8;";
-        try {
-            PreparedStatement ps = connection.prepareStatement(sql);
-
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                list.add(new Product(
-                rs.getInt("product_id"),
-                rs.getString("product_name"),
-                rs.getDouble("product_price"),
-                rs.getInt("setting_id"),
-                rs.getString("img"),
-                rs.getString("description"),
-                rs.getInt("product_status"),
-                rs.getDate("create_date"),
-                rs.getInt("size")));
-            }
-        } catch (Exception e) {
-        }
-        return list;
-    }
-
-    public ArrayList<Product> getAllProduct(String cid, String search, int index, String sort) {
-        String sortby = "";
-        switch (sort) {
-            case "1":
-                sortby = "order by p.`create_date` desc";
-                break;
-            case "2":
-                sortby = "order by p.`product_price` asc";
-                break;
-            case "3":
-                sortby = "order by p.`product_price` desc";
-                break;
-            default:
-                sortby = "order by p.`product_name` desc";
-                break;
-
-        }
-        ArrayList<Product> list = new ArrayList<>();
-        String sql = " SELECT *\n"
-                + "FROM `Product` p\n"
-                + "WHERE p.`product_status` = 1\n"
-                + "  AND p.`setting_id` = ?\n"
-                + "  AND p.`product_name` LIKE ?\n"
-                +sortby+"\n"
-                + "LIMIT ?, 9;";
-        try {
-            PreparedStatement ps = connection.prepareStatement(sql);
-            ps.setString(1, "%" + cid + "%");
-            ps.setString(2, "%" + search + "%");
-            ps.setInt(3, (index - 1) * 6);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                list.add(new Product(
-                rs.getInt("product_id"),
-                rs.getString("product_name"),
-                rs.getDouble("product_price"),
-                rs.getInt("setting_id"),
-                rs.getString("img"),
-                rs.getString("description"),
-                rs.getInt("product_status"),
-                rs.getDate("create_date"),
-                rs.getInt("size")));
-            }
-        } catch (SQLException e) {
-        }
-        return list;
-    }
 
     public Product getProductById(int pid) {
         String sql = "SELECT *\n"
@@ -242,25 +163,6 @@ public class ProductDAO extends DBContext {
         }
         return list;
     }
-
-    public int getNumberProduct(String cid, String search) {
-        ArrayList<Product> list = new ArrayList<>();
-        String sql = "  select count(*) from `Product` p  \n"
-                + "  where p.`setting_id` like ?  and p.`product_name` like ?";
-        try {
-            PreparedStatement ps = connection.prepareStatement(sql);
-            ps.setString(1, "%" + cid + "%");
-            ps.setString(2, "%" + search + "%");
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                return rs.getInt(1);
-            }
-        } catch (SQLException e) {
-        }
-        return 0;
-    }
-
-
     public void AddProduct(String name, double price, /*int cateId,*/ String descri, String img,int size) {
         String sql = "INSERT INTO `Product`\n"
                 + "  (`product_name`, `product_price`, `product_status`, `setting_id`, `img`, `description`, `create_date`,`size`)\n"
@@ -308,47 +210,6 @@ public class ProductDAO extends DBContext {
         } catch (Exception e) {
         }
     }
-    public ArrayList<Product> getAllProducts() {
-    ArrayList<Product> list = new ArrayList<>();
-    String sql = "SELECT * FROM `Product` ORDER BY `product_id` ASC;";
-    try {
-        PreparedStatement ps = connection.prepareStatement(sql);
-        ResultSet rs = ps.executeQuery();
-        while (rs.next()) {
-            list.add(new Product(
-                rs.getInt("product_id"),
-                rs.getString("product_name"),
-                rs.getDouble("product_price"),
-                rs.getInt("setting_id"),
-                rs.getString("img"),
-                rs.getString("description"),
-                rs.getInt("product_status"),
-                rs.getDate("create_date"),
-                rs.getInt("size")));
-        }
-    } catch (Exception e) {
-        e.printStackTrace(); // In ra lỗi nếu có
-    }
-    return list;
-}
-/*
-    public ProductSize getProductSizeByID(int id) {
-        try {
-            String sql = "SELECT * FROM `ProductSize` WHERE `productSize_id` = ?";
-            PreparedStatement ps = connection.prepareStatement(sql);
-            ps.setInt(1, id);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                ProductSize productSize = new ProductSize(rs.getInt(1), rs.getString(2), rs.getDouble(3));
-                return productSize;
-            }
-        } catch (SQLException e) {
-
-        }
-        return null;
-
-    }
-*/
     public ArrayList<Product> searchProduct(String search) {
         ArrayList<Product> list = new ArrayList<>();
         String sql = " SELECT *\n"
