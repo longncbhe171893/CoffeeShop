@@ -11,19 +11,21 @@
                 <span class="text">Seller Manage</span>
             </a>
         </li>
-
         <li class="active">
             <a href="ManageBlog?index=1">
                <i class='bx bxs-dashboard' ></i>
                 <span class="text">Manage Blog</span>
             </a>
         </li>
+        
         <li class="active">
             <a href="ManageOrder?index=1">
                 <i class='bx bxs-dashboard' ></i>
                 <span class="text">Manage Order</span>
             </a>
         </li>
+       
+        
         <li>
             <a href="LogOut" class="logout">
                 <i class='bx bxs-log-out-circle' ></i>
