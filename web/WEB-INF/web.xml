@@ -34,7 +34,7 @@
     </servlet>
     <servlet>
         <servlet-name>ProductDetails</servlet-name>
-        <servlet-class>Controller.ProductDetails</servlet-class>
+        <servlet-class>Controller.ProductController.ProductDetails</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>LogOut</servlet-name>
@@ -50,7 +50,7 @@
     </servlet>
     <servlet>
         <servlet-name>ProductLists</servlet-name>
-        <servlet-class>Controller.ProductLists</servlet-class>
+        <servlet-class>Controller.ProductController.ProductLists</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>VerifyForgotPassword</servlet-name>

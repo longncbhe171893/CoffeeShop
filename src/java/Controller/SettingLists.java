@@ -7,7 +7,6 @@ package Controller;
 
 import DAO.SettingDAO;
 import Model.Setting;
-import Model.Setting;
 import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
 import java.io.PrintWriter;

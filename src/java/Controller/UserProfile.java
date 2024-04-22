@@ -73,19 +73,19 @@ public class UserProfile extends HttpServlet {
     throws ServletException, IOException {
         String name = request.getParameter("name");
         String email = request.getParameter("email");
-        int sex = request.getParameter("sex");
+      //  int sex = request.getParameter("sex");
         String phone = request.getParameter("phone");
         String address = request.getParameter("address");
         String id = request.getParameter("id");
         UserDAO udao = new UserDAO();
         HttpSession session = request.getSession();
         try {
-            udao.UpdateUser(name, Integer.valueOf(id), sex, phone, address);
+        //    udao.UpdateUser(name, Integer.valueOf(id), sex, phone, address);
             User u = new User();
             u.setId(Integer.valueOf(id));
             u.setName(name);  
             u.setEmail(email);
-            u.setSex(sex);
+        //    u.setSex(sex);
             u.setPhone(phone);
             u.setAddress(address);
             session.removeAttribute("account");

@@ -67,7 +67,7 @@ public class UserDetails extends HttpServlet {
             }
           
         UserDAO udao = new UserDAO();
-        udao.updateUser(name, email, password, address, phone, sex, relativeImagePath, userpoint, id);
+       // udao.updateUser(name, email, password, address, phone, sex, relativeImagePath, userpoint, id);
         response.sendRedirect("ManagerUser");
 //        } catch (Exception e) {
 //            response.sendRedirect("./404.html");

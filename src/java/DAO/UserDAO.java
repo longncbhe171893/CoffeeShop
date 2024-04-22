@@ -254,5 +254,45 @@ public void updateUser(String name, String email, String password, String addres
             ps.executeUpdate();
         } catch (Exception e) {
         }
-    } 
+    }
+ public void updateUserById(String name, String email, String password, String address, String phone, int sex, String image, double userpoint, int id) {
+         String sql = "UPDATE `Users` SET `user_name`=?, `email`=?,`password`=?, `address`=?,`phone`=?,`sex`=?, `user_image`=?,`user_point`=? WHERE `user_id`=?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, name);
+            ps.setString(2,email);
+            ps.setString(3, md5.getMd5(password));
+            ps.setString(4, address);
+            ps.setString(5, phone);
+            ps.setInt(6, sex);
+            ps.setString(7, image);
+            ps.setDouble(8, userpoint);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    
+public void addUser(String name, String email, String password, String address, String phone, int sex,String image, double userpoint) {
+   
+        String sql = "INSERT INTO `Users`\n"
+                + "  (`user_name`, `email`, `password`, `address`, `phone`, `sex`,`user_image`,`setting_id`,`user_status`, `user_point`)\n"
+                + "VALUES\n"
+                + "  (?, ?, ?, ?, ?, ?,?,3,1, ?);";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, name);
+            ps.setString(2,email);
+            ps.setString(3, md5.getMd5(password));
+            ps.setString(4, address);
+            ps.setString(5, phone);
+            ps.setInt(6, sex);
+            ps.setString(7, image);
+            ps.setDouble(8, userpoint);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            // Xử lý ngoại lệ nếu cần
+    }
+}
+
 }

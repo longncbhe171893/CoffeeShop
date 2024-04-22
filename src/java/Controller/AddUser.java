@@ -43,7 +43,7 @@ public class AddUser extends HttpServlet {
             
             // Create UserDAO instance
             UserDAO udao = new UserDAO();
-                udao.addUser(name, email, password, address, phone, sex, 0);
+               // udao.addUser(name, email, password, address, phone, sex, 0);
                 response.sendRedirect("ManagerUser");
         } catch (Exception e) {
             // Handle other exceptions and display error message

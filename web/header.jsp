@@ -54,8 +54,9 @@
                             </form>
                         </li>
                         <li class="nav-item"><a href="Home" class="nav-link">Home</a></li>
-                        <li class="nav-item"><a href="#" class="nav-link">Menu</a></li>
+                        <li class="nav-item"><a href="ProductLists" class="nav-link">Menu</a></li>
                         <li class="nav-item"><a href="Blog" class="nav-link">Blog</a></li>
+                        <li class="nav-item"><a href="#" class="nav-link">Contact</a></li>
                         <li class="nav-item">
                             <c:if test="${sessionScope['account'].getSetting_id() == 3}">
                                 <a href="#" class="nav-link" >MY ORDER</a>

@@ -6,12 +6,40 @@ package DAO;
 
 import Model.Product;
 import Model.Setting;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class ProductDAO extends DBContext {
+
+    public ArrayList<Product> getAllSlideProducts() {
+        ArrayList<Product> productList = new ArrayList<>();
+        String sql = "SELECT * FROM swp391.product where product_status=3;";
+
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                productList.add(new Product(
+                        rs.getInt("product_id"),
+                        rs.getString("product_name"),
+                        rs.getDouble("product_price"),
+                        rs.getInt("setting_id"),
+                        rs.getString("img"),
+                        rs.getString("description"),
+                        rs.getInt("product_status"),
+                        rs.getDate("create_date"),
+                        rs.getInt("size")));
+
+            }
+        } catch (SQLException e) {
+        }
+
+        return productList;
+    }
 
     public ArrayList<Product> getAllProducts() {
         ArrayList<Product> productList = new ArrayList<>();
@@ -95,7 +123,7 @@ public class ProductDAO extends DBContext {
         ArrayList<Product> list = ProductDAO.getAllProduct("5", "", 1, "2");
         ArrayList<Setting> lists = ProductDAO.getCategory();
         ArrayList<Product> list1 = ProductDAO.getAllProducts();
-        ArrayList<Product> list12 = ProductDAO.getTopSelling();
+        ArrayList<Product> list12 = ProductDAO.getAllSlideProducts();
         Product p1 = ProductDAO.getProductById(8);
         int a = ProductDAO.getNumberProduct("4", "a");
         System.out.println(a);
@@ -194,31 +222,361 @@ public class ProductDAO extends DBContext {
         }
         return list;
     }
-//    public ArrayList<Product> getProduct(String cid, String search, int index, String sort) {
-//        String sortby = "";
-//        switch (sort) {
-//            case "1":
-//                sortby = "order by p.create_date desc";
-//                break;
-//            case "2":
-//                sortby = "order by p.product_price asc";
-//                break;
-//            case "3":
-//                sortby = "order by p.product_price desc";
-//                break;
-//            default:
-//                sortby = "order by p.product_name desc";
-//                break;
-//
-//        }
-//        ArrayList<Product> list = new ArrayList<>();
-//        String sql = "  select * from [Product] p, Category c, ProductStatus ps "
-//                + "where p.category_id = c.category_id and p.PdStatus_id = ps.PdStatus_id and p.PdStatus_id = 1\n"
-//                + "                and p.category_id like ?  and p.product_name like ?\n"
-//                + sortby
-//                + "                OFFSET ? ROWS FETCH NEXT 8 ROWS ONLY";
-//
-//        return list;
-//    }
+
+
+    public ArrayList<Product> getSlider() {
+        ArrayList<Product> list = new ArrayList();
+        PreparedStatement ps;
+        ResultSet rs;
+        String sql = "SELECT p.product_id, p.product_name, p.img, p.product_status, p.create_date  FROM `product` p WHERE p.product_status IN (1, 3) order by p.`product_status` desc;";
+        try {
+            ps = connection.prepareStatement(sql);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+
+                Product product = new Product(rs.getInt(1), rs.getString(2), rs.getString("img"), rs.getInt("product_status"), rs.getDate("create_date"));
+                list.add(product);
+            }
+            rs.close();
+            ps.close();
+        } catch (SQLException e) {
+        }
+        return list;
+    }
+
+    public void updateSlider(String title, String img, String id, String status) {
+        String sql = "UPDATE `Product`\n"
+                + "SET `product_name` = ?, `img` = ?,`product_status` = ?,`create_date` = NOW()\n"
+                + "WHERE `product_id` = ?;";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, title);
+            ps.setString(2, img);
+            ps.setString(3, id);
+            ps.setString(4, status);
+
+            ps.executeUpdate();
+        } catch (SQLException e) {
+        }
+    }
+
+    public void UpdateStatusSlider(int status, int id) {
+        String sql = " update `Product` set `product_status`=? where `product_id` =?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, status);
+            ps.setInt(2, id);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void addSlider(String title, String img) {
+        String sql = "INSERT INTO `Product`\n"
+                + "  (`product_name`,`setting_id`, `img`,`product_status`, `create_date`)\n"
+                + "VALUES\n"
+                + "  (?,'4', ?,'3', NOW());";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, title);
+            ps.setString(2, img);
+
+            ps.executeUpdate();
+        } catch (SQLException e) {
+
+        }
+    }
+
+    public ArrayList<Product> getSliderWithPagination(int offset, int recordsPerPage) {
+        ArrayList<Product> list = new ArrayList<>();
+        PreparedStatement ps;
+        ResultSet rs;
+        String sql = "SELECT p.product_id, p.product_name, p.img, p.product_status, p.create_date FROM `product` p WHERE p.product_status IN (1, 3) ORDER BY p.`product_status` DESC LIMIT ?, ?;";
+        try {
+            ps = connection.prepareStatement(sql);
+            ps.setInt(1, offset);
+            ps.setInt(2, recordsPerPage);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Product product = new Product(rs.getInt(1), rs.getString(2), rs.getString("img"), rs.getInt("product_status"), rs.getDate("create_date"));
+                list.add(product);
+            }
+            rs.close();
+            ps.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    public int getTotalSliderCount() {
+        int total = 0;
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+
+        try {
+            String query = "SELECT COUNT(*) AS total FROM `product` WHERE `product_status` IN (1, 3)";
+            pst = connection.prepareStatement(query);
+            rs = pst.executeQuery();
+
+            if (rs.next()) {
+                total = rs.getInt("total");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (pst != null) {
+                    pst.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return total;
+    }
+    /////
+    
+    
+    
+    
+    
+    ////
+    public ArrayList<Product> pagingProduct(int index, int numOrOnPage) {
+        ArrayList<Product> list = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM `Product` order by product_status asc LIMIT ?, ?;";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            index = (index - 1) * numOrOnPage;
+            ps.setInt(1, index);
+            ps.setInt(2, numOrOnPage);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                 list.add(new Product(
+                rs.getInt("product_id"),
+                rs.getString("product_name"),
+                rs.getDouble("product_price"),
+                rs.getInt("setting_id"),
+                rs.getString("img"),
+                rs.getString("description"),
+                rs.getInt("product_status"),
+                rs.getDate("create_date"),
+                rs.getInt("size")));
+            }
+        } catch (SQLException e) {
+
+        }
+        return list;
+    }
+     public int countProduct() {
+        int count;
+        try {
+            String sql = " select count(*) from `Product`";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            rs.next();
+            count = rs.getInt(1);
+            return count;
+
+        } catch (SQLException e) {
+
+        }
+        return 0;
+    }
+      public ArrayList<Product> getProduct(String search, int index, String sort) {
+    String sortby ="";
+    switch (sort) {
+        case "1":
+            sortby = " p.`create_date` DESC";
+            break;
+        case "2":
+            sortby = " p.`product_price` ASC";
+            break;
+        case "3":
+            sortby = " p.`product_price` DESC";
+            break;
+        default:
+            sortby = " p.`product_name` DESC";
+            break;
+    }
+    ArrayList<Product> list = new ArrayList<>();
+    String sql = " SELECT * FROM `Product` p " +
+    "JOIN `Setting` s ON p.`setting_id` = s.`setting_id`\n"+
+                 " WHERE p.`product_status` = 1 " +
+                 " AND p.`product_name` LIKE ? " +
+                 " ORDER BY "+sortby+ " LIMIT ?, 8;";
+    try {
+        PreparedStatement ps = connection.prepareStatement(sql);
+        ps.setString(1, "%" + search + "%");
+        ps.setInt(2, (index - 1) * 6);
+        ResultSet rs = ps.executeQuery();
+
+        while (rs.next()) {
+             
+            list.add(new Product(
+                rs.getInt("product_id"),
+                rs.getString("product_name"),
+                rs.getDouble("product_price"),
+                rs.getInt("setting_id"),
+                rs.getString("img"),
+                rs.getString("description"),
+                rs.getInt("product_status"),
+                rs.getDate("create_date"),
+                rs.getInt("size")));
+        }
+    } catch (SQLException e) {
+        // Xử lý ngoại lệ nếu có
+    }
+    return list;
+}
+
+
+    public Product getAllProductById(int pid) {
+        String sql = "SELECT *\n"
+                + "FROM `Product` p\n"
+                + "WHERE p.`product_id` = ?;";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, pid);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Product p = new Product(
+                rs.getInt("product_id"),
+                rs.getString("product_name"),
+                rs.getDouble("product_price"),
+                rs.getInt("setting_id"),
+                rs.getString("img"),
+                rs.getString("description"),
+                rs.getInt("product_status"),
+                rs.getDate("create_date"),
+                rs.getInt("size"));
+                return p;
+            }
+        } catch (Exception e) {
+        }
+        return null;
+    }
+
+    public ArrayList<Setting> getAllCategory() {
+        ArrayList<Setting> list = new ArrayList<>();
+        String sql = "  select `setting_id` from `Setting`";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                list.add(new Setting(rs.getInt("setting_id"), rs.getString("setting_name")));
+            }
+        } catch (Exception e) {
+        }
+        return list;
+    }
+    public void AddProduct(String name, double price, /*int cateId,*/ String descri, String img,int size) {
+        String sql = "INSERT INTO `Product`\n"
+                + "  (`product_name`, `product_price`, `product_status`, `setting_id`, `img`, `description`, `create_date`,`size`)\n"
+                + "VALUES\n"
+                + "  (?, ?, 1, 4, ?, ?, NOW(),?);";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, name);
+            ps.setDouble(2, price);
+            //ps.setInt(3, cateId);
+            ps.setString(3, descri);
+            ps.setString(4, img);
+            ps.setInt(5, size);
+            ps.executeUpdate();
+        } catch (Exception e) {
+        }
+    }
+
+    public void UpdateProduct(int id, String name, double price,  String descri, String img,int size) {
+        String sql = "UPDATE `Product`\n"
+                + "SET `product_name` = ?, `product_price` = ?, `setitng_id` = 4,\n"
+                + "    `img` = ?, `description` = ?, `create_date` = NOW(),`size`= ?\n"
+                + "WHERE `product_id` = ?;";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, name);
+            ps.setDouble(2, price);
+           // ps.setInt(3, cateId);
+            ps.setString(3, descri);
+            ps.setString(4, img);
+            ps.setInt(5, size);
+            ps.executeUpdate();
+            ps.executeUpdate();
+        } catch (Exception e) {
+        }
+    }
+
+    public void UpdateProductStatus(int psId, int pId) {
+        String sql = "update `Product` set `product_status` = ? where `product_id` = ?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, psId);
+            ps.setInt(2, pId);
+            ps.executeUpdate();
+        } catch (Exception e) {
+        }
+    }
+    public ArrayList<Product> searchProduct(String search) {
+        ArrayList<Product> list = new ArrayList<>();
+        String sql = " SELECT *\n"
+                + "FROM `Product` p\n"
+                + "WHERE p.`product_name` LIKE ?\n"
+                + "ORDER BY p.`product_id` ASC;";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, "%" + search + "%");
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {           
+                list.add(new Product(
+                rs.getInt("product_id"),
+                rs.getString("product_name"),
+                rs.getDouble("product_price"),
+                rs.getInt("setting_id"),
+                rs.getString("img"),
+                rs.getString("description"),
+                rs.getInt("product_status"),
+                rs.getDate("create_date"),
+                rs.getInt("size")));
+            }
+        } catch (Exception e) {
+        }
+        return list;
+    }
+
+    public ArrayList<Product> getProductByDate(Date fdate, Date sdate) {
+        ArrayList<Product> list = new ArrayList<>();
+        String sql = "SELECT *\n"
+                + "FROM `Product` p\n"
+                + "WHERE p.`create_date` BETWEEN ? AND ?;";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setDate(1, (java.sql.Date) fdate);
+            ps.setDate(2, (java.sql.Date) sdate);
+            ResultSet rs = ps.executeQuery();
+
+           while (rs.next()) {
+                list.add(new Product(
+                rs.getInt("product_id"),
+                rs.getString("product_name"),
+                rs.getDouble("product_price"),
+                rs.getInt("setting_id"),
+                rs.getString("img"),
+                rs.getString("description"),
+                rs.getInt("product_status"),
+                rs.getDate("create_date"),
+                rs.getInt("size")));
+            }
+        } catch (SQLException e) {
+
+        }
+        return list;
+    }
 
 }
