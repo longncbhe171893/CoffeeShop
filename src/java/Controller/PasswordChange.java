@@ -81,8 +81,6 @@ public class PasswordChange extends HttpServlet {
         } else {
 
             dao.changePassword(String.valueOf(u.getId()), newpass);
-            u.setPassword(md5.getMd5(newpass));
-            session.invalidate();
             response.sendRedirect(request.getContextPath() + "/Login.jsp");
 
         }

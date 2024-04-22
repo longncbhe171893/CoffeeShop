@@ -118,7 +118,22 @@
         <!-- Email -->
         <label class="emailprofile">Email</label><input readonly class="emailprofile1" value="${sessionScope['account'].getEmail()}" name="email"><br/>
         <!-- Gender -->
-        <label class="genderprofile">Gender</label><input class="genderprofile1" type="text" value="${sessionScope['account'].getSex()}" name="sex"><br/>
+        <c:choose>
+                                                <c:when test="${sessionScope['account'].getSex() eq 1}">
+                                                    <input type="radio" id="sex_male" name="sex" value="1" checked>
+                                                    <label for="sex_male">Male</label>
+
+                                                    <input type="radio" id="sex_female" name="status" value="0">
+                                                    <label for="sex_female">Female</label><br>
+                                                </c:when>
+                                                <c:when test="${sessionScope['account'].getSex() eq 0}">
+                                                    <input type="radio" id="sex_male" name="sex" value="1" >
+                                                    <label for="sex_male">Male</label>
+
+                                                    <input type="radio" id="sex_female" name="status" value="0" checked>
+                                                    <label for="sex_female">Female</label><br>
+                                                </c:when>
+                                            </c:choose>
         <!-- Phone -->
         <label class="phoneprofile">Phone</label><input class="phoneprofile1" type="number" value="${sessionScope['account'].getPhone()}" name="phone"><br/>
         <!-- Address -->

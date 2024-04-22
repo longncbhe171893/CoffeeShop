@@ -183,10 +183,22 @@
                                             <b>Description: </b><textarea class="form-control"name="description">${setting.getDescription()}</textarea><br>
                                             <b>Type: </b><input type="text" class="form-control" value="${setting.getType()}" name="type" ><br>    
                                             <b>Status: </b>
-                                            <input type="radio" id="status_enable" name="status" value="1" checked>
-                                            <label for="status_enable">Enable</label>
-                                            <input type="radio" id="status_disable" name="status" value="0">
-                                            <label for="status_disable">Disable</label><br>
+                                            <c:choose>
+                                                <c:when test="${setting.getStatus() eq 1}">
+                                                    <input type="radio" id="status_enable" name="status" value="1" checked>
+                                                    <label for="status_enable">Enable</label>
+
+                                                    <input type="radio" id="status_disable" name="status" value="0">
+                                                    <label for="status_disable">Disable</label><br>
+                                                </c:when>
+                                                <c:when test="${setting.getStatus() eq 0}">
+                                                    <input type="radio" id="status_enable" name="status" value="1">
+                                                    <label for="status_enable">Enable</label>
+
+                                                    <input type="radio" id="status_disable" name="status" value="0" checked>
+                                                    <label for="status_disable">Disable</label><br>
+                                                </c:when>
+                                            </c:choose>
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

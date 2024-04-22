@@ -158,9 +158,7 @@ public class SettingDAO extends DBContext {
 
         }
         ArrayList<Setting> list = new ArrayList<>();
-        String sql = " select * from Setting "
-                
-                + sortby;
+        String sql = " select * from Setting "   + sortby;
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
             
