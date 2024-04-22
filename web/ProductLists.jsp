@@ -1,8 +1,4 @@
-<%-- 
-    Document   : ProductLists
-    Created on : May 27, 2023, 11:34:41 AM
-    Author     : Hoàng Vũ
---%>
+
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -55,79 +51,69 @@
                 </div>
             </div>
         </section>
+        <div class="row">
+            <div class="col-md-2">
+               <%@include file="SidebarProduct.jsp" %> 
+            </div>
+            <div class="col-md-10">
+                <section class="ftco-menu mb-5 pb-5">
+                    <div class="container">
+                        <div class="row justify-content-center mb-5">
+                            <div class="col-md-7 heading-section text-center ftco-animate">
+                                <span class="subheading">Discover</span>
+                                <h2 class="mb-4">Our Products</h2>
+                                <p></p>
+                            </div>
+                        </div>
 
-        <section class="ftco-menu mb-5 pb-5">
-            <div class="container">
-                <div class="row justify-content-center mb-5">
-                    <div class="col-md-7 heading-section text-center ftco-animate">
-                        <span class="subheading">Discover</span>
-                        <h2 class="mb-4">Our Products</h2>
-                        <p></p>
-                    </div>
-                </div>
+                        <div class="row d-md-flex">
 
-                <div class="row d-md-flex">
-                    <form action="ProductLists"  method="get" style="
-                          margin-top: -94px;
-                          margin-bottom: -41px;">
-                        <select style="
-                                background-color: black;
-                                color: wheat;
-                                height: 40px;
-                                border-radius: 10px;
-                                margin-left: 47px;
-                                margin-top: 53px;" name="sort" class="form-select"  onchange="this.form.submit()">
-                            <option value="0" ${param['sort']==0?"selected":""}>Sort Default</option>
-                            <option value="1" ${param['sort']==1?"selected":""}>Newest</option>
-                            <option value="2" ${param['sort']==2?"selected":""}>Price ascending</option>
-                            <option value="3" ${param['sort']==3?"selected":""}>Price descending</option>
-                        </select>
-                    </form>
-                    <div class="col-lg-12 ftco-animate p-md-5">
-                        <div class="row">
 
-                            <div class="col-md-12 d-flex align-items-center">
+                            <div class="col-lg-12 ftco-animate p-md-5">
+                                <div class="row">
 
-                                <div class="tab-content ftco-animate" id="v-pills-tabContent">
+                                    <div class="col-md-12 d-flex align-items-center">
 
-                                    <div class="tab-pane fade show active" id="v-pills-1" role="tabpanel" aria-labelledby="v-pills-1-tab">
-                                        <div class="row">
-                                            <c:forEach var="p" items="${plist}">
-                                                <div class="col-md-4 text-center">
-                                                    <div class="menu-wrap">
-                                                        <a href="./ProductDetails?pid=${p.getId()}&mode=0" class="menu-img img mb-4" style="background-image: url(${p.getImage()});"></a>
-                                                        <div class="text">
-                                                            <h3><a href="./ProductDetails?pid=${p.getId()}&mode=0">${p.getName()}</a></h3>		
-                                                            <p style="color: #fff" class="price">Price:<span class="priceSpan">${p.getPrice()}</span>đ</p>
-                                                            <p><a href="./ProductDetails?pid=${p.getId()}&mode=0" class="btn btn-primary btn-outline-primary">Order</a></p>
+                                        <div class="tab-content ftco-animate" id="v-pills-tabContent">
+
+                                            <div class="tab-pane fade show active" id="v-pills-1" role="tabpanel" aria-labelledby="v-pills-1-tab">
+                                                <div class="row">
+                                                    <c:forEach var="p" items="${plist}">
+                                                        <div class="col-md-4 text-center">
+                                                            <div class="menu-wrap">
+                                                                <a href="./ProductDetails?pid=${p.getId()}&mode=0" class="menu-img img mb-4" style="background-image: url(${p.getImage()});"></a>
+                                                                <div class="text">
+                                                                    <h3><a href="./ProductDetails?pid=${p.getId()}&mode=0">${p.getName()}</a></h3>		
+                                                                    <p style="color: #fff" class="price">Price:<span class="priceSpan">${p.getPrice()}</span>đ</p>
+                                                                    <p><a href="./ProductDetails?pid=${p.getId()}&mode=0" class="btn btn-primary btn-outline-primary">Order</a></p>
+                                                                </div>
+                                                            </div>
                                                         </div>
-                                                    </div>
+                                                    </c:forEach>
                                                 </div>
-                                            </c:forEach>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
 
-                <div class="row mt-5">
-                    <div class="col text-center">
-                        <div class="block-27">
-                            <ul>
-                                <li><a href="ProductLists?index=1&categoryId=${param['categoryId']}">&lt;</a></li>
-                                    <c:forEach var = "i" begin = "1" end = "${numberPage}">
-                                    <li class="${param['index']==i?'page-item active':'page-item'}"><a href="ProductLists?index=${i}&categoryId=${param['categoryId']}"><span>${i}</span></a></li>
-                                            </c:forEach>
-                                <li><a href="ProductLists?index=${numberPage}&categoryId=${param['categoryId']}">&gt;</a></li>
-                            </ul>
+                        <div class="row mt-5">
+                            <div class="col text-center">
+                                <div class="block-27">
+                                    <ul>
+                                        <li><a href="ProductLists?index=1&categoryId=${param['setting_id']}">&lt;</a></li>
+                                            <c:forEach var = "i" begin = "1" end = "${numberPage}">
+                                            <li class="${param['index']==i?'page-item active':'page-item'}"><a href="ProductLists?index=${i}&categoryId=${param['setting_id']}"><span>${i}</span></a></li>
+                                                    </c:forEach>
+                                        <li><a href="ProductLists?index=${numberPage}&categoryId=${param['setting_id']}">&gt;</a></li>
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </section>
-        <jsp:include page="Footer.jsp"/>      
+                </section></div></div>
+                <jsp:include page="Footer.jsp"/>      
 
 
 
@@ -155,13 +141,13 @@
         <script src="js/google-map.js"></script>
         <script src="js/main.js"></script>
         <script>
-                               var priceSpans = document.querySelectorAll(".priceSpan");
+                            var priceSpans = document.querySelectorAll(".priceSpan");
 
-                               priceSpans.forEach(function (span) {
-                                   var price = parseFloat(span.textContent);
-                                   var formattedPrice = price.toFixed(3); // Định dạng giá trị với 3 số 0 sau dấu chấm
-                                   span.textContent = formattedPrice;
-                               });
+                            priceSpans.forEach(function (span) {
+                                var price = parseFloat(span.textContent);
+                                var formattedPrice = price.toFixed(3); // Định dạng giá trị với 3 số 0 sau dấu chấm
+                                span.textContent = formattedPrice;
+                            });
         </script>
 
     </body>

@@ -60,9 +60,13 @@ public class SettingLists extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        SettingDAO settingDAO = new SettingDAO();
-        
+        String search = request.getParameter("search");
+        SettingDAO settingDAO = new SettingDAO();       
         List<Setting> settings = settingDAO.getAllSettings();
+        if (search != null) {
+            settings = settingDAO.searchSetting(search);
+        }
+        
         request.setAttribute("settings", settings);
         RequestDispatcher dispatcher = request.getRequestDispatcher("SettingList.jsp");
         dispatcher.forward(request, response);
@@ -80,6 +84,17 @@ public class SettingLists extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         
+        String sort = request.getParameter("sort");
+        SettingDAO settingDAO = new SettingDAO();       
+        List<Setting> settings = settingDAO.getAllSettings();
+
+        if (sort != null) {
+            settings = settingDAO.getAllSettingSort(sort);
+        }
+        
+        request.setAttribute("settings", settings);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("SettingList.jsp");
+        dispatcher.forward(request, response);
     }
 
     /** 

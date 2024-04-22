@@ -23,7 +23,7 @@
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <link href="css/nice-select.css" rel="stylesheet">
         <title>Coffee</title>     
-           <script src="ckeditor/ckeditor.js"></script> 
+        <script src="ckeditor/ckeditor.js"></script> 
         <script src="ckfinder/ckfinder.js"></script>
         <title>Seller Dashbord</title>   
         <style>
@@ -58,21 +58,30 @@
                 /* Viền sáng màu xanh lá cây */
             }
             .container {
-        display: flex;
-    }
-    #sidebar {
-        flex: 1; /* tỉ lệ 1 */
-        margin-right: 20px; /* khoảng cách giữa sidebar và content */
-    }
-    #content {
-        flex: 3; /* tỉ lệ 3 */
-    }
+                display: flex;
+            }
+            #sidebar {
+                flex: 1; /* tỉ lệ 1 */
+                margin-right: 20px; /* khoảng cách giữa sidebar và content */
+            }
+            #content {
+                flex: 3; /* tỉ lệ 3 */
+            }
         </style>
     </head>
     <body>
-    <   <jsp:include page="headerAdmin.jsp"/>
+        <   <jsp:include page="headerAdmin.jsp"/>
         <!-- CONTENT -->
         <section id="content">
+            <nav>
+                <i class='bx bx-menu' ></i>
+                <form action="SettingLists" method="get">
+                    <div class="form-input">
+                        <input type="search" name="search" placeholder="Search...">
+                        <button type="submit" class="search-btn"><i class='bx bx-search' ></i></button>
+                    </div>
+                </form>
+            </nav>
             <!-- NAVBAR -->
             <!-- MAIN -->
             <main>
@@ -80,35 +89,125 @@
                     <div class="left">
                         <h1>Manage Setting</h1>
                     </div>
+                    <div>
+                        <form action="SettingLists"  method="post" style="
+                          margin-top: -94px;
+                          margin-bottom: -41px;">
+                        <select style="
+                                background-color: blue;
+                                color: wheat;
+                                height: 40px;
+                                border-radius: 10px;
+                                margin-left: 47px;
+                                margin-top: 53px;" name="sort" class="form-select"  onchange="this.form.submit()">
+                            <option value="" ${param['sort']==null?"selected":""}>Sort Default</option>
+                            
+                            <option value="1" ${param['sort']==1?"selected":""}>Setting Name</option>
+                            <option value="2" ${param['sort']==2?"selected":""}>Type</option>
+                            <option value="3" ${param['sort']==3?"selected":""}>Status</option>
+                            
+                        </select>
+                    </form>
+                    </div>
                 </div>
+                
+                <button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#myModalAddNew">Add Setting</button>
+                <!-- Modal -->
+                <div class="modal fade" id="myModalAddNew" role="dialog">
+                    <div class="modal-dialog">
+
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Add Setting</h4>
+                            </div>
+                            <form action="AddSetting" method="post" >
+                                <div class="modal-body">
+                                    <b>Setting Name: </b><input type="text" class="form-control" value="" required name="name"><br>  
+                                    <b>Description: </b>
+                                    <div class="form-control">
+                                        <textarea id="edit" rows="5" name="description" class="form-control" placeholder="Write some thing..." required=""></textarea>
+                                    </div>
+                                    <b>Type: </b><input type="text" class="form-control" value="" required name="type"><br>  
+                                    <b>Status: </b>
+                                    <input type="radio" id="status_enable" name="status" value="1" checked>
+                                    <label for="status_enable">Enable</label>
+                                    <input type="radio" id="status_disable" name="status" value="0">
+                                    <label for="status_disable">Disable</label><br>
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-success" value="submit">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
                 <table class="table" style="margin-top: 20px; margin-bottom: 20px;">
-                    <thead >
+                    <thead>
                         <tr style="font-size: 20px;">
                             <th scope="col">ID</th>
                             <th scope="col">Setting Name</th>
-                            <th scope="col">Description</th>
-                            <th scope="col">Type</th>                             
-                            <th scope="col" colspan="2" style="text-align: center">Action</th>
+                            <th scope="col">Type</th>     
+                            <th scope="col">Status</th> 
+                            <th scope="col">Action</th>
                         </tr>
                     </thead>
-                    <c:forEach var="setting" items="${settings}">
+                    <tbody> <!-- Đặt các phần tử HTML trong một phần tử tbody -->
+                        <c:forEach var="setting" items="${settings}">
                             <tr>
-                                <td>${setting.getSetting_id()}</td>
+                                <td>${setting.getId()}</td>
                                 <td>${setting.getName()}</td>
-                                <td>${setting.getDescription()}</td>   
                                 <td>${setting.getType()}</td>
-                                <td><button>Details</button></td>
-                                
-                        </c:forEach>
-                    <!-- Use JSTL to iterate over settings -->
+                                <td><a onclick="return confirm('Do you want to change setting status?')" href="UpdateStatusSetting?setting_id=${setting.getId()}&status=${setting.getStatus()}">
+                                        ${setting.getStatus()==1?"Enable":"Disable"}</a></td> 
+                                <td> 
+                                    <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#myModal${setting.getId()}">Detail</button>
+                                </td>
+                            </tr>
+                        <div class="modal fade" id="myModal${setting.getId()}" role="dialog">
+                            <!-- Modal content -->
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        <h4 class="modal-title">Edit Setting:</h4>
+                                    </div>
+                                    <form action="EditSetting" method="post">
+                                        <div class="modal-body">
+                                            <b>ID: </b><input type="text" class="form-control" name="id" value="${setting.getId()}" readonly=""><br>
+                                            <b>Name: </b><input type="text" class="form-control" value="${setting.getName()}"  name="name"><br>
+                                            <b>Description: </b><textarea class="form-control"name="description">${setting.getDescription()}</textarea><br>
+                                            <b>Type: </b><input type="text" class="form-control" value="${setting.getType()}" name="type" ><br>    
+                                            <b>Status: </b>
+                                            <input type="radio" id="status_enable" name="status" value="1" checked>
+                                            <label for="status_enable">Enable</label>
+                                            <input type="radio" id="status_disable" name="status" value="0">
+                                            <label for="status_disable">Disable</label><br>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn btn-success" value="submit">Submit</button>
+                                        </div>
+                                    </form>                                 
+                                </div>
+                            </div>
+                        </div>
+                    </c:forEach>
+                    </tbody>
                 </table>
+
             </main>
             <!-- MAIN -->
         </section>
-    
-</body>
 
-        
+
+
+
+
         <script src="js/adminDashbord.js"></script>
         <script src="js/jquery-3.4.1.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
