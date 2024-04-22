@@ -18,18 +18,26 @@ public class Blog {
     private User user;
     private Date post_date;
     private String content;
+    private Setting setting;
+    private int blog_status;
+    private String description;
+    
 
     public Blog() {
     }
 
-    public Blog(int blog_id, String blog_title, String blog_image, User user , Date post_date, String content) {
+    public Blog(int blog_id, String blog_title, String blog_image, User user, Date post_date, String content, Setting setting, int blog_status, String description) {
         this.blog_id = blog_id;
         this.blog_title = blog_title;
         this.blog_image = blog_image;
         this.user = user;
         this.post_date = post_date;
         this.content = content;
+        this.setting = setting;
+        this.blog_status = blog_status;
+        this.description = description;
     }
+
     public int getBlog_id() {
         return blog_id;
     }
@@ -78,9 +86,35 @@ public class Blog {
         this.content = content;
     }
 
+    public Setting getSetting() {
+        return setting;
+    }
+
+    public void setSetting(Setting setting) {
+        this.setting = setting;
+    }
+
+    public int getBlog_status() {
+        return blog_status;
+    }
+
+    public void setBlog_status(int blog_status) {
+        this.blog_status = blog_status;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     @Override
     public String toString() {
-        return "Blog{" + "blog_id=" + blog_id + ", blog_title=" + blog_title + ", blog_image=" + blog_image + ", user=" + user + ", post_date=" + post_date + ", content=" + content + '}';
+        return "Blog{" + "blog_id=" + blog_id + ", blog_title=" + blog_title + ", blog_image=" + blog_image + ", user=" + user + ", post_date=" + post_date + ", content=" + content + ", setting=" + setting + ", blog_status=" + blog_status + ", description=" + description + '}';
     }
+
+    
     
 }

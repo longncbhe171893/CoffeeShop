@@ -11,7 +11,11 @@
     </a>
     <ul class="side-menu top">
         <li class="active">
+<<<<<<< HEAD
             <a href="#">
+=======
+            <a href="AdminDashboard">
+>>>>>>> main
                 <i class='bx bxs-dashboard' ></i>
                 <span class="text">Admin Manage</span>
             </a>
@@ -24,9 +28,15 @@
             </a>
         </li>
         <li class="active">
-            <a href="#">
+            <a href="ManagerUser?index=1">
                 <i class='bx bxs-dashboard' ></i>
                 <span class="text">Manage User</span>
+            </a>
+        </li>
+       <li class="active">
+            <a href="ManageProduct?index=1">
+                <i class='bx bxs-dashboard' ></i>
+                <span class="text">Manage Product</span>
             </a>
         </li>
        

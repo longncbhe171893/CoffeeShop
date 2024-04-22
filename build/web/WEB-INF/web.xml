@@ -29,10 +29,6 @@
         <servlet-class>Controller.Home</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ProductDetails</servlet-name>
-        <servlet-class>Controller.ProductDetails</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>LogOut</servlet-name>
         <servlet-class>Controller.LogOut</servlet-class>
     </servlet>
@@ -43,10 +39,6 @@
     <servlet>
         <servlet-name>Blog</servlet-name>
         <servlet-class>Controller.Blog</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>ProductLists</servlet-name>
-        <servlet-class>Controller.ProductLists</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>VerifyForgotPassword</servlet-name>
@@ -71,6 +63,10 @@
     <servlet>
         <servlet-name>EditProduct</servlet-name>
         <servlet-class>Controller.EditProduct</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditUser</servlet-name>
+        <servlet-class>Controller.EditUser</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AdminDashbord</servlet-name>
@@ -169,12 +165,20 @@
         <servlet-class>Controller.EditRole</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>AddUser</servlet-name>
-        <servlet-class>Controller.AddUser</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>ManageBlog</servlet-name>
         <servlet-class>Controller.ManageBlog</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteBlog</servlet-name>
+        <servlet-class>Controller.DeleteBlog</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UserDetails</servlet-name>
+        <servlet-class>Controller.EditUser</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddUser</servlet-name>
+        <servlet-class>Controller.AddUser</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Register</servlet-name>
@@ -265,10 +269,6 @@
         <url-pattern>/AdminDashboard</url-pattern>
     </filter-mapping>
     <servlet-mapping>
-        <servlet-name>ProductDetails</servlet-name>
-        <url-pattern>/ProductDetails</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>LogOut</servlet-name>
         <url-pattern>/LogOut</url-pattern>
     </servlet-mapping>
@@ -279,10 +279,6 @@
     <servlet-mapping>
         <servlet-name>Blog</servlet-name>
         <url-pattern>/Blog</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ProductLists</servlet-name>
-        <url-pattern>/ProductLists</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>VerifyForgotPassword</servlet-name>
@@ -307,6 +303,10 @@
     <servlet-mapping>
         <servlet-name>EditProduct</servlet-name>
         <url-pattern>/EditProduct</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditUser</servlet-name>
+        <url-pattern>/EditUser</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AdminDashbord</servlet-name>
@@ -405,12 +405,20 @@
         <url-pattern>/EditRole</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>AddUser</servlet-name>
-        <url-pattern>/AddUser</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>ManageBlog</servlet-name>
         <url-pattern>/ManageBlog</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteBlog</servlet-name>
+        <url-pattern>/DeleteBlog</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UserDetails</servlet-name>
+        <url-pattern>/UserDetails</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddUser</servlet-name>
+        <url-pattern>/AddUser</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

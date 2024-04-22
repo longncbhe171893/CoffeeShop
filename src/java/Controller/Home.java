@@ -5,6 +5,11 @@
 package Controller;
 
 
+<<<<<<< HEAD
+=======
+import Model.Product;
+import com.google.gson.Gson;
+>>>>>>> main
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
@@ -17,10 +22,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-/**
- *
- *
- */
 public class Home extends HttpServlet {
 
     /**

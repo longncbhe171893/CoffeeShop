@@ -44,7 +44,7 @@
                 <div class="collapse navbar-collapse" id="ftco-nav">
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item">
-                            <form action="#" class="search-form" method="post" >
+                            <form action="Blog" class="search-form" method="post" >
                                 <div class="form-group">
                                     <div class="icon">
                                         <span class="icon-search"></span>
@@ -55,7 +55,7 @@
                         </li>
                         <li class="nav-item"><a href="Home" class="nav-link">Home</a></li>
                         <li class="nav-item"><a href="#" class="nav-link">Menu</a></li>
-                        <li class="nav-item"><a href="#" class="nav-link">Blog</a></li>
+                        <li class="nav-item"><a href="Blog" class="nav-link">Blog</a></li>
                         <li class="nav-item">
                             <c:if test="${sessionScope['account'].getSetting_id() == 3}">
                                 <a href="#" class="nav-link" >MY ORDER</a>
@@ -63,14 +63,16 @@
                         </li>
                         <li class="nav-item">
                             <c:if test="${sessionScope['account'].getSetting_id() == 1}">
-                                <a href="SettingLists" class="nav-link" >MANAGER PAGE</a>
+                                <a href="AdminDashBoard.jsp" class="nav-link" >MANAGER PAGE</a>
                             </c:if>
 
                             <c:if test="${sessionScope['account'].getSetting_id() == 2}">
                                 <a href="SellerDashboard.jsp" class="nav-link" >MANAGER PAGE</a>
                             </c:if>
                         </li>
-
+                        <li class="nav-item">
+                            <a href="ManagerUser?index=1" class="nav-link" >MANAGER PAGE</a>
+                        </li>
                         <li class="nav-item">
                             <c:if test="${sessionScope['account']!=null}">
                                 <a href="UserProfile.jsp" class="nav-link"><i class="biolife-icon icon-login"></i>PROFILE</a>
