@@ -69,7 +69,7 @@
                                 <a href="#" class="nav-link" >MANAGER PAGE</a>
                             </c:if>
                         <li class="nav-item">
-                            <a href="ManageBlog" class="nav-link" >MANAGER PAGE</a>
+                            <a href="ManageBlog?index=1" class="nav-link" >MANAGER PAGE</a>
                         </li>
 
                         <li class="nav-item">

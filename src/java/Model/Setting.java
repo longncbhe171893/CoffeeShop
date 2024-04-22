@@ -1,41 +1,44 @@
-
 package Model;
 
-/**
- *
- *
- */
 public class Setting {
-    private int setting_id;
+
+    private int id;
     private String name;
     private String description;
     private String type;
     private int sort;
+    private int status;
 
     public Setting() {
     }
 
-    public Setting(int setting_id, String name, String description, String type, int sort) {
-        this.setting_id = setting_id;
+    public Setting(int id, String name, String type) {
+        this.id = id;
+        this.name = name;
+        this.type = type;
+    }
+
+    public Setting(int id, String name, String description, String type, int sort) {
+        this.id = id;
         this.name = name;
         this.description = description;
         this.type = type;
         this.sort = sort;
     }
 
-    public Setting(int setting_id, String name, String description, String type) {
-        this.setting_id = setting_id;
+    public Setting(int id, String name, String description, String type) {
+        this.id = id;
         this.name = name;
         this.description = description;
         this.type = type;
     }
 
-    public int getSetting_id() {
-        return setting_id;
+    public int getId() {
+        return id;
     }
 
-    public void setSetting_id(int setting_id) {
-        this.setting_id = setting_id;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -70,5 +73,12 @@ public class Setting {
         this.sort = sort;
     }
 
-    
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
 }
