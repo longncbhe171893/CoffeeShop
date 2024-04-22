@@ -16,11 +16,17 @@
             <file>file:/D:/SWP391/project-real/CoffeeShop/CoffeeShop/web/headerSeller.jsp</file>
             <file>file:/D:/SWP391/project-real/CoffeeShop/CoffeeShop/src/java/Controller/SellerController/ManageBlog.java</file>
         </group>
-        <group name="PE">
-            <file>file:/F:/SWP/ProjectCoffee/CoffeeShop/src/java/DAO/UserDAO.java</file>
-            <file>file:/F:/SWP/ProjectCoffee/CoffeeShop/src/java/Model/User.java</file>
-            <file>file:/F:/SWP/ProjectCoffee/CoffeeShop/src/java/Controller/Login.java</file>
-        </group>
         <group name="PE"/>
+        <group name="PE">
+            <file>file:/F:/SWP/ProjectCoffee/CoffeeShop/src/java/Controller/SliderController/AddSlider.java</file>
+            <file>file:/F:/SWP/ProjectCoffee/CoffeeShop/src/java/Controller/UserProfile.java</file>
+            <file>file:/F:/SWP/ProjectCoffee/CoffeeShop/src/java/Model/Setting.java</file>
+            <file>file:/F:/SWP/ProjectCoffee/CoffeeShop/src/java/Controller/AddUser.java</file>
+            <file>file:/F:/SWP/ProjectCoffee/CoffeeShop/src/java/Controller/SliderController/UpdateStatusSlider.java</file>
+            <file>file:/F:/SWP/ProjectCoffee/CoffeeShop/src/java/Controller/SliderController/ManageSlider.java</file>
+            <file>file:/F:/SWP/ProjectCoffee/CoffeeShop/web/WEB-INF/web.xml</file>
+            <file>file:/F:/SWP/ProjectCoffee/CoffeeShop/src/java/DAO/ProductDAO.java</file>
+            <file>file:/F:/SWP/ProjectCoffee/CoffeeShop/src/java/DAO/SettingDAO.java</file>
+        </group>
     </open-files>
 </project-private>
