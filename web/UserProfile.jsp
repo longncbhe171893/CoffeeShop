@@ -106,23 +106,37 @@
     <body>
         <jsp:include page="header.jsp"/>
         <div style="margin-top: 200px; margin-left: 462px" class="ipform">
+    <form method="post" action="UserProfile" >
+        <h3>My Profile</h3>
+        <!-- Profile Image -->
+        <div class="profile-image-container">
+            <img src="${sessionScope['account'].getImage()}" class="profile-image" alt="Profile Image">
+            <input class="imageprofile1" type="file" accept="image/*" name="image">
+        </div><br/>
+        <!-- Name -->
+        <label class="nameprofile">Name</label><input class="nameprofile1" type="text" value="${sessionScope['account'].getName()}" name="name"><br/>
+        <!-- Email -->
+        <label class="emailprofile">Email</label><input readonly class="emailprofile1" value="${sessionScope['account'].getEmail()}" name="email"><br/>
+        <!-- Gender -->
+        <label class="genderprofile">Gender</label><input class="genderprofile1" type="text" value="${sessionScope['account'].getSex()}" name="sex"><br/>
+        <!-- Phone -->
+        <label class="phoneprofile">Phone</label><input class="phoneprofile1" type="number" value="${sessionScope['account'].getPhone()}" name="phone"><br/>
+        <!-- Address -->
+        <label class="addressprofile">Address</label><input class="addressprofile1" type="text" value="${sessionScope['account'].getAddress()}" name="address"><br/>
+        <!-- Change password link -->
+        <a href="ChangePassword.jsp" class="change-container">
+            <span class="change">Change password</span>
+        </a>
+        <!-- Hidden input for user id -->
+        <input value="${sessionScope['account'].getId()}" name="id" type="hidden">
+        <!-- Success message -->
+        <p style="color: greenyellow">${mess}</p>
+        <!-- Edit button -->
+        <input style="background: #c49b63; color: white" class="editprofile" type="submit" value="Edit"> 
+    </form>
+</div>
+<div style="margin-bottom: 100px"></div>
 
-            <form method="post" action="UserProfile" >
-                <h3>My Profile</h3>
-                <label class="nameprofile">Name</label><input class="nameprofile1" type="text" value="${sessionScope['account'].getName()}" name="name"><br/>
-                <label class="emailprofile">Email</label><input readonly class="emailprofile1" value="${sessionScope['account'].getEmail()}" name="email"><br/>
-                <label class="genderprofile">Gender</label><input class="genderprofile1" type="text" value="${sessionScope['account'].getSex()}" name="sex"><br/>
-                <label class="phoneprofile">Phone</label><input class="phoneprofile1" type="number" value="${sessionScope['account'].getPhone()}" name="phone"><br/>
-                <label class="addressprofile">Address</label><input class="addressprofile1" type="text" value="${sessionScope['account'].getAddress()}" name="address"><br/>
-                <a href="ChangePassword.jsp" class="change-container">
-                    <span class="change">Change password</span>
-                </a>
-                <input value="${sessionScope['account'].getId()}" name="id" type="hidden">
-                <p style="color: greenyellow">${mess}</p>
-                <input style="background: #c49b63; color: white" class="editprofile" type="submit" value="Edit"> 
-            </form>
-        </div>
-        <div style="margin-bottom: 100px"></div>
         <jsp:include page="Footer.jsp"/>
 
         <script src="js/jquery.min.js"></script>

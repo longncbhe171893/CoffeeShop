@@ -4,12 +4,19 @@
  */
 package DAO;
 
-
+import Model.Setting;
 import Model.User;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Base64;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  *
@@ -19,18 +26,18 @@ public class UserDAO extends DBContext {
 
     private MD5 md5 = new MD5();
 
-    public static void main(String[] args) {
-        UserDAO ud = new UserDAO();
-//        User ls = ud.getUserByEmail("abc@gmail.com");
-//        System.out.println(ls);
-//        User a = new User(0, "name", "email", "password", "address", null , "sex", "image", 3, 0, 0);
-//        ud.inserUser(a.getName(), a.getEmail(), a.getPassword());
-            ArrayList<User> ls= ud.getAllUser();
-            for (User l : ls) {
-            System.out.println(l);
-    }
+//    public static void main(String[] args) {
+//        UserDAO ud = new UserDAO();
+////        User ls = ud.getUserByEmail("abc@gmail.com");
+////        System.out.println(ls);
+////        User a = new User(0, "name", "email", "password", "address", null , "sex", "image", 3, 0, 0);
+////        ud.inserUser(a.getName(), a.getEmail(), a.getPassword());
+////            ArrayList<User> ls= ud.getAllUser();
+////            for (User l : ls) {
+////            System.out.println(l);
+////    }
 //           ud.changePasswordByEmail("LongNCBHE171893@fpt.edu.vn", "12345678");
-}
+//}
     public User getUserByEmail(String email) {
         String sql = "select * from `Users` where `email`= ?";
         try {
@@ -66,20 +73,7 @@ public class UserDAO extends DBContext {
         } catch (SQLException e) {
         }
     }
-    public void UpdateUser(String name, int userid, int sex, String phone, String address) {
-        String sql = "UPDATE `Users` SET `user_name`=?, `sex`=?, `phone`=?, `address`=? WHERE `user_id`=?";
-        try {
-            PreparedStatement ps = connection.prepareStatement(sql);
-            ps.setString(1, name);
-            ps.setInt(2, sex);
-            ps.setString(3, phone);
-            ps.setString(4, address);
-            ps.setInt(5, userid);
-            ps.executeUpdate();
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-    }
+
     public ArrayList<User> getAllUser() {
         ArrayList<User> listUser = new ArrayList<>();
         String sql = "select * from `Users`";
@@ -128,7 +122,7 @@ public class UserDAO extends DBContext {
     }
 
     public void UpdateStatusUser(int sid, int uid) {
-        String sql = " update `Users` set `user_status`=? where `user_id` =?";
+        String sql = " update `Users` set `UserStatus_id`=? where `user_id` =?";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setInt(1, sid);
@@ -200,7 +194,7 @@ public class UserDAO extends DBContext {
         return list;
     }
 
-    public void addUser(String name, String email, String password, String address, String phone, int sex, double userpoint) {
+    public void addUser(String name, String email, String password, String address, String phone, String sex, double userpoint) {
         String sql = "INSERT INTO `Users`\n"
                 + "  (`user_name`, `email`, `password`, `address`, `phone`, `sex`,`setting_id`,`user_status`, `user_point`)\n"
                 + "VALUES\n"
@@ -212,7 +206,7 @@ public class UserDAO extends DBContext {
             ps.setString(3, md5.getMd5(password));
             ps.setString(4, address);
             ps.setString(5, phone);
-            ps.setInt(6, sex);
+            ps.setString(6, sex);
             ps.setDouble(7, userpoint);
             ps.executeUpdate();
         } catch (Exception e) {
@@ -236,23 +230,60 @@ public class UserDAO extends DBContext {
             return -1;
         }
     }
-public void updateUser(String name, String email, String password, String address, String phone, int sex,String image, double userpoint,int id) {
-        String sql = "UPDATE `Users`\n"
-                + "SET `user_name` = ?, `email` = ?, `password` = ?, `address` = ?,`phone`= ?,`sex`=?,`user_image`=?,`user_point`=?\n"
-                + "WHERE `user_id` = ?;";
+    
+    public void UpdateUser(String name, int userid, int sex, String phone, String address, String image) {
+        String sql = "UPDATE `Users` SET `user_name`=?, `sex`=?, `phone`=?, `address`=?, `user_image`=? WHERE `user_id`=?";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, name);
-            ps.setString(2, email);
-            ps.setString(3, password);
+            ps.setInt(2, sex);
+            ps.setString(3, phone);
             ps.setString(4, address);
-            ps.setString(5, phone);
-            ps.setInt(6, sex);
-            ps.setString(7, image);
-            ps.setDouble(8, userpoint);
-            ps.setInt(9, id);
+            ps.setString(5, image);
+            ps.setInt(6, userid);
             ps.executeUpdate();
-        } catch (Exception e) {
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
         }
-    } 
+    }
+    
+    public boolean checkPhonenumber(String phone) {
+        String regex = "^\\d{10}$";
+        Pattern p = Pattern.compile(regex);
+        if (phone == null) {
+            return false;
+        }
+
+        Matcher m = p.matcher(phone);
+        return m.matches();
+    }
+
+    //  Kiểm tra password nhập vào có đúng điều kiện không, điều kiên 
+    //  cụ thể ở đây là password phải có từ 6 đến 20 kí tự bao gồm chữ và số.
+    public boolean checkPassword(String password) {
+        String regex = "^(?=.*[0-9])(?=.*[a-z]).{6,20}$";
+        Pattern p = Pattern.compile(regex);
+        if (password == null) {
+            return false;
+        }
+
+        Matcher m = p.matcher(password);
+        return m.matches();
+    }
+    
+    public String encodeImage(String imagePath) throws IOException {
+        File file = new File(imagePath);
+        try (FileInputStream imageInFile = new FileInputStream(file)) {
+            byte imageData[] = new byte[(int) file.length()];
+            imageInFile.read(imageData);
+            return Base64.getEncoder().encodeToString(imageData);
+        } catch (FileNotFoundException e) {
+            System.out.println("Image not found: " + e);
+        } catch (IOException ioe) {
+            System.out.println("Exception while reading the Image " + ioe);
+        }
+        return null;
+    }
+    
+    
 }

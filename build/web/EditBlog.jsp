@@ -49,29 +49,31 @@
                             <b>Category :</b>
                             <select   name="category" ${disable} >                            
                                 <c:forEach var="categoryBlog" items="${categoryBlog}" >
-                                    <option value="${categoryBlog.getId()}" <c:if test = "${blog.getSetting().getSetting_id()==categoryBlog.getId()}">selected</c:if>>${categoryBlog.getName()}</option>
+                                    <option value="${categoryBlog.getId()}" <c:if test = "${blog.getSetting().getId()==categoryBlog.getId()}">selected</c:if>>${categoryBlog.getName()}</option>
                                 </c:forEach>
 
                             </select>
                             <br>
                             <b>Short description : </b><input type="text" ${disable}  class="form-control" value="${blog.getDescription()}" required name="short_description"><br>
                             <div>
-                                <img style="width: 200px;" ${disable} <c:if test = "${blog.getBlog_id()==null}">hidden</c:if>  src = "${blog.getBlog_image()}"  alt = "Curent image"> <br>
-                                <b>Image:</b><input type="file" ${disable}  class="form-control" required src="${blog.getBlog_image()}" name="img" accept="image/*"><br>
+                                <b>Image:</b><br>
+                                <img style="width: 200px;" <c:if test = "${blog.getBlog_id()==null}">hidden</c:if>  src = "${blog.getBlog_image()}"  alt = "Curent image"> <br>
+                                <input type="file" ${disable}  class="form-control" required src="${blog.getBlog_image()}" name="img" accept="image/*"><br>
                             </div>
 
                             <b><input type="hidden" class="form-control" required  value="${blog.getBlog_id()}" name="blogId"></b>    
+                            <b><input type="hidden" class="form-control" required  value="${index}" name="index"></b>    
                             <b><input type="hidden" class="form-control" required  value="${sessionScope['account'].getId()}" name="user"></b>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default" onclick="window.location.href = 'ManageBlog'">Close</button>
-                            <button type="submit" class="btn btn-success" value="submit">Submit</button>
+                            <button type="button" class="btn btn-default" onclick="window.location.href = 'ManageBlog?index=${index}'">Close</button>
+                            <button type="submit" ${hidden} class="btn btn-success" value="submit">Submit</button>
                         </div>
                     </form>
                 </div>
             </main>
         </section>
-        
+
 
         <script >
 

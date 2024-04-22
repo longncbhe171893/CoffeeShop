@@ -199,7 +199,7 @@
                                 <td>${bl.getBlog_title()}</td>
                                 <td><img style="width:150px;height:150px;"src="${bl.getBlog_image()}"></td>
                                 <td>${bl.getUser().getName()}</td>   
-                                <td>${bl.getSetting().getSetting_name()}</td>   
+                                <td>${bl.getSetting().getName()}</td>   
                                 <td>${bl.getPost_date()}</td>
                                 <td>
                                     <details>
@@ -209,13 +209,13 @@
                                 </td>
 
                                 <td>
-                                    <a href="ChangeStatusBlog?bid=${bl.getBlog_id()}" class="btn- btn-danger  btn-lg" style="display: block; background-color: ${bl.getBlog_status()==2?'red':'green'}; " >${bl.getBlog_status()==1?"Public":"Private"}</a>
+                                    <a href="ChangeStatusBlog?bid=${bl.getBlog_id()}&index=${index}" class="btn- btn-danger  btn-lg" style="display: block; background-color: ${bl.getBlog_status()==2?'red':'green'}; " >${bl.getBlog_status()==1?"Public":"Private"}</a>
                                 </td>
 
-                                <td> <button type="button" class="btn btn-success btn-lg" onclick="window.location.href = 'EditBlog?blogId=${bl.getBlog_id()}&BlogDetail=false';"">Edit Blog</button></td>
+                                <td> <button type="button" class="btn btn-success btn-lg" onclick="window.location.href = 'EditBlog?blogId=${bl.getBlog_id()}&BlogDetail=false&index=${index}';"">Edit Blog</button></td>
 
                                 <td>
-                                    <button class="viewButton" onclick="window.location.href = 'EditBlog?blogId=${bl.getBlog_id()}&BlogDetail=true';"">
+                                    <button class="viewButton" onclick="window.location.href = 'EditBlog?blogId=${bl.getBlog_id()}&BlogDetail=true&index=${index}';"">
                                         <span class="eye-icon"></span>
                                     </button>
 

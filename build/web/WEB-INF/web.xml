@@ -200,6 +200,24 @@
     <servlet>
         <servlet-name>SliderController</servlet-name>
         <servlet-class>Controller.SliderController</servlet-class>
+        <servlet-name>ChangeStatusBlog</servlet-name>
+        <servlet-class>Controller.SellerController.ChangeStatusBlog</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ChangeOrderStatus</servlet-name>
+        <servlet-class>Controller.SellerController.ChangeOrderStatus</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateOrderDetail</servlet-name>
+        <servlet-class>Controller.SellerController.UpdateOrderDetail</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditOrder</servlet-name>
+        <servlet-class>Controller.SellerController.EditOrder</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteProductFromOrder</servlet-name>
+        <servlet-class>Controller.SellerController.DeleteProductFromOrder</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Register</servlet-name>
@@ -468,6 +486,28 @@
     <servlet-mapping>
         <servlet-name>UserDetails</servlet-name>
         <url-pattern>/UserDetails</url-pattern>
+        <servlet-name>FilterBlog</servlet-name>
+        <url-pattern>/FilterBlog</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ChangeStatusBlog</servlet-name>
+        <url-pattern>/ChangeStatusBlog</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ChangeOrderStatus</servlet-name>
+        <url-pattern>/ChangeOrderStatus</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateOrderDetail</servlet-name>
+        <url-pattern>/UpdateOrderDetail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditOrder</servlet-name>
+        <url-pattern>/EditOrder</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteProductFromOrder</servlet-name>
+        <url-pattern>/DeleteProductFromOrder</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

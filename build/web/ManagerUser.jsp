@@ -13,7 +13,30 @@
         <link href="css/nice-select.css" rel="stylesheet">
         <script src="ckeditor/ckeditor.js"></script> 
         <script src="ckfinder/ckfinder.js"></script>
-        <title>Admin Dashboard</title>     
+        <title>Admin Dashboard</title> 
+        <style>   
+        .pagination {
+                display: inline-block;
+            }
+
+            .pagination a {
+                color: black;
+                float: left;
+                padding: 8px 16px;
+                text-decoration: none;
+            }
+
+            .pagination a.active {
+                background-color: #4CAF50;
+                color: white;
+                border-radius: 5px;
+            }
+
+            .pagination a:hover:not(.active) {
+                background-color: #ddd;
+                border-radius: 5px;
+            }
+            </style>
     </head>
     <body>
         <!-- SIDEBAR -->
@@ -38,40 +61,14 @@
             <main>
                 <div class="head-title">
                     <div class="left">
-                        <h1>Manage User</h1>
-                        <button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#myModalAddNew" >Add User</button>
+                        <h1>Manage User</h1> 
                     </div>
                 </div>
  <!-- Modal -->
-                    <div class="modal fade" id="myModalAddNew" role="dialog">
-                        <div class="modal-dialog">
-
-                            <!-- Modal content-->
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                    <h4 class="modal-title">Add User</h4>
-                                </div>
-                                <form action="AddUser" method="post" enctype="multipart/form-data">
-                                   <div class="modal-body">
-                                     <b>Name: </b><input type="text" class="form-control" value="" required name="name"><br>  
-                                     <b>Email: </b><input type="text" class="form-control" value="" required name="email"><br>  
-                                    <b>Password: </b><input type="password" class="form-control" value="" name="password"><br>
-                                     <b>Address: </b><input type="text" class="form-control" value="" name="address"><br>  
-                                     <b>Phone: </b><input type="text" class="form-control" value="" name="phone"><br>  
-                                     <b>Sex: </b><input type="text" class="form-control" value=""  name="sex"><br>  
-                                     <b>User point: </b><input type="text" class="form-control" value=""  name="userpoint"><br> 
-                                  </div>
-                                    <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-success" value="submit">Submit</button>
-                                </div>
-                             </form>
-                            </div>
-                        </div>
-                    </div>
                                     
                 <div style="margin-top: 3rem;" class="col-md-12">
+                    <div style="margin-top: 3rem;" class="col-md-12">
+                    <button class="button" onclick="window.location.href = 'EditUser';">Add User</button>
                     <table class="table">
                         <thead >
                             <tr style="font-size: 20px;">
@@ -84,7 +81,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <c:forEach var="p" items="${pl}">
+                            <c:forEach var="p" items="${userlist}">
                                 <tr>
                                     <th scope="row">${p.getId()}</th>
                                     <td>${p.getName()}</td>
@@ -92,39 +89,18 @@
                                     <td>${p.getSetting_id()==2?"Seller":"User"}</td>
                                     <td><a onclick="return confirm('Do you want to change your account status?')" href="UpdateStatusUser?uid=${p.getId()}&sid=${p.getUserStatus()}">
                                             ${p.getUserStatus()==1?"Enable":"Disnable"}</a></td>    
-                                  <td> <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#myModal${p.getId()}">Edit</button></td>
-                                </tr>
-                                 <div class="modal fade" id="myModal${p.getId()}" role="dialog">
-                                <div class="modal-dialog">
-                                    <!-- Modal content-->
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                            <h4 class="modal-title">User details:</h4>
-                                        </div>
-                                        <form action="UserDetails" method="post">
-                                            <div class="modal-body">
-                                                <b>Image:</b><input type="file" class="form-control" required  value="${p.getImage()}" name="image"><br>            
-                                                <b>ID: </b><input type="text" class="form-control" name="id" value="${p.getId()}" readonly=""><br>
-                                                <b>Name: </b><input type="text" class="form-control" value="${p.getName()}" name="name"><br>
-                                                <b>Email: </b><input type="text" class="form-control" value="${p.getEmail()}" name="email" ><br>    
-                                                <b>Password: </b><input type="password" class="form-control" value="${p.getPassword()}" name="password" ><br> 
-                                                <b>Address: </b><input type="text" class="form-control" value="${p.getAddress()}" name="address"><br>
-                                                <b>Phone: </b><input type="text" class="form-control" value="${p.getPhone()}" name="phone"><br>
-                                                <b>Sex: </b><input type="text" class="form-control" value="${p.getSex()}" name="sex"><br>
-                                                <b>User point: </b><input type="text" class="form-control" value="${p.getPoint()}" name="userpoint"><br>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                <button type="submit" class="btn btn-success" value="submit">Submit</button>
-                                            </div>
-                                        </form>                                 
-                                    </div>
-                                </div>
-                            </div>
+                                   <td> <button type="button" class="btn btn-success btn-lg" onclick="window.location.href = 'EditUser?userId=${p.getId()}&UserDetail=false';"">Edit User</button></td>
+                                </tr>   
                             </c:forEach>
                         </tbody>
                     </table>
+                </div>
+ <div class="pagination">
+                    <a href="ManagerUser?index=${backPage}">&laquo;</a>
+                    <c:forEach begin="1" end="${ePage}" var="i">
+                        <a href="ManagerUser?index=${i}">${i}</a>
+                    </c:forEach>
+                    <a href="ManagerUser?index=${nextPage}">&raquo;</a>
                 </div>
             </main>
             <!-- MAIN -->
