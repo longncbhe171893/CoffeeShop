@@ -1,8 +1,3 @@
-<%-- 
-    Document   : ProductDetails
-    Created on : May 25, 2023, 12:04:42 PM
-    Author     : asus
---%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -286,34 +281,6 @@
                 updatePrice();
             });
         </script>
-        <script>
-            $(document).ready(function () {
-                // Lấy giá ban đầu từ server
-                var basePrice = ${p.getPrice()};
-                // Hiển thị giá ban đầu
-                $('#product-price').text(basePrice);
-
-                // Xử lý sự kiện khi chọn size
-                $('input[name="psize"]').change(function () {
-                    // Lấy giá trị của size được chọn
-                    var selectedSizeId = $(this).val();
-                    // Gửi yêu cầu AJAX để lấy giá của size từ server
-                    $.ajax({
-                        url: 'GetPriceBySize', // Đường dẫn tới servlet hoặc controller để xử lý yêu cầu
-                        type: 'POST',
-                        data: {sizeId: selectedSizeId, productId: ${p.getId()}}, // Gửi tham số kích thước và ID sản phẩm
-                        success: function (response) {
-                            // Cập nhật giá mới
-                            $('#selected-size-price').text(response);
-                            // Hiển thị giá mới
-                            $('#product-price').text(basePrice + parseInt(response));
-                        },
-                        error: function (xhr, status, error) {
-                            console.log(error); // Xử lý lỗi nếu có
-                        }
-                    });
-                });
-            });
-        </script>
+        
     </body>
 </html>

@@ -6,7 +6,6 @@
             <file>file:/D:/SWP391BL5/web/headerAdmin.jsp</file>
             <file>file:/D:/SWP391BL5/src/java/DAO/UserDAO.java</file>
             <file>file:/D:/SWP391BL5/src/java/Controller/UpdateStatusSetting.java</file>
-            <file>file:/D:/SWP391BL5/src/java/Model/setting.java</file>
             <file>file:/D:/SWP391BL5/src/java/Controller/SettingLists.java</file>
             <file>file:/D:/SWP391BL5/src/java/DAO/BlogDao.java</file>
             <file>file:/D:/SWP391BL5/src/java/Model/Product.java</file>
@@ -16,6 +15,7 @@
             <file>file:/D:/SWP391BL5/src/java/Controller/AddSetting.java</file>
             <file>file:/D:/SWP391BL5/src/java/Controller/UserProfile.java</file>
             <file>file:/D:/SWP391BL5/src/java/Model/User.java</file>
+            <file>file:/D:/SWP391BL5/src/java/Model/Setting.java</file>
             <file>file:/D:/SWP391BL5/src/java/DAO/SettingDAO.java</file>
             <file>file:/D:/SWP391BL5/src/java/Model/Blog.java</file>
         </group>
