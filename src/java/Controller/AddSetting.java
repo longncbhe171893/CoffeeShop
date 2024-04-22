@@ -6,6 +6,7 @@
 package Controller;
 
 import DAO.SettingDAO;
+import Model.Setting;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -13,6 +14,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  *
@@ -75,8 +77,17 @@ public class AddSetting extends HttpServlet {
         int status = Integer.parseInt(request.getParameter("status"));
         
         SettingDAO sdao = new SettingDAO();
+        
+        if (sdao.checkSettingNameAndTypeExist(name, type)){
+            List<Setting> settings = sdao.getAllSettings();
+            request.setAttribute("settings", settings);
+            request.setAttribute("mess", "This setting is existed");
+            request.getRequestDispatcher("SettingList.jsp").forward(request, response);
+        } else {
+            
         sdao.addSetting(name, description, type, status);
         response.sendRedirect("SettingLists");
+        }
     }
 
     /** 

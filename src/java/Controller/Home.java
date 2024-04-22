@@ -32,12 +32,12 @@ public class Home extends HttpServlet {
 
         ArrayList<Product> plist = pdao.getAllProduct("4", "", 1, "1");
         ArrayList<Product> plist1 = pdao.getTopSelling();
-        ArrayList<Product> plist12 = pdao.getAllSlideProducts();
+//        ArrayList<Product> plist12 = pdao.getAllSlideProducts();
         ArrayList<Model.Blog> bl = blog.recentBlog();
 
         request.setAttribute("plist", plist);
         request.setAttribute("plist1", plist1);
-        request.setAttribute("plist12", plist12);
+//        request.setAttribute("plist12", plist12);
         request.setAttribute("bl", bl);
         request.getRequestDispatcher("Home.jsp").forward(request, response);
     }

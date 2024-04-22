@@ -220,6 +220,47 @@ public class SettingDAO extends DBContext {
         return totalSettings;
     }
     
+    public boolean checkSettingNameAndTypeExist(String settingName, String type) {
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        try {
+            // Truy vấn kiểm tra sự tồn tại của setting_name và type
+            String query = "SELECT COUNT(*) AS count FROM setting WHERE setting_name = ? AND type = ?";
+            statement = connection.prepareStatement(query);
+            statement.setString(1, settingName);
+            statement.setString(2, type);
+            resultSet = statement.executeQuery();
+
+            // Nếu có bất kỳ kết quả nào trả về và count > 0, tức là tồn tại
+            if (resultSet.next()) {
+                int count = resultSet.getInt("count");
+                return count > 0;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Xử lý lỗi nếu cần thiết
+        } finally {
+            // Đóng các tài nguyên
+            if (resultSet != null) {
+                try {
+                    resultSet.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        // Trả về false nếu có lỗi xảy ra hoặc không có kết quả
+        return false;
+    }
+
+    
     public static void main(String[] args) {
         SettingDAO dao = new SettingDAO();
         ArrayList<Setting> list = new ArrayList<>();

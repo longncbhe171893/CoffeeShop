@@ -140,11 +140,14 @@
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                     <button type="submit" class="btn btn-success" value="submit">Submit</button>
+                                    
                                 </div>
                             </form>
                         </div>
                     </div>
                 </div>
+                
+                <p style="color: red">${mess}</p>
 
                 <table class="table" style="margin-top: 20px; margin-bottom: 20px;">
                     <thead>
