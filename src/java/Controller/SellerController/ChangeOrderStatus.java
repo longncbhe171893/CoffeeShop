@@ -33,16 +33,23 @@ public class ChangeOrderStatus extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         OrderDAO orDao = new OrderDAO();
         int id = Integer.valueOf(request.getParameter("orderId"));
+        int index = Integer.valueOf(request.getParameter("index"));
         int status = Integer.valueOf(request.getParameter("ost"));
-        if (status == 3) {
-            orDao.UpdateStatusOrder(status, id);
-        } else if (status == 2) {
-            orDao.UpdateStatusOrder(4, id);
-        } else if (status == 1) {
-            orDao.UpdateStatusOrder(2, id);
+        switch (status) {
+            case 3:
+                orDao.UpdateStatusOrder(status, id);
+                break;
+            case 2:
+                orDao.UpdateStatusOrder(4, id);
+                break;
+            case 1:
+                orDao.UpdateStatusOrder(2, id);
+                break;
+            default:
+                break;
         }
 
-        response.sendRedirect("./ManageOrder");
+        response.sendRedirect("./ManageOrder?index="+index);
 
     }
 

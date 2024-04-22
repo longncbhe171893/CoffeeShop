@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ManageBlog extends HttpServlet {
-
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -37,16 +37,16 @@ public class ManageBlog extends HttpServlet {
             ArrayList<Model.User> creator = blog.getAllSeller();
             List<Model.Category> category = blog.getcategoryBlogByType();
             int nextPage, backPage;
-        if (index == 1) {
-            backPage = 1;
-            nextPage=2;
-        } else if ( index == ePage) {
-            backPage=ePage-1;
-            nextPage = ePage;
-        } else {
-            backPage = index - 1;
-            nextPage = index + 1;
-        }
+            if (index == 1) {
+                backPage = 1;
+                nextPage = 2;
+            } else if (index == ePage) {
+                backPage = ePage - 1;
+                nextPage = ePage;
+            } else {
+                backPage = index - 1;
+                nextPage = index + 1;
+            }
             request.setAttribute("nextPage", nextPage);
             request.setAttribute("backPage", backPage);
             request.setAttribute("index", index);
@@ -56,32 +56,32 @@ public class ManageBlog extends HttpServlet {
             request.setAttribute("categoryBlog", category);
             
             request.getRequestDispatcher("ManageBlog.jsp").forward(request, response);
-
+            
         } catch (ServletException | IOException e) {
-
+            
         }
-
+        
     }
-
+    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-
+        
     }
-
+    
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         BlogDao blogDao = new BlogDao();
-
+        
         String search = request.getParameter("search");
         String firstDate = request.getParameter("firstDate");
         String secondDate = request.getParameter("secondDate");
-
+        
         ArrayList<Model.User> creator = blogDao.getAllSeller();
         List<Model.Category> category = blogDao.getcategoryBlogByType();
-
+        
         int numPage = 4;
         int index = Integer.valueOf(request.getParameter("index"));
         int count = blogDao.countBlog();
@@ -97,7 +97,7 @@ public class ManageBlog extends HttpServlet {
             Date sdate = Date.valueOf(secondDate);
             blogList = blogDao.getBlogByDate(fdate, sdate);
         }
-
+        
         request.setAttribute("ePage", ePage);
         request.setAttribute("creator", creator);
         request.setAttribute("index", index);
@@ -105,10 +105,10 @@ public class ManageBlog extends HttpServlet {
         request.setAttribute("bl", blogList);
         request.getRequestDispatcher("ManageBlog.jsp").forward(request, response);
     }
-
+    
     @Override
     public String getServletInfo() {
         return "Short description";
     }
-
+    
 }

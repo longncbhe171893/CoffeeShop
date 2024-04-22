@@ -167,10 +167,6 @@
                     </div>
                 </div>
 
-
-
-                </div>
-
                 <div style="margin-top: 3rem;" class="col-md-12">
                     <button class="button" onclick="window.location.href = 'AddBlog';">Add Blog</button>
 

@@ -49,6 +49,15 @@
                 border: 2px solid limegreen;
                 /* Viền sáng màu xanh lá cây */
             }
+            .filter{
+                display: flex;
+                margin: 10px;
+
+            }
+            .filter_date{
+                margin-left: 15px;
+                margin-top: -15px;
+            }
             .wrapper {
                 position: relative;
                 width: 20 px;
@@ -132,13 +141,51 @@
 
             <!-- MAIN -->
             <main>
-                <div class="head-title">
+                <div>
+                    <nav>  
+                        <form action="ManageOrder" method="post">
+                            <div class="form-input">
+                                <input type="search" id="myInput" onkeyup="myFunction()" name="search" placeholder="Search by ID or Phone number">
+                                <input type="text" hidden  name="index" value="${index}">
+                                <button type="submit" class="search-btn"><i class='bx bx-search' ></i></button>
 
+                            </div>
+                            <p style="color: red">${mess}</p>
+                        </form>
+                    </nav>
+                </div>
+                <div class="filter">
+                    <div>
+                        <label for="Filter">Order Person :</label>
+                        <select id="selectBox" name="Filter" onchange="doFilter(value);"> 
+                            <option value="">All</option>
+                            <c:forEach var="creator" items="${creator}">
+                                <option value="${creator.getName()}">${creator.getName()}</option>
+                            </c:forEach>
+                        </select>
+                    </div>
 
                     <div>
+
+                        <label for="Filter">Category :</label>
+                        <select id="selectCategory"  name="Category" onchange="doFilterCategory(value);"> 
+
+                            <option value="">All</option>
+                            <c:forEach var="categoryBlog" items="${categoryBlog}">
+                                <option value="${categoryBlog.getName()}">${categoryBlog.getName()}</option>
+                            </c:forEach>
+
+                        </select>
+
+                    </div>
+                    <div class="filter_date">
                         <form action="ManageOrder" method="post" onsubmit="return checkDate();">
+                            <label>Start Date</label>
                             <input required type="date" name="firstDate">
+                            <label>End Date</label>
                             <input style="margin: 14px" required type="date" name="secondDate">
+
+
                             <input style="background: var(--blue);
                                    color: white;
                                    border: solid var(--blue);
@@ -146,14 +193,10 @@
                                    border-radius: 15px;" type="submit" value="Search">
                         </form>
                     </div>
-                    <a href="DownloadOrder" class="btn-download">
-                        <i class='bx bxs-cloud-download'></i>
-                        <span class="text">Download Excel</span>
-                    </a>
                 </div>
-
+                <p style="color: red">${messEdit}</p>        
                 <div style="margin-top: 3rem;" class="col-md-12">
-                    <table class="table">
+                    <table class="table" id="myTable">
                         <thead>
                             <tr style="font-size: 17px;">
                                 <th scope="col">Order ID</th>
@@ -173,17 +216,16 @@
                                     <th scope="row">
                                         <a style="color: white" class="btn btn-primary" data-toggle="modal" data-target="#myDialog"  onclick="getOrderDetails(this)" " data-orderid="${o.getId()}" >${o.getId()}</a>
                                     </th>
-                                    <td>${o.getOrderName()}</td>
-
+                                    <td >${o.getOrderName()} </td>
                                     <td>${o.formatDate()}</td>
                                     <td><textarea class="note" readonly>${o.getNotes()}</textarea></td>
                                     <td><textarea class="address" readonly>${o.getAddress()}</textarea></td>
                                     <td>${o.getPhone()}</td>
                                     <td >
-                                        <a href="ChangeOrderStatus?orderId=${o.getId()}&ost=${o.getStatus()}" class="btn- btn-danger  btn-lg"  style="pointer-events: ${o.getStatus()==3?'none':''};display: block; background-color: ${o.getStatus()==1?'#f89f3c':o.getStatus()==2?'green':o.getStatus()==4?'blue':'red'};" >${o.getStatus()==1?"Pending":o.getStatus()==2?"Approve":o.getStatus()==4?"Paid":"Cancel"}</a>
+                                        <a href="ChangeOrderStatus?orderId=${o.getId()}&ost=${o.getStatus()}&index=${index}" class="btn- btn-danger  btn-lg"  style="pointer-events: ${o.getStatus()==3?'none':''};display: block; background-color: ${o.getStatus()==1?'#f89f3c':o.getStatus()==2?'green':o.getStatus()==4?'blue':'red'};" >${o.getStatus()==1?"Pending":o.getStatus()==2?"Approve":o.getStatus()==4?"Paid":"Cancel"}</a>
                                     </td>
 
-                                    <td> <button type="button" ${o.getStatus()==3?'hidden':o.getStatus()==4?'hidden':''} class="btn btn-success btn-lg" onclick="window.location.href = 'EditOrder?orderId=${o.getId()}&edit=true';"">Edit Order</button></td>
+                                    <td> <button type="button" ${o.getStatus()==3?'hidden':o.getStatus()==4?'hidden':''} class="btn btn-success btn-lg" onclick="window.location.href = 'EditOrder?orderId=${o.getId()}&edit=true&index=${index}';"">Edit Order</button></td>
 
                                     <td>
                                         <button type="button"  ${o.getStatus()==3?'hidden':o.getStatus()==4?'hidden':''} onclick="window.location.href = 'ChangeOrderStatus?orderId=${o.getId()}&ost=3'"style="border-radius: 100%;">
@@ -239,17 +281,77 @@
 
         <script src="js/adminDashbord.js"></script>
 
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js">
+
+        </script>
+        <script type="text/javascript">
+            function myFunction() {
+                var input, filter, table, tr, td, i, txtValue;
+                input = document.getElementById("myInput");
+                filter = input.value.toUpperCase();
+                table = document.getElementById("myTable");
+                tr = table.getElementsByTagName("tr");
+                for (i = 0; i < tr.length; i++) {
+                    td = tr[i].getElementsByTagName("td")[4];
+                    if (td) {
+                        txtValue = td.textContent || td.innerText;
+                        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                            tr[i].style.display = "";
+                        } else {
+                            tr[i].style.display = "none";
+                        }
+                    }
+                }
+            }
+            function doFilter(txtValue) {
+                var input, filter, table, tr, td, i;
+                input = document.getElementById("selectBox");
+                filter = input.value.toUpperCase();
+                table = document.getElementById("myTable");
+                tr = table.getElementsByTagName("tr");
+                for (i = 0; i < tr.length; i++) {
+                    td = tr[i].getElementsByTagName("td")[0];
+                    if (td) {
+                        txtValue = td.textContent || td.innerText;
+                        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                            tr[i].style.display = "";
+                        } else {
+                            tr[i].style.display = "none";
+                        }
+                    }
+                }
+
+            }
+            function doFilterCategory(txtValue) {
+                var input, filter, table, tr, td, i;
+                input = document.getElementById("selectCategory");
+                filter = input.value.toUpperCase();
+                table = document.getElementById("myTable");
+                tr = table.getElementsByTagName("tr");
+                for (i = 0; i < tr.length; i++) {
+                    td = tr[i].getElementsByTagName("td")[4];
+                    if (td) {
+                        txtValue = td.textContent || td.innerText;
+                        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                            tr[i].style.display = "";
+                        } else {
+                            tr[i].style.display = "none";
+                        }
+                    }
+                }
+
+            }
+        </script>
         <script>
-                                            function checkDate() {
-                                                var firstDate = document.getElementsByName("firstDate")[0].value;
-                                                var secondDate = document.getElementsByName("secondDate")[0].value;
-                                                if (firstDate && secondDate && new Date(secondDate) < new Date(firstDate)) {
-                                                    alert("Second date must be after the first date.");
-                                                    return false;
-                                                }
-                                                return true;
-                                            }
+            function checkDate() {
+                var firstDate = document.getElementsByName("firstDate")[0].value;
+                var secondDate = document.getElementsByName("secondDate")[0].value;
+                if (firstDate && secondDate && new Date(secondDate) < new Date(firstDate)) {
+                    alert("Second date must be after the first date.");
+                    return false;
+                }
+                return true;
+            }
         </script>
         <script>
             function getOrderDetails(element) {
