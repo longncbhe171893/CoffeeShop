@@ -25,7 +25,7 @@ public class ManageBlog extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try {
-            int numPage = 2;
+            int numPage = 4;
             BlogDao blog = new BlogDao();
             int index = Integer.valueOf(request.getParameter("index"));
             int count = blog.countBlog();
