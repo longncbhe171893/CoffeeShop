@@ -226,7 +226,7 @@
                                 <td><img style="width:150px;height:150px;"src="${bl.getBlog_image()}"></td>
                                 <td>${bl.getDescription()}</td>   
                                 <td>${bl.getUser().getName()}</td>   
-                                <td>${bl.getSetting().getSetting_name()}</td>   
+                                <td>${bl.getSetting().getName()}</td>   
                                 <td>${bl.getPost_date()}</td>
                                 <td>
                                     <details>

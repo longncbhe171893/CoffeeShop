@@ -49,7 +49,7 @@
                             <b>Category :</b>
                             <select   name="category" ${disable} >                            
                                 <c:forEach var="categoryBlog" items="${categoryBlog}" >
-                                    <option value="${categoryBlog.getId()}" <c:if test = "${blog.getSetting().getSetting_id()==categoryBlog.getId()}">selected</c:if>>${categoryBlog.getName()}</option>
+                                    <option value="${categoryBlog.getId()}" <c:if test = "${blog.getSetting().getId()==categoryBlog.getId()}">selected</c:if>>${categoryBlog.getName()}</option>
                                 </c:forEach>
 
                             </select>
