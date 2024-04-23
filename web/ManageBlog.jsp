@@ -92,10 +92,23 @@
                 background-color: #ddd;
                 border-radius: 5px;
             }
+            #toastBox{
+                position: absolute;
+                bottom: 30px;
+                right: 30px;
+                display: flex;
+                align-items: flex-start;
+                flex-direction: column;
+                overflow: hidden;
+                padding: 20px;
+
+
+            }
         </style>
     </head>
 
     <body>
+
         <!-- SIDEBAR -->
         <jsp:include page="headerSeller.jsp"/>
         <!-- SIDEBAR -->
@@ -112,7 +125,22 @@
                 </div>
             </nav>
             <!-- NAVBAR -->
+            <button onclick="ShowToast()">Success</button>
+            <div id="toastBox">
 
+            </div>
+            <script>
+                let toastBox = document.getElementById('toastBox');
+
+
+                function ShowToast() {
+                    let toast = document.createElement('div');
+                    toast.classList.add('toast');
+                    toast.innerHTML = 'success';
+                    toastBox.appendChild(toast);
+
+                }
+            </script>
             <!-- MAIN -->
             <main>
                 <div>
