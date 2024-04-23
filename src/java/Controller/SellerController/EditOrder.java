@@ -8,52 +8,70 @@ import DAO.OrderDAO;
 import Model.Order;
 import Model.OrderDetail;
 import java.io.IOException;
+import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.Part;
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.ArrayList;
 
-@MultipartConfig(
-        fileSizeThreshold = 524288,
-        maxFileSize = 2097152,
-        maxRequestSize = 4194304,
-        location = "/org"
-)
+/**
+ *
+ * @author anhvu
+ */
 public class EditOrder extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String index = request.getParameter("index");
+        OrderDAO oDao = new OrderDAO();
         try {
-            int orderId = Integer.valueOf(request.getParameter("orderId"));
-            String orderName = request.getParameter("orderName");
-            int orderDiscount = Integer.valueOf(request.getParameter("orderDiscount"));
+            int orderId = Integer.parseInt(request.getParameter("orderId"));
+            int index = Integer.parseInt(request.getParameter("index"));
+            int orderDiscount = Integer.parseInt(request.getParameter("orderDiscount"));
             String orderNote = request.getParameter("orderNote");
-            OrderDAO orderDAO = new OrderDAO();
-            orderDAO.updateOrder(orderId, orderName, orderDiscount, orderNote);
+            oDao.updateOrder(orderId, orderDiscount, orderNote);
+            String mess = "Update successfuly";
+            response.sendRedirect("ManageOrder?index=" + index + "&mess=" + mess);
+
         } catch (NumberFormatException e) {
-            request.getRequestDispatcher("404Err.jsp").forward(request, response);
+
+            int index = Integer.parseInt(request.getParameter("index"));
+            String mess = "Update Failed!";
+            response.sendRedirect("ManageOrder?index=" + index + "&messEdit=" + mess);
         }
-        request.setAttribute("message", "Successfully");
-        response.sendRedirect("ManageOrder?index=" + index);
 
     }
 
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-
         try {
-            String index = request.getParameter("index");
-            request.setAttribute("index", index);
             OrderDAO orDao = new OrderDAO();
             int orderId = Integer.valueOf(request.getParameter("orderId"));
+            int index = Integer.valueOf(request.getParameter("index"));
             boolean edit = Boolean.valueOf(request.getParameter("edit"));
-
+            String mess;
+            try {
+                mess = request.getParameter("mess");
+                request.setAttribute("mess", mess);
+            } catch (Exception e) {
+                request.setAttribute("mess", "");
+            }
             if (edit) {
                 String tittle = "> Edit Order";
                 Order order = orDao.getOrderById(orderId);
@@ -65,18 +83,26 @@ public class EditOrder extends HttpServlet {
                     totalAmount += amount;
                 }
                 request.setAttribute("order", order);
+                request.setAttribute("index", index);
                 request.setAttribute("totalAmount", totalAmount);
-
                 request.setAttribute("orderDetails", orderDetails);
                 request.setAttribute("tittle", tittle);
-                request.getRequestDispatcher("EditOrder.jsp").forward(request, response);
             }
-
+            request.getRequestDispatcher("EditOrder.jsp").forward(request, response);
         } catch (ServletException | IOException e) {
 
         }
     }
 
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    /**
+     * Handles the HTTP <code>GET</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -84,6 +110,19 @@ public class EditOrder extends HttpServlet {
 
     }
 
+    /**
+     * Handles the HTTP <code>POST</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    /**
+     * Returns a short description of the servlet.
+     *
+     * @return a String containing servlet description
+     */
     @Override
     public String getServletInfo() {
         return "Short description";

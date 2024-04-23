@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ManageBlog extends HttpServlet {
-
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -49,40 +49,41 @@ public class ManageBlog extends HttpServlet {
             }
             request.setAttribute("nextPage", nextPage);
             request.setAttribute("backPage", backPage);
+            request.setAttribute("index", index);
             request.setAttribute("ePage", ePage);
             request.setAttribute("bl", bl);
             request.setAttribute("creator", creator);
             request.setAttribute("categoryBlog", category);
-            request.setAttribute("index", index);
+            
             request.getRequestDispatcher("ManageBlog.jsp").forward(request, response);
-
+            
         } catch (ServletException | IOException e) {
-
+            
         }
-
+        
     }
-
+    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-
+        
     }
-
+    
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         BlogDao blogDao = new BlogDao();
-
+        
         String search = request.getParameter("search");
         String firstDate = request.getParameter("firstDate");
         String secondDate = request.getParameter("secondDate");
-
+        
         ArrayList<Model.User> creator = blogDao.getAllSeller();
         List<Model.Category> category = blogDao.getcategoryBlogByType();
-
+        
         int numPage = 4;
-        int index = 1;
+        int index = Integer.valueOf(request.getParameter("index"));
         int count = blogDao.countBlog();
         int ePage = count / numPage;
         if (count % 4 != 0) {
@@ -96,17 +97,18 @@ public class ManageBlog extends HttpServlet {
             Date sdate = Date.valueOf(secondDate);
             blogList = blogDao.getBlogByDate(fdate, sdate);
         }
-
+        
         request.setAttribute("ePage", ePage);
         request.setAttribute("creator", creator);
+        request.setAttribute("index", index);
         request.setAttribute("categoryBlog", category);
         request.setAttribute("bl", blogList);
         request.getRequestDispatcher("ManageBlog.jsp").forward(request, response);
     }
-
+    
     @Override
     public String getServletInfo() {
         return "Short description";
     }
-
+    
 }

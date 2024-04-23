@@ -177,10 +177,6 @@
         <servlet-class>Controller.EditRole</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>DeleteBlog</servlet-name>
-        <servlet-class>Controller.SellerController.DeleteBlog</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>FilterBlog</servlet-name>
         <servlet-class>Controller.SellerController.FilterBlog</servlet-class>
     </servlet>
@@ -193,16 +189,12 @@
         <servlet-class>Controller.SellerController.ChangeOrderStatus</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>UpdateOrderDetail</servlet-name>
-        <servlet-class>Controller.SellerController.UpdateOrderDetail</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>EditOrder</servlet-name>
         <servlet-class>Controller.SellerController.EditOrder</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>DeleteProductFromOrder</servlet-name>
-        <servlet-class>Controller.SellerController.DeleteProductFromOrder</servlet-class>
+        <servlet-name>UpdateOrderDetail</servlet-name>
+        <servlet-class>Controller.SellerController.UpdateOrderDetail</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Register</servlet-name>
@@ -433,10 +425,6 @@
         <url-pattern>/EditRole</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>DeleteBlog</servlet-name>
-        <url-pattern>/DeleteBlog</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>FilterBlog</servlet-name>
         <url-pattern>/FilterBlog</url-pattern>
     </servlet-mapping>
@@ -449,16 +437,12 @@
         <url-pattern>/ChangeOrderStatus</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>UpdateOrderDetail</servlet-name>
-        <url-pattern>/UpdateOrderDetail</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>EditOrder</servlet-name>
         <url-pattern>/EditOrder</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>DeleteProductFromOrder</servlet-name>
-        <url-pattern>/DeleteProductFromOrder</url-pattern>
+        <servlet-name>UpdateOrderDetail</servlet-name>
+        <url-pattern>/UpdateOrderDetail</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

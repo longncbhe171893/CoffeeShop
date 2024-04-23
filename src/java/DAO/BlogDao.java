@@ -162,16 +162,6 @@ public class BlogDao extends DBContext {
         }
     }
 
-    public void DeleteBlog(int bid) {
-        String sql = "  DELETE FROM `Blog` WHERE `blog_id` =?";
-        try {
-            PreparedStatement ps = connection.prepareStatement(sql);
-            ps.setInt(1, bid);
-            ps.executeUpdate();
-        } catch (SQLException e) {
-        }
-    }
-
     public ArrayList<Blog> searchBlog(String search) {
 
         ArrayList<Blog> list = new ArrayList<>();
@@ -284,7 +274,7 @@ public class BlogDao extends DBContext {
     public ArrayList<Blog> pagingBlogs(int index, int numPage) {
         ArrayList<Blog> list = new ArrayList<>();
         try {
-            String sql = "SELECT * FROM `blog`  LIMIT ?, ?;";
+            String sql = "SELECT * FROM `blog` order by  post_date desc LIMIT ?, ?;";
             PreparedStatement ps = connection.prepareStatement(sql);
             index = (index - 1) * numPage;
             ps.setInt(1, index);

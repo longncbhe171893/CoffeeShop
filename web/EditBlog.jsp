@@ -56,9 +56,8 @@
                             <br>
                             <b>Short description : </b><input type="text" ${disable}  class="form-control" value="${blog.getDescription()}" required name="short_description"><br>
                             <div>
-                                <b>Image:</b><br>
-                                <img style="width: 200px;" <c:if test = "${blog.getBlog_id()==null}">hidden</c:if>  src = "${blog.getBlog_image()}"  alt = "Curent image"> <br>
-                                <input type="file" ${disable}  class="form-control" required src="${blog.getBlog_image()}" name="img" accept="image/*"><br>
+                                <img style="width: 200px;" ${disable} <c:if test = "${blog.getBlog_id()==null}">hidden</c:if>  src = "${blog.getBlog_image()}"  alt = "Curent image"> <br>
+                                <b>Image:</b><input type="file" ${disable}  class="form-control" required src="${blog.getBlog_image()}" name="img" accept="image/*"><br>
                             </div>
 
                             <b><input type="hidden" class="form-control" required  value="${blog.getBlog_id()}" name="blogId"></b>    
@@ -73,7 +72,7 @@
                 </div>
             </main>
         </section>
-
+        
 
         <script >
 

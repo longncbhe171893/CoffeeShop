@@ -29,17 +29,6 @@ public class UpdateOrderDetail extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        int orderId = Integer.parseInt(request.getParameter("orderId"));
-        String index = request.getParameter("index");
-        double productPrice = Double.parseDouble(request.getParameter("productPrice"));
-        int size = Integer.parseInt(request.getParameter("size"));
-
-        int orderDetailId = Integer.parseInt(request.getParameter("orderDetail"));
-        int quantity = Integer.parseInt(request.getParameter("quantity"));
-        OrderDAO orDao = new OrderDAO();
-        orDao.updateOrderDetail(productPrice, orderDetailId, quantity, size);
-
-        response.sendRedirect("EditOrder?orderId=" + orderId + "&edit=true&editOrderDetail=false&index=" + index);
 
     }
 
@@ -55,7 +44,18 @@ public class UpdateOrderDetail extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        response.setContentType("text/html;charset=UTF-8");
+        int orderId = Integer.parseInt(request.getParameter("orderId"));
+        double productPrice = Double.parseDouble(request.getParameter("productPrice"));
+        int size = Integer.parseInt(request.getParameter("size"));
+        int index = Integer.parseInt(request.getParameter("index"));
+
+        int orderDetailId = Integer.parseInt(request.getParameter("orderDetail"));
+        int quantity = Integer.parseInt(request.getParameter("quantity"));
+        OrderDAO orDao = new OrderDAO();
+        orDao.updateOrderDetail(productPrice, orderDetailId, quantity, size);
+        
+        response.sendRedirect("EditOrder?orderId=" + orderId + "&edit=true&index="+index);
 
     }
 
@@ -71,7 +71,6 @@ public class UpdateOrderDetail extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-
     }
 
     /**

@@ -1,3 +1,7 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package Model;
 
 public class Setting {
@@ -17,6 +21,7 @@ public class Setting {
         this.name = name;
         this.type = type;
     }
+    
 
     public Setting(int id, String name, String description, String type, int sort) {
         this.id = id;
@@ -31,6 +36,19 @@ public class Setting {
         this.name = name;
         this.description = description;
         this.type = type;
+    }
+
+    public Setting(int id) {
+        this.id = id;
+    }
+
+    public Setting(String name) {
+        this.name = name;
+    }
+
+    public Setting(int id, String name) {
+        this.id = id;
+        this.name = name;
     }
 
     public int getId() {

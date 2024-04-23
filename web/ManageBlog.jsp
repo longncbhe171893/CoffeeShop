@@ -92,10 +92,23 @@
                 background-color: #ddd;
                 border-radius: 5px;
             }
+            #toastBox{
+                position: absolute;
+                bottom: 30px;
+                right: 30px;
+                display: flex;
+                align-items: flex-start;
+                flex-direction: column;
+                overflow: hidden;
+                padding: 20px;
+
+
+            }
         </style>
     </head>
 
     <body>
+
         <!-- SIDEBAR -->
         <jsp:include page="headerSeller.jsp"/>
         <!-- SIDEBAR -->
@@ -112,7 +125,22 @@
                 </div>
             </nav>
             <!-- NAVBAR -->
+            <button onclick="ShowToast()">Success</button>
+            <div id="toastBox">
 
+            </div>
+            <script>
+                let toastBox = document.getElementById('toastBox');
+
+
+                function ShowToast() {
+                    let toast = document.createElement('div');
+                    toast.classList.add('toast');
+                    toast.innerHTML = 'success';
+                    toastBox.appendChild(toast);
+
+                }
+            </script>
             <!-- MAIN -->
             <main>
                 <div>
@@ -120,6 +148,7 @@
                         <form action="ManageBlog" method="post">
                             <div class="form-input">
                                 <input type="search" id="myInput" onkeyup="myFunction()" name="search" placeholder="Search by Tittle">
+                                <input type="text" hidden  name="index" value="${index}">
                                 <button type="submit" class="search-btn"><i class='bx bx-search' ></i></button>
                             </div>
                         </form>
@@ -166,10 +195,6 @@
                     </div>
                 </div>
 
-
-
-                </div>
-
                 <div style="margin-top: 3rem;" class="col-md-12">
                     <button class="button" onclick="window.location.href = 'AddBlog';">Add Blog</button>
 
@@ -182,6 +207,7 @@
                                 <th scope="col">ID</th>
                                 <th scope="col">Title</th>
                                 <th scope="col">Image</th>
+                                <th scope="col">Short Description</th>
                                 <th scope="col">Creator</th>
                                 <th scope="col">Category</th>
                                 <th scope="col">Create Date</th>
@@ -198,6 +224,7 @@
                                 <th scope="row">${bl.getBlog_id()}</th>
                                 <td>${bl.getBlog_title()}</td>
                                 <td><img style="width:150px;height:150px;"src="${bl.getBlog_image()}"></td>
+                                <td>${bl.getDescription()}</td>   
                                 <td>${bl.getUser().getName()}</td>   
                                 <td>${bl.getSetting().getName()}</td>   
                                 <td>${bl.getPost_date()}</td>
@@ -218,33 +245,9 @@
                                     <button class="viewButton" onclick="window.location.href = 'EditBlog?blogId=${bl.getBlog_id()}&BlogDetail=true&index=${index}';"">
                                         <span class="eye-icon"></span>
                                     </button>
-
                                 </td>
                             </tr>
-                            <div class="modal fade" id="myModal${bl.getBlog_id()}" role="dialog">
-                                <div class="modal-dialog">
-                                    <!-- Modal content-->
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                            <h4 class="modal-title">Edit blog:</h4>
-                                        </div>
-                                        <form action="EditBlog" method="post">
-                                            <div class="modal-body">
-                                                <b>ID: </b><input type="text" class="form-control" name="id" value="${bl.getBlog_id()}" readonly=""><br>
-                                                <b>Title: </b><input type="text" class="form-control" value="${bl.getBlog_title()}" name="title"><br>
-                                                <b>Creator: </b><input type="text" class="form-control" value="${bl.getUser().getName()}" name="user" readonly=""><br>    
-                                                <b>Content: </b><textarea class="form-control"name="content">${bl.getContent()}</textarea><br>
-                                                <b>Image link:</b><input type="text" class="form-control" value="${bl.getBlog_image()}" name="img">
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                <button type="submit" class="btn btn-success" value="submit">Submit</button>
-                                            </div>
-                                        </form>                                 
-                                    </div>
-                                </div>
-                            </div>
+
                         </c:forEach>
                     </table>
                 </div>
@@ -286,7 +289,7 @@
                 table = document.getElementById("myTable");
                 tr = table.getElementsByTagName("tr");
                 for (i = 0; i < tr.length; i++) {
-                    td = tr[i].getElementsByTagName("td")[2];
+                    td = tr[i].getElementsByTagName("td")[3];
                     if (td) {
                         txtValue = td.textContent || td.innerText;
                         if (txtValue.toUpperCase().indexOf(filter) > -1) {
@@ -305,7 +308,7 @@
                 table = document.getElementById("myTable");
                 tr = table.getElementsByTagName("tr");
                 for (i = 0; i < tr.length; i++) {
-                    td = tr[i].getElementsByTagName("td")[3];
+                    td = tr[i].getElementsByTagName("td")[4];
                     if (td) {
                         txtValue = td.textContent || td.innerText;
                         if (txtValue.toUpperCase().indexOf(filter) > -1) {

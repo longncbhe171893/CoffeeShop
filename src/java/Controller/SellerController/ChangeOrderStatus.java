@@ -4,8 +4,10 @@
  */
 package Controller.SellerController;
 
+import DAO.BlogDao;
 import DAO.OrderDAO;
 import java.io.IOException;
+import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -31,8 +33,8 @@ public class ChangeOrderStatus extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         OrderDAO orDao = new OrderDAO();
         int id = Integer.valueOf(request.getParameter("orderId"));
+        int index = Integer.valueOf(request.getParameter("index"));
         int status = Integer.valueOf(request.getParameter("ost"));
-        String index = request.getParameter("index");
         switch (status) {
             case 3:
                 orDao.UpdateStatusOrder(status, id);
@@ -47,7 +49,7 @@ public class ChangeOrderStatus extends HttpServlet {
                 break;
         }
 
-        response.sendRedirect("ManageOrder?index=" + index);
+        response.sendRedirect("./ManageOrder?index="+index);
 
     }
 
