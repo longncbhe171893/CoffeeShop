@@ -106,12 +106,25 @@
     <body>
         <jsp:include page="header.jsp"/>
         <div style="margin-top: 200px; margin-left: 462px" class="ipform">
-    <form method="post" action="UserProfile" >
+    <form method="post" action="UserProfile"  >
         <h3>My Profile</h3>
         <!-- Profile Image -->
         <div class="profile-image-container">
-            <img src="${sessionScope['account'].getImage()}" class="profile-image" alt="Profile Image">
-            <input class="imageprofile1" type="file" accept="image/*" name="image">
+            <c:choose>
+                <%-- Nếu có dữ liệu ảnh, hiển thị ảnh --%>
+                <c:when test="${not empty sessionScope['account'].getImage()}">
+                    <%-- Chuyển đổi dữ liệu ảnh từ byte array thành chuỗi base64 --%>
+                    <%-- và nhúng ảnh vào mã HTML --%>
+                    <img src="data:image/jpeg;base64,${javax.xml.bind.DatatypeConverter.printBase64Binary(sessionScope['account'].getImage)}" alt="User Image">
+                </c:when>
+                <%-- Nếu không có dữ liệu ảnh, hiển thị thông báo --%>
+                <c:otherwise>
+                    <p>No image available</p>
+                    <label for="image">Upload Image:</label>
+                    <input type="file" id="image" name="image">
+                    <br>
+                </c:otherwise>
+            </c:choose>
         </div><br/>
         <!-- Name -->
         <label class="nameprofile">Name</label><input class="nameprofile1" type="text" value="${sessionScope['account'].getName()}" name="name"><br/>
