@@ -38,7 +38,7 @@ public class UpdateStatusUser extends HttpServlet {
         }else{
             dao.UpdateStatusUser(1, uid);
         }
-         response.sendRedirect("ManagerUser");
+         response.sendRedirect("./ManagerUser");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

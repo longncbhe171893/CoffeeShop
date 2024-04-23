@@ -53,7 +53,7 @@
                               <option value="${user.getSex()}" <c:if test="${user.getSex() == 1}">selected</c:if>>Nam</option>
                               <option value="${user.getSex()}" <c:if test="${user.getSex() == 2}">selected</c:if>>Nữ</option>
                                </select>
-                            
+                               <br>
                             <b>User point: </b><input type="text"${disable} class="form-control" value="${user.getPoint()}" name="userpoint"><br>
                           
                             <div>
