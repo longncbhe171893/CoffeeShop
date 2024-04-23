@@ -22,10 +22,10 @@ public class ManageOrder extends HttpServlet {
         int numPage = 4;
 
         OrderDAO dao = new OrderDAO();
-        String mess,messEdit;
+        String mess, messEdit;
         try {
-            mess=request.getParameter("mess");
-            messEdit=request.getParameter("messEdit");           
+            mess = request.getParameter("mess");
+            messEdit = request.getParameter("messEdit");
             request.setAttribute("mess", mess);
             request.setAttribute("messEdit", messEdit);
         } catch (Exception e) {
@@ -34,7 +34,7 @@ public class ManageOrder extends HttpServlet {
         ArrayList<Model.User> creator;
         creator = dao.getAllCostomer();
         request.setAttribute("creator", creator);
-        
+
         // paging
         int index = Integer.valueOf(request.getParameter("index"));
         int count = dao.countOrder();
@@ -107,7 +107,7 @@ public class ManageOrder extends HttpServlet {
                 orderList = orderDao.getOrderByDate(fdate, sdate);
                 request.setAttribute("olist", orderList);
             }
-
+            request.setAttribute("olist", orderList);
             request.setAttribute("index", 1);
             request.getRequestDispatcher("ManageOrder.jsp").forward(request, response);
 
