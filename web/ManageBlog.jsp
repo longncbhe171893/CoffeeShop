@@ -115,6 +115,7 @@
 
         <!-- CONTENT -->
         <section id="content">
+            <b><input type="text" hidden class="form-control" required  value="${sessionScope['account'].getId()}" name="user"></b>
             <!-- NAVBAR -->
             <nav>
                 <i class='bx bx-menu' ></i>
@@ -155,7 +156,7 @@
                     </nav>
                 </div>
                 <div class="filter">
-                    <div>
+                    <div ${hidden}>
                         <label for="Filter">Creator :</label>
                         <select id="selectBox" name="Filter" onchange="doFilter(value);"> 
                             <option value="">All</option>
@@ -210,11 +211,11 @@
                                 <th scope="col">Short Description</th>
                                 <th scope="col">Creator</th>
                                 <th scope="col">Category</th>
-                                <th scope="col">Create Date</th>
                                 <th scope="col">Content</th>
+                                <th scope="col" ${sessionScope['account'].getSetting_id()==1?'hidden':''}>Status</th>
 
 
-                                <th scope="col" colspan="2" style="text-align: center">Action</th>
+                                <th scope="col" colspan="3" style="text-align: center">Action</th>
                             </tr>
 
                         </thead>
@@ -227,19 +228,19 @@
                                 <td>${bl.getDescription()}</td>   
                                 <td>${bl.getUser().getName()}</td>   
                                 <td>${bl.getSetting().getName()}</td>   
-                                <td>${bl.getPost_date()}</td>
+
                                 <td>
                                     <details>
                                         <summary style="color:blue">Show</summary>
                                         <p>${bl.getContent()}</p>
                                     </details>
                                 </td>
-
+                                <td><b ${sessionScope['account'].getSetting_id()==1?'hidden':''} style="display: block;color: ${bl.getBlog_status()==2?'red':'green'}; " >${bl.getBlog_status()==1?"Public":"Private"}</b></td>
                                 <td>
-                                    <a href="ChangeStatusBlog?bid=${bl.getBlog_id()}&index=${index}" class="btn- btn-danger  btn-lg" style="display: block; background-color: ${bl.getBlog_status()==2?'red':'green'}; " >${bl.getBlog_status()==1?"Public":"Private"}</a>
+                                    <a href="ChangeStatusBlog?bid=${bl.getBlog_id()}&index=${index}&user=${sessionScope['account'].getId()}" ${hidden} class="btn- btn-danger  btn-lg" style="display: block; background-color: ${bl.getBlog_status()==2?'red':'green'}; " >${bl.getBlog_status()==1?"Public":"Private"}</a>
                                 </td>
 
-                                <td> <button type="button" class="btn btn-success btn-lg" onclick="window.location.href = 'EditBlog?blogId=${bl.getBlog_id()}&BlogDetail=false&index=${index}';"">Edit Blog</button></td>
+                                <td> <button type="button" class="btn btn-success btn-lg" onclick="window.location.href = 'EditBlog?blogId=${bl.getBlog_id()}&user=${sessionScope['account'].getId()}&BlogDetail=false&index=${index}';"">Edit Blog</button></td>
 
                                 <td>
                                     <button class="viewButton" onclick="window.location.href = 'EditBlog?blogId=${bl.getBlog_id()}&BlogDetail=true&index=${index}';"">
@@ -253,11 +254,11 @@
                 </div>
                 <div class="pagination">
 
-                    <a href="ManageBlog?index=${backPage}">&laquo;</a>
+                    <a href="ManageBlog?index=${backPage}&user=${sessionScope['account'].getId()}">&laquo;</a>
                     <c:forEach begin="1" end="${ePage}" var="i">                      
-                        <a href="ManageBlog?index=${i}">${i}</a>
+                        <a href="ManageBlog?index=${i}&user=${sessionScope['account'].getId()}">${i}</a>
                     </c:forEach>
-                    <a href="ManageBlog?index=${nextPage}">&raquo;</a>
+                    <a href="ManageBlog?index=${nextPage}&user=${sessionScope['account'].getId()}">&raquo;</a>
                 </div>
             </main>
             <!-- MAIN -->

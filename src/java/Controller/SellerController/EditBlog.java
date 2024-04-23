@@ -37,8 +37,8 @@ public class EditBlog extends HttpServlet {
         String img = request.getParameter("img");
         Part imagePart = request.getPart("img");
         int index = Integer.valueOf(request.getParameter("index"));
-//        int userId = Integer.valueOf(request.getParameter("user"));
-        int userId = 8;
+        int userId = Integer.valueOf(request.getParameter("user"));
+//        int userId = 8;
         String content = request.getParameter("content");
         int setting_id = Integer.parseInt(request.getParameter("category"));
         String shortDescription = request.getParameter("short_description");
@@ -66,7 +66,7 @@ public class EditBlog extends HttpServlet {
             }
             BlogDao bdao = new BlogDao();
             bdao.updateBlog(idBlog, title, relativeImagePath, userId, content, setting_id, shortDescription);
-            response.sendRedirect("ManageBlog?index="+index);
+            response.sendRedirect("ManageBlog?index="+index+"&user="+userId);
         }
     }
 

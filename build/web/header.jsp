@@ -1,8 +1,3 @@
-<%-- 
-    Document   : header.jsp
-    Created on : May 17, 2023, 8:03:38 PM
-    Author     : asus
---%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -64,14 +59,15 @@
                             <c:if test="${sessionScope['account'].getRole().getId() == 3}">
                                 <a href="#" class="nav-link" >MY ORDER</a>
                             </c:if>
-                        </li>
-                        <c:if test="${sessionScope['account'].getRole().getId() == 1}">
-                                <a href="#" class="nav-link" >MANAGER PAGE</a>
-                            </c:if>
+                        </li>                     
                         <li class="nav-item">
-                            <a href="ManageBlog?index=1" class="nav-link" >MANAGER PAGE</a>
+                            <c:if test="${sessionScope['account'].getRole().getId() == 1}">
+                                <a href="AdminDashBoard.jsp" class="nav-link" >MANAGER PAGE</a>
+                            </c:if>
+                            <c:if test="${sessionScope['account'].getRole().getId() == 2}">
+                                <a href="ManageBlog?index=1&user=${sessionScope['account'].getId()}" class="nav-link" >MANAGER PAGE</a>
+                            </c:if>
                         </li>
-
                         <li class="nav-item">
                             <c:if test="${sessionScope['account']!=null}">
                                 <a href="#" class="nav-link"><i class="biolife-icon icon-login"></i>PROFILE</a>

@@ -6,20 +6,20 @@
     </a>
     <ul class="side-menu top">
         <li class="active">
-            <a href="SellerDashboard">
+            <a href="SellerDashboard?&user=${sessionScope['account'].getId()}">
                 <i class='bx bxs-dashboard' ></i>
                 <span class="text">Seller Manage</span>
             </a>
         </li>
         <li class="active">
-            <a href="ManageBlog?index=1">
+            <a href="ManageBlog?index=1&user=${sessionScope['account'].getId()}">
                <i class='bx bxs-dashboard' ></i>
                 <span class="text">Manage Blog</span>
             </a>
         </li>
         
         <li class="active">
-            <a href="ManageOrder?index=1">
+            <a href="ManageOrder?index=1&user=${sessionScope['account'].getId()}">
                 <i class='bx bxs-dashboard' ></i>
                 <span class="text">Manage Order</span>
             </a>
