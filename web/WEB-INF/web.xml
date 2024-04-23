@@ -21,15 +21,6 @@
         <servlet-class>Controller.VerifyEmail</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>SliderController</servlet-name>
-        <servlet-class>com.yourpackage.SliderController</servlet-class>
-    </servlet>
-    
-    <servlet-mapping>
-        <servlet-name>SliderController</servlet-name>
-        <url-pattern>/UpdateStatusSlider</url-pattern>
-    </servlet-mapping>
-    <servlet>
         <servlet-name>ForgotPassword</servlet-name>
         <servlet-class>Controller.ForgotPassword</servlet-class>
     </servlet>
@@ -60,6 +51,10 @@
     <servlet>
         <servlet-name>ProductLists</servlet-name>
         <servlet-class>Controller.ProductLists</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ManageSlider</servlet-name>
+        <servlet-class>Controller.ManageSlider</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>VerifyForgotPassword</servlet-name>
@@ -96,6 +91,10 @@
     <servlet>
         <servlet-name>UpdateStatusUser</servlet-name>
         <servlet-class>Controller.UpdateStatusUser</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateStatusSlider</servlet-name>
+        <servlet-class>Controller.UpdateStatusSlider</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>GetPriceBySize</servlet-name>
@@ -158,8 +157,16 @@
         <servlet-class>Controller.AddBlog</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>AddSlider</servlet-name>
+        <servlet-class>Controller.AddSlider</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>EditBlog</servlet-name>
         <servlet-class>Controller.EditBlog</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditSlider</servlet-name>
+        <servlet-class>Controller.EditSlider</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ChangePassword</servlet-name>
@@ -196,28 +203,6 @@
     <servlet>
         <servlet-name>UserDetails</servlet-name>
         <servlet-class>Controller.UserDetails</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>SliderController</servlet-name>
-        <servlet-class>Controller.SliderController</servlet-class>
-        <servlet-name>ChangeStatusBlog</servlet-name>
-        <servlet-class>Controller.SellerController.ChangeStatusBlog</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>ChangeOrderStatus</servlet-name>
-        <servlet-class>Controller.SellerController.ChangeOrderStatus</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>UpdateOrderDetail</servlet-name>
-        <servlet-class>Controller.SellerController.UpdateOrderDetail</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>EditOrder</servlet-name>
-        <servlet-class>Controller.SellerController.EditOrder</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>DeleteProductFromOrder</servlet-name>
-        <servlet-class>Controller.SellerController.DeleteProductFromOrder</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Register</servlet-name>
@@ -392,6 +377,11 @@
         <url-pattern>/cart</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>UpdateStatusSlider</servlet-name>
+        <url-pattern>/UpdateStatusSlider</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
         <servlet-name>DeleteController</servlet-name>
         <url-pattern>/deleteProduct</url-pattern>
     </servlet-mapping>
@@ -486,28 +476,6 @@
     <servlet-mapping>
         <servlet-name>UserDetails</servlet-name>
         <url-pattern>/UserDetails</url-pattern>
-        <servlet-name>FilterBlog</servlet-name>
-        <url-pattern>/FilterBlog</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ChangeStatusBlog</servlet-name>
-        <url-pattern>/ChangeStatusBlog</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ChangeOrderStatus</servlet-name>
-        <url-pattern>/ChangeOrderStatus</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>UpdateOrderDetail</servlet-name>
-        <url-pattern>/UpdateOrderDetail</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>EditOrder</servlet-name>
-        <url-pattern>/EditOrder</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>DeleteProductFromOrder</servlet-name>
-        <url-pattern>/DeleteProductFromOrder</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
@@ -517,4 +485,8 @@
     <welcome-file-list>
         <welcome-file>Home</welcome-file>
     </welcome-file-list>
+    <servlet>
+        <servlet-name>EditRole</servlet-name>
+        <servlet-class>Controller.EditRole</servlet-class>
+    </servlet>
 </web-app>

@@ -49,13 +49,8 @@ public class Contact extends HttpServlet {
             String message = request.getParameter("message");
 
             // Kiểm tra email
-            if (!isValidEmail(email)) {
+            if (!isValidEmail(email) || !isValidPhoneNumber(phone)) {
                 throw new IllegalArgumentException("Invalid email format");
-            }
-
-            // Kiểm tra số điện thoại
-            if (!isValidPhoneNumber(phone)) {
-                throw new IllegalArgumentException("Invalid phone number");
             }
 
             // Gửi email
@@ -64,10 +59,10 @@ public class Contact extends HttpServlet {
             // Chuyển hướng sau khi gửi email thành công
             response.sendRedirect("Success.jsp");
         } catch (IllegalArgumentException e) {
-            request.setAttribute("messregis", "Invalid data format. Please enter valid email and phone number.");
+            request.setAttribute("messregis", "Invalid data format. Please enter again.");
             request.getRequestDispatcher("Contact.jsp").forward(request, response);
         } catch (Exception e) {
-            request.setAttribute("messregis", "Error. Try again!");
+            request.setAttribute("messregis", " ");
             request.getRequestDispatcher("Contact.jsp").forward(request, response);
         }
     }
@@ -136,7 +131,7 @@ public class Contact extends HttpServlet {
     // Kiểm tra số điện thoại có phải là dãy gồm 10 hoặc 11 số
     private boolean isValidPhoneNumber(String phone) {
         // Biểu thức chính quy kiểm tra số điện thoại có 10 hoặc 11 chữ số
-        String regex = "^(\\+\\d{1,2})?(0|84)\\d{9,10}$";
+        String regex = "^(\\+?\\d{1,3})?\\s?(\\d{9,10})$";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(phone);
         return matcher.matches();
