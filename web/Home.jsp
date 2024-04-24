@@ -34,26 +34,7 @@
     <body>
         <jsp:include page="header.jsp"/>   
               
-        <section class="home-slider owl-carousel">
-            
- <c:forEach var="p" items="${plist12}">
-     <div class="slider-item" style="background-image: url(${p.getImage()});">
-                <div class="overlay"></div>
-                <div class="container">
-                    <div class="row slider-text justify-content-center align-items-center" data-scrollax-parent="true">
-                        <div class="col-md-8 col-sm-12 text-center ftco-animate">
-                            <span class="subheading">Welcome</span>
-                            <h1 class="mb-4">${p.getName()}</h1>
-                            <p class="mb-4 mb-md-5"></p>
-                            <p><a href="./ProductDetails?pid=${p.getId()}&mode=0"
-                                  class="btn btn-white btn-outline-white p-3 px-xl-4 py-xl-3">View Product Detail</a></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-                    </c:forEach>
-           
-        </section>
+       
 
         <section class="ftco-about d-md-flex">
             <div class="one-half img" style="background-image: url(images/about.jpg);"></div>

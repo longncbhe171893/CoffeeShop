@@ -16,36 +16,75 @@ public class ProductDAO extends DBContext {
 
     public static void main(String[] args) {
        ProductDAO productDAO = new ProductDAO();
-        
-        // Gọi phương thức getAllProducts để lấy danh sách sản phẩm
-        ArrayList<Product> productList = productDAO.pagingProduct(1, 4);
-        
-        // In ra thông tin của các sản phẩm trong danh sách
-        for (Product product : productList) {
-            System.out.println("Product ID: " + product.getId());
-            System.out.println("Product Name: " + product.getName());
-            System.out.println("Product Price: " + product.getPrice());
-            System.out.println("Setting ID: " + product.getSetting_id());
-            System.out.println("Image: " + product.getImage());
-            System.out.println("Description: " + product.getDecription());
-            System.out.println("Product Status: " + product.getProductStatus());
-            System.out.println("Create Date: " + product.getCreateDate());
-            System.out.println("Size: " + product.getSize());
-            System.out.println("------------------------------------");
-        }
+
+        // Khởi tạo các thông số cho việc đếm số lượng sản phẩm
+        int settingId = 4; // ID của setting
+        int productStatus = 1; // Trạng thái của sản phẩm
+        String searchProductName = ""; // Tên sản phẩm cần tìm kiếm
+
+        // Gọi hàm countProduct để đếm số lượng sản phẩm
+        int productCount = productDAO.countProduct(settingId, productStatus, searchProductName);
+
+        // Hiển thị kết quả
+        System.out.println("Tổng số sản phẩm: " + productCount);
     
     }
-    public ArrayList<Product> pagingProduct(int index, int numOrOnPage) {
-        ArrayList<Product> list = new ArrayList<>();
-        try {
-            String sql = "SELECT * FROM `Product` order by product_status asc LIMIT ?, ?;";
-            PreparedStatement ps = connection.prepareStatement(sql);
-            index = (index - 1) * numOrOnPage;
-            ps.setInt(1, index);
-            ps.setInt(2, numOrOnPage);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                 list.add(new Product(
+    
+    public ArrayList<Product> pagingProduct(int index, int numOrOnPage, int settingId, int productStatus, String searchProductName) {
+    ArrayList<Product> list = new ArrayList<>();
+    try {
+        String sql = "SELECT * FROM `Product`";
+        // Thêm điều kiện WHERE nếu có bất kỳ tham số nào khác null hoặc searchProductName không rỗng
+        if (settingId != 0 || productStatus != 0 || !searchProductName.isEmpty()) {
+            sql += " WHERE ";
+            boolean isFirstCondition = true;
+            // Thêm điều kiện cho setting_id
+            if (settingId != 0) {
+                if (!isFirstCondition) {
+                    sql += " AND ";
+                }
+                sql += " `setting_id` = ? ";
+                isFirstCondition = false;
+            }
+            // Thêm điều kiện cho product_status
+            if (productStatus != 0) {
+                if (!isFirstCondition) {
+                    sql += " AND ";
+                }
+                sql += " `product_status` = ? ";
+                isFirstCondition = false;
+            }
+            // Thêm điều kiện cho tìm kiếm theo tên sản phẩm
+            if (!searchProductName.isEmpty()) {
+                if (!isFirstCondition) {
+                    sql += " AND ";
+                }
+                sql += " `product_name` LIKE ? ";
+            }
+        }
+        sql += " ORDER BY create_date ASC LIMIT ?, ?";
+        
+        PreparedStatement ps = connection.prepareStatement(sql);
+        int parameterIndex = 1;
+        // Đặt các giá trị tham số nếu chúng không 0 hoặc không rỗng
+        if (settingId != 0) {
+            ps.setInt(parameterIndex++, settingId);
+        }
+        if (productStatus != 0) {
+            ps.setInt(parameterIndex++, productStatus);
+        }
+        // Đặt giá trị tham số cho tìm kiếm theo tên sản phẩm nếu có
+        if (!searchProductName.isEmpty()) {
+            ps.setString(parameterIndex++, "%" + searchProductName + "%");
+        }
+        // Thiết lập giá trị index và số trang
+        index = (index - 1) * numOrOnPage;
+        ps.setInt(parameterIndex++, index);
+        ps.setInt(parameterIndex, numOrOnPage);
+        
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()) {
+            list.add(new Product(
                 rs.getInt("product_id"),
                 rs.getString("product_name"),
                 rs.getDouble("product_price"),
@@ -55,27 +94,68 @@ public class ProductDAO extends DBContext {
                 rs.getInt("product_status"),
                 rs.getDate("create_date"),
                 rs.getInt("size")));
+        }
+    } catch (SQLException e) {
+        // Xử lý ngoại lệ nếu cần
+    }
+    return list;
+}
+    public int countProduct(int settingId, int productStatus, String searchProductName) {
+    int count = 0;
+    try {
+        String sql = "SELECT COUNT(*) FROM `Product`";
+        // Thêm điều kiện WHERE nếu có bất kỳ tham số nào khác 0 hoặc searchProductName không rỗng
+        if (settingId != 0 || productStatus != 0 || !searchProductName.isEmpty()) {
+            sql += " WHERE ";
+            boolean isFirstCondition = true;
+            // Thêm điều kiện cho setting_id
+            if (settingId != 0) {
+                if (!isFirstCondition) {
+                    sql += " AND ";
+                }
+                sql += " `setting_id` = ? ";
+                isFirstCondition = false;
             }
-        } catch (SQLException e) {
-
+            // Thêm điều kiện cho product_status
+            if (productStatus != 0) {
+                if (!isFirstCondition) {
+                    sql += " AND ";
+                }
+                sql += " `product_status` = ? ";
+                isFirstCondition = false;
+            }
+            // Thêm điều kiện cho tìm kiếm theo tên sản phẩm
+            if (!searchProductName.isEmpty()) {
+                if (!isFirstCondition) {
+                    sql += " AND ";
+                }
+                sql += " `product_name` LIKE ? ";
+            }
         }
-        return list;
-    }
-     public int countProduct() {
-        int count;
-        try {
-            String sql = " select count(*) from `Product`";
-            PreparedStatement ps = connection.prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
-            rs.next();
+        
+        PreparedStatement ps = connection.prepareStatement(sql);
+        int parameterIndex = 1;
+        // Đặt các giá trị tham số nếu chúng không 0 hoặc không rỗng
+        if (settingId != 0) {
+            ps.setInt(parameterIndex++, settingId);
+        }
+        if (productStatus != 0) {
+            ps.setInt(parameterIndex++, productStatus);
+        }
+        // Đặt giá trị tham số cho tìm kiếm theo tên sản phẩm nếu có
+        if (!searchProductName.isEmpty()) {
+            ps.setString(parameterIndex++, "%" + searchProductName + "%");
+        }
+        
+        ResultSet rs = ps.executeQuery();
+        if (rs.next()) {
             count = rs.getInt(1);
-            return count;
-
-        } catch (SQLException e) {
-
         }
-        return 0;
+    } catch (SQLException e) {
+        // Xử lý ngoại lệ nếu cần
     }
+    return count;
+}
       public ArrayList<Product> getProduct(String search, int index, String sort) {
     String sortby ="";
     switch (sort) {
@@ -110,7 +190,7 @@ public class ProductDAO extends DBContext {
                 rs.getInt("product_id"),
                 rs.getString("product_name"),
                 rs.getDouble("product_price"),
-                rs.getInt("setting_id"),
+                 rs.getInt("setting_id"),
                 rs.getString("img"),
                 rs.getString("description"),
                 rs.getInt("product_status"),
@@ -143,7 +223,7 @@ public class ProductDAO extends DBContext {
                 rs.getInt("product_id"),
                 rs.getString("product_name"),
                 rs.getDouble("product_price"),
-                rs.getInt("setting_id"),
+                 rs.getInt("setting_id"),
                 rs.getString("img"),
                 rs.getString("description"),
                 rs.getInt("product_status"),
@@ -228,10 +308,9 @@ public class ProductDAO extends DBContext {
         }
         return null;
     }
-
-    public ArrayList<Setting> getCategory() {
+   public ArrayList<Setting> getCategory() {
         ArrayList<Setting> list = new ArrayList<>();
-        String sql = "  select `setting_id` from `Setting`";
+        String sql = "  select `setting_id`,`setting_name` from `Setting` where `type`='Category'";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
@@ -261,38 +340,36 @@ public class ProductDAO extends DBContext {
     }
 
 
-    public void AddProduct(String name, double price, /*int cateId,*/ String descri, String img,int size) {
+    public void AddProduct(String name, double price, int cateId,  String img,String descri) {
         String sql = "INSERT INTO `Product`\n"
                 + "  (`product_name`, `product_price`, `product_status`, `setting_id`, `img`, `description`, `create_date`,`size`)\n"
                 + "VALUES\n"
-                + "  (?, ?, 1, 4, ?, ?, NOW(),?);";
+                + "  (?, ?, 1, ?, ?, ?, NOW(),1);";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, name);
             ps.setDouble(2, price);
-            //ps.setInt(3, cateId);
-            ps.setString(3, descri);
+            ps.setInt(3, cateId);
             ps.setString(4, img);
-            ps.setInt(5, size);
+            ps.setString(5, descri);
             ps.executeUpdate();
         } catch (Exception e) {
         }
     }
 
-    public void UpdateProduct(int id, String name, double price,  String descri, String img,int size) {
+    public void UpdateProduct (String name, double price, int cateId,  String img,String descri,int id) {
         String sql = "UPDATE `Product`\n"
-                + "SET `product_name` = ?, `product_price` = ?, `setitng_id` = 4,\n"
-                + "    `img` = ?, `description` = ?, `create_date` = NOW(),`size`= ?\n"
+                + "SET `product_name` = ?, `product_price` = ?, `setting_id` = ?,\n"
+                + "    `img` = ?, `description` = ?, `create_date` = NOW()\n"
                 + "WHERE `product_id` = ?;";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, name);
             ps.setDouble(2, price);
-           // ps.setInt(3, cateId);
-            ps.setString(3, descri);
+            ps.setInt(3, cateId);
             ps.setString(4, img);
-            ps.setInt(5, size);
-            ps.executeUpdate();
+            ps.setString(5, descri);
+            ps.setInt(6, id);
             ps.executeUpdate();
         } catch (Exception e) {
         }
@@ -349,6 +426,7 @@ public class ProductDAO extends DBContext {
 
     }
 */
+<<<<<<< HEAD
     public ArrayList<Product> searchProduct(String search) {
         ArrayList<Product> list = new ArrayList<>();
         String sql = " SELECT *\n"
@@ -432,5 +510,8 @@ public class ProductDAO extends DBContext {
         return productList;
     }
 
+=======
+>>>>>>> ManhLD
 
+    
 }

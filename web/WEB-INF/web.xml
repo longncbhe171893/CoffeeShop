@@ -57,8 +57,8 @@
         <servlet-class>Controller.ManageProduct</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>AddNewProduct</servlet-name>
-        <servlet-class>Controller.AddNewProduct</servlet-class>
+        <servlet-name>AddProduct</servlet-name>
+        <servlet-class>Controller.AddProduct</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>EditProduct</servlet-name>
@@ -297,8 +297,8 @@
         <url-pattern>/ManageProduct</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>AddNewProduct</servlet-name>
-        <url-pattern>/AddNewProduct</url-pattern>
+        <servlet-name>AddProduct</servlet-name>
+        <url-pattern>/AddProduct</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>EditProduct</servlet-name>
