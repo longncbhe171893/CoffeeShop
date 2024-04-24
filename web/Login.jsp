@@ -29,7 +29,7 @@
                 <p style="color: red;">${alertTitle}</p>
                 <div class="form-group">
                     <i class="far fa-user"></i>
-                    <input type="text" class="form-input" name="email" placeholder="Email" required>
+                    <input type="text" class="form-input" name="email" value="${email}" placeholder="Email" required>
                 </div>
                 <div class="form-group">
                     <i class="fas fa-key"></i>

@@ -4,6 +4,7 @@
  */
 package Controller;
 
+import DAO.ContactDAO;
 import java.io.IOException;
 import java.util.Properties;
 import java.util.regex.Matcher;
@@ -46,15 +47,27 @@ public class Contact extends HttpServlet {
             String name = request.getParameter("name");
             String email = request.getParameter("email");
             String phone = request.getParameter("phone");
+            String contact_type = request.getParameter("contact_type");
+            String subject = request.getParameter("subject");
             String message = request.getParameter("message");
-
+            int setting_id;
             // Kiểm tra email
-            if (!isValidEmail(email) || !isValidPhoneNumber(phone)) {
+            if (!isValidEmail(email) ) {
                 throw new IllegalArgumentException("Invalid email format");
             }
 
+            // Kiểm tra số điện thoại
+            if (!isValidPhoneNumber(phone)) {
+                throw new IllegalArgumentException("Invalid phone number");
+            }
+
             // Gửi email
-            sendEmail(name, email, phone, message);
+            sendEmail(name, email, phone, contact_type, subject, message);
+            
+            
+            ContactDAO contactDAO = new ContactDAO();
+            setting_id = contactDAO.getSetiing_id(contact_type);
+            contactDAO.insertContact(name, email, phone, subject, message, setting_id, 21);
 
             // Chuyển hướng sau khi gửi email thành công
             response.sendRedirect("Success.jsp");
@@ -77,8 +90,7 @@ public class Contact extends HttpServlet {
         return "Short description";
     }
 
- 
-    private void sendEmail(String name, String email, String phone, String message) throws MessagingException {
+    private void sendEmail(String name, String email, String phone, String settingId, String subject, String message) throws MessagingException {
         // Địa chỉ email của người nhận
         String to = "blong8444@gmail.com";
 
@@ -118,6 +130,8 @@ public class Contact extends HttpServlet {
         String emailContent = "Name: " + name + "\n"
                 + "Email: " + email + "\n"
                 + "Phone: " + phone + "\n"
+                + "Contact type: " + settingId + "\n"
+                + "Subject: " + subject + "\n"
                 + "Message: " + message;
 
         // Thiết lập nội dung email
@@ -131,7 +145,7 @@ public class Contact extends HttpServlet {
     // Kiểm tra số điện thoại có phải là dãy gồm 10 hoặc 11 số
     private boolean isValidPhoneNumber(String phone) {
         // Biểu thức chính quy kiểm tra số điện thoại có 10 hoặc 11 chữ số
-        String regex = "^(\\+?\\d{1,3})?\\s?(\\d{9,10})$";
+        String regex = "^(\\+\\d{1,2})?(0|84)\\d{9,10}$";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(phone);
         return matcher.matches();
