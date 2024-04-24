@@ -78,7 +78,31 @@ public class OrderDAO extends DBContext {
         }
         return list;
     }
-
+ public ArrayList<OrderDetail> getOrderDetail(int odid) {
+        ArrayList<OrderDetail> list = new ArrayList<>();
+        PreparedStatement ps;
+        ResultSet rs;
+        try {
+            String sql = "SELECT * FROM orderdetail where order_id = ?;";
+            ps = connection.prepareStatement(sql);
+            ps.setInt(1, odid);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Order order = getOrderById(odid);
+                int ordeTailId = rs.getInt(1);
+                Product product = getProductById(rs.getInt(3));
+                double order_price = rs.getDouble(4);
+                int quantity = rs.getInt(5);
+                int size = rs.getInt(6);
+                OrderDetail orderDetail = new OrderDetail(ordeTailId, order, product, order_price, quantity, order_price * quantity, size);
+                list.add(orderDetail);
+            }
+            rs.close();
+            ps.close();
+        } catch (SQLException e) {
+        }
+        return list;
+    }
     public User getUserById(int id) {
         User u = new User();
         PreparedStatement ps;
@@ -199,32 +223,7 @@ public class OrderDAO extends DBContext {
         return list;
     }
 
-    public ArrayList<OrderDetail> getOrderDetail(int odid) {
-        ArrayList<OrderDetail> list = new ArrayList<>();
-        PreparedStatement ps;
-        ResultSet rs;
-        try {
-            String sql = "SELECT * FROM orderdetail where order_id = ?;";
-            ps = connection.prepareStatement(sql);
-            ps.setInt(1, odid);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                Order order = getOrderById(odid);
-                int ordeTailId = rs.getInt(1);
-                Product product = getProductById(rs.getInt(3));
-                double order_price = rs.getDouble(4);
-                int quantity = rs.getInt(5);
-                int size = rs.getInt(6);
-                OrderDetail orderDetail = new OrderDetail(ordeTailId, order, product, order_price, quantity, order_price * quantity, size);
-                list.add(orderDetail);
-            }
-            rs.close();
-            ps.close();
-        } catch (SQLException e) {
-        }
-        return list;
-    }
-
+    
     public ArrayList<OrderDetail> getAllOrderDetail() {
         ArrayList<OrderDetail> list = new ArrayList<>();
         try {
@@ -245,7 +244,6 @@ public class OrderDAO extends DBContext {
         }
         return list;
     }
-
     public int countOrder() {
         int count;
         try {
