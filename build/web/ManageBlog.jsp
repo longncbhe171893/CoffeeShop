@@ -92,30 +92,16 @@
                 background-color: #ddd;
                 border-radius: 5px;
             }
-            #toastBox{
-                position: absolute;
-                bottom: 30px;
-                right: 30px;
-                display: flex;
-                align-items: flex-start;
-                flex-direction: column;
-                overflow: hidden;
-                padding: 20px;
-
-
-            }
         </style>
     </head>
 
     <body>
-
         <!-- SIDEBAR -->
         <jsp:include page="headerSeller.jsp"/>
         <!-- SIDEBAR -->
 
         <!-- CONTENT -->
         <section id="content">
-            <b><input type="text" hidden class="form-control" required  value="${sessionScope['account'].getId()}" name="user"></b>
             <!-- NAVBAR -->
             <nav>
                 <i class='bx bx-menu' ></i>
@@ -126,22 +112,7 @@
                 </div>
             </nav>
             <!-- NAVBAR -->
-            <button onclick="ShowToast()">Success</button>
-            <div id="toastBox">
 
-            </div>
-            <script>
-                let toastBox = document.getElementById('toastBox');
-
-
-                function ShowToast() {
-                    let toast = document.createElement('div');
-                    toast.classList.add('toast');
-                    toast.innerHTML = 'success';
-                    toastBox.appendChild(toast);
-
-                }
-            </script>
             <!-- MAIN -->
             <main>
                 <div>
@@ -149,14 +120,13 @@
                         <form action="ManageBlog" method="post">
                             <div class="form-input">
                                 <input type="search" id="myInput" onkeyup="myFunction()" name="search" placeholder="Search by Tittle">
-                                <input type="text" hidden  name="index" value="${index}">
                                 <button type="submit" class="search-btn"><i class='bx bx-search' ></i></button>
                             </div>
                         </form>
                     </nav>
                 </div>
                 <div class="filter">
-                    <div ${hidden}>
+                    <div>
                         <label for="Filter">Creator :</label>
                         <select id="selectBox" name="Filter" onchange="doFilter(value);"> 
                             <option value="">All</option>
@@ -196,6 +166,10 @@
                     </div>
                 </div>
 
+
+
+                </div>
+
                 <div style="margin-top: 3rem;" class="col-md-12">
                     <button class="button" onclick="window.location.href = 'AddBlog';">Add Blog</button>
 
@@ -211,11 +185,11 @@
                                 <th scope="col">Short Description</th>
                                 <th scope="col">Creator</th>
                                 <th scope="col">Category</th>
+                                <th scope="col">Create Date</th>
                                 <th scope="col">Content</th>
-                                <th scope="col" ${sessionScope['account'].getSetting_id()==1?'hidden':''}>Status</th>
 
 
-                                <th scope="col" colspan="3" style="text-align: center">Action</th>
+                                <th scope="col" colspan="2" style="text-align: center">Action</th>
                             </tr>
 
                         </thead>
@@ -227,23 +201,23 @@
                                 <td><img style="width:150px;height:150px;"src="${bl.getBlog_image()}"></td>
                                 <td>${bl.getDescription()}</td>   
                                 <td>${bl.getUser().getName()}</td>   
-                                <td>${bl.getSetting().getName()}</td>   
-
+                                <td>${bl.getSetting().getSetting_name()}</td>   
+                                <td>${bl.getPost_date()}</td>
                                 <td>
                                     <details>
                                         <summary style="color:blue">Show</summary>
                                         <p>${bl.getContent()}</p>
                                     </details>
                                 </td>
-                                <td><b ${sessionScope['account'].getSetting_id()==1?'hidden':''} style="display: block;color: ${bl.getBlog_status()==2?'red':'green'}; " >${bl.getBlog_status()==1?"Public":"Private"}</b></td>
+
                                 <td>
-                                    <a href="ChangeStatusBlog?bid=${bl.getBlog_id()}&index=${index}&user=${sessionScope['account'].getId()}" ${hidden} class="btn- btn-danger  btn-lg" style="display: block; background-color: ${bl.getBlog_status()==2?'red':'green'}; " >${bl.getBlog_status()==1?"Public":"Private"}</a>
+                                    <a href="ChangeStatusBlog?bid=${bl.getBlog_id()}" class="btn- btn-danger  btn-lg" style="display: block; background-color: ${bl.getBlog_status()==2?'red':'green'}; " >${bl.getBlog_status()==1?"Public":"Private"}</a>
                                 </td>
 
-                                <td> <button type="button" class="btn btn-success btn-lg" onclick="window.location.href = 'EditBlog?blogId=${bl.getBlog_id()}&user=${sessionScope['account'].getId()}&BlogDetail=false&index=${index}';"">Edit Blog</button></td>
+                                <td> <button type="button" class="btn btn-success btn-lg" onclick="window.location.href = 'EditBlog?blogId=${bl.getBlog_id()}&BlogDetail=false&index=${index}';"">Edit Blog</button></td>
 
                                 <td>
-                                    <button class="viewButton" onclick="window.location.href = 'EditBlog?blogId=${bl.getBlog_id()}&BlogDetail=true&index=${index}';"">
+                                    <button class="viewButton" onclick="window.location.href = 'EditBlog?blogId=${bl.getBlog_id()}&BlogDetail=true';"">
                                         <span class="eye-icon"></span>
                                     </button>
                                 </td>
@@ -254,11 +228,11 @@
                 </div>
                 <div class="pagination">
 
-                    <a href="ManageBlog?index=${backPage}&user=${sessionScope['account'].getId()}">&laquo;</a>
+                    <a href="ManageBlog?index=${backPage}">&laquo;</a>
                     <c:forEach begin="1" end="${ePage}" var="i">                      
-                        <a href="ManageBlog?index=${i}&user=${sessionScope['account'].getId()}">${i}</a>
+                        <a href="ManageBlog?index=${i}">${i}</a>
                     </c:forEach>
-                    <a href="ManageBlog?index=${nextPage}&user=${sessionScope['account'].getId()}">&raquo;</a>
+                    <a href="ManageBlog?index=${nextPage}">&raquo;</a>
                 </div>
             </main>
             <!-- MAIN -->
@@ -290,7 +264,7 @@
                 table = document.getElementById("myTable");
                 tr = table.getElementsByTagName("tr");
                 for (i = 0; i < tr.length; i++) {
-                    td = tr[i].getElementsByTagName("td")[3];
+                    td = tr[i].getElementsByTagName("td")[2];
                     if (td) {
                         txtValue = td.textContent || td.innerText;
                         if (txtValue.toUpperCase().indexOf(filter) > -1) {
@@ -309,7 +283,7 @@
                 table = document.getElementById("myTable");
                 tr = table.getElementsByTagName("tr");
                 for (i = 0; i < tr.length; i++) {
-                    td = tr[i].getElementsByTagName("td")[4];
+                    td = tr[i].getElementsByTagName("td")[3];
                     if (td) {
                         txtValue = td.textContent || td.innerText;
                         if (txtValue.toUpperCase().indexOf(filter) > -1) {

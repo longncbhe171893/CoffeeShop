@@ -25,6 +25,8 @@ import java.util.ArrayList;
  */
 public class EditOrder extends HttpServlet {
 
+<<<<<<< HEAD
+=======
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -48,6 +50,7 @@ public class EditOrder extends HttpServlet {
 
     }
 
+>>>>>>> 0e50b69a349360feb864dc2a4cc1cb4ae5fce920
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -63,6 +66,9 @@ public class EditOrder extends HttpServlet {
         try {
             OrderDAO orDao = new OrderDAO();
             int orderId = Integer.valueOf(request.getParameter("orderId"));
+<<<<<<< HEAD
+            boolean edit = Boolean.valueOf(request.getParameter("edit"));
+=======
             int index = Integer.valueOf(request.getParameter("index"));
             boolean edit = Boolean.valueOf(request.getParameter("edit"));
             String mess;
@@ -72,18 +78,27 @@ public class EditOrder extends HttpServlet {
             } catch (Exception e) {
                 request.setAttribute("mess", "");
             }
+>>>>>>> 0e50b69a349360feb864dc2a4cc1cb4ae5fce920
             if (edit) {
                 String tittle = "> Edit Order";
                 Order order = orDao.getOrderById(orderId);
                 ArrayList<OrderDetail> orderDetails = orDao.getOrderDetail(orderId);
                 double totalAmount = 0.0;
+<<<<<<< HEAD
+                
+                
+=======
 
+>>>>>>> 0e50b69a349360feb864dc2a4cc1cb4ae5fce920
                 for (OrderDetail orderDetail : orderDetails) {
                     double amount = orderDetail.getAmount() - (orderDetail.getAmount() * orderDetail.getOrder().getDiscount() / 100);
                     totalAmount += amount;
                 }
                 request.setAttribute("order", order);
+<<<<<<< HEAD
+=======
                 request.setAttribute("index", index);
+>>>>>>> 0e50b69a349360feb864dc2a4cc1cb4ae5fce920
                 request.setAttribute("totalAmount", totalAmount);
                 request.setAttribute("orderDetails", orderDetails);
                 request.setAttribute("tittle", tittle);
@@ -118,6 +133,21 @@ public class EditOrder extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+<<<<<<< HEAD
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+        int orderId = Integer.parseInt(request.getParameter("orderId"));
+        String orderName = request.getParameter("orderName");
+        Timestamp orderDateTime = Timestamp.valueOf("orderDate");
+        String orderDiscount = request.getParameter("orderDiscount");
+        String orderNote = request.getParameter("orderNote");
+        
+    }
+
+=======
+>>>>>>> 0e50b69a349360feb864dc2a4cc1cb4ae5fce920
     /**
      * Returns a short description of the servlet.
      *

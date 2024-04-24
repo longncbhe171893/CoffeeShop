@@ -117,6 +117,13 @@ public class BlogDao extends DBContext {
         }
         return (list);
     }
+<<<<<<< HEAD
+//    public static void main(String[] args) {
+//        BlogDao bld = new BlogDao();
+//        bld.addBlog("asd", "asd", 8, "123", 7, "123");
+//
+//    }
+=======
 
     public static void main(String[] args) {
         BlogDao bld = new BlogDao();
@@ -126,6 +133,7 @@ public class BlogDao extends DBContext {
         }
 
     }
+>>>>>>> 0e50b69a349360feb864dc2a4cc1cb4ae5fce920
 
     public void addBlog(String title, String img, int userId, String content, int setting_id, String short_descreption) {
 
@@ -166,6 +174,32 @@ public class BlogDao extends DBContext {
         }
     }
 
+<<<<<<< HEAD
+    public void DeleteBlog(int bid) {
+        String sql = "  DELETE FROM `Blog` WHERE `blog_id` =?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, bid);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+        }
+    }
+
+    public ArrayList<Blog> searchBlog(String search) {
+
+        ArrayList<Blog> list = new ArrayList<>();
+        String sql = "SELECT * from blog WHERE `blog_title` LIKE ?\n"
+                + "ORDER BY `blog_title` ASC;";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, "%" + search + "%");
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                list.add(new Blog(rs.getInt(1), rs.getString(2), rs.getString(3), getUserById(rs.getInt(4)), rs.getDate(5), rs.getString(6), getSettingById(rs.getInt(7)), rs.getInt(8), rs.getString(9))
+                );
+            }
+        } catch (Exception e) {
+=======
     public ArrayList<Blog> searchBlog(String search, int role, int sellerId) {
 
         ArrayList<Blog> list = new ArrayList<>();
@@ -196,6 +230,7 @@ public class BlogDao extends DBContext {
                 }
             } catch (SQLException e) {
             }
+>>>>>>> 0e50b69a349360feb864dc2a4cc1cb4ae5fce920
         }
         return list;
     }
@@ -291,6 +326,20 @@ public class BlogDao extends DBContext {
         return 0;
     }
 
+<<<<<<< HEAD
+    public ArrayList<Blog> pagingBlogs(int index, int numPage) {
+        ArrayList<Blog> list = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM `blog`  LIMIT ?, ?;";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            index = (index - 1) * numPage;
+            ps.setInt(1, index);
+            ps.setInt(2, numPage);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                list.add(new Blog(rs.getInt(1), rs.getString(2), rs.getString(3), getUserById(rs.getInt(4)), rs.getDate(5), rs.getString(6), getSettingById(rs.getInt(7)), rs.getInt(8), rs.getString(9)));
+            }
+=======
     public ArrayList<Blog> pagingBlogs(int index, int numPage, int role, int userId) {
         ArrayList<Blog> list = new ArrayList<>();
         try {
@@ -317,11 +366,14 @@ public class BlogDao extends DBContext {
                 }
             }
 
+>>>>>>> 0e50b69a349360feb864dc2a4cc1cb4ae5fce920
         } catch (SQLException e) {
 
         }
         return list;
     }
+<<<<<<< HEAD
+=======
 
     public int countBlogByRole(int setting_id, int userId) {
         int count = countBlog();
@@ -342,4 +394,5 @@ public class BlogDao extends DBContext {
         }
         return count;
     }
+>>>>>>> 0e50b69a349360feb864dc2a4cc1cb4ae5fce920
 }

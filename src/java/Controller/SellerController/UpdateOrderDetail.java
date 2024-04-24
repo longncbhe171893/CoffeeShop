@@ -48,14 +48,22 @@ public class UpdateOrderDetail extends HttpServlet {
         int orderId = Integer.parseInt(request.getParameter("orderId"));
         double productPrice = Double.parseDouble(request.getParameter("productPrice"));
         int size = Integer.parseInt(request.getParameter("size"));
+<<<<<<< HEAD
+=======
         int index = Integer.parseInt(request.getParameter("index"));
+>>>>>>> 0e50b69a349360feb864dc2a4cc1cb4ae5fce920
 
         int orderDetailId = Integer.parseInt(request.getParameter("orderDetail"));
         int quantity = Integer.parseInt(request.getParameter("quantity"));
         OrderDAO orDao = new OrderDAO();
         orDao.updateOrderDetail(productPrice, orderDetailId, quantity, size);
+<<<<<<< HEAD
+
+        response.sendRedirect("EditOrder?orderId=" + orderId + "&edit=true");
+=======
         
         response.sendRedirect("EditOrder?orderId=" + orderId + "&edit=true&index="+index);
+>>>>>>> 0e50b69a349360feb864dc2a4cc1cb4ae5fce920
 
     }
 
