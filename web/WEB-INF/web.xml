@@ -25,10 +25,6 @@
         <servlet-class>Controller.SendMailForgotPassword</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>Home</servlet-name>
-        <servlet-class>Controller.Home</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>LogOut</servlet-name>
         <servlet-class>Controller.LogOut</servlet-class>
     </servlet>
@@ -211,10 +207,6 @@
     <servlet-mapping>
         <servlet-name>SendMailForgotPassword</servlet-name>
         <url-pattern>/SendMailForgotPassword</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>Home</servlet-name>
-        <url-pattern>/Home</url-pattern>
     </servlet-mapping>
     <filter>
         <filter-name>AuthorizationFilter</filter-name>
