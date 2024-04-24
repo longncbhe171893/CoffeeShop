@@ -128,8 +128,8 @@
                                 color: white;
                                 height: 40px;
                                 border-radius: 10px;
-                                margin-left: 47px;
-                                margin-top: 53px;" name="sort" class="form-select"  onchange="this.form.submit()">
+                                margin-left: 170px;
+                                margin-top: 60px;" name="sort" class="form-select"  onchange="this.form.submit()">
                             <option value="" ${param['sort']==null?"selected":""}>Sort Default</option>
                             
                             <option value="1" ${param['sort']==1?"selected":""}>Setting Name</option>
