@@ -25,6 +25,32 @@ import java.util.ArrayList;
  */
 public class EditOrder extends HttpServlet {
 
+<<<<<<< HEAD
+=======
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        OrderDAO oDao = new OrderDAO();
+        try {
+            int orderId = Integer.parseInt(request.getParameter("orderId"));
+            int index = Integer.parseInt(request.getParameter("index"));
+            int orderDiscount = Integer.parseInt(request.getParameter("orderDiscount"));
+            String orderNote = request.getParameter("orderNote");
+            oDao.updateOrder(orderId, orderDiscount, orderNote);
+            String mess = "Update successfuly";
+            response.sendRedirect("ManageOrder?index=" + index + "&mess=" + mess);
+
+        } catch (NumberFormatException e) {
+
+            int index = Integer.parseInt(request.getParameter("index"));
+            String mess = "Update Failed!";
+            response.sendRedirect("ManageOrder?index=" + index + "&messEdit=" + mess);
+        }
+
+    }
+
+>>>>>>> 0e50b69a349360feb864dc2a4cc1cb4ae5fce920
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -40,19 +66,39 @@ public class EditOrder extends HttpServlet {
         try {
             OrderDAO orDao = new OrderDAO();
             int orderId = Integer.valueOf(request.getParameter("orderId"));
+<<<<<<< HEAD
             boolean edit = Boolean.valueOf(request.getParameter("edit"));
+=======
+            int index = Integer.valueOf(request.getParameter("index"));
+            boolean edit = Boolean.valueOf(request.getParameter("edit"));
+            String mess;
+            try {
+                mess = request.getParameter("mess");
+                request.setAttribute("mess", mess);
+            } catch (Exception e) {
+                request.setAttribute("mess", "");
+            }
+>>>>>>> 0e50b69a349360feb864dc2a4cc1cb4ae5fce920
             if (edit) {
                 String tittle = "> Edit Order";
                 Order order = orDao.getOrderById(orderId);
                 ArrayList<OrderDetail> orderDetails = orDao.getOrderDetail(orderId);
                 double totalAmount = 0.0;
+<<<<<<< HEAD
                 
                 
+=======
+
+>>>>>>> 0e50b69a349360feb864dc2a4cc1cb4ae5fce920
                 for (OrderDetail orderDetail : orderDetails) {
                     double amount = orderDetail.getAmount() - (orderDetail.getAmount() * orderDetail.getOrder().getDiscount() / 100);
                     totalAmount += amount;
                 }
                 request.setAttribute("order", order);
+<<<<<<< HEAD
+=======
+                request.setAttribute("index", index);
+>>>>>>> 0e50b69a349360feb864dc2a4cc1cb4ae5fce920
                 request.setAttribute("totalAmount", totalAmount);
                 request.setAttribute("orderDetails", orderDetails);
                 request.setAttribute("tittle", tittle);
@@ -87,6 +133,7 @@ public class EditOrder extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+<<<<<<< HEAD
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -99,6 +146,8 @@ public class EditOrder extends HttpServlet {
         
     }
 
+=======
+>>>>>>> 0e50b69a349360feb864dc2a4cc1cb4ae5fce920
     /**
      * Returns a short description of the servlet.
      *
