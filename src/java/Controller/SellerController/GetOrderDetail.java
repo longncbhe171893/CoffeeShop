@@ -2,16 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-<<<<<<< HEAD:src/java/Controller/GetOrderDetail.java
-/*package Controller;
-=======
 package Controller.SellerController;
->>>>>>> main:src/java/Controller/SellerController/GetOrderDetail.java
 
 import DAO.OrderDAO;
 import Model.Order;
 import Model.OrderDetail;
-import com.google.gson.Gson;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
@@ -103,7 +98,7 @@ public class GetOrderDetail extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    /*@Override
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         this.doGet(request, response);
@@ -114,9 +109,9 @@ public class GetOrderDetail extends HttpServlet {
      *
      * @return a String containing servlet description
      */
-  //  @Override
-    //public String getServletInfo() {
-      //  return "Short description";
-    //}// </editor-fold>
+    @Override
+    public String getServletInfo() {
+        return "Short description";
+    }// </editor-fold>
 
-//}
+}

@@ -14,6 +14,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
 import java.io.File;
+import java.util.ArrayList;
 
 @MultipartConfig(
         fileSizeThreshold = 524288,
@@ -29,9 +30,10 @@ public class AddUser extends HttpServlet {
             String title = " > Add User";
             String action = "AddUser";
             UserDAO user = new UserDAO();
+             ArrayList<Model.Setting> role = user.getRole();
             request.setAttribute("title", title);
             request.setAttribute("action", action);
-
+            request.setAttribute("rlist", role);
             request.getRequestDispatcher("EditUser.jsp").forward(request, response);
 
         } catch (ServletException | IOException e) {
@@ -48,58 +50,50 @@ public class AddUser extends HttpServlet {
     }
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        try {
+            throws ServletException, IOException {  
             // Get information from request
             String name = request.getParameter("name");
             String email = request.getParameter("email");
             String password = request.getParameter("password");
             String address = request.getParameter("address");
             String phone = request.getParameter("phone");
-            int sex = Integer.parseInt(request.getParameter("sex"));
-            Part imagePart = request.getPart("image");
-            String userpointStr = request.getParameter("userpoint");
-            double userpoint = 0.0; // Default value if not provided
-            if (userpointStr != null && !userpointStr.isEmpty()) {
-                userpoint = Double.parseDouble(userpointStr);
-            }
-            String fileName = imagePart.getSubmittedFileName();
-            String uploadDirectory = getServletContext().getRealPath("/image");
+            int sex = Integer.valueOf(request.getParameter("sex"));
+           Part imagePart = request.getPart("img");
+        String fileName = imagePart.getSubmittedFileName();
+        String uploadDirectory = getServletContext().getRealPath("/image");// Thay đổi đường dẫn tới thư mục lưu trữ ảnh trên máy chủ
 
-            // Kiểm tra xem người dùng đã chọn ảnh hay chưa
-            if (fileName != null && !fileName.isEmpty()) {
-                // Tạo tên file mới
-                String uniqueFileName = System.currentTimeMillis() + "_" + fileName;
-                // Tạo đối tượng File mới cho ảnh
-                File imageFile = new File(uploadDirectory, uniqueFileName);
-                // Sao chép tệp tin ảnh vào thư mục lưu trữ
-                imagePart.write(imageFile.getAbsolutePath());
-                // Xử lý đường dẫn tương đối
-                String image = "./image/" + uniqueFileName;
-                String oldImage = request.getParameter("oldImage");
+        // Kiểm tra xem người dùng đã chọn ảnh hay chưa
+        if (fileName != null && !fileName.isEmpty()) {
+            // Tạo tên file mới
+            String uniqueFileName = System.currentTimeMillis() + "_" + fileName;
+            // Tạo đối tượng File mới cho ảnh
+            File imageFile = new File(uploadDirectory, uniqueFileName);
+            // Sao chép tệp tin ảnh vào thư mục lưu trữ
+            imagePart.write(imageFile.getAbsolutePath());
+            // Xử lý đường dẫn tương đối
+            String relativeImagePath = "./image/" + uniqueFileName; // Thay đổi đường dẫn tương đối đến ảnh lưu trữ trên máy chủ
+            // Xóa file cũ (nếu tồn tại)
+        
+            String oldImage = request.getParameter("oldImage");
             if (oldImage != null && !oldImage.isEmpty()) {
                 File oldImageFile = new File(uploadDirectory, oldImage);
                 if (oldImageFile.exists()) {
                     oldImageFile.delete();
                 }
             }
-
+            int roleId = Integer.parseInt(request.getParameter("role"));
+             double userpoint = Double.valueOf(request.getParameter("point"));
                 UserDAO udao = new UserDAO();
+         
                 
-                // Thêm người dùng mới
-                udao.addUser(name, email, password, address, phone,sex, image, userpoint);
-                
+                // Cập nhật thông tin người dùng
+                udao.addUser(name, email, password, address, phone, sex, relativeImagePath, roleId, userpoint);
+                 response.sendRedirect("ManagerUser?index=1");
                 // Redirect to user management page
-                response.sendRedirect("./ManagerUser");
-            } else {
                
-            }
-        } catch (Exception e) {
-            // Xử lý ngoại lệ và hiển thị thông báo lỗi
-            response.getWriter().println("An error occurred while processing your request: " + e.getMessage());
-        }
+        }  
+  
     }
-
     @Override
     public String getServletInfo() {
        return "Short description";

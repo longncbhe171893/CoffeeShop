@@ -5,8 +5,8 @@
 package Controller;
 
 import DAO.ProductDAO;
+import Model.Product;
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.http.HttpServlet;
@@ -14,6 +14,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
 import java.io.File;
+import java.util.ArrayList;
 
 /**
  *
@@ -26,58 +27,84 @@ import java.io.File;
         location = "/org"
 )
 public class EditProduct extends HttpServlet {
- @Override
+    
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        doPost(request, response);
+        processRequest(request, response);
     }
     @Override
-protected void doPost(HttpServletRequest request, HttpServletResponse response)
-        throws ServletException, IOException {
-    response.setContentType("text/html;charset=UTF-8");
-    int id = Integer.valueOf(request.getParameter("id"));
-    //int cateId = Integer.valueOf(request.getParameter("category"));
-    double price = Double.valueOf(request.getParameter("price"));
-    Part imagePart = request.getPart("img"); // Lấy thông tin về file ảnh
-    String descri = request.getParameter("descri");
-    String name = request.getParameter("name");
-    int size = Integer.valueOf(request.getParameter("size"));
-    
-    String fileName = imagePart.getSubmittedFileName(); // Lấy tên file ảnh
-    String uploadDirectory = getServletContext().getRealPath("/image"); // Thư mục lưu trữ ảnh trên máy chủ
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        
+        String name = request.getParameter("name"); 
+        double price = Double.valueOf(request.getParameter("price"));
+        int cateId = Integer.valueOf(request.getParameter("category"));
+        Part imagePart = request.getPart("img");
+        String fileName = imagePart.getSubmittedFileName();
+        String uploadDirectory = getServletContext().getRealPath("/image");// Thay đổi đường dẫn tới thư mục lưu trữ ảnh trên máy chủ
 
-    // Kiểm tra xem người dùng đã chọn ảnh hay chưa
-    if (fileName != null && !fileName.isEmpty()) {
-        // Tạo tên file mới
-        String uniqueFileName = System.currentTimeMillis() + "_" + fileName;
-        // Tạo đối tượng File mới cho ảnh
-        File imageFile = new File(uploadDirectory, uniqueFileName);
-        // Sao chép tệp tin ảnh vào thư mục lưu trữ
-        imagePart.write(imageFile.getAbsolutePath());
-        // Xử lý đường dẫn tương đối
-        String relativeImagePath = "./image/" + uniqueFileName; // Đường dẫn tương đối đến ảnh lưu trữ trên máy chủ
-        
-        // Tiếp tục xử lý và lưu thông tin từ form vào cơ sở dữ liệu
-       
-        
-        // Xóa file ảnh cũ (nếu tồn tại)
-        String oldImage = request.getParameter("oldImage");
-        if (oldImage != null && !oldImage.isEmpty()) {
-            File oldImageFile = new File(uploadDirectory, oldImage);
-            if (oldImageFile.exists()) {
-                oldImageFile.delete();
+        // Kiểm tra xem người dùng đã chọn ảnh hay chưa
+        if (fileName != null && !fileName.isEmpty()) {
+            // Tạo tên file mới
+            String uniqueFileName = System.currentTimeMillis() + "_" + fileName;
+            // Tạo đối tượng File mới cho ảnh
+            File imageFile = new File(uploadDirectory, uniqueFileName);
+            // Sao chép tệp tin ảnh vào thư mục lưu trữ
+            imagePart.write(imageFile.getAbsolutePath());
+            // Xử lý đường dẫn tương đối
+            String relativeImagePath = "./image/" + uniqueFileName; // Thay đổi đường dẫn tương đối đến ảnh lưu trữ trên máy chủ
+            // Xóa file cũ (nếu tồn tại)
+            String oldImage = request.getParameter("oldImage");
+            if (oldImage != null && !oldImage.isEmpty()) {
+                File oldImageFile = new File(uploadDirectory, oldImage);
+                if (oldImageFile.exists()) {
+                    oldImageFile.delete();
+                }
             }
+            String descri = request.getParameter("descri");
+            // Tiếp tục xử lý và lưu thông tin từ form vào cơ sở dữ liệu
+            int Id = Integer.valueOf(request.getParameter("productId"));
+            ProductDAO pdao = new ProductDAO();
+            pdao.UpdateProduct(name, price, cateId, relativeImagePath, descri, Id);
+        } else {
         }
-         ProductDAO pdao = new ProductDAO();
-        pdao.UpdateProduct(id, name, price, /*cateId,*/ descri, relativeImagePath, size);
-    } else {
-        // Xử lý khi không có file ảnh được chọn
+        response.sendRedirect("./ManageProduct?index=1");
     }
-    
-    response.sendRedirect("./ManageProduct?index=1");
-}
-  @Override
+
+    /**
+     * Returns a short description of the servlet.
+     *
+     * @return a String containing servlet description
+     */
+    @Override
     public String getServletInfo() {
         return "Short description";
-    }// </editor-fol
+    }// </editor-fold>
+protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        try {
+
+            ProductDAO productDAO = new ProductDAO();
+            Product product = productDAO.getProductById(Integer.valueOf(request.getParameter("productId")));
+             ArrayList<Model.Setting> category = productDAO.getCategory();
+            if(request.getParameter("ProductDetail").equals("true")){
+                request.setAttribute("disable", "disabled");
+            }
+            String title = " > Edit Product";
+            String action = "EditProduct";
+            
+            request.setAttribute("title", title);
+            request.setAttribute("action", action);
+            request.setAttribute("product", product);
+            request.setAttribute("clist", category);
+
+            request.getRequestDispatcher("EditProduct.jsp").forward(request, response);
+
+        } catch (ServletException | IOException e) {
+
+        }
+
+    }
 }

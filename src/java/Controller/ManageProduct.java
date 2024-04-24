@@ -16,6 +16,7 @@ import jakarta.servlet.http.HttpSession;
 import java.io.PrintWriter;
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -40,8 +41,13 @@ public class ManageProduct extends HttpServlet {
         ProductDAO pdao = new ProductDAO();
         // paging
         int index = Integer.valueOf(request.getParameter("index"));
-         ArrayList<Product> productlist = pdao.pagingProduct(index, numPage);
-        int count = pdao.countProduct();
+        int cateId =0;
+        int productStatus=0;
+        String search ="";
+        
+         ArrayList<Product> productlist = pdao.pagingProduct(index, numPage, cateId, productStatus, search);
+          ArrayList<Model.Setting> category = pdao.getCategory();
+        int count = pdao.countProduct(cateId, productStatus, search);
         int ePage = count / numPage;
         if (count % 4 != 0) {
             ePage++;
@@ -64,6 +70,7 @@ public class ManageProduct extends HttpServlet {
         request.setAttribute("ePage", ePage);
         //set list for manage blog page
         request.setAttribute("productlist", productlist);
+        request.setAttribute("clist", category);
         request.getRequestDispatcher("ManageProduct.jsp").forward(request, response);
     }
 
@@ -83,22 +90,52 @@ public class ManageProduct extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String search = request.getParameter("search");
-        String firstDate = request.getParameter("firstDate");
-        String secondDate = request.getParameter("secondDate");
+        int numPage = 4;
 
         ProductDAO pdao = new ProductDAO();
-        ArrayList<Product> productlist = new ArrayList<>();
-
-        if (search != null && !search.isEmpty()) {
-            productlist = pdao.searchProduct(search);
-        } else if (firstDate != null && secondDate != null && !firstDate.isEmpty() && !secondDate.isEmpty()) {
-            Date fdate = Date.valueOf(firstDate);
-            Date sdate = Date.valueOf(secondDate);
-            productlist = pdao.getProductByDate(fdate, sdate);
+        // paging
+        int index = Integer.valueOf(request.getParameter("index"));
+        int cId = Integer.valueOf(request.getParameter("category"));
+        int pStatus = Integer.valueOf(request.getParameter("productstatus"));
+        String searchName = request.getParameter("search");
+        int cateId =0;
+        int productStatus=0;
+        String search ="";
+        if(cId!=0){
+            cateId = cId;
         }
-
+        if(pStatus!=0){
+            productStatus = pStatus;
+        }
+        if(searchName != null){
+            search = searchName;
+        }
+         ArrayList<Product> productlist = pdao.pagingProduct(index, numPage, cateId, productStatus, search);
+          ArrayList<Model.Setting> category = pdao.getCategory();
+        int count = pdao.countProduct(cateId, productStatus, search);
+        int ePage = count / numPage;
+        if (count % 4 != 0) {
+            ePage++;
+        }
+        int nextPage, backPage;
+        if (index == 1) {
+            backPage = 1;
+            nextPage=2;
+        } else if ( index == ePage) {
+            backPage=ePage-1;
+            nextPage = ePage;
+        } else {
+            backPage = index - 1;
+            nextPage = index + 1;
+        }
+        //set attribute for paging
+        request.setAttribute("nextPage", nextPage);
+        request.setAttribute("backPage", backPage);
+       
+        request.setAttribute("ePage", ePage);
+        //set list for manage blog page
         request.setAttribute("productlist", productlist);
+        request.setAttribute("clist", category);
         request.getRequestDispatcher("ManageProduct.jsp").forward(request, response);
     }
 

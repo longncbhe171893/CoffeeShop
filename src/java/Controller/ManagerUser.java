@@ -36,12 +36,13 @@ public class ManagerUser extends HttpServlet {
         UserDAO udao = new UserDAO();
         // paging
         int index = Integer.valueOf(request.getParameter("index"));
-         ArrayList<User> userlist = udao.pagingUser(index, numPage);
         int count = udao.countUser();
         int ePage = count / numPage;
         if (count % 4 != 0) {
             ePage++;
         }
+         ArrayList<User> userlist = udao.pagingUser(index, numPage);
+          ArrayList<Model.Setting> role = udao.getRole();
         int nextPage, backPage;
         if (index == 1) {
             backPage = 1;
@@ -60,6 +61,7 @@ public class ManagerUser extends HttpServlet {
         request.setAttribute("ePage", ePage);
         //set list for manage blog page
         request.setAttribute("userlist", userlist);
+         request.setAttribute("rlist", role);
         request.getRequestDispatcher("ManagerUser.jsp").forward(request, response);
     }
 

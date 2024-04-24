@@ -4,20 +4,15 @@
  */
 package Controller;
 
-
+import DAO.BlogDao;
+import DAO.ProductDAO;
 import Model.Product;
-import com.google.gson.Gson;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 public class Home extends HttpServlet {
 
@@ -32,9 +27,19 @@ public class Home extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       
-            request.getRequestDispatcher("Home.jsp").forward(request, response);
+        ProductDAO pdao = new ProductDAO();
+        BlogDao blog = new BlogDao();
 
+        ArrayList<Product> plist = pdao.getAllProduct("4", "", 1, "1");
+        ArrayList<Product> plist1 = pdao.getTopSelling();
+        
+        ArrayList<Model.Blog> bl = blog.recentBlog();
+
+        request.setAttribute("plist", plist);
+        request.setAttribute("plist1", plist1);
+        
+        request.setAttribute("bl", bl);
+        request.getRequestDispatcher("Home.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

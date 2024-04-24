@@ -3,28 +3,38 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/admin/IdeaProjects/CoffeeShop/web/WEB-INF/web.xml</file>
             <file>file:/C:/Users/admin/IdeaProjects/CoffeeShop/src/java/Controller/UpdateStatusProduct.java</file>
+            <file>file:/C:/Users/admin/IdeaProjects/CoffeeShop/src/java/Controller/SellerController/EditBlog.java</file>
+            <file>file:/C:/Users/admin/IdeaProjects/CoffeeShop/src/java/Controller/Home.java</file>
+            <file>file:/C:/Users/admin/IdeaProjects/CoffeeShop/src/java/Model/Blog.java</file>
+            <file>file:/C:/Users/admin/IdeaProjects/CoffeeShop/src/java/Controller/UpdateStatusUser.java</file>
+            <file>file:/C:/Users/admin/IdeaProjects/CoffeeShop/src/java/Controller/SellerController/AddBlog.java</file>
+            <file>file:/C:/Users/admin/IdeaProjects/CoffeeShop/web/EditUser.jsp</file>
+            <file>file:/C:/Users/admin/IdeaProjects/CoffeeShop/src/java/Controller/SellerController/EditOrder.java</file>
+            <file>file:/C:/Users/admin/IdeaProjects/CoffeeShop/src/java/Model/Category.java</file>
+            <file>file:/C:/Users/admin/IdeaProjects/CoffeeShop/src/java/DAO/BlogDao.java</file>
+            <file>file:/C:/Users/admin/IdeaProjects/CoffeeShop/src/java/Controller/SellerController/GetOrderDetail.java</file>
+            <file>file:/C:/Users/admin/IdeaProjects/CoffeeShop/web/ManageProduct.jsp</file>
+            <file>file:/C:/Users/admin/IdeaProjects/CoffeeShop/src/java/Model/Product.java</file>
+            <file>file:/C:/Users/admin/IdeaProjects/CoffeeShop/src/java/DAO/DBContext.java</file>
+            <file>file:/C:/Users/admin/IdeaProjects/CoffeeShop/src/java/DAO/UserDAO.java</file>
+            <file>file:/C:/Users/admin/IdeaProjects/CoffeeShop/web/WEB-INF/web.xml</file>
             <file>file:/C:/Users/admin/IdeaProjects/CoffeeShop/src/java/Model/Setting.java</file>
             <file>file:/C:/Users/admin/IdeaProjects/CoffeeShop/src/java/Controller/AddUser.java</file>
             <file>file:/C:/Users/admin/IdeaProjects/CoffeeShop/src/java/DAO/ProductDAO.java</file>
-            <file>file:/C:/Users/admin/IdeaProjects/CoffeeShop/src/java/Model/Blog.java</file>
-            <file>file:/C:/Users/admin/IdeaProjects/CoffeeShop/src/java/Controller/UpdateStatusUser.java</file>
             <file>file:/C:/Users/admin/IdeaProjects/CoffeeShop/src/java/Controller/EditUser.java</file>
             <file>file:/C:/Users/admin/IdeaProjects/CoffeeShop/src/java/Controller/ManageProduct.java</file>
-            <file>file:/C:/Users/admin/IdeaProjects/CoffeeShop/web/EditUser.jsp</file>
             <file>file:/C:/Users/admin/IdeaProjects/CoffeeShop/src/java/Controller/AddNewProduct.java</file>
-            <file>file:/C:/Users/admin/IdeaProjects/CoffeeShop/src/java/Controller/SellerController/EditOrder.java</file>
             <file>file:/C:/Users/admin/IdeaProjects/CoffeeShop/src/java/Controller/Register.java</file>
-            <file>file:/C:/Users/admin/IdeaProjects/CoffeeShop/src/java/Model/Category.java</file>
             <file>file:/C:/Users/admin/IdeaProjects/CoffeeShop/src/java/Model/User.java</file>
             <file>file:/C:/Users/admin/IdeaProjects/CoffeeShop/src/java/Controller/ManagerUser.java</file>
-            <file>file:/C:/Users/admin/IdeaProjects/CoffeeShop/src/java/DAO/BlogDao.java</file>
-            <file>file:/C:/Users/admin/IdeaProjects/CoffeeShop/web/ManageProduct.jsp</file>
-            <file>file:/C:/Users/admin/IdeaProjects/CoffeeShop/src/java/Model/Product.java</file>
+            <file>file:/C:/Users/admin/IdeaProjects/CoffeeShop/src/java/DAO/SettingDAO.java</file>
+            <file>file:/C:/Users/admin/IdeaProjects/CoffeeShop/src/java/DAO/OrderDAO.java</file>
             <file>file:/C:/Users/admin/IdeaProjects/CoffeeShop/src/java/Controller/EditProduct.java</file>
+            <file>file:/C:/Users/admin/IdeaProjects/CoffeeShop/src/java/Controller/SettingLists.java</file>
+            <file>file:/C:/Users/admin/IdeaProjects/CoffeeShop/web/Home.jsp</file>
+            <file>file:/C:/Users/admin/IdeaProjects/CoffeeShop/src/java/Controller/ProductController/ProductLists.java</file>
             <file>file:/C:/Users/admin/IdeaProjects/CoffeeShop/web/ManagerUser.jsp</file>
-            <file>file:/C:/Users/admin/IdeaProjects/CoffeeShop/src/java/DAO/UserDAO.java</file>
         </group>
     </open-files>
 </project-private>

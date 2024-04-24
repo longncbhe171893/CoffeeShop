@@ -49,12 +49,22 @@
                             <b>Address : </b><input type="text" ${disable}  class="form-control" value="${user.getAddress()}" required name="address"><br>         
                             <b>Phone : </b><input type="text" ${disable}  class="form-control" value="${user.getPhone()}" required name="phone"><br>
                            <b>Sex :</b>
-                               <select name="sex" ${disable}>
-                              <option value="${user.getSex()}" <c:if test="${user.getSex() == 1}">selected</c:if>>Nam</option>
-                              <option value="${user.getSex()}" <c:if test="${user.getSex() == 2}">selected</c:if>>Nữ</option>
-                               </select>
+                              <div style="height: 50px; width: 100%">
+                              <select class="form-control" style="display: block;" name="sex">
+                                   <option value="1" ${user.getSex() == 1 ? "selected" : ""}>Nam</option>
+                                   <option value="2" ${user.getSex() == 2 ? "selected" : ""}>Nữ</option>
+                                </select>
+                               </div>
                                <br>
-                            <b>User point: </b><input type="text"${disable} class="form-control" value="${user.getPoint()}" name="userpoint"><br>
+                               <b>Role :</b>
+                                <div style="height: 50px; width: 100%">
+                                                    <select  class="form-control" style="display: block;" name="role" >
+                                                        <c:forEach var="r" items="${rlist}">
+                                                            <option value="${r.getId()}" ${user.getSetting_id()==r.getId()?"selected":""} >${r.getName()} </option>
+                                                        </c:forEach>
+                                                    </select>
+                                                </div>  
+                            <b>User point: </b><input type="text"${disable} class="form-control" value="${user.getPoint()}" name="point"><br>
                           
                             <div>
                                 <img style="width: 200px;" ${disable} <c:if test = "${user.getImage()==null}">hidden</c:if>  src = "${user.getImage()}"  alt = "Curent image"> <br>
@@ -65,7 +75,7 @@
                             <b><input type="hidden" class="form-control" required  value="${sessionScope['account'].getId()}" name="user"></b>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default" onclick="window.location.href = 'ManagerUser'">Close</button>
+                            <button type="button" class="btn btn-default" onclick="window.location.href = 'ManagerUser?index=1'">Close</button>
                             <button type="submit" class="btn btn-success" value="submit">Submit</button>
                         </div>
                     </form>

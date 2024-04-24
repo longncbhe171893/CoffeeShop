@@ -26,39 +26,74 @@ public class UserDAO extends DBContext {
 
     private MD5 md5 = new MD5();
 
-//    public static void main(String[] args) {
-//        UserDAO ud = new UserDAO();
-////        User ls = ud.getUserByEmail("abc@gmail.com");
-////        System.out.println(ls);
-////        User a = new User(0, "name", "email", "password", "address", null , "sex", "image", 3, 0, 0);
-////        ud.inserUser(a.getName(), a.getEmail(), a.getPassword());
-////            ArrayList<User> ls= ud.getAllUser();
-////            for (User l : ls) {
-////            System.out.println(l);
-////    }
-//           ud.changePasswordByEmail("LongNCBHE171893@fpt.edu.vn", "12345678");
-//}
-    public ArrayList<User> pagingUser(int index, int numOrOnPage) {
-        ArrayList<User> list = new ArrayList<>();
-        try {
-            String sql = "SELECT * FROM `Users` order by user_status asc LIMIT ?, ?;";
-            PreparedStatement ps = connection.prepareStatement(sql);
-            index = (index - 1) * numOrOnPage;
-            ps.setInt(1, index);
-            ps.setInt(2, numOrOnPage);
-            ResultSet rs = ps.executeQuery();
-             while (rs.next()) {
-                 list.add(new User(
-                rs.getInt("user_id"), rs.getString("user_name"),
-                            rs.getString("email"), rs.getString("password"), rs.getString("address"), rs.getString("phone"), rs.getInt("sex"),
-                            rs.getString("user_image"), rs.getInt("setting_id"), rs.getInt("user_status"), rs.getDouble("user_point")));
-            }
-        } catch (SQLException e) {
+    public static void main(String[] args) {
+        UserDAO ud = new UserDAO();
+  ud.updateUser("John Doe", "john@example.com", "newpassword123", "456 Oak St", "987654321", 2, "new_user_image.jpg", 2, 200.0, 35);
 
+            System.out.println("User updated successfully.");
+}
+    public void updateUser(String name, String email, String password, String address, String phone, int sex, String image,int roleId, double userpoint, int id) {
+         String sql = "UPDATE `Users` SET `user_name`=?, `email`=?,`password`=?, `address`=?,`phone`=?,`sex`=?, `user_image`=?,`setting_id`=?,`user_point`=? WHERE `user_id`=?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, name);
+            ps.setString(2,email);
+            ps.setString(3, md5.getMd5(password));
+            ps.setString(4, address);
+            ps.setString(5, phone);
+            ps.setInt(6, sex);
+            ps.setString(7, image);
+            ps.setInt(8, roleId);
+            ps.setDouble(9, userpoint);
+            ps.setInt(10, id);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
         }
-        return list;
     }
-     public int countUser() {
+    
+public void addUser(String name, String email, String password, String address, String phone, int sex,String image,int roleId, double userpoint) {
+   
+        String sql = "INSERT INTO `Users`\n"
+                + "  (`user_name`, `email`, `password`, `address`, `phone`, `sex`,`user_image`,`setting_id`,`user_status`, `user_point`)\n"
+                + "VALUES\n"
+                + "  (?, ?, ?, ?, ?, ?,?,?,1, ?);";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, name);
+            ps.setString(2,email);
+            ps.setString(3, md5.getMd5(password));
+            ps.setString(4, address);
+            ps.setString(5, phone);
+            ps.setInt(6, sex);
+            ps.setString(7, image);
+            ps.setInt(8, roleId);
+            ps.setDouble(9, userpoint);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            // Xử lý ngoại lệ nếu cần
+    }
+}
+    public User getUserByEmail(String email) {
+        String sql = "select * from `Users` where `email`= ?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, email);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+
+                User user = new User(rs.getInt("user_id"), rs.getString("user_name"),
+                        rs.getString("email"), rs.getString("password"), rs.getString("address"), rs.getString("phone"), rs.getInt("sex"),
+                        rs.getString("user_image"), rs.getInt("setting_id"), rs.getInt("user_status"), rs.getDouble("user_point"));
+                return user;
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return null;
+    }
+public int countUser() {
         int count;
         try {
             String sql = " select count(*) from `Users`";
@@ -92,26 +127,43 @@ public class UserDAO extends DBContext {
         }
         return null;
     }
-    public User getUserByEmail(String email) {
-        String sql = "select * from `Users` where `email`= ?";
-        try {
-            PreparedStatement ps = connection.prepareStatement(sql);
-            ps.setString(1, email);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
+         private Setting getSettingById(int aInt) {
 
-                User user = new User(rs.getInt("user_id"), rs.getString("user_name"),
-                        rs.getString("email"), rs.getString("password"), rs.getString("address"), rs.getString("phone"), rs.getInt("sex"),
-                        rs.getString("user_image"), rs.getInt("setting_id"), rs.getInt("user_status"), rs.getDouble("user_point"));
-                return user;
-            }
+        PreparedStatement ps;
+        ResultSet rs;
+        String sql = "SELECT * FROM swp391.setting where setting_id = ?;";
+        try {
+            ps = connection.prepareStatement(sql);
+            ps.setInt(1, aInt);
+            rs = ps.executeQuery();
+            rs.next();
+            return new Setting(rs.getInt(1), rs.getString(2), rs.getString(4));
 
         } catch (SQLException e) {
-            System.out.println(e);
+
         }
         return null;
     }
+       public ArrayList<User> pagingUser(int index, int numOrOnPage) {
+        ArrayList<User> list = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM `Users` LIMIT ?, ?;";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            index = (index - 1) * numOrOnPage;
+            ps.setInt(1, index);
+            ps.setInt(2, numOrOnPage);
+            ResultSet rs = ps.executeQuery();
+             while (rs.next()) {
+                 list.add(new User(
+                rs.getInt("user_id"), rs.getString("user_name"),
+                            rs.getString("email"), rs.getString("password"), rs.getString("address"), rs.getString("phone"), rs.getInt("sex"),
+                            rs.getString("user_image"), rs.getInt("setting_id"), rs.getInt("user_status"), rs.getDouble("user_point")));
+            }
+        } catch (SQLException e) {
 
+        }
+        return list;
+    }
     public void inserUser(String name, String email, String pass) {
 //        String sql = "  insert into `Users` (`user_name`,`email`,`password`,`address`,`phone`,`sex`,`setting_id`,`user_status`,`user_point`) \n"
 //                + "  values (?,?,?,3,2)";
@@ -162,6 +214,19 @@ public class UserDAO extends DBContext {
 
         }
     }
+ public ArrayList<Setting> getRole() {
+        ArrayList<Setting> list = new ArrayList<>();
+        String sql = "  select `setting_id`,`setting_name` from `Setting` where `type`='User' and `setting_name` not like 'Admin'";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                list.add(new Setting(rs.getInt("setting_id"), rs.getString("setting_name")));
+            }
+        } catch (Exception e) {
+        }
+        return list;
+    }
 
     public void UpdateUser(String name, int userid) {
         String sql = " update `Users` set `user_name`=? where `user_id` =?";
@@ -176,7 +241,7 @@ public class UserDAO extends DBContext {
     }
 
     public void UpdateStatusUser(int sid, int uid) {
-        String sql = " update `Users` set `UserStatus_id`=? where `user_id` =?";
+        String sql = " update `Users` set `user_status`=? where `user_id` =?";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setInt(1, sid);
@@ -237,7 +302,7 @@ public class UserDAO extends DBContext {
                         rs.getString(6),
                         rs.getInt(7),
                         rs.getString(8),
-                        rs.getInt(9),
+                        rs.getInt("setting_id"),
                         rs.getInt(10),
                         rs.getDouble(11)
                 ));
@@ -247,27 +312,7 @@ public class UserDAO extends DBContext {
         }
         return list;
     }
-public void addUser(String name, String email, String password, String address, String phone, int sex,String image, double userpoint) {
-   
-        String sql = "INSERT INTO `Users`\n"
-                + "  (`user_name`, `email`, `password`, `address`, `phone`, `sex`,`user_image`,`setting_id`,`user_status`, `user_point`)\n"
-                + "VALUES\n"
-                + "  (?, ?, ?, ?, ?, ?,?,3,1, ?);";
-        try {
-            PreparedStatement ps = connection.prepareStatement(sql);
-            ps.setString(1, name);
-            ps.setString(2,email);
-            ps.setString(3, md5.getMd5(password));
-            ps.setString(4, address);
-            ps.setString(5, phone);
-            ps.setInt(6, sex);
-            ps.setString(7, image);
-            ps.setDouble(8, userpoint);
-            ps.executeUpdate();
-        } catch (Exception e) {
-            // Xử lý ngoại lệ nếu cần
-    }
-}
+
 
     private int getSettingidbyString(String srole) {
         String sql = "select * from `Setting` where `setting_name`like ?";
@@ -338,24 +383,6 @@ public void addUser(String name, String email, String password, String address, 
             System.out.println("Exception while reading the Image " + ioe);
         }
         return null;
-    }
-
-    public void updateUser(String name, String email, String password, String address, String phone, int sex, String image, double userpoint, int id) {
-         String sql = "UPDATE `Users` SET `user_name`=?, `email`=?,`password`=?, `address`=?,`phone`=?,`sex`=?, `user_image`=?,`user_point`=? WHERE `user_id`=?";
-        try {
-            PreparedStatement ps = connection.prepareStatement(sql);
-            ps.setString(1, name);
-            ps.setString(2,email);
-            ps.setString(3, md5.getMd5(password));
-            ps.setString(4, address);
-            ps.setString(5, phone);
-            ps.setInt(6, sex);
-            ps.setString(7, image);
-            ps.setDouble(8, userpoint);
-            ps.executeUpdate();
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
     }
     
     

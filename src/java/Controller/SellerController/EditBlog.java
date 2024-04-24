@@ -65,7 +65,7 @@ public class EditBlog extends HttpServlet {
             }
             BlogDao bdao = new BlogDao();
             bdao.updateBlog(idBlog, title, relativeImagePath, userId, content, setting_id, shortDescription);
-            response.sendRedirect("ManageBlog");
+            response.sendRedirect("ManageBlog?index=1");
         }
     }
 
