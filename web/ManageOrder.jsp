@@ -49,8 +49,6 @@
                 border: 2px solid limegreen;
                 /* Viền sáng màu xanh lá cây */
             }
-<<<<<<< HEAD
-=======
             .filter{
                 display: flex;
                 margin: 10px;
@@ -60,7 +58,6 @@
                 margin-left: 15px;
                 margin-top: -15px;
             }
->>>>>>> 0e50b69a349360feb864dc2a4cc1cb4ae5fce920
             .wrapper {
                 position: relative;
                 width: 20 px;
@@ -144,15 +141,6 @@
 
             <!-- MAIN -->
             <main>
-<<<<<<< HEAD
-                <div class="head-title">
-
-
-                    <div>
-                        <form action="ManageOrder" method="post" onsubmit="return checkDate();">
-                            <input required type="date" name="firstDate">
-                            <input style="margin: 14px" required type="date" name="secondDate">
-=======
                 <div>
                     <nav>  
                         <form action="ManageOrder" method="post">
@@ -198,7 +186,6 @@
                             <input style="margin: 14px" required type="date" name="secondDate">
 
 
->>>>>>> 0e50b69a349360feb864dc2a4cc1cb4ae5fce920
                             <input style="background: var(--blue);
                                    color: white;
                                    border: solid var(--blue);
@@ -206,21 +193,10 @@
                                    border-radius: 15px;" type="submit" value="Search">
                         </form>
                     </div>
-<<<<<<< HEAD
-                    <a href="DownloadOrder" class="btn-download">
-                        <i class='bx bxs-cloud-download'></i>
-                        <span class="text">Download Excel</span>
-                    </a>
-                </div>
-
-                <div style="margin-top: 3rem;" class="col-md-12">
-                    <table class="table">
-=======
                 </div>
                 <p style="color: red">${messEdit}</p>        
                 <div style="margin-top: 3rem;" class="col-md-12">
                     <table class="table" id="myTable">
->>>>>>> 0e50b69a349360feb864dc2a4cc1cb4ae5fce920
                         <thead>
                             <tr style="font-size: 17px;">
                                 <th scope="col">Order ID</th>
@@ -240,28 +216,16 @@
                                     <th scope="row">
                                         <a style="color: white" class="btn btn-primary" data-toggle="modal" data-target="#myDialog"  onclick="getOrderDetails(this)" " data-orderid="${o.getId()}" >${o.getId()}</a>
                                     </th>
-<<<<<<< HEAD
-                                    <td>${o.getOrderName()}</td>
-
-=======
                                     <td >${o.getOrderName()} </td>
->>>>>>> 0e50b69a349360feb864dc2a4cc1cb4ae5fce920
                                     <td>${o.formatDate()}</td>
                                     <td><textarea class="note" readonly>${o.getNotes()}</textarea></td>
                                     <td><textarea class="address" readonly>${o.getAddress()}</textarea></td>
                                     <td>${o.getPhone()}</td>
                                     <td >
-<<<<<<< HEAD
-                                        <a href="ChangeOrderStatus?orderId=${o.getId()}&ost=${o.getStatus()}" class="btn- btn-danger  btn-lg"  style="pointer-events: ${o.getStatus()==3?'none':''};display: block; background-color: ${o.getStatus()==1?'#f89f3c':o.getStatus()==2?'green':o.getStatus()==4?'blue':'red'};" >${o.getStatus()==1?"Pending":o.getStatus()==2?"Approve":o.getStatus()==4?"Paid":"Cancel"}</a>
-                                    </td>
-
-                                    <td> <button type="button" ${o.getStatus()==3?'hidden':o.getStatus()==4?'hidden':''} class="btn btn-success btn-lg" onclick="window.location.href = 'EditOrder?orderId=${o.getId()}&edit=true';"">Edit Order</button></td>
-=======
                                         <a href="ChangeOrderStatus?orderId=${o.getId()}&ost=${o.getStatus()}&index=${index}" class="btn- btn-danger  btn-lg"  style="pointer-events: ${o.getStatus()==3?'none':''};display: block; background-color: ${o.getStatus()==1?'#f89f3c':o.getStatus()==2?'green':o.getStatus()==4?'blue':'red'};" >${o.getStatus()==1?"Pending":o.getStatus()==2?"Approve":o.getStatus()==4?"Paid":"Cancel"}</a>
                                     </td>
 
                                     <td> <button type="button" ${o.getStatus()==3?'hidden':o.getStatus()==4?'hidden':''} class="btn btn-success btn-lg" onclick="window.location.href = 'EditOrder?orderId=${o.getId()}&edit=true&index=${index}';"">Edit Order</button></td>
->>>>>>> 0e50b69a349360feb864dc2a4cc1cb4ae5fce920
 
                                     <td>
                                         <button type="button"  ${o.getStatus()==3?'hidden':o.getStatus()==4?'hidden':''} onclick="window.location.href = 'ChangeOrderStatus?orderId=${o.getId()}&ost=3'"style="border-radius: 100%;">
@@ -317,19 +281,6 @@
 
         <script src="js/adminDashbord.js"></script>
 
-<<<<<<< HEAD
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <script>
-                                            function checkDate() {
-                                                var firstDate = document.getElementsByName("firstDate")[0].value;
-                                                var secondDate = document.getElementsByName("secondDate")[0].value;
-                                                if (firstDate && secondDate && new Date(secondDate) < new Date(firstDate)) {
-                                                    alert("Second date must be after the first date.");
-                                                    return false;
-                                                }
-                                                return true;
-                                            }
-=======
         <script src="https://code.jquery.com/jquery-3.6.0.min.js">
 
         </script>
@@ -401,7 +352,6 @@
                 }
                 return true;
             }
->>>>>>> 0e50b69a349360feb864dc2a4cc1cb4ae5fce920
         </script>
         <script>
             function getOrderDetails(element) {
