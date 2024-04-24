@@ -62,15 +62,9 @@ public class EditUser extends HttpServlet {
                 UserDAO udao = new UserDAO();
          
                 
-                // Cập nhật thông tin người dùng
-<<<<<<< HEAD
-//                udao.updateUser(name, email, password, address, phone, sex, image, userpoint, id);
-                
-=======
+              
                 udao.updateUser(name, email, password, address, phone, sex, relativeImagePath, roleId, userpoint, id);
                  response.sendRedirect("ManagerUser?index=1");
->>>>>>> ManhLD
-                // Redirect to user management page
                
         }  
   
@@ -93,12 +87,10 @@ public class EditUser extends HttpServlet {
         try {
 
             UserDAO userDAO = new UserDAO();
-<<<<<<< HEAD
-//            User user = userDAO.getUserById(Integer.valueOf(request.getParameter("userId")));
-=======
+
             User user = userDAO.getUserById(Integer.valueOf(request.getParameter("userId")));
              ArrayList<Model.Setting> role = userDAO.getRole();
->>>>>>> ManhLD
+
             if(request.getParameter("UserDetail").equals("true")){
                 request.setAttribute("disable", "disabled");
             }
@@ -107,13 +99,9 @@ public class EditUser extends HttpServlet {
             
             request.setAttribute("title", title);
             request.setAttribute("action", action);
-<<<<<<< HEAD
-//            request.setAttribute("user", user);
 
-=======
             request.setAttribute("user", user);
             request.setAttribute("rlist", role);
->>>>>>> ManhLD
 
             request.getRequestDispatcher("EditUser.jsp").forward(request, response);
 

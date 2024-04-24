@@ -1,10 +1,8 @@
-<<<<<<< HEAD
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-=======
->>>>>>> ManhLD
 package Model;
 
 public class Setting {
@@ -19,20 +17,13 @@ public class Setting {
     public Setting() {
     }
 
-<<<<<<< HEAD
+
     public Setting(int id, String name, String type) {
         this.id = id;
         this.name = name;
         this.type = type;
     }
     
-=======
-    public Setting(int id, String name, String description) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-    }
->>>>>>> ManhLD
 
     public Setting(int id, String name, String description, String type, int sort) {
         this.id = id;
