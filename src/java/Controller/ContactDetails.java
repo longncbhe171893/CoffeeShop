@@ -5,8 +5,6 @@
 
 package Controller;
 
-import DAO.SettingDAO;
-import Model.Setting;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -14,14 +12,13 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 
 /**
  *
  * @author HP
  */
-@WebServlet(name="EditSetting", urlPatterns={"/EditSetting"})
-public class EditSetting extends HttpServlet {
+@WebServlet(name="ContactDetails", urlPatterns={"/ContactDetails"})
+public class ContactDetails extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -33,18 +30,8 @@ public class EditSetting extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet EditSetting</title>");  
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet EditSetting at " + request.getContextPath () + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
+        int contact_id = Integer.parseInt(request.getParameter("contact_id"));
+        
     } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -71,31 +58,7 @@ public class EditSetting extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        String name = request.getParameter("name");
-        String description = request.getParameter("description");
-        String type = request.getParameter("type");
-        int status = Integer.parseInt(request.getParameter("status"));
-        int id = Integer.parseInt(request.getParameter("id"));
-        HttpSession session = request.getSession();
-        SettingDAO dao = new SettingDAO();
-        dao.checkSettingNameAndTypeExist(name, type);
-        
-        
-        try {
-            dao.updateSetting(id, name, description, type, status);
-            Setting s = new Setting();
-            s.setId(id);
-            s.setName(name);
-            s.setDescription(description);
-            s.setType(type);
-            s.setStatus(status);
-            
-            
-            
-            response.sendRedirect("SettingLists");
-        } catch (Exception e) {
-            response.getWriter().println(e);
-        }
+        processRequest(request, response);
     }
 
     /** 

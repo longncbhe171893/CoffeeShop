@@ -404,5 +404,33 @@ public class ProductDAO extends DBContext {
         }
         return list;
     }
+    
+    public ArrayList<Product> getAllSlideProducts() {
+        ArrayList<Product> productList = new ArrayList<>();
+        String sql = "SELECT * FROM swp391.product where product_status=3;";
+
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                productList.add(new Product(
+                        rs.getInt("product_id"),
+                        rs.getString("product_name"),
+                        rs.getDouble("product_price"),
+                        rs.getInt("setting_id"),
+                        rs.getString("img"),
+                        rs.getString("description"),
+                        rs.getInt("product_status"),
+                        rs.getDate("create_date"),
+                        rs.getInt("size")));
+
+            }
+        } catch (SQLException e) {
+        }
+
+        return productList;
+    }
+
 
 }

@@ -66,11 +66,11 @@
             <form action="PasswordChange" method="POST">
                 <h2>Change your password</h2>
                 <label for="current-password">Old password</label>
-                <input type="password" id="current-password" name="oldpass" required><br><br>
+                <input type="password" id="current-password" name="oldpass" required value="${oldpass}"><br><br>
                 <label for="new-password">New password:</label>
-                <input type="password" id="new-password" name="newpass" required><br><br>
+                <input type="password" id="new-password" name="newpass" required value="${newpass}"><br><br>
                 <label for="confirm-password">Confirm password:</label>
-                <input type="password" id="confirm-password" name="renewpass" required><br><br>
+                <input type="password" id="confirm-password" name="renewpass" required value="${renewpass}"><br><br>
                 <input type="submit" value="Change Password">               
                 <p id="key" style="color: red" ></p>
                 <p style="color: red;">${mess}</p>

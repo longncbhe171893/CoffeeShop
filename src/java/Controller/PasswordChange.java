@@ -66,6 +66,9 @@ public class PasswordChange extends HttpServlet {
         String oldpass = request.getParameter("oldpass");
         String newpass = request.getParameter("newpass");
         String renewpass = request.getParameter("renewpass");
+        request.setAttribute("oldpass", oldpass);
+        request.setAttribute("newpass", newpass);
+        request.setAttribute("renewpass", renewpass);
         MD5 md5 = new MD5();
         User u = (User) session.getAttribute("account");
         UserDAO dao = new UserDAO();
