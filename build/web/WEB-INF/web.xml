@@ -25,6 +25,7 @@
     </servlet>
     <servlet>
 <<<<<<< HEAD
+<<<<<<< HEAD
         <servlet-name>SliderController</servlet-name>
         <servlet-class>com.yourpackage.SliderController</servlet-class>
     </servlet>
@@ -36,6 +37,8 @@
     <servlet>
 =======
 >>>>>>> ca4c3917bbc31530b5e50fd946e0f1df5a7de7e2
+=======
+>>>>>>> LongNCB
         <servlet-name>ForgotPassword</servlet-name>
         <servlet-class>Controller.ForgotPassword</servlet-class>
     </servlet>
@@ -75,6 +78,10 @@
         <servlet-class>Controller.ProductLists</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>ManageSlider</servlet-name>
+        <servlet-class>Controller.ManageSlider</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>VerifyForgotPassword</servlet-name>
         <servlet-class>Controller.VerifyForgotPassword</servlet-class>
     </servlet>
@@ -109,6 +116,10 @@
     <servlet>
         <servlet-name>UpdateStatusUser</servlet-name>
         <servlet-class>Controller.UpdateStatusUser</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateStatusSlider</servlet-name>
+        <servlet-class>Controller.UpdateStatusSlider</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>GetPriceBySize</servlet-name>
@@ -184,6 +195,10 @@
         <servlet-class>Controller.AddBlog</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>AddSlider</servlet-name>
+        <servlet-class>Controller.AddSlider</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>EditBlog</servlet-name>
         <servlet-class>Controller.EditBlog</servlet-class>
 =======
@@ -198,6 +213,10 @@
         <servlet-name>EditBlog</servlet-name>
         <servlet-class>Controller.SellerController.EditBlog</servlet-class>
 >>>>>>> ca4c3917bbc31530b5e50fd946e0f1df5a7de7e2
+    </servlet>
+    <servlet>
+        <servlet-name>EditSlider</servlet-name>
+        <servlet-class>Controller.EditSlider</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ChangePassword</servlet-name>
@@ -240,6 +259,7 @@
         <servlet-name>UserDetails</servlet-name>
         <servlet-class>Controller.UserDetails</servlet-class>
     </servlet>
+<<<<<<< HEAD
     <servlet>
         <servlet-name>SliderController</servlet-name>
         <servlet-class>Controller.SliderController</servlet-class>
@@ -280,6 +300,8 @@
         <servlet-class>Controller.SellerController.UpdateOrderDetail</servlet-class>
 >>>>>>> ca4c3917bbc31530b5e50fd946e0f1df5a7de7e2
     </servlet>
+=======
+>>>>>>> LongNCB
     <servlet-mapping>
         <servlet-name>Register</servlet-name>
         <url-pattern>/Register</url-pattern>
@@ -469,6 +491,11 @@
         <url-pattern>/cart</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>UpdateStatusSlider</servlet-name>
+        <url-pattern>/UpdateStatusSlider</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
         <servlet-name>DeleteController</servlet-name>
         <url-pattern>/deleteProduct</url-pattern>
     </servlet-mapping>
@@ -580,6 +607,7 @@
 <<<<<<< HEAD
         <servlet-name>UserDetails</servlet-name>
         <url-pattern>/UserDetails</url-pattern>
+<<<<<<< HEAD
 =======
 >>>>>>> ca4c3917bbc31530b5e50fd946e0f1df5a7de7e2
         <servlet-name>FilterBlog</servlet-name>
@@ -612,6 +640,8 @@
         <servlet-name>UpdateOrderDetail</servlet-name>
         <url-pattern>/UpdateOrderDetail</url-pattern>
 >>>>>>> ca4c3917bbc31530b5e50fd946e0f1df5a7de7e2
+=======
+>>>>>>> LongNCB
     </servlet-mapping>
     <session-config>
         <session-timeout>
@@ -622,10 +652,17 @@
         <welcome-file>Home</welcome-file>
     </welcome-file-list>
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> LongNCB
     <servlet>
         <servlet-name>EditRole</servlet-name>
         <servlet-class>Controller.EditRole</servlet-class>
     </servlet>
+<<<<<<< HEAD
 >>>>>>> ca4c3917bbc31530b5e50fd946e0f1df5a7de7e2
 </web-app>
+=======
+</web-app>
+>>>>>>> LongNCB

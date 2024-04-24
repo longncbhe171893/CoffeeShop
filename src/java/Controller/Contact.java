@@ -4,6 +4,7 @@
  */
 package Controller;
 
+import DAO.ContactDAO;
 import java.io.IOException;
 import java.util.Properties;
 import java.util.regex.Matcher;
@@ -46,10 +47,12 @@ public class Contact extends HttpServlet {
             String name = request.getParameter("name");
             String email = request.getParameter("email");
             String phone = request.getParameter("phone");
+            String contact_type = request.getParameter("contact_type");
+            String subject = request.getParameter("subject");
             String message = request.getParameter("message");
-
+            int setting_id;
             // Kiểm tra email
-            if (!isValidEmail(email)) {
+            if (!isValidEmail(email) ) {
                 throw new IllegalArgumentException("Invalid email format");
             }
 
@@ -59,15 +62,20 @@ public class Contact extends HttpServlet {
             }
 
             // Gửi email
-            sendEmail(name, email, phone, message);
+            sendEmail(name, email, phone, contact_type, subject, message);
+            
+            
+            ContactDAO contactDAO = new ContactDAO();
+            setting_id = contactDAO.getSetiing_id(contact_type);
+            contactDAO.insertContact(name, email, phone, subject, message, setting_id, 21);
 
             // Chuyển hướng sau khi gửi email thành công
             response.sendRedirect("Success.jsp");
         } catch (IllegalArgumentException e) {
-            request.setAttribute("messregis", "Invalid data format. Please enter valid email and phone number.");
+            request.setAttribute("messregis", "Invalid data format. Please enter again.");
             request.getRequestDispatcher("Contact.jsp").forward(request, response);
         } catch (Exception e) {
-            request.setAttribute("messregis", "Error. Try again!");
+            request.setAttribute("messregis", " ");
             request.getRequestDispatcher("Contact.jsp").forward(request, response);
         }
     }
@@ -82,8 +90,7 @@ public class Contact extends HttpServlet {
         return "Short description";
     }
 
- 
-    private void sendEmail(String name, String email, String phone, String message) throws MessagingException {
+    private void sendEmail(String name, String email, String phone, String settingId, String subject, String message) throws MessagingException {
         // Địa chỉ email của người nhận
         String to = "blong8444@gmail.com";
 
@@ -123,6 +130,8 @@ public class Contact extends HttpServlet {
         String emailContent = "Name: " + name + "\n"
                 + "Email: " + email + "\n"
                 + "Phone: " + phone + "\n"
+                + "Contact type: " + settingId + "\n"
+                + "Subject: " + subject + "\n"
                 + "Message: " + message;
 
         // Thiết lập nội dung email

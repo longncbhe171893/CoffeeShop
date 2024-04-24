@@ -35,9 +35,18 @@
             <file>file:/D:/SWP391/project-real/CoffeeShop/CoffeeShop/src/java/Controller/SellerController/ManageBlog.java</file>
             <file>file:/D:/SWP391/project-real/CoffeeShop/CoffeeShop/src/java/Model/Order.java</file>
         </group>
+<<<<<<< HEAD
         <group name="PE"/>
 =======
         <group/>
 >>>>>>> ca4c3917bbc31530b5e50fd946e0f1df5a7de7e2
+=======
+        <group name="PE">
+            <file>file:/F:/SWP/ProjectCoffee/CoffeeShop/src/java/Model/Blog.java</file>
+            <file>file:/F:/SWP/ProjectCoffee/CoffeeShop/src/java/Model/Product.java</file>
+            <file>file:/F:/SWP/ProjectCoffee/CoffeeShop/src/java/Model/Setting.java</file>
+            <file>file:/F:/SWP/ProjectCoffee/CoffeeShop/src/java/DAO/ProductDAO.java</file>
+        </group>
+>>>>>>> LongNCB
     </open-files>
 </project-private>

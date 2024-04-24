@@ -1074,6 +1074,7 @@ exists or setup the property manually. For example like this:
         <!-- Empty placeholder for easier customization. -->
         <!-- This target can be overriden by NetBeans modules. Don't override it directly, use -pre-run-deploy task instead. -->
     </target>
+
     <target name="-post-nbmodule-run-deploy">
         <!-- Empty placeholder for easier customization. -->
         <!-- This target can be overriden by NetBeans modules. Don't override it directly, use -post-run-deploy task instead. -->
