@@ -106,19 +106,47 @@
     <body>
         <jsp:include page="header.jsp"/>
         <div style="margin-top: 200px; margin-left: 462px" class="ipform">
-    <form method="post" action="UserProfile" >
+    <form method="post" action="UserProfile"  >
         <h3>My Profile</h3>
         <!-- Profile Image -->
         <div class="profile-image-container">
-            <img src="${sessionScope['account'].getImage()}" class="profile-image" alt="Profile Image">
-            <input class="imageprofile1" type="file" accept="image/*" name="image">
+            <c:choose>
+                <%-- Nếu có dữ liệu ảnh, hiển thị ảnh --%>
+                <c:when test="${not empty sessionScope['account'].getImage()}">
+                    <%-- Chuyển đổi dữ liệu ảnh từ byte array thành chuỗi base64 --%>
+                    <%-- và nhúng ảnh vào mã HTML --%>
+                    <img src="data:image/jpeg;base64,${javax.xml.bind.DatatypeConverter.printBase64Binary(sessionScope['account'].getImage)}" alt="User Image">
+                </c:when>
+                <%-- Nếu không có dữ liệu ảnh, hiển thị thông báo --%>
+                <c:otherwise>
+                    <p>No image available</p>
+                    <label for="image">Upload Image:</label>
+                    <input type="file" id="image" name="image">
+                    <br>
+                </c:otherwise>
+            </c:choose>
         </div><br/>
         <!-- Name -->
         <label class="nameprofile">Name</label><input class="nameprofile1" type="text" value="${sessionScope['account'].getName()}" name="name"><br/>
         <!-- Email -->
         <label class="emailprofile">Email</label><input readonly class="emailprofile1" value="${sessionScope['account'].getEmail()}" name="email"><br/>
         <!-- Gender -->
-        <label class="genderprofile">Gender</label><input class="genderprofile1" type="text" value="${sessionScope['account'].getSex()}" name="sex"><br/>
+        <c:choose>
+                                                <c:when test="${sessionScope['account'].getSex() eq 1}">
+                                                    <input type="radio" id="sex_male" name="sex" value="1" checked>
+                                                    <label for="sex_male">Male</label>
+
+                                                    <input type="radio" id="sex_female" name="status" value="0">
+                                                    <label for="sex_female">Female</label><br>
+                                                </c:when>
+                                                <c:when test="${sessionScope['account'].getSex() eq 0}">
+                                                    <input type="radio" id="sex_male" name="sex" value="1" >
+                                                    <label for="sex_male">Male</label>
+
+                                                    <input type="radio" id="sex_female" name="status" value="0" checked>
+                                                    <label for="sex_female">Female</label><br>
+                                                </c:when>
+                                            </c:choose>
         <!-- Phone -->
         <label class="phoneprofile">Phone</label><input class="phoneprofile1" type="number" value="${sessionScope['account'].getPhone()}" name="phone"><br/>
         <!-- Address -->

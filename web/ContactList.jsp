@@ -1,8 +1,10 @@
 <%-- 
-    Document   : SettingList
-    Created on : Apr 12, 2024, 8:23:13 AM
+    Document   : ContactList
+    Created on : Apr 24, 2024, 2:30:56 PM
     Author     : HP
 --%>
+
+
 
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -100,7 +102,7 @@
                 
                 <div class="head-title">
                     <div class="left">
-                        <h1>Manage Setting</h1>
+                        <h1>Manage Contact</h1>
                     </div>
                 </div>
                 
@@ -128,8 +130,8 @@
                                 color: white;
                                 height: 40px;
                                 border-radius: 10px;
-                                margin-left: 170px;
-                                margin-top: 60px;" name="sort" class="form-select"  onchange="this.form.submit()">
+                                margin-left: 47px;
+                                margin-top: 53px;" name="sort" class="form-select"  onchange="this.form.submit()">
                             <option value="" ${param['sort']==null?"selected":""}>Sort Default</option>
                             
                             <option value="1" ${param['sort']==1?"selected":""}>Setting Name</option>
@@ -194,111 +196,27 @@
                     <thead>
                         <tr style="font-size: 20px;">
                             <th scope="col">ID</th>
-                            <th scope="col">Setting Name</th>
-                            <th scope="col">Type</th>     
-                            <th scope="col">Status</th> 
+                            <th scope="col">Name</th>
+                            <th scope="col">Subject</th>
+                            <th scope="col">Type</th>
                             <th scope="col">Action</th>
+                            
                         </tr>
                     </thead>
                     <tbody> <!-- Đặt các phần tử HTML trong một phần tử tbody -->
-                        <c:forEach var="setting" items="${settings}">
+                        <c:forEach var="contact" items="${contacts}">
                             <tr>
-                                <td>${setting.getId()}</td>
-                                <td>${setting.getName()}</td>
-                                <td>${setting.getType()}</td>
-                                <td>${setting.getStatus()==1?"Active":"Deactive"}</td> 
-                                <td> 
-                                    <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#myModalEditSetting${setting.getId()}">Detail</button>
-                                    <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#myModalStatusActivate${setting.getId()}">Activate</button>
-                                    <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#myModalStatusDeactivate${setting.getId()}">Deactivate</button>
+                                <td>${contact.getContact_id()}</td>
+                                <td>${contact.getName()}</td>
+                                <td>${contact.getSubject()}</td>
+                                <td>${contact.getSetting().getName()}</td>
+                                <td>
+                                    <button type="button" class="btn btn-success btn-lg" href="ContactDetails?contact_id=${contact.getContact_id()}">Detail</button>
                                 </td>
                             </tr>
-                        <div class="modal fade" id="myModalEditSetting${setting.getId()}" role="dialog">
-                            <!-- Modal content -->
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                        <h4 class="modal-title">Edit Setting:</h4>
-                                    </div>
-                                    <form action="EditSetting" method="post">
-                                        <div class="modal-body">
-                                            
-                                            <b>ID: </b><input type="text" class="form-control" name="id" value="${setting.getId()}" readonly=""><br>
-                                            <b>Name: </b><input type="text" class="form-control" value="${setting.getName()}"  name="name"><br>
-                                            <b>Description: </b><textarea class="form-control"name="description">${setting.getDescription()}</textarea><br>
-                                            <b>Type: </b><input type="text" class="form-control" value="${setting.getType()}" name="type" ><br>    
-                                            <b>Status: </b>
-                                            <c:choose>
-                                                <c:when test="${setting.getStatus() eq 1}">
-                                                    <input type="radio" id="status_enable" name="status" value="1" checked>
-                                                    <label for="status_enable">Active</label>
-
-                                                    <input type="radio" id="status_disable" name="status" value="0">
-                                                    <label for="status_disable">Deactive</label><br>
-                                                </c:when>
-                                                <c:when test="${setting.getStatus() eq 0}">
-                                                    <input type="radio" id="status_enable" name="status" value="1">
-                                                    <label for="status_enable">Active</label>
-
-                                                    <input type="radio" id="status_disable" name="status" value="0" checked>
-                                                    <label for="status_disable">Deactive</label><br>
-                                                </c:when>
-                                            </c:choose>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                            <button type="submit" class="btn btn-success" value="submit">Submit</button>
-                                        </div>
-                                    </form>                                 
-                                </div>
-                            </div>
-                        </div>
                         
-                        <div class="modal fade" id="myModalStatusActivate${setting.getId()}" role="dialog">
-                            <!-- Modal content -->
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                        <h4 class="modal-title">Change Status:</h4>
-                                    </div>
-                                    <form action="UpdateStatusSetting" method="get">
-                                        <div class="modal-body">
-                                            <p>Do you want to activate this setting</p>
-                                            <input type="hidden" name="setting_id" value="${setting.getId()}">
-                                            <input type="hidden" name="status" value="${setting.getStatus()}">
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                            <button type="submit" class="btn btn-success" value="submit">Submit</button>
-                                        </div>
-                                    </form>                                 
-                                </div>
-                            </div>
-                        </div>
-                        <div class="modal fade" id="myModalStatusDeactivate${setting.getId()}" role="dialog">
-                            <!-- Modal content -->
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                        <h4 class="modal-title">Change Status:</h4>
-                                    </div>
-                                    <form action="UpdateStatusSetting" method="post">
-                                        <div class="modal-body">
-                                            <p>Do you want to deactivate this setting</p>
-                                            <input type="hidden" name="setting_id" value="${setting.getId()}">
-                                            <input type="hidden" name="status" value="${setting.getStatus()}">
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                            <button type="submit" class="btn btn-success" value="submit">Submit</button>
-                                        </div>
-                                    </form>                                 
-                                </div>
-                            </div>
-                        </div>
+                        
+                        
                     </c:forEach>
                     </tbody>
                 </table>

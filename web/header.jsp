@@ -71,9 +71,7 @@
                                 <a href="SellerDashboard.jsp" class="nav-link" >MANAGER PAGE</a>
                             </c:if>
                         </li>
-                        <li class="nav-item">
-                            <a href="ManagerUser?index=1" class="nav-link" >MANAGER PAGE</a>
-                        </li>
+                        
                         <li class="nav-item">
                             <c:if test="${sessionScope['account']!=null}">
                                 <a href="UserProfile.jsp" class="nav-link"><i class="biolife-icon icon-login"></i>PROFILE</a>

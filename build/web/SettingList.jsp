@@ -68,38 +68,68 @@
                 flex: 3; /* tỉ lệ 3 */
             }
         </style>
+        <script>
+    function showToast(message) {
+        var toastElement = document.querySelector('.toast');
+
+        if (!toastElement) {
+            return;
+        }
+
+        var toastBody = toastElement.querySelector('.toast-body');
+        toastBody.textContent = message;
+
+        var toast = new bootstrap.Toast(toastElement);
+        toast.show();
+
+        // Thiết lập thời gian tồn tại của toast là 5 giây (5000 miligiây)
+        setTimeout(function() {
+            toast.hide(); // Ẩn toast sau khi đã đến thời gian quy định
+        }, 5000);
+    }
+</script>
+
     </head>
     <body>
         <   <jsp:include page="headerAdmin.jsp"/>
         <!-- CONTENT -->
         <section id="content">
             <nav>
+                
                 <i class='bx bx-menu' ></i>
+                
+                <div class="head-title">
+                    <div class="left">
+                        <h1>Manage Setting</h1>
+                    </div>
+                </div>
+                
+                
                 <form action="SettingLists" method="get">
                     <div class="form-input">
                         <input type="search" name="search" placeholder="Search...">
                         <button type="submit" class="search-btn"><i class='bx bx-search' ></i></button>
                     </div>
                 </form>
+                
             </nav>
             <!-- NAVBAR -->
+            
             <!-- MAIN -->
-            <main>
-                <div class="head-title">
-                    <div class="left">
-                        <h1>Manage Setting</h1>
-                    </div>
+            <main style="
+                  margin-top: 53px; ">
+                <li>
                     <div>
                         <form action="SettingLists"  method="post" style="
                           margin-top: -94px;
                           margin-bottom: -41px;">
                         <select style="
-                                background-color: blue;
-                                color: wheat;
+                                background-color: #007BFF;
+                                color: white;
                                 height: 40px;
                                 border-radius: 10px;
-                                margin-left: 47px;
-                                margin-top: 53px;" name="sort" class="form-select"  onchange="this.form.submit()">
+                                margin-left: 170px;
+                                margin-top: 60px;" name="sort" class="form-select"  onchange="this.form.submit()">
                             <option value="" ${param['sort']==null?"selected":""}>Sort Default</option>
                             
                             <option value="1" ${param['sort']==1?"selected":""}>Setting Name</option>
@@ -109,9 +139,11 @@
                         </select>
                     </form>
                     </div>
-                </div>
                 
+                
+                            <div>            
                 <button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#myModalAddNew">Add Setting</button>
+                            </div>
                 <!-- Modal -->
                 <div class="modal fade" id="myModalAddNew" role="dialog">
                     <div class="modal-dialog">
@@ -124,13 +156,21 @@
                             </div>
                             <form action="AddSetting" method="post" >
                                 <div class="modal-body">
-                                    <b>Setting Name: </b><input type="text" class="form-control" value="" required name="name"><br>  
-                                    <b>Description: </b>
+                                    <b>Setting Name* </b><input type="text" class="form-control" value="${sname}" required name="name"><br>  
+                                    <b>Description </b>
                                     <div class="form-control">
-                                        <textarea id="edit" rows="5" name="description" class="form-control" placeholder="Write some thing..." required=""></textarea>
+                                        <textarea id="edit" rows="5" name="description" class="form-control" placeholder="Write some thing..."  value="${sdescription}"></textarea>
                                     </div>
-                                    <b>Type: </b><input type="text" class="form-control" value="" required name="type"><br>  
-                                    <b>Status: </b>
+                                    <b>Type* </b>
+                                    <select name="type" class="form-control" required>
+                                        <option value="User">User</option>
+                                        <option value="Category">Category</option>
+                                        <option value="Product">Product</option>
+                                        <option value="Blog">Blog</option>
+                                        <option value="Contact">Contact</option>
+                                    </select><br> 
+                                    
+                                    <b>Status* </b>
                                     <input type="radio" id="status_enable" name="status" value="1" checked>
                                     <label for="status_enable">Enable</label>
                                     <input type="radio" id="status_disable" name="status" value="0">
@@ -138,13 +178,17 @@
 
                                 </div>
                                 <div class="modal-footer">
+                                    <p style="color: red">${mess}</p>
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                     <button type="submit" class="btn btn-success" value="submit">Submit</button>
+                                    
                                 </div>
                             </form>
                         </div>
                     </div>
                 </div>
+                </li>
+                
 
                 <table class="table" style="margin-top: 20px; margin-bottom: 20px;">
                     <thead>
@@ -162,13 +206,14 @@
                                 <td>${setting.getId()}</td>
                                 <td>${setting.getName()}</td>
                                 <td>${setting.getType()}</td>
-                                <td><a onclick="return confirm('Do you want to change setting status?')" href="UpdateStatusSetting?setting_id=${setting.getId()}&status=${setting.getStatus()}">
-                                        ${setting.getStatus()==1?"Enable":"Disable"}</a></td> 
+                                <td>${setting.getStatus()==1?"Active":"Deactive"}</td> 
                                 <td> 
-                                    <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#myModal${setting.getId()}">Detail</button>
+                                    <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#myModalEditSetting${setting.getId()}">Detail</button>
+                                    <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#myModalStatusActivate${setting.getId()}">Activate</button>
+                                    <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#myModalStatusDeactivate${setting.getId()}">Deactivate</button>
                                 </td>
                             </tr>
-                        <div class="modal fade" id="myModal${setting.getId()}" role="dialog">
+                        <div class="modal fade" id="myModalEditSetting${setting.getId()}" role="dialog">
                             <!-- Modal content -->
                             <div class="modal-dialog">
                                 <div class="modal-content">
@@ -178,15 +223,73 @@
                                     </div>
                                     <form action="EditSetting" method="post">
                                         <div class="modal-body">
+                                            
                                             <b>ID: </b><input type="text" class="form-control" name="id" value="${setting.getId()}" readonly=""><br>
                                             <b>Name: </b><input type="text" class="form-control" value="${setting.getName()}"  name="name"><br>
                                             <b>Description: </b><textarea class="form-control"name="description">${setting.getDescription()}</textarea><br>
                                             <b>Type: </b><input type="text" class="form-control" value="${setting.getType()}" name="type" ><br>    
                                             <b>Status: </b>
-                                            <input type="radio" id="status_enable" name="status" value="1" checked>
-                                            <label for="status_enable">Enable</label>
-                                            <input type="radio" id="status_disable" name="status" value="0">
-                                            <label for="status_disable">Disable</label><br>
+                                            <c:choose>
+                                                <c:when test="${setting.getStatus() eq 1}">
+                                                    <input type="radio" id="status_enable" name="status" value="1" checked>
+                                                    <label for="status_enable">Active</label>
+
+                                                    <input type="radio" id="status_disable" name="status" value="0">
+                                                    <label for="status_disable">Deactive</label><br>
+                                                </c:when>
+                                                <c:when test="${setting.getStatus() eq 0}">
+                                                    <input type="radio" id="status_enable" name="status" value="1">
+                                                    <label for="status_enable">Active</label>
+
+                                                    <input type="radio" id="status_disable" name="status" value="0" checked>
+                                                    <label for="status_disable">Deactive</label><br>
+                                                </c:when>
+                                            </c:choose>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn btn-success" value="submit">Submit</button>
+                                        </div>
+                                    </form>                                 
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="modal fade" id="myModalStatusActivate${setting.getId()}" role="dialog">
+                            <!-- Modal content -->
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        <h4 class="modal-title">Change Status:</h4>
+                                    </div>
+                                    <form action="UpdateStatusSetting" method="get">
+                                        <div class="modal-body">
+                                            <p>Do you want to activate this setting</p>
+                                            <input type="hidden" name="setting_id" value="${setting.getId()}">
+                                            <input type="hidden" name="status" value="${setting.getStatus()}">
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn btn-success" value="submit">Submit</button>
+                                        </div>
+                                    </form>                                 
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal fade" id="myModalStatusDeactivate${setting.getId()}" role="dialog">
+                            <!-- Modal content -->
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        <h4 class="modal-title">Change Status:</h4>
+                                    </div>
+                                    <form action="UpdateStatusSetting" method="post">
+                                        <div class="modal-body">
+                                            <p>Do you want to deactivate this setting</p>
+                                            <input type="hidden" name="setting_id" value="${setting.getId()}">
+                                            <input type="hidden" name="status" value="${setting.getStatus()}">
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -199,6 +302,7 @@
                     </c:forEach>
                     </tbody>
                 </table>
+                                    
 
             </main>
             <!-- MAIN -->

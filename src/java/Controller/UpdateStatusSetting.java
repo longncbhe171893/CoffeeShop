@@ -31,15 +31,7 @@ public class UpdateStatusSetting extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        int setting_id =Integer.parseInt(request.getParameter("setting_id"));
-        int status =Integer.parseInt(request.getParameter("status"));
-        SettingDAO dao = new SettingDAO();
-        if(status == 1){
-            dao.UpdateStatusSetting(0, setting_id);
-        }else{
-            dao.UpdateStatusSetting(1, setting_id);
-        }
-         response.sendRedirect("SettingLists");
+        
     
     } 
 
@@ -54,7 +46,15 @@ public class UpdateStatusSetting extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        int setting_id =Integer.parseInt(request.getParameter("setting_id"));
+        int status =Integer.parseInt(request.getParameter("status"));
+        SettingDAO dao = new SettingDAO();
+        if(status == 0){
+            dao.UpdateStatusSetting(1, setting_id);
+        }
+            
+        
+         response.sendRedirect("SettingLists");
     } 
 
     /** 
@@ -67,7 +67,15 @@ public class UpdateStatusSetting extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        int setting_id =Integer.parseInt(request.getParameter("setting_id"));
+        int status =Integer.parseInt(request.getParameter("status"));
+        SettingDAO dao = new SettingDAO();
+        if(status == 1){
+            dao.UpdateStatusSetting(0, setting_id);
+        }
+            
+        
+         response.sendRedirect("SettingLists");
     }
 
     /** 

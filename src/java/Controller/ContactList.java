@@ -5,8 +5,10 @@
 
 package Controller;
 
+import DAO.ContactDAO;
 import DAO.SettingDAO;
-import Model.Setting;
+import Model.Contact;
+import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -14,15 +16,14 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import java.util.List;
 
 /**
  *
  * @author HP
  */
-@WebServlet(name="AddSetting", urlPatterns={"/AddSetting"})
-public class AddSetting extends HttpServlet {
+@WebServlet(name="ContactList", urlPatterns={"/ContactList"})
+public class ContactList extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -39,10 +40,10 @@ public class AddSetting extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet AddSetting</title>");  
+            out.println("<title>Servlet ContactList</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet AddSetting at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet ContactList at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -59,7 +60,13 @@ public class AddSetting extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        ContactDAO contactDAO = new ContactDAO();       
+        List<Contact> contacts = contactDAO.getAllContacts();
+        
+        
+        request.setAttribute("contacts", contacts);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("ContactList.jsp");
+        dispatcher.forward(request, response);
     } 
 
     /** 
@@ -72,37 +79,7 @@ public class AddSetting extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        String name = request.getParameter("name");
-        String description = request.getParameter("description");
-        String type = request.getParameter("type");
-        int status = Integer.parseInt(request.getParameter("status"));
-        HttpSession session = request.getSession();
-        request.setAttribute("sname", name);
-        request.setAttribute("sdescription", description);
-        SettingDAO sdao = new SettingDAO();
-        if (name.length() > 50 ) {
-            List<Setting> settings = sdao.getAllSettings();
-            request.setAttribute("settings", settings);
-            request.setAttribute("mess", "Setting name must be less than 50 characters");
-            request.getRequestDispatcher("SettingList.jsp?id=myModalAddNew").forward(request, response);
-        } else
-        if (description.length() > 255) {
-            List<Setting> settings = sdao.getAllSettings();
-            request.setAttribute("settings", settings);
-            request.setAttribute("mess", "Description must be less than 255 characters");
-            request.getRequestDispatcher("SettingList.jsp").forward(request, response);
-        } else
-        
-        if (sdao.checkSettingNameAndTypeExist(name, type)){
-            List<Setting> settings = sdao.getAllSettings();
-            request.setAttribute("settings", settings);
-            request.setAttribute("mess", "This setting is existed");
-            request.getRequestDispatcher("SettingList.jsp").forward(request, response);
-        } else {
-            
-        sdao.addSetting(name, description, type, status);
-        response.sendRedirect("SettingLists");
-        }
+        processRequest(request, response);
     }
 
     /** 
