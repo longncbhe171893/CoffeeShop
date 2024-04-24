@@ -211,7 +211,9 @@
                                 <td>${contact.getSubject()}</td>
                                 <td>${contact.getSetting().getName()}</td>
                                 <td>
-                                    <button type="button" class="btn btn-success btn-lg" href="ContactDetails?contact_id=${contact.getContact_id()}">Detail</button>
+                                    <form action="ContactDetails?contact_id=${contact.getContact_id()}" method="post">
+                                    <button type="submit" class="btn btn-success btn-lg">Detail</button>
+                                    </form>
                                 </td>
                             </tr>
                         
