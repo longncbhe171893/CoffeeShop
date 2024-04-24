@@ -117,11 +117,15 @@ public class BlogDao extends DBContext {
         }
         return (list);
     }
-//    public static void main(String[] args) {
-//        BlogDao bld = new BlogDao();
-//        bld.addBlog("asd", "asd", 8, "123", 7, "123");
-//
-//    }
+
+    public static void main(String[] args) {
+        BlogDao bld = new BlogDao();
+        ArrayList<Blog> bl = bld.pagingBlogs(1, 4, 2, 33);
+        for (Blog blog : bl) {
+            System.out.println(blog);
+        }
+
+    }
 
     public void addBlog(String title, String img, int userId, String content, int setting_id, String short_descreption) {
 
@@ -162,30 +166,36 @@ public class BlogDao extends DBContext {
         }
     }
 
-    public void DeleteBlog(int bid) {
-        String sql = "  DELETE FROM `Blog` WHERE `blog_id` =?";
-        try {
-            PreparedStatement ps = connection.prepareStatement(sql);
-            ps.setInt(1, bid);
-            ps.executeUpdate();
-        } catch (SQLException e) {
-        }
-    }
-
-    public ArrayList<Blog> searchBlog(String search) {
+    public ArrayList<Blog> searchBlog(String search, int role, int sellerId) {
 
         ArrayList<Blog> list = new ArrayList<>();
-        String sql = "SELECT * from blog WHERE `blog_title` LIKE ?\n"
-                + "ORDER BY `blog_title` ASC;";
-        try {
-            PreparedStatement ps = connection.prepareStatement(sql);
-            ps.setString(1, "%" + search + "%");
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                list.add(new Blog(rs.getInt(1), rs.getString(2), rs.getString(3), getUserById(rs.getInt(4)), rs.getDate(5), rs.getString(6), getSettingById(rs.getInt(7)), rs.getInt(8), rs.getString(9))
-                );
+        if (role == 1) {
+            String sql = "SELECT * from blog WHERE `blog_title` LIKE ?\n"
+                    + "ORDER BY `blog_title` ASC;";
+            try {
+                PreparedStatement ps = connection.prepareStatement(sql);
+                ps.setString(1, "%" + search + "%");
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    list.add(new Blog(rs.getInt(1), rs.getString(2), rs.getString(3), getUserById(rs.getInt(4)), rs.getDate(5), rs.getString(6), getSettingById(rs.getInt(7)), rs.getInt(8), rs.getString(9))
+                    );
+                }
+            } catch (SQLException e) {
             }
-        } catch (Exception e) {
+        } else if (role == 2) {
+            String sql = "SELECT * from blog WHERE `user_id` =? and `blog_title` LIKE ?\n"
+                    + "ORDER BY `blog_title` ASC;";
+            try {
+                PreparedStatement ps = connection.prepareStatement(sql);
+                ps.setString(2, "%" + search + "%");
+                ps.setInt(1, sellerId);
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    list.add(new Blog(rs.getInt(1), rs.getString(2), rs.getString(3), getUserById(rs.getInt(4)), rs.getDate(5), rs.getString(6), getSettingById(rs.getInt(7)), rs.getInt(8), rs.getString(9))
+                    );
+                }
+            } catch (SQLException e) {
+            }
         }
         return list;
     }
@@ -281,21 +291,55 @@ public class BlogDao extends DBContext {
         return 0;
     }
 
-    public ArrayList<Blog> pagingBlogs(int index, int numPage) {
+    public ArrayList<Blog> pagingBlogs(int index, int numPage, int role, int userId) {
         ArrayList<Blog> list = new ArrayList<>();
         try {
-            String sql = "SELECT * FROM `blog`  LIMIT ?, ?;";
-            PreparedStatement ps = connection.prepareStatement(sql);
-            index = (index - 1) * numPage;
-            ps.setInt(1, index);
-            ps.setInt(2, numPage);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                list.add(new Blog(rs.getInt(1), rs.getString(2), rs.getString(3), getUserById(rs.getInt(4)), rs.getDate(5), rs.getString(6), getSettingById(rs.getInt(7)), rs.getInt(8), rs.getString(9)));
+            if (role == 1) {
+                String sql = "SELECT * FROM `blog` order by  post_date desc LIMIT ?, ?;";
+                PreparedStatement ps = connection.prepareStatement(sql);
+                index = (index - 1) * numPage;
+                ps.setInt(1, index);
+                ps.setInt(2, numPage);
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    list.add(new Blog(rs.getInt(1), rs.getString(2), rs.getString(3), getUserById(rs.getInt(4)), rs.getDate(5), rs.getString(6), getSettingById(rs.getInt(7)), rs.getInt(8), rs.getString(9)));
+                }
+            } else if (role == 2) {
+                String sql = "SELECT * FROM `blog` where `user_id`=? order by  post_date desc LIMIT ?, ?;";
+                PreparedStatement ps = connection.prepareStatement(sql);
+                index = (index - 1) * numPage;
+                ps.setInt(1, userId);
+                ps.setInt(2, index);
+                ps.setInt(3, numPage);
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    list.add(new Blog(rs.getInt(1), rs.getString(2), rs.getString(3), getUserById(rs.getInt(4)), rs.getDate(5), rs.getString(6), getSettingById(rs.getInt(7)), rs.getInt(8), rs.getString(9)));
+                }
             }
+
         } catch (SQLException e) {
 
         }
         return list;
+    }
+
+    public int countBlogByRole(int setting_id, int userId) {
+        int count = countBlog();
+        if (setting_id == 2) {
+
+            try {
+                    String sql = " select count(*) from `blog` where `user_id`=?";
+                PreparedStatement ps = connection.prepareStatement(sql);
+                ps.setInt(1, userId);
+                ResultSet rs = ps.executeQuery();
+                rs.next();
+                count = rs.getInt(1);
+                return count;
+
+            } catch (SQLException e) {
+
+            }
+        }
+        return count;
     }
 }

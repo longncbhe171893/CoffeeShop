@@ -24,36 +24,46 @@ public class ManageBlog extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+
         try {
             int numPage = 4;
             BlogDao blog = new BlogDao();
             int index = Integer.valueOf(request.getParameter("index"));
-            int count = blog.countBlog();
+            int userId = Integer.valueOf(request.getParameter("user"));
+            int count = blog.countBlogByRole(blog.getUserById(userId).getSetting_id(),userId);
             int ePage = count / numPage;
-            if (count % 4 != 0) {
+            if (count % numPage != 0) {
                 ePage++;
             }
-            ArrayList<Blog> bl = blog.pagingBlogs(index, numPage);
+            ArrayList<Blog> bl = blog.pagingBlogs(index, numPage, 1, userId);
+            if (blog.getUserById(userId).getSetting_id() == 2) {
+                bl = blog.pagingBlogs(index, numPage, 2, userId);
+                ePage = count / numPage;
+                if (count % numPage != 0) {
+                    ePage++;
+                }
+                request.setAttribute("hidden", "hidden");
+            }
             ArrayList<Model.User> creator = blog.getAllSeller();
             List<Model.Category> category = blog.getcategoryBlogByType();
             int nextPage, backPage;
-        if (index == 1) {
-            backPage = 1;
-            nextPage=2;
-        } else if ( index == ePage) {
-            backPage=ePage-1;
-            nextPage = ePage;
-        } else {
-            backPage = index - 1;
-            nextPage = index + 1;
-        }
+            if (index == 1) {
+                backPage = 1;
+                nextPage = 2;
+            } else if (index == ePage) {
+                backPage = ePage - 1;
+                nextPage = ePage;
+            } else {
+                backPage = index - 1;
+                nextPage = index + 1;
+            }
             request.setAttribute("nextPage", nextPage);
             request.setAttribute("backPage", backPage);
+            request.setAttribute("index", index);
             request.setAttribute("ePage", ePage);
             request.setAttribute("bl", bl);
             request.setAttribute("creator", creator);
             request.setAttribute("categoryBlog", category);
-
             request.getRequestDispatcher("ManageBlog.jsp").forward(request, response);
 
         } catch (ServletException | IOException e) {
@@ -73,6 +83,7 @@ public class ManageBlog extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         BlogDao blogDao = new BlogDao();
+        int userId = Integer.valueOf(request.getParameter("user"));
 
         String search = request.getParameter("search");
         String firstDate = request.getParameter("firstDate");
@@ -82,15 +93,17 @@ public class ManageBlog extends HttpServlet {
         List<Model.Category> category = blogDao.getcategoryBlogByType();
 
         int numPage = 4;
-        int index = 1;
+        int index = Integer.valueOf(request.getParameter("index"));
         int count = blogDao.countBlog();
         int ePage = count / numPage;
         if (count % 4 != 0) {
             ePage++;
         }
-        List<Blog> blogList = blogDao.pagingBlogs(index, numPage);
+        int role = blogDao.getUserById(userId).getSetting_id();
+        List<Blog> blogList = blogDao.pagingBlogs(index, numPage, role, userId);
+
         if (search != null) {
-            blogList = blogDao.searchBlog(search);
+            blogList = blogDao.searchBlog(search, role, userId);
         } else if (firstDate != null && secondDate != null) {
             Date fdate = Date.valueOf(firstDate);
             Date sdate = Date.valueOf(secondDate);
@@ -99,9 +112,11 @@ public class ManageBlog extends HttpServlet {
 
         request.setAttribute("ePage", ePage);
         request.setAttribute("creator", creator);
+        request.setAttribute("index", index);
         request.setAttribute("categoryBlog", category);
         request.setAttribute("bl", blogList);
         request.getRequestDispatcher("ManageBlog.jsp").forward(request, response);
+
     }
 
     @Override

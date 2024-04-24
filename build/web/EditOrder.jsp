@@ -107,13 +107,13 @@
             <!-- NAVBAR -->
             <main>
                 <div class="formAddBlog" id="customers">   
-                    <form action="EditBlog" method="post" enctype="multipart/form-data">
+                    <form action="EditOrder" method="post">
                         <div class="modal-body" >
-                            <b>Order ID : </b><input type="text"  class="form-control" disabled value="${order.getId()}" required name="orderId"><br>
-                            <b>Order name : </b><input type="text"  class="form-control" value="${order.getOrderName()}" required name="orderName"><br> 
-                            <b>Order Date Time : </b><input type="text"  class="form-control" value="${order.getDate()}" required name="orderDate"><br> 
-                            <b>Discount : </b><input type="text"  class="form-control" value="${order.getDiscount()}" required name="orderDiscount"><br> 
-                            <b>Note : </b><input type="text"  class="form-control" value="${order.getNotes()}" required name="orderNote"><br> 
+                            <b>Order ID : </b><input type="text" class="form-control" value="${order.getId()}" name="orderId"><br>
+                            <b>Order name : </b><input type="text"  class="form-control" disabled value="${order.getOrderName()}" name="orderName"><br> 
+                            <b>Order Date Time : </b><input type="text" disabled class="form-control" value="${order.getDate()}" name="orderDate"><br> 
+                            <b>Discount : </b><input type="number" min="0" max="50"  class="form-control" value="${order.getDiscount()}" required name="orderDiscount"><br> 
+                            <b>Note : </b><input type="text"  class="form-control" value="${order.getNotes()}"  name="orderNote"><br> 
                             <b>Product details : </b><br>
                             <table name="listProductOrder" id="productDetails">
                                 <thead>
@@ -139,15 +139,28 @@
                                             <td>
                                                 ${listPO.getProduct().getPrice()}
                                             </td>
-
                                             <td>
-
                                                 <input type="number"  id="${listPO.getId()}"  name="quantity" min="1" max="20" value="${listPO.getQuanlity()}">
                                                 <button type="button"  class="${listPO.getId()}" data-blog-id="${listPO.getId()}"  style="border-radius: 10px;">
                                                     Update
                                                 </button>
-                                            </td>
+                                                <script>
+                                                    const quantity = document.getElementById("${listPO.getId()}");
+                                                    // Lắng nghe sự kiện khi nút "View" được bấm
+                                                    var viewButtons = document.getElementsByClassName("${listPO.getId()}");
 
+
+                                                    for (var i = 0; i < viewButtons.length; i++) {
+                                                        viewButtons[i].addEventListener("click", function () {
+                                                            // Lấy giá trị blog_id từ thuộc tính data-blog-id
+                                                            var blogId = this.dataset.blogId;
+
+                                                            // Mở một cửa sổ mới với URL BlogController và tham số blogId
+                                                            window.location.href = "UpdateOrderDetail?index=${index}&orderId=${order.getId()}&size=${listPO.getSize()}&productPrice=${listPO.getProduct().getPrice()}&orderDetail=" + blogId + "&quantity=" + quantity.value;
+                                                        });
+                                                    }
+                                                </script>
+                                            </td>
                                             <td>
                                                 ${String.format("%.3f",listPO.getAmount())}
                                             </td>
@@ -161,48 +174,24 @@
                                                     </div>
                                                 </button>
                                             </td>
-                                    <script>
-                                        const quantity = document.getElementById("${listPO.getId()}");
-                                        // Lắng nghe sự kiện khi nút "View" được bấm
-                                        var viewButtons = document.getElementsByClassName("${listPO.getId()}");
-
-
-                                        for (var i = 0; i < viewButtons.length; i++) {
-                                            viewButtons[i].addEventListener("click", function () {
-                                                // Lấy giá trị blog_id từ thuộc tính data-blog-id
-                                                var blogId = this.dataset.blogId;
-
-                                                // Mở một cửa sổ mới với URL BlogController và tham số blogId
-                                                window.location.href = "UpdateOrderDetail?orderId=${order.getId()}&size=${listPO.getSize()}&productPrice=${listPO.getProduct().getPrice()}&orderDetail=" + blogId + "&quantity=" + quantity.value;
-                                            });
-                                        }
-                                    </script>
-                                    </tr>
-
-
-                                </c:forEach>
+                                        </tr>
+                                    </c:forEach>
 
                                 </tbody>
                             </table><br>
                             <b>Total amount : </b><input type="text" disabled class="form-control" value="${String.format("%.3f",totalAmount)}" required name="orderTotalAmount"><br> 
-
                         </div>
-
+                        <b><input type="text" hidden value="${index}" name="index"></b>    
                         <b><input type="hidden" class="form-control" required  value="${blog.getBlog_id()}" name="blogId"></b>    
                         <b><input type="hidden" class="form-control" required  value="${sessionScope['account'].getId()}" name="user"></b>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" onclick="window.location.href = 'ManageOrder?index=${index}'">Close</button>
+                            <button type="submit" class="btn btn-success" value="submit">Submit</button>
+                        </div>
+                    </form>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" onclick="window.location.href = 'ManageBlog'">Close</button>
-                    <button type="submit" class="btn btn-success" value="submit">Submit</button>
-                </div>
-                </form>
-
-
             </main>
-
         </section>
-
-
         <script src="js/adminDashbord.js"></script>
         <script src="js/jquery-3.4.1.min.js"></script>
         <script src="js/bootstrap.min.js"></script>

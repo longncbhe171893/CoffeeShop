@@ -54,7 +54,7 @@ public class OrderDAO extends DBContext {
     public static void main(String[] args) {
         OrderDAO od = new OrderDAO();
 
-        ArrayList<Order> mc = od.pagingOrder(2, 4);
+        ArrayList<Order> mc = od.searchOrderByIdOrPhone("0336577902");
         for (Order category : mc) {
             System.out.println(category);
         }
@@ -327,6 +327,80 @@ public class OrderDAO extends DBContext {
             ps.setInt(1, quantity);
             ps.setDouble(2, productPrice + (size * 3));
             ps.setInt(3, orderDetailId);
+            ps.executeUpdate();
+
+        } catch (SQLException e) {
+
+        }
+    }
+
+    public ArrayList<User> getAllCostomer() {
+        ArrayList<User> lseller = new ArrayList<>();
+
+        PreparedStatement ps;
+        ResultSet rs;
+        String sql = "select* from `users` where `setting_id` = 3 or `setting_id` = 2;";
+        try {
+            ps = connection.prepareStatement(sql);
+
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                lseller.add(new User(rs.getInt(1), rs.getString(2)));
+            }
+            rs.close();
+            ps.close();
+        } catch (SQLException e) {
+
+        }
+
+        return lseller;
+    }
+
+    public ArrayList<Order> searchOrderByIdOrPhone(int searchNum) {
+        ArrayList<Order> list = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM `Orders` WHERE `order_id` = ?;";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, searchNum);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+
+                list.add(new Order(rs.getInt(1), getUserById(rs.getInt(2)), rs.getString(3), rs.getInt(4), rs.getInt(5), rs.getTimestamp(6),
+                        rs.getString(7), rs.getString(8), rs.getString(9)));
+            }
+        } catch (SQLException e) {
+
+        }
+        return list;
+    }
+
+    public ArrayList<Order> searchOrderByIdOrPhone(String phoneNum) {
+        ArrayList<Order> list = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM `Orders` WHERE `order_phone` like ?;";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, "%" + phoneNum + "%");
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+
+                list.add(new Order(rs.getInt(1), getUserById(rs.getInt(2)), rs.getString(3), rs.getInt(4), rs.getInt(5), rs.getTimestamp(6),
+                        rs.getString(7), rs.getString(8), rs.getString(9)));
+            }
+        } catch (SQLException e) {
+
+        }
+        return list;
+    }
+
+    public void updateOrder(int orderId, int orderDiscount, String orderNote) {
+        try {
+            String sql = "UPDATE `orders`\n"
+                    + "SET  `order_discount`=?,`notes`=? \n"
+                    + "WHERE `order_id` = ?;";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, orderDiscount);
+            ps.setString(2, orderNote);
+            ps.setInt(3, orderId);
             ps.executeUpdate();
 
         } catch (SQLException e) {
