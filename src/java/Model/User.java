@@ -12,7 +12,11 @@ public class User {
     private String password;
     private String address;
     private String phone;
+<<<<<<< HEAD
     private int sex;
+=======
+    private String sex;
+>>>>>>> ca4c3917bbc31530b5e50fd946e0f1df5a7de7e2
     private String image;
     private int setting_id;
     private int userStatus;
@@ -21,7 +25,22 @@ public class User {
     public User() {
     }
 
+<<<<<<< HEAD
     public User(int id, String name, String email, String password, String address, String phone, int sex, String image, int setting_id, int userStatus, double point) {
+=======
+    
+    public User(int id, String name, String email, String password, int setting_id, int userStatus, double point) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.setting_id = setting_id;
+        this.userStatus = userStatus;
+        this.point = point;
+    }
+
+    public User(int id, String name, String email, String password, String address, String phone, String sex, String image, int setting_id, int userStatus, double point) {
+>>>>>>> ca4c3917bbc31530b5e50fd946e0f1df5a7de7e2
         this.id = id;
         this.name = name;
         this.email = email;
@@ -34,6 +53,7 @@ public class User {
         this.userStatus = userStatus;
         this.point = point;
     }
+<<<<<<< HEAD
     
     public User(int id, String name, String email, String password, int setting_id, int userStatus, double point) {
         this.id = id;
@@ -44,6 +64,8 @@ public class User {
         this.userStatus = userStatus;
         this.point = point;
     }
+=======
+>>>>>>> ca4c3917bbc31530b5e50fd946e0f1df5a7de7e2
 
     public int getId() {
         return id;
@@ -77,6 +99,41 @@ public class User {
         this.password = password;
     }
 
+<<<<<<< HEAD
+=======
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+>>>>>>> ca4c3917bbc31530b5e50fd946e0f1df5a7de7e2
     public int getSetting_id() {
         return setting_id;
     }
@@ -101,6 +158,7 @@ public class User {
         this.point = point;
     }
 
+<<<<<<< HEAD
     public String getAddress() {
         return address;
     }
@@ -139,4 +197,13 @@ public class User {
         return "User{" + "id=" + id + ", name=" + name + ", email=" + email + ", password=" + password + ", setting_id=" + setting_id + ", userStatus=" + userStatus + ", point=" + point + '}';
     }
 
+=======
+    @Override
+    public String toString() {
+        return "User{" + "id=" + id + ", name=" + name + ", email=" + email + ", password=" + password + ", address=" + address + ", phone=" + phone + ", sex=" + sex + ", image=" + image + ", setting_id=" + setting_id + ", userStatus=" + userStatus + ", point=" + point + '}';
+    }
+
+  
+
+>>>>>>> ca4c3917bbc31530b5e50fd946e0f1df5a7de7e2
 }

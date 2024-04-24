@@ -14,7 +14,11 @@ public class Product {
     private int id; 
     private String name; 
     private double price; 
+<<<<<<< HEAD
     private int setting_id;
+=======
+     private int setting_id;
+>>>>>>> ca4c3917bbc31530b5e50fd946e0f1df5a7de7e2
     private String image; 
     private String descreption;
     private int product_status;
@@ -46,6 +50,7 @@ public class Product {
         this.quantity = quantity;
     }
 
+<<<<<<< HEAD
     public Product(int id, String name, String image, int product_status, Date create_date) {
         this.id = id;
         this.name = name;
@@ -56,6 +61,8 @@ public class Product {
     
     
 
+=======
+>>>>>>> ca4c3917bbc31530b5e50fd946e0f1df5a7de7e2
     public Product(int id, String name, double price, int setting_id, String image, String descreption, int product_status, Date create_date, int size) {
         this.id = id;
         this.name = name;

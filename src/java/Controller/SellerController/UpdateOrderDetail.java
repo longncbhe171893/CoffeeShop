@@ -29,6 +29,7 @@ public class UpdateOrderDetail extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+<<<<<<< HEAD
         int orderId = Integer.parseInt(request.getParameter("orderId"));
         String index = request.getParameter("index");
         double productPrice = Double.parseDouble(request.getParameter("productPrice"));
@@ -40,6 +41,8 @@ public class UpdateOrderDetail extends HttpServlet {
         orDao.updateOrderDetail(productPrice, orderDetailId, quantity, size);
 
         response.sendRedirect("EditOrder?orderId=" + orderId + "&edit=true&editOrderDetail=false&index=" + index);
+=======
+>>>>>>> ca4c3917bbc31530b5e50fd946e0f1df5a7de7e2
 
     }
 
@@ -55,7 +58,21 @@ public class UpdateOrderDetail extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+<<<<<<< HEAD
         processRequest(request, response);
+=======
+        response.setContentType("text/html;charset=UTF-8");
+        int orderId = Integer.parseInt(request.getParameter("orderId"));
+        double productPrice = Double.parseDouble(request.getParameter("productPrice"));
+        int size = Integer.parseInt(request.getParameter("size"));
+
+        int orderDetailId = Integer.parseInt(request.getParameter("orderDetail"));
+        int quantity = Integer.parseInt(request.getParameter("quantity"));
+        OrderDAO orDao = new OrderDAO();
+        orDao.updateOrderDetail(productPrice, orderDetailId, quantity, size);
+
+        response.sendRedirect("EditOrder?orderId=" + orderId + "&edit=true");
+>>>>>>> ca4c3917bbc31530b5e50fd946e0f1df5a7de7e2
 
     }
 
@@ -71,7 +88,10 @@ public class UpdateOrderDetail extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+<<<<<<< HEAD
 
+=======
+>>>>>>> ca4c3917bbc31530b5e50fd946e0f1df5a7de7e2
     }
 
     /**

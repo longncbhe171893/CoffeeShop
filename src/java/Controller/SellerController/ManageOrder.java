@@ -47,7 +47,10 @@ public class ManageOrder extends HttpServlet {
         request.setAttribute("ePage", ePage);
         //set list for manage blog page
         request.setAttribute("olist", orderList);
+<<<<<<< HEAD
         request.setAttribute("index", index);
+=======
+>>>>>>> ca4c3917bbc31530b5e50fd946e0f1df5a7de7e2
         request.getRequestDispatcher("ManageOrder.jsp").forward(request, response);
     }
 
@@ -55,7 +58,10 @@ public class ManageOrder extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+<<<<<<< HEAD
         
+=======
+>>>>>>> ca4c3917bbc31530b5e50fd946e0f1df5a7de7e2
     }
 
     /**

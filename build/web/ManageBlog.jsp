@@ -182,6 +182,10 @@
                                 <th scope="col">ID</th>
                                 <th scope="col">Title</th>
                                 <th scope="col">Image</th>
+<<<<<<< HEAD
+=======
+                                <th scope="col">Short Description</th>
+>>>>>>> ca4c3917bbc31530b5e50fd946e0f1df5a7de7e2
                                 <th scope="col">Creator</th>
                                 <th scope="col">Category</th>
                                 <th scope="col">Create Date</th>
@@ -198,8 +202,14 @@
                                 <th scope="row">${bl.getBlog_id()}</th>
                                 <td>${bl.getBlog_title()}</td>
                                 <td><img style="width:150px;height:150px;"src="${bl.getBlog_image()}"></td>
+<<<<<<< HEAD
                                 <td>${bl.getUser().getName()}</td>   
                                 <td>${bl.getSetting().getName()}</td>   
+=======
+                                <td>${bl.getDescription()}</td>   
+                                <td>${bl.getUser().getName()}</td>   
+                                <td>${bl.getSetting().getSetting_name()}</td>   
+>>>>>>> ca4c3917bbc31530b5e50fd946e0f1df5a7de7e2
                                 <td>${bl.getPost_date()}</td>
                                 <td>
                                     <details>
@@ -209,12 +219,17 @@
                                 </td>
 
                                 <td>
+<<<<<<< HEAD
                                     <a href="ChangeStatusBlog?bid=${bl.getBlog_id()}&index=${index}" class="btn- btn-danger  btn-lg" style="display: block; background-color: ${bl.getBlog_status()==2?'red':'green'}; " >${bl.getBlog_status()==1?"Public":"Private"}</a>
+=======
+                                    <a href="ChangeStatusBlog?bid=${bl.getBlog_id()}" class="btn- btn-danger  btn-lg" style="display: block; background-color: ${bl.getBlog_status()==2?'red':'green'}; " >${bl.getBlog_status()==1?"Public":"Private"}</a>
+>>>>>>> ca4c3917bbc31530b5e50fd946e0f1df5a7de7e2
                                 </td>
 
                                 <td> <button type="button" class="btn btn-success btn-lg" onclick="window.location.href = 'EditBlog?blogId=${bl.getBlog_id()}&BlogDetail=false&index=${index}';"">Edit Blog</button></td>
 
                                 <td>
+<<<<<<< HEAD
                                     <button class="viewButton" onclick="window.location.href = 'EditBlog?blogId=${bl.getBlog_id()}&BlogDetail=true&index=${index}';"">
                                         <span class="eye-icon"></span>
                                     </button>
@@ -245,6 +260,14 @@
                                     </div>
                                 </div>
                             </div>
+=======
+                                    <button class="viewButton" onclick="window.location.href = 'EditBlog?blogId=${bl.getBlog_id()}&BlogDetail=true';"">
+                                        <span class="eye-icon"></span>
+                                    </button>
+                                </td>
+                            </tr>
+
+>>>>>>> ca4c3917bbc31530b5e50fd946e0f1df5a7de7e2
                         </c:forEach>
                     </table>
                 </div>

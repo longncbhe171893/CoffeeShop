@@ -1,4 +1,12 @@
+<<<<<<< HEAD
 
+=======
+<%-- 
+    Document   : header.jsp
+    Created on : May 17, 2023, 8:03:38 PM
+    Author     : asus
+--%>
+>>>>>>> ca4c3917bbc31530b5e50fd946e0f1df5a7de7e2
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -44,7 +52,11 @@
                 <div class="collapse navbar-collapse" id="ftco-nav">
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item">
+<<<<<<< HEAD
                             <form action="Blog" class="search-form" method="post" >
+=======
+                            <form action="#" class="search-form" method="post" >
+>>>>>>> ca4c3917bbc31530b5e50fd946e0f1df5a7de7e2
                                 <div class="form-group">
                                     <div class="icon">
                                         <span class="icon-search"></span>
@@ -55,6 +67,7 @@
                         </li>
                         <li class="nav-item"><a href="Home" class="nav-link">Home</a></li>
                         <li class="nav-item"><a href="#" class="nav-link">Menu</a></li>
+<<<<<<< HEAD
                         <li class="nav-item"><a href="Blog" class="nav-link">Blog</a></li>
                         <li class="nav-item">
                             <c:if test="${sessionScope['account'].getSetting_id() == 3}">
@@ -76,16 +89,42 @@
                         <li class="nav-item">
                             <c:if test="${sessionScope['account']!=null}">
                                 <a href="UserProfile.jsp" class="nav-link"><i class="biolife-icon icon-login"></i>PROFILE</a>
+=======
+                        <li class="nav-item"><a href="#" class="nav-link">Blog</a></li>
+                        <li class="nav-item">
+                            <c:if test="${sessionScope['account'].getRole().getId() == 3}">
+                                <a href="#" class="nav-link" >MY ORDER</a>
+                            </c:if>
+                        </li>
+                        <c:if test="${sessionScope['account'].getRole().getId() == 1}">
+                                <a href="#" class="nav-link" >MANAGER PAGE</a>
+                            </c:if>
+                        <li class="nav-item">
+                            <a href="ManageBlog?index=1" class="nav-link" >MANAGER PAGE</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <c:if test="${sessionScope['account']!=null}">
+                                <a href="#" class="nav-link"><i class="biolife-icon icon-login"></i>PROFILE</a>
+>>>>>>> ca4c3917bbc31530b5e50fd946e0f1df5a7de7e2
                             </c:if>
                         </li>
                         <li class="nav-item">
                             <c:if test="${sessionScope['account']==null}">
+<<<<<<< HEAD
                                 <a href="Login.jsp" class="nav-link"><i style="font-size: 23px;" class="icon icon-person"></i></a>
+=======
+                                <a href="#" class="nav-link"><i style="font-size: 23px;" class="icon icon-person"></i></a>
+>>>>>>> ca4c3917bbc31530b5e50fd946e0f1df5a7de7e2
                                 </c:if>
                         </li>
                         <li class="nav-item">
                             <c:if test="${sessionScope['account']!=null}">
+<<<<<<< HEAD
                                 <a href="LogOut" class="nav-link"> <i style="font-size: 23px;" class='bx bxs-log-in-circle' ></i></a>
+=======
+                                <a href="#" class="nav-link"> <i style="font-size: 23px;" class='bx bxs-log-in-circle' ></i></a>
+>>>>>>> ca4c3917bbc31530b5e50fd946e0f1df5a7de7e2
                                 </c:if>
                         </li>
                         <li class="nav-item cart"><a href="#" class="nav-link"><span class="icon icon-shopping_cart"></span><span class="bag d-flex justify-content-center align-items-center"><small>${sessionScope.map.size()}</small></span></a></li>
@@ -94,4 +133,8 @@
             </div>
         </nav>
     </body>
+<<<<<<< HEAD
 </html>
+=======
+</html>
+>>>>>>> ca4c3917bbc31530b5e50fd946e0f1df5a7de7e2

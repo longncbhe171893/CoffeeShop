@@ -31,9 +31,12 @@
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library dirs="200">
+<<<<<<< HEAD
                     <file>${&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD}</file>
                 </library>
                 <library dirs="200">
+=======
+>>>>>>> ca4c3917bbc31530b5e50fd946e0f1df5a7de7e2
                     <file>${file.reference.commons-codec-1.11.jar}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>

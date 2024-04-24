@@ -1,7 +1,13 @@
 
+<<<<<<< HEAD
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
+=======
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+>>>>>>> ca4c3917bbc31530b5e50fd946e0f1df5a7de7e2
 <!DOCTYPE html>
 <html>
     <head>
@@ -134,7 +140,11 @@
             <main>
                 <div class="head-title">
 
+<<<<<<< HEAD
                     
+=======
+
+>>>>>>> ca4c3917bbc31530b5e50fd946e0f1df5a7de7e2
                     <div>
                         <form action="ManageOrder" method="post" onsubmit="return checkDate();">
                             <input required type="date" name="firstDate">
@@ -151,7 +161,11 @@
                         <span class="text">Download Excel</span>
                     </a>
                 </div>
+<<<<<<< HEAD
                 ${message}
+=======
+
+>>>>>>> ca4c3917bbc31530b5e50fd946e0f1df5a7de7e2
                 <div style="margin-top: 3rem;" class="col-md-12">
                     <table class="table">
                         <thead>
@@ -180,6 +194,7 @@
                                     <td><textarea class="address" readonly>${o.getAddress()}</textarea></td>
                                     <td>${o.getPhone()}</td>
                                     <td >
+<<<<<<< HEAD
                                         <a href="ChangeOrderStatus?orderId=${o.getId()}&ost=${o.getStatus()}&index=${index}" class="btn- btn-danger  btn-lg"  style="pointer-events: ${o.getStatus()==3?'none':o.getStatus()==4?'none':''};display: block; background-color: ${o.getStatus()==1?'#f89f3c':o.getStatus()==2?'green':o.getStatus()==4?'blue':'red'};" >${o.getStatus()==1?"Pending":o.getStatus()==2?"Approve":o.getStatus()==4?"Paid":"Cancel"}</a>
                                     </td>
 
@@ -187,6 +202,15 @@
 
                                     <td>
                                         <button type="button"  ${o.getStatus()==3?'hidden':o.getStatus()==4?'hidden':''} onclick="window.location.href = 'ChangeOrderStatus?orderId=${o.getId()}&ost=3&index=${index}'"style="border-radius: 100%;">
+=======
+                                        <a href="ChangeOrderStatus?orderId=${o.getId()}&ost=${o.getStatus()}" class="btn- btn-danger  btn-lg"  style="pointer-events: ${o.getStatus()==3?'none':''};display: block; background-color: ${o.getStatus()==1?'#f89f3c':o.getStatus()==2?'green':o.getStatus()==4?'blue':'red'};" >${o.getStatus()==1?"Pending":o.getStatus()==2?"Approve":o.getStatus()==4?"Paid":"Cancel"}</a>
+                                    </td>
+
+                                    <td> <button type="button" ${o.getStatus()==3?'hidden':o.getStatus()==4?'hidden':''} class="btn btn-success btn-lg" onclick="window.location.href = 'EditOrder?orderId=${o.getId()}&edit=true';"">Edit Order</button></td>
+
+                                    <td>
+                                        <button type="button"  ${o.getStatus()==3?'hidden':o.getStatus()==4?'hidden':''} onclick="window.location.href = 'ChangeOrderStatus?orderId=${o.getId()}&ost=3'"style="border-radius: 100%;">
+>>>>>>> ca4c3917bbc31530b5e50fd946e0f1df5a7de7e2
                                             <div class="wrapper">
                                                 <div class="arrow">
                                                     <div class="line"></div>

@@ -4,8 +4,14 @@
  */
 package Controller.SellerController;
 
+<<<<<<< HEAD
 
 import DAO.BlogDao;
+=======
+import DAO.BlogDao;
+import Model.Blog;
+import Model.Setting;
+>>>>>>> ca4c3917bbc31530b5e50fd946e0f1df5a7de7e2
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
@@ -14,6 +20,10 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
 import java.io.File;
+<<<<<<< HEAD
+=======
+import java.util.ArrayList;
+>>>>>>> ca4c3917bbc31530b5e50fd946e0f1df5a7de7e2
 import java.util.List;
 
 @MultipartConfig(
@@ -92,7 +102,11 @@ public class AddBlog extends HttpServlet {
         } else {
 
         }
+<<<<<<< HEAD
         response.sendRedirect("./ManageBlog?index=1");
+=======
+        response.sendRedirect("ManageBlog?index=1");
+>>>>>>> ca4c3917bbc31530b5e50fd946e0f1df5a7de7e2
     }
 
     /**

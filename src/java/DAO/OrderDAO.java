@@ -12,7 +12,10 @@ import Model.User;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+<<<<<<< HEAD
 import java.sql.Timestamp;
+=======
+>>>>>>> ca4c3917bbc31530b5e50fd946e0f1df5a7de7e2
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -36,7 +39,11 @@ public class OrderDAO extends DBContext {
     public ArrayList<Order> pagingOrder(int index, int numOrOnPage) {
         ArrayList<Order> list = new ArrayList<>();
         try {
+<<<<<<< HEAD
             String sql = "SELECT * FROM `Orders` order by order_status asc, order_date desc LIMIT ?, ?;";
+=======
+            String sql = "SELECT * FROM `Orders` order by order_status asc LIMIT ?, ?;";
+>>>>>>> ca4c3917bbc31530b5e50fd946e0f1df5a7de7e2
             PreparedStatement ps = connection.prepareStatement(sql);
             index = (index - 1) * numOrOnPage;
             ps.setInt(1, index);
@@ -54,11 +61,19 @@ public class OrderDAO extends DBContext {
 
     public static void main(String[] args) {
         OrderDAO od = new OrderDAO();
+<<<<<<< HEAD
         od.updateOrder(38, "Tuongg", 20, "sugwwwar");
 //        ArrayList<Order> mc = od.pagingOrder(2, 4);
 //        for (Order category : mc) {
 //            System.out.println(category);
 //        }
+=======
+
+        ArrayList<Order> mc = od.pagingOrder(2, 4);
+        for (Order category : mc) {
+            System.out.println(category);
+        }
+>>>>>>> ca4c3917bbc31530b5e50fd946e0f1df5a7de7e2
     }
 
     public ArrayList<Order> getOrderProcess() {
@@ -246,7 +261,11 @@ public class OrderDAO extends DBContext {
         }
         return list;
     }
+<<<<<<< HEAD
  
+=======
+
+>>>>>>> ca4c3917bbc31530b5e50fd946e0f1df5a7de7e2
     public int countOrder() {
         int count;
         try {
@@ -335,6 +354,7 @@ public class OrderDAO extends DBContext {
         }
     }
 
+<<<<<<< HEAD
     public void updateOrder(int orderId, String orderName, int orderDiscount, String orderNote) {
         try {
             String sql = "UPDATE `orders`\n"
@@ -366,4 +386,6 @@ public class OrderDAO extends DBContext {
         }
     }
 
+=======
+>>>>>>> ca4c3917bbc31530b5e50fd946e0f1df5a7de7e2
 }

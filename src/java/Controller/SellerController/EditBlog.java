@@ -32,10 +32,18 @@ public class EditBlog extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 //        try {
+<<<<<<< HEAD
         String index = request.getParameter("index");
         String title = request.getParameter("title");
         String img = request.getParameter("img");
         Part imagePart = request.getPart("img");
+=======
+
+        String title = request.getParameter("title");
+        String img = request.getParameter("img");
+        Part imagePart = request.getPart("img");
+        int index = Integer.valueOf(request.getParameter("index"));
+>>>>>>> ca4c3917bbc31530b5e50fd946e0f1df5a7de7e2
 //        int userId = Integer.valueOf(request.getParameter("user"));
         int userId = 8;
         String content = request.getParameter("content");
@@ -65,8 +73,12 @@ public class EditBlog extends HttpServlet {
             }
             BlogDao bdao = new BlogDao();
             bdao.updateBlog(idBlog, title, relativeImagePath, userId, content, setting_id, shortDescription);
+<<<<<<< HEAD
 
             response.sendRedirect("ManageBlog?index=" + index);
+=======
+            response.sendRedirect("ManageBlog?index="+index);
+>>>>>>> ca4c3917bbc31530b5e50fd946e0f1df5a7de7e2
         }
     }
 
@@ -86,25 +98,38 @@ public class EditBlog extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try {
+<<<<<<< HEAD
 
+=======
+            int index = Integer.valueOf(request.getParameter("index"));
+>>>>>>> ca4c3917bbc31530b5e50fd946e0f1df5a7de7e2
             BlogDao blogDao = new BlogDao();
             List<Model.Category> category = blogDao.getcategoryBlogByType();
             Blog blog = blogDao.getBlogByBlogId(Integer.valueOf(request.getParameter("blogId")));
             if (request.getParameter("BlogDetail").equals("true")) {
                 request.setAttribute("disable", "disabled");
+<<<<<<< HEAD
                 request.setAttribute("hidden", "hidden");
             }
             String index = request.getParameter("index");
+=======
+            }
+>>>>>>> ca4c3917bbc31530b5e50fd946e0f1df5a7de7e2
             String title = " > Edit Blog";
             String action = "EditBlog";
 
             request.setAttribute("title", title);
             request.setAttribute("action", action);
             request.setAttribute("blog", blog);
+<<<<<<< HEAD
             request.setAttribute("index", index);
 
             request.setAttribute("categoryBlog", category);
 
+=======
+            request.setAttribute("categoryBlog", category);
+            request.setAttribute("index", index);
+>>>>>>> ca4c3917bbc31530b5e50fd946e0f1df5a7de7e2
             request.getRequestDispatcher("EditBlog.jsp").forward(request, response);
 
         } catch (ServletException | IOException e) {

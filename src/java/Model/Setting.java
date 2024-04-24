@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 package Model;
 
 public class Setting {
@@ -8,10 +9,27 @@ public class Setting {
     private String type;
     private int sort;
     private int status;
+=======
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package Model;
+
+/**
+ *
+ * @author anhvu
+ */
+public class Setting {
+    private int setting_id;
+    private String setting_name;
+    private String type;
+>>>>>>> ca4c3917bbc31530b5e50fd946e0f1df5a7de7e2
 
     public Setting() {
     }
 
+<<<<<<< HEAD
     public Setting(int id, String name) {
         this.id = id;
         this.name = name;
@@ -60,6 +78,28 @@ public class Setting {
 
     public void setDescription(String description) {
         this.description = description;
+=======
+    public Setting(int setting_id, String setting_name, String type) {
+        this.setting_id = setting_id;
+        this.setting_name = setting_name;
+        this.type = type;
+    }
+
+    public int getSetting_id() {
+        return setting_id;
+    }
+
+    public void setSetting_id(int setting_id) {
+        this.setting_id = setting_id;
+    }
+
+    public String getSetting_name() {
+        return setting_name;
+    }
+
+    public void setSetting_name(String setting_name) {
+        this.setting_name = setting_name;
+>>>>>>> ca4c3917bbc31530b5e50fd946e0f1df5a7de7e2
     }
 
     public String getType() {
@@ -69,6 +109,7 @@ public class Setting {
     public void setType(String type) {
         this.type = type;
     }
+<<<<<<< HEAD
 
     public int getSort() {
         return sort;
@@ -86,4 +127,8 @@ public class Setting {
         this.status = status;
     }
 
+=======
+    
+    
+>>>>>>> ca4c3917bbc31530b5e50fd946e0f1df5a7de7e2
 }

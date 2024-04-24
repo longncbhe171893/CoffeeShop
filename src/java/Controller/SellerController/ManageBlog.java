@@ -25,7 +25,11 @@ public class ManageBlog extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try {
+<<<<<<< HEAD
             int numPage = 2;
+=======
+            int numPage = 4;
+>>>>>>> ca4c3917bbc31530b5e50fd946e0f1df5a7de7e2
             BlogDao blog = new BlogDao();
             int index = Integer.valueOf(request.getParameter("index"));
             int count = blog.countBlog();
@@ -37,6 +41,7 @@ public class ManageBlog extends HttpServlet {
             ArrayList<Model.User> creator = blog.getAllSeller();
             List<Model.Category> category = blog.getcategoryBlogByType();
             int nextPage, backPage;
+<<<<<<< HEAD
             if (index == 1) {
                 backPage = 1;
                 nextPage = 2;
@@ -49,11 +54,30 @@ public class ManageBlog extends HttpServlet {
             }
             request.setAttribute("nextPage", nextPage);
             request.setAttribute("backPage", backPage);
+=======
+        if (index == 1) {
+            backPage = 1;
+            nextPage=2;
+        } else if ( index == ePage) {
+            backPage=ePage-1;
+            nextPage = ePage;
+        } else {
+            backPage = index - 1;
+            nextPage = index + 1;
+        }
+            request.setAttribute("nextPage", nextPage);
+            request.setAttribute("backPage", backPage);
+            request.setAttribute("index", index);
+>>>>>>> ca4c3917bbc31530b5e50fd946e0f1df5a7de7e2
             request.setAttribute("ePage", ePage);
             request.setAttribute("bl", bl);
             request.setAttribute("creator", creator);
             request.setAttribute("categoryBlog", category);
+<<<<<<< HEAD
             request.setAttribute("index", index);
+=======
+            
+>>>>>>> ca4c3917bbc31530b5e50fd946e0f1df5a7de7e2
             request.getRequestDispatcher("ManageBlog.jsp").forward(request, response);
 
         } catch (ServletException | IOException e) {
@@ -99,6 +123,10 @@ public class ManageBlog extends HttpServlet {
 
         request.setAttribute("ePage", ePage);
         request.setAttribute("creator", creator);
+<<<<<<< HEAD
+=======
+        request.setAttribute("index", index);
+>>>>>>> ca4c3917bbc31530b5e50fd946e0f1df5a7de7e2
         request.setAttribute("categoryBlog", category);
         request.setAttribute("bl", blogList);
         request.getRequestDispatcher("ManageBlog.jsp").forward(request, response);

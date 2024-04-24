@@ -13,14 +13,18 @@
         <servlet-class>Controller.SendMail</servlet-class>
     </servlet>
     <servlet>
+<<<<<<< HEAD
         <servlet-name>Contact</servlet-name>
         <servlet-class>Controller.Contact</servlet-class>
     </servlet>
     <servlet>
+=======
+>>>>>>> ca4c3917bbc31530b5e50fd946e0f1df5a7de7e2
         <servlet-name>VerifyEmail</servlet-name>
         <servlet-class>Controller.VerifyEmail</servlet-class>
     </servlet>
     <servlet>
+<<<<<<< HEAD
         <servlet-name>SliderController</servlet-name>
         <servlet-class>com.yourpackage.SliderController</servlet-class>
     </servlet>
@@ -30,6 +34,8 @@
         <url-pattern>/UpdateStatusSlider</url-pattern>
     </servlet-mapping>
     <servlet>
+=======
+>>>>>>> ca4c3917bbc31530b5e50fd946e0f1df5a7de7e2
         <servlet-name>ForgotPassword</servlet-name>
         <servlet-class>Controller.ForgotPassword</servlet-class>
     </servlet>
@@ -38,6 +44,13 @@
         <servlet-class>Controller.SendMailForgotPassword</servlet-class>
     </servlet>
     <servlet>
+<<<<<<< HEAD
+=======
+        <servlet-name>ResetPassword</servlet-name>
+        <servlet-class>Controller.ResetPassword</servlet-class>
+    </servlet>
+    <servlet>
+>>>>>>> ca4c3917bbc31530b5e50fd946e0f1df5a7de7e2
         <servlet-name>Home</servlet-name>
         <servlet-class>Controller.Home</servlet-class>
     </servlet>
@@ -123,7 +136,11 @@
     </servlet>
     <servlet>
         <servlet-name>BlogController</servlet-name>
+<<<<<<< HEAD
         <servlet-class>Controller.BlogController</servlet-class>
+=======
+        <servlet-class>Controller.SellerController.BlogController</servlet-class>
+>>>>>>> ca4c3917bbc31530b5e50fd946e0f1df5a7de7e2
     </servlet>
     <servlet>
         <servlet-name>FeedbackController</servlet-name>
@@ -131,7 +148,11 @@
     </servlet>
     <servlet>
         <servlet-name>SellerDashboard</servlet-name>
+<<<<<<< HEAD
         <servlet-class>Controller.SellerDashboard</servlet-class>
+=======
+        <servlet-class>Controller.SellerController.SellerDashboard</servlet-class>
+>>>>>>> ca4c3917bbc31530b5e50fd946e0f1df5a7de7e2
     </servlet>
     <servlet>
         <servlet-name>updateOrderStatus</servlet-name>
@@ -139,7 +160,11 @@
     </servlet>
     <servlet>
         <servlet-name>ManageOrder</servlet-name>
+<<<<<<< HEAD
         <servlet-class>Controller.ManageOrder</servlet-class>
+=======
+        <servlet-class>Controller.SellerController.ManageOrder</servlet-class>
+>>>>>>> ca4c3917bbc31530b5e50fd946e0f1df5a7de7e2
     </servlet>
     <servlet>
         <servlet-name>MyOrder</servlet-name>
@@ -154,12 +179,25 @@
         <servlet-class>Controller.ChangeStatus</servlet-class>
     </servlet>
     <servlet>
+<<<<<<< HEAD
         <servlet-name>AddBlog</servlet-name>
         <servlet-class>Controller.AddBlog</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>EditBlog</servlet-name>
         <servlet-class>Controller.EditBlog</servlet-class>
+=======
+        <servlet-name>ManageBlog</servlet-name>
+        <servlet-class>Controller.SellerController.ManageBlog</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddBlog</servlet-name>
+        <servlet-class>Controller.SellerController.AddBlog</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditBlog</servlet-name>
+        <servlet-class>Controller.SellerController.EditBlog</servlet-class>
+>>>>>>> ca4c3917bbc31530b5e50fd946e0f1df5a7de7e2
     </servlet>
     <servlet>
         <servlet-name>ChangePassword</servlet-name>
@@ -167,7 +205,11 @@
     </servlet>
     <servlet>
         <servlet-name>GetOrderDetail</servlet-name>
+<<<<<<< HEAD
         <servlet-class>Controller.GetOrderDetail</servlet-class>
+=======
+        <servlet-class>Controller.SellerController.GetOrderDetail</servlet-class>
+>>>>>>> ca4c3917bbc31530b5e50fd946e0f1df5a7de7e2
     </servlet>
     <servlet>
         <servlet-name>DownloadOrder</servlet-name>
@@ -182,6 +224,7 @@
         <servlet-class>Controller.EditRole</servlet-class>
     </servlet>
     <servlet>
+<<<<<<< HEAD
         <servlet-name>AddUser</servlet-name>
         <servlet-class>Controller.AddUser</servlet-class>
     </servlet>
@@ -200,6 +243,16 @@
     <servlet>
         <servlet-name>SliderController</servlet-name>
         <servlet-class>Controller.SliderController</servlet-class>
+=======
+        <servlet-name>DeleteBlog</servlet-name>
+        <servlet-class>Controller.SellerController.DeleteBlog</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>FilterBlog</servlet-name>
+        <servlet-class>Controller.SellerController.FilterBlog</servlet-class>
+    </servlet>
+    <servlet>
+>>>>>>> ca4c3917bbc31530b5e50fd946e0f1df5a7de7e2
         <servlet-name>ChangeStatusBlog</servlet-name>
         <servlet-class>Controller.SellerController.ChangeStatusBlog</servlet-class>
     </servlet>
@@ -208,21 +261,30 @@
         <servlet-class>Controller.SellerController.ChangeOrderStatus</servlet-class>
     </servlet>
     <servlet>
+<<<<<<< HEAD
         <servlet-name>UpdateOrderDetail</servlet-name>
         <servlet-class>Controller.SellerController.UpdateOrderDetail</servlet-class>
     </servlet>
     <servlet>
+=======
+>>>>>>> ca4c3917bbc31530b5e50fd946e0f1df5a7de7e2
         <servlet-name>EditOrder</servlet-name>
         <servlet-class>Controller.SellerController.EditOrder</servlet-class>
     </servlet>
     <servlet>
+<<<<<<< HEAD
         <servlet-name>DeleteProductFromOrder</servlet-name>
         <servlet-class>Controller.SellerController.DeleteProductFromOrder</servlet-class>
+=======
+        <servlet-name>UpdateOrderDetail</servlet-name>
+        <servlet-class>Controller.SellerController.UpdateOrderDetail</servlet-class>
+>>>>>>> ca4c3917bbc31530b5e50fd946e0f1df5a7de7e2
     </servlet>
     <servlet-mapping>
         <servlet-name>Register</servlet-name>
         <url-pattern>/Register</url-pattern>
     </servlet-mapping>
+<<<<<<< HEAD
     <servlet>
         <servlet-name>ResetPassword</servlet-name>
         <servlet-class>Controller.ResetPassword</servlet-class>
@@ -231,6 +293,8 @@
         <servlet-name>ResetPassword</servlet-name>
         <url-pattern>/ResetPassword</url-pattern>
     </servlet-mapping>
+=======
+>>>>>>> ca4c3917bbc31530b5e50fd946e0f1df5a7de7e2
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/Login</url-pattern>
@@ -239,6 +303,7 @@
         <servlet-name>SendMail</servlet-name>
         <url-pattern>/SendMail</url-pattern>
     </servlet-mapping>
+<<<<<<< HEAD
     <servlet>
         <servlet-name>Success</servlet-name>
         <jsp-file>/Success.jsp</jsp-file>
@@ -251,6 +316,8 @@
         <servlet-name>Contact</servlet-name>
         <url-pattern>/Contact</url-pattern>
     </servlet-mapping>
+=======
+>>>>>>> ca4c3917bbc31530b5e50fd946e0f1df5a7de7e2
     <servlet-mapping>
         <servlet-name>VerifyEmail</servlet-name>
         <url-pattern>/VerifyEmail</url-pattern>
@@ -264,6 +331,13 @@
         <url-pattern>/SendMailForgotPassword</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+<<<<<<< HEAD
+=======
+        <servlet-name>ResetPassword</servlet-name>
+        <url-pattern>/ResetPassword</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+>>>>>>> ca4c3917bbc31530b5e50fd946e0f1df5a7de7e2
         <servlet-name>Home</servlet-name>
         <url-pattern>/Home</url-pattern>
     </servlet-mapping>
@@ -340,10 +414,13 @@
         <url-pattern>/ProductLists</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+<<<<<<< HEAD
         <servlet-name>ManageSlider</servlet-name>
         <url-pattern>/ManageSlider</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+=======
+>>>>>>> ca4c3917bbc31530b5e50fd946e0f1df5a7de7e2
         <servlet-name>VerifyForgotPassword</servlet-name>
         <url-pattern>/VerifyForgotPassword</url-pattern>
     </servlet-mapping>
@@ -436,22 +513,35 @@
         <url-pattern>/changeStatus</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+<<<<<<< HEAD
+=======
+        <servlet-name>ManageBlog</servlet-name>
+        <url-pattern>/ManageBlog</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+>>>>>>> ca4c3917bbc31530b5e50fd946e0f1df5a7de7e2
         <servlet-name>AddBlog</servlet-name>
         <url-pattern>/AddBlog</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+<<<<<<< HEAD
         <servlet-name>AddSlider</servlet-name>
         <url-pattern>/AddSlider</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+=======
+>>>>>>> ca4c3917bbc31530b5e50fd946e0f1df5a7de7e2
         <servlet-name>EditBlog</servlet-name>
         <url-pattern>/EditBlog</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+<<<<<<< HEAD
         <servlet-name>EditSlider</servlet-name>
         <url-pattern>/EditSlider</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+=======
+>>>>>>> ca4c3917bbc31530b5e50fd946e0f1df5a7de7e2
         <servlet-name>ChangePassword</servlet-name>
         <url-pattern>/ChangePassword</url-pattern>
     </servlet-mapping>
@@ -472,6 +562,7 @@
         <url-pattern>/EditRole</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+<<<<<<< HEAD
         <servlet-name>AddUser</servlet-name>
         <url-pattern>/AddUser</url-pattern>
     </servlet-mapping>
@@ -480,12 +571,17 @@
         <url-pattern>/ManageBlog</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+=======
+>>>>>>> ca4c3917bbc31530b5e50fd946e0f1df5a7de7e2
         <servlet-name>DeleteBlog</servlet-name>
         <url-pattern>/DeleteBlog</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+<<<<<<< HEAD
         <servlet-name>UserDetails</servlet-name>
         <url-pattern>/UserDetails</url-pattern>
+=======
+>>>>>>> ca4c3917bbc31530b5e50fd946e0f1df5a7de7e2
         <servlet-name>FilterBlog</servlet-name>
         <url-pattern>/FilterBlog</url-pattern>
     </servlet-mapping>
@@ -498,16 +594,24 @@
         <url-pattern>/ChangeOrderStatus</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+<<<<<<< HEAD
         <servlet-name>UpdateOrderDetail</servlet-name>
         <url-pattern>/UpdateOrderDetail</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+=======
+>>>>>>> ca4c3917bbc31530b5e50fd946e0f1df5a7de7e2
         <servlet-name>EditOrder</servlet-name>
         <url-pattern>/EditOrder</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+<<<<<<< HEAD
         <servlet-name>DeleteProductFromOrder</servlet-name>
         <url-pattern>/DeleteProductFromOrder</url-pattern>
+=======
+        <servlet-name>UpdateOrderDetail</servlet-name>
+        <url-pattern>/UpdateOrderDetail</url-pattern>
+>>>>>>> ca4c3917bbc31530b5e50fd946e0f1df5a7de7e2
     </servlet-mapping>
     <session-config>
         <session-timeout>
@@ -517,4 +621,11 @@
     <welcome-file-list>
         <welcome-file>Home</welcome-file>
     </welcome-file-list>
+<<<<<<< HEAD
+=======
+    <servlet>
+        <servlet-name>EditRole</servlet-name>
+        <servlet-class>Controller.EditRole</servlet-class>
+    </servlet>
+>>>>>>> ca4c3917bbc31530b5e50fd946e0f1df5a7de7e2
 </web-app>
