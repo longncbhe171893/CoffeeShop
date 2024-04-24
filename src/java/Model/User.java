@@ -13,7 +13,7 @@ public class User {
     private String password;
     private String address;
     private String phone;
-    private String sex;
+    private int sex;
     private String image;
     private int setting_id;
     private int userStatus;
@@ -38,7 +38,7 @@ public class User {
         this.point = point;
     }
 
-    public User(int id, String name, String email, String password, String address, String phone, String sex, String image, int setting_id, int userStatus, double point) {
+    public User(int id, String name, String email, String password, String address, String phone, int sex, String image, int setting_id, int userStatus, double point) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -100,11 +100,11 @@ public class User {
         this.phone = phone;
     }
 
-    public String getSex() {
+    public int getSex() {
         return sex;
     }
 
-    public void setSex(String sex) {
+    public void setSex(int sex) {
         this.sex = sex;
     }
 

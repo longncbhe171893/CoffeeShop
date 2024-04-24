@@ -196,6 +196,10 @@
         <servlet-name>UpdateOrderDetail</servlet-name>
         <servlet-class>Controller.SellerController.UpdateOrderDetail</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AddProduct</servlet-name>
+        <servlet-class>Controller.AddProduct</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Register</servlet-name>
         <url-pattern>/Register</url-pattern>
@@ -451,6 +455,10 @@
     <servlet-mapping>
         <servlet-name>UpdateOrderDetail</servlet-name>
         <url-pattern>/UpdateOrderDetail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddProduct</servlet-name>
+        <url-pattern>/AddProduct</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
