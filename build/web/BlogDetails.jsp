@@ -1,8 +1,4 @@
-<%-- 
-    Document   : BlogDetails
-    Created on : May 18, 2023, 8:36:56 PM
-    Author     : ASUS
---%>
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -49,24 +45,12 @@
                                 <img src="${blog.blog_image}" alt="" class="img-fluid">
                             </p>
                             <p>${blog.content}</p>
-                            <i><h6 class="mb-3">Post by: ${blog.user.name}</h6></i>
-                            <i><h6 class="mb-3">Post date: ${blog.post_date}</h6></i>
+                            <i><h6 class="mb-3 icon-person"> Post by: ${blog.user.name}</h6></i>
+                            <i><h6 class="mb-3 icon-calendar"> Post date: ${blog.post_date}</h6></i>
                         </div>
                         <div class="col-lg-4 col-md-6 mb-5 mb-md-5">
                             <div class="ftco-footer-widget mb-4">
-                                <h2 class="ftco-heading-2">Recent Blog</h2>
-                                <c:forEach var="bl" items="${bl}">
-                                    <div class="block-21 mb-4 d-flex">
-                                        <a href="BlogController?blogId=${bl.getBlog_id()}"><img class="blog-img mr-4" src="${bl.getBlog_image()}" alt="image"></a>
-                                        <div class="text">
-                                            <h3 class="heading"><a href="BlogController?blogId=${bl.getBlog_id()}">${bl.getBlog_title()}</a></h3>
-                                            <div class="meta">
-                                                <div><a href="BlogController?blogId=${bl.getBlog_id()}"><span class="icon-calendar"></span> ${bl.getPost_date()}</a></div>
-                                                <div><a href="BlogController?blogId=${bl.getBlog_id()}"><span class="icon-person"></span> ${bl.getUser().getName()}</a></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </c:forEach>
+                                <%@include file="SidebarBlog.jsp" %>    
                             </div>
                         </div>
                     </div>

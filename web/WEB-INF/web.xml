@@ -234,6 +234,10 @@
     </filter-mapping>
     <filter-mapping>
         <filter-name>AuthorizationFilter</filter-name>
+        <url-pattern>/ManagerUser</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>AuthorizationFilter</filter-name>
         <url-pattern>/PostDetails</url-pattern>
     </filter-mapping>
     <filter-mapping>

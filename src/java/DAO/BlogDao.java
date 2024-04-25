@@ -11,6 +11,54 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BlogDao extends DBContext {
+    public ArrayList<Blog> getBlogBySearchTilte(String search) {
+        ArrayList<Blog> list = new ArrayList();
+        PreparedStatement ps;
+        ResultSet rs;
+        String sql = "SELECT * FROM coffeeshop.blog WHERE blog_title LIKE ?;";
+        try {
+            ps = connection.prepareStatement(sql);
+                        ps.setString(1, "%" + search + "%");
+
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+
+                Blog blog = new Blog(rs.getInt(1), rs.getString(2), rs.getString(3), getUserById(rs.getInt(4)), rs.getDate(5), rs.getString(6), getSettingById(rs.getInt(7)), rs.getInt(8), rs.getString(9));
+//                Blog blog = new Blog(blog_id, blog_title, blog_image, user_id, post_date, content);
+                list.add(blog);
+            }
+            rs.close();
+            ps.close();
+        } catch (SQLException e) {
+        }
+        return list;
+    }
+    
+    public ArrayList<Blog> getBlogByCategory(int cat) {
+        ArrayList<Blog> list = new ArrayList();
+        PreparedStatement ps;
+        ResultSet rs;
+        String sql = "SELECT * FROM coffeeshop.blog where setting_id=?;";
+        try {
+            ps = connection.prepareStatement(sql);
+                        ps.setInt(1, cat);
+
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+
+                Blog blog = new Blog(rs.getInt(1), rs.getString(2), rs.getString(3), getUserById(rs.getInt(4)), rs.getDate(5), rs.getString(6), getSettingById(rs.getInt(7)), rs.getInt(8), rs.getString(9));
+//                Blog blog = new Blog(blog_id, blog_title, blog_image, user_id, post_date, content);
+                list.add(blog);
+            }
+            rs.close();
+            ps.close();
+        } catch (SQLException e) {
+        }
+        return list;
+    }
+     
 
     public Blog getBlogByBlogId(int blogId) {
         Blog blog;
@@ -117,7 +165,22 @@ public class BlogDao extends DBContext {
         return (list);
     }
 
+<<<<<<< Updated upstream
     public void addBlog(String title, String img, int userId, String content) {
+=======
+    public static void main(String[] args) {
+        BlogDao bld = new BlogDao();
+        //System.out.println(bld.(6));
+        ArrayList<Blog> bl = bld.getBlogByCategory(7);
+        for (Blog blog : bl) {
+            System.out.println(blog);
+        }
+
+    }
+
+    public void addBlog(String title, String img, int userId, String content, int setting_id, String short_descreption) {
+
+>>>>>>> Stashed changes
         String sql = "INSERT INTO `Blog`\n"
                 + "  (`blog_title`, `blog_image`, `user_id`, `post_date`, `content`)\n"
                 + "VALUES\n"

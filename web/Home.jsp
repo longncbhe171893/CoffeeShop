@@ -37,56 +37,27 @@
         <link rel="stylesheet" href="css/style.css">
     </head>
     <body>
-        <jsp:include page="header.jsp"/>      
+        <jsp:include page="header.jsp"/>   
+              
         <section class="home-slider owl-carousel">
-            <div class="slider-item" style="background-image: url(images/bg_1.jpg);">
+            
+ <c:forEach var="p" items="${plist12}">
+     <div class="slider-item" style="background-image: url(${p.getImage()});">
                 <div class="overlay"></div>
                 <div class="container">
                     <div class="row slider-text justify-content-center align-items-center" data-scrollax-parent="true">
                         <div class="col-md-8 col-sm-12 text-center ftco-animate">
                             <span class="subheading">Welcome</span>
-                            <h1 class="mb-4">The Best Coffee Testing Experience</h1>
+                            <h1 class="mb-4">${p.getName()}</h1>
                             <p class="mb-4 mb-md-5"></p>
-                            <p><a href="#"
-                                  class="btn btn-white btn-outline-white p-3 px-xl-4 py-xl-3">View Menu</a></p>
+                            <p><a href="./ProductDetails?pid=${p.getId()}&mode=0"
+                                  class="btn btn-white btn-outline-white p-3 px-xl-4 py-xl-3">View Product Detail</a></p>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <div class="slider-item" style="background-image: url(images/bg_2.jpg);">
-                <div class="overlay"></div>
-                <div class="container">
-                    <div class="row slider-text justify-content-center align-items-center" data-scrollax-parent="true">
-
-                        <div class="col-md-8 col-sm-12 text-center ftco-animate">
-                            <span class="subheading">Welcome</span>
-                            <h1 class="mb-4">The Best Coffee Testing Experience</h1>
-                            <p class="mb-4 mb-md-5"></p>
-                            <p><a href="#"
-                                  class="btn btn-white btn-outline-white p-3 px-xl-4 py-xl-3">View Menu</a></p>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-
-            <div class="slider-item" style="background-image: url(images/bg_3.jpg);">
-                <div class="overlay"></div>
-                <div class="container">
-                    <div class="row slider-text justify-content-center align-items-center" data-scrollax-parent="true">
-
-                        <div class="col-md-8 col-sm-12 text-center ftco-animate">
-                            <span class="subheading">Welcome</span>
-                            <h1 class="mb-4">The Best Coffee Testing Experience</h1>
-                            <p class="mb-4 mb-md-5"></p>
-                            <p><a href="#"
-                                  class="btn btn-white btn-outline-white p-3 px-xl-4 py-xl-3">View Menu</a></p>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
+                    </c:forEach>
+           
         </section>
 
         <section class="ftco-about d-md-flex">
@@ -117,10 +88,78 @@
                             we offer the most unique and interesting selections</p>
                     </div>
                 </div>
-               
+                <div class="row">     
+                    <c:forEach var="p" items="${plist}">
+                        <div class="col-md-3">
+                            <div class="menu-entry"> 
+                                <a href="./ProductDetails?pid=${p.getId()}&mode=0" class="img" style="background-image: url(${p.getImage()});"></a>
+                                <div class="text text-center pt-4">
+                                    <h3 class="place-heading"" href="./ProductDetails?pid=${p.getId()}&mode=0" class="pr-name">${p.getName()}</a></h3>
+                                    <div class="place-price">
+                                        <p style="color: white;" class="currencySymbol">Price: <span class="priceSpan">${p.getPrice()}</span>đ</p>
+                                    </div>               
+                                    <p><a href="./ProductDetails?pid=${p.getId()}&mode=0" class="btn btn-primary btn-outline-primary">Order</a></p>
+                                </div>
+                            </div>
+                        </div>
+                    </c:forEach>
+                </div>
+            </div>
+        </section>
+        <section class="ftco-section">
+            <div class="container">
+                <div class="row justify-content-center mb-5 pb-3">
+                    <div class="col-md-7 heading-section ftco-animate text-center">
+                        <span class="subheading">Discover</span>
+                        <h2 class="mb-4">Best Coffee Selling</h2>
+                        <p>Here, we would like to introduce you to the best-selling products, bringing you great and memorable coffee experiences.</p>
+                    </div>
+                </div>
+                <div class="row">     
+                    <c:forEach var="p" items="${plist1}">
+                        <div class="col-md-3">
+                            <div class="menu-entry"> 
+
+                                <a href="./ProductDetails?pid=${p.getId()}&mode=0" class="img" style="background-image: url(${p.getImage()});"></a>
+                                <div class="text text-center pt-4">
+                                    <h3 class="place-heading"" href="./ProductDetails?pid=${p.getId()}&mode=0" class="pr-name">${p.getName()}</a></h3>
+
+                                    <div class="place-price">
+                                        <p style="color: white;" class="currencySymbol">Price: <span class="priceSpan">${p.getPrice()}</span>đ</p>
+                                    </div>               
+                                    <p><a href="./ProductDetails?pid=${p.getId()}&mode=0" class="btn btn-primary btn-outline-primary">Order</a></p>
+                                </div>
+                            </div>
+                        </div>
+                    </c:forEach>
+                </div>
             </div>
         </section>
 
+        <section class="ftco-section">
+            <div class="container">
+                <div class="row justify-content-center mb-5 pb-3">
+                    <div class="col-md-7 heading-section ftco-animate text-center">
+                        <span class="subheading">Discover</span>
+                        <h2 class="mb-4">Newest Blog</h2>
+                        <p>Here, we would like to introduce you to the new blog, bringing you great and memorable coffee experiences.</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <a href="BlogController?blogId=${bl[0].getBlog_id()}"><img class="blog-img mr-4" src="${bl[0].getBlog_image()}" alt="image"></a>
+                        <div class="text">
+                            <h5 class="heading"><a href="BlogController?blogId=${bl[0].getBlog_id()}">${bl[0].getBlog_title()}</a></h5>
+                            <div class="meta">
+                                <h2><a href="Blog" class="btn btn-primary btn-outline-primary">View All Blog</a></h2>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </section>
         <jsp:include page="Footer.jsp"/>    
 
         <script src="js/jquery.min.js"></script>

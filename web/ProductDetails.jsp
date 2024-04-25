@@ -1,8 +1,11 @@
+<<<<<<< Updated upstream
 <%-- 
     Document   : ProductDetails
     Created on : May 25, 2023, 12:04:42 PM
     Author     : asus
 --%>
+=======
+>>>>>>> Stashed changes
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -77,6 +80,7 @@
         </section>
 
         <section class="ftco-section">
+<<<<<<< Updated upstream
             <div class="container">
                 <div class="row">
                     <div class="col-lg-6 mb-5 ftco-animate">
@@ -131,6 +135,64 @@
                         </form>
                     </div>
                 </div>
+=======
+
+            <div class="row">
+                <div class="col-md-2">
+                    <%@include file="SidebarProduct.jsp" %>
+                </div>
+
+
+                <div class="col-md-5 mb-5 ftco-animate">
+                    <img src="${p.getImage()}" class="img-fluid" alt="Colorlib Template">
+                </div>
+                <div class="col-md-5 product-details pl-md-5 ftco-animate">
+                    <h3>${p.getName()}</h3>
+
+                    
+                    <p class="price">
+                        <p style="    font-size: 30px;
+                           color: #f8b500;"><span style="color:#f8b500 " id="product-price">${p.getPrice()}</span>,000đ</p>
+                        <span id="selected-size-price" style="display: none;"></span>
+                    
+
+                    <p>${p.getDescreption()}</p>	
+                    <form action="AddToCart" method="post"> 
+                        <div class="row mt-4">
+                            <div class="col-md-6">
+                                <div class="form-group d-flex">
+                                    <div class="select-wrap">
+                                        <span style="font-size: 20px">Select Size:</span><br>
+                                        <c:forEach items="${slist}" var="s">
+                                            <label>
+                                                <span><input type="radio" name="psize" value="${s.getId()}" required>${s.getName()}: <p style="color: #f8b500; display: inline-block"> +${s.getPrice()}</span>00đ</p>
+                                            </label><br>
+                                        </c:forEach>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="w-100"></div>
+                            <div class="input-group col-md-6 d-flex mb-3">
+                                <span class="input-group-btn mr-2">
+                                    <button type="button" class="quantity-left-minus btn"  data-type="minus" data-field="">
+                                        <i class="icon-minus"></i>
+                                    </button>
+                                </span>
+                                <input type="text" id="quantity" name="quantity" class="form-control input-number" value="1" min="1" max="50" readonly>
+                                <span class="input-group-btn ml-2">
+                                    <button type="button" class="quantity-right-plus btn" data-type="plus" data-field="">
+                                        <i class="icon-plus"></i>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                        <input type="hidden" value="${p.getId()}" name="pid">
+                        <p><input type="submit" value="Add to Cart" class="btn btn-primary py-3 px-5"></p>
+                    </form>
+                </div>
+
+>>>>>>> Stashed changes
             </div>
         </section>
 
@@ -213,6 +275,7 @@
                 }
 
                 // Function to update the price based on the size and quantity
+<<<<<<< Updated upstream
 //                function updatePrice() {
 //                    var selectedSizePrice = parseInt($('#selected-size-price').text()); // Get the price of the selected size
 //                    var totalPrice = (basePrice + selectedSizePrice) * quantity; // Calculate the total price
@@ -240,6 +303,14 @@
                 }
 
 
+=======
+                function updatePrice() {
+                    var selectedSizePrice = parseInt($('#selected-size-price').text()); // Get the price of the selected size
+                    var totalPrice = (basePrice + selectedSizePrice) * quantity; // Calculate the total price
+                    $('#product-price').text(formatPrice(totalPrice)); // Update the displayed price
+                }
+
+>>>>>>> Stashed changes
                 // Increase quantity event
                 $('.quantity-right-plus').click(function (e) {
                     e.preventDefault();

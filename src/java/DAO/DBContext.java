@@ -18,7 +18,11 @@ public class DBContext {
         try {
             String user = "root";
             String pass = "dangphuhai";
+<<<<<<< Updated upstream
             String url = "jdbc:mysql://localhost:3306/swp391";
+=======
+            String url = "jdbc:mysql://localhost:3306/coffeeshop";
+>>>>>>> Stashed changes
             Class.forName("com.mysql.jdbc.Driver");
             connection = DriverManager.getConnection(url, user, pass);
         } catch (Exception ex) {

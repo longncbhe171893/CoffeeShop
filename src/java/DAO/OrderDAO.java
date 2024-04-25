@@ -8,6 +8,7 @@ import Model.Category;
 import Model.OrderDetail;
 import Model.Order;
 import Model.Product;
+import Model.ProductDTO;
 import Model.User;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -94,10 +95,75 @@ public class OrderDAO extends DBContext {
 //                    ps.executeUpdate();
 //                }
 
+<<<<<<< Updated upstream
         } catch (SQLException e) {
         }
     }
     
+=======
+    public void insertOrder(String name, String phone, String address, String note, int discount, Date date, User user, List<ProductDTO> map) {
+        String sql;
+        if (user != null) {
+            sql = "INSERT INTO orders (user_id, order_name, order_status, order_discount, order_date, notes, order_address, order_phone)\n"
+                    + "VALUES (?, ?, 1, ?, NOW(), ?, ?, ?);";
+        } else {
+            sql = "INSERT INTO orders (order_name, order_status, order_discount, order_date, notes, order_address, order_phone)\n"
+                    + "VALUES (?, 1, ?, NOW(), ?, ?, ?);";
+        }
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            if (user != null) {
+                ps.setInt(1, user.getId());
+                ps.setString(2, name);
+                ps.setInt(3, discount);
+//                ps.setDate(4, new java.sql.Date(date.getTime()));
+                ps.setString(4, note);
+                ps.setString(5, address);
+                ps.setString(6, phone);
+            } else {
+                ps.setString(1, name);
+                ps.setInt(2, discount);
+//                ps.setDate(3, new java.sql.Date(date.getTime()));
+                ps.setString(3, note);
+                ps.setString(4, address);
+                ps.setString(5, phone);
+            }
+            ps.executeUpdate();
+            String xSQL = "SELECT * FROM orders ORDER BY order_id DESC LIMIT 1;";
+            ps = connection.prepareStatement(xSQL);
+            ResultSet rs = ps.executeQuery();
+            int id = -99;
+            if (rs.next()) {
+                id = rs.getInt("order_id");
+            }
+            String qSQL = "INSERT INTO orderdetail (order_id, product_id, order_price, quantity, productSize_id)\n"
+                    + "VALUES (?, ?, ?, ?, ?);";
+            String zSQL = "INSERT INTO orderdetail (order_id, product_id, order_price, quantity)\n"
+                    + "VALUES (?, ?, ?, ?);";
+            for (ProductDTO i : map) {
+                if (i.getProductSize() != null) {
+                    ps = connection.prepareStatement(qSQL);
+                    ps.setInt(1, id);
+                    ps.setInt(2, i.getProduct().getId());
+                    ps.setDouble(3, i.getProduct().getPrice() + i.getProductSize().getPrice());
+                    ps.setInt(4, i.getQuantity());
+                    ps.setInt(5, i.getProductSize().getId());
+                    ps.executeUpdate();
+                } else {
+                    ps = connection.prepareStatement(zSQL);
+                    ps.setInt(1, id);
+                    ps.setInt(2, i.getProduct().getId());
+                    ps.setDouble(3, i.getProduct().getPrice());
+                    ps.setInt(4, i.getQuantity());
+                    ps.executeUpdate();
+                }
+
+            }
+        } catch (SQLException e) {
+        }
+    }
+
+>>>>>>> Stashed changes
     public void updateUser(int point, int id) {
         try {
             String sql = "UPDATE Users\n"

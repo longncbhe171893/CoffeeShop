@@ -7,7 +7,11 @@ package Controller.ProductController;
 import DAO.ProductDAO;
 
 import Model.Product;
+<<<<<<< Updated upstream
 
+=======
+import Model.ProductSize;
+>>>>>>> Stashed changes
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -43,13 +47,21 @@ public class ProductDetails extends HttpServlet {
             //int count = feedback.countComment(Integer.parseInt(pid));
 
             Product p = pdao.getProductById(Integer.valueOf(pid));
+<<<<<<< Updated upstream
             //ArrayList<ProductSize> slist = pdao.getProductSize();
+=======
+            ArrayList<ProductSize> slist = pdao.getProductSize();
+>>>>>>> Stashed changes
             int product_id = Integer.parseInt(request.getParameter("pid"));
             //List<Feedback> feedbackList = feedback.getFeedbackById(product_id);
            // request.setAttribute("feedback", feedbackList);
             request.setAttribute("p", p);
            // request.setAttribute("count", count);
+<<<<<<< Updated upstream
             //.setAttribute("slist", slist);
+=======
+            request.setAttribute("slist", slist);
+>>>>>>> Stashed changes
             request.getRequestDispatcher("ProductDetails.jsp").forward(request, response);
     }
 

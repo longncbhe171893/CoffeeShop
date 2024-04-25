@@ -1,8 +1,4 @@
-<%-- 
-    Document   : BlogList
-    Created on : May 20, 2023, 8:48:37 PM
-    Author     : DELL
---%>
+
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -25,52 +21,51 @@
         <h1 style="text-align: center; color: #FF8C00">Blog List</h1>
         <div style="margin-top: 60px"></div>
 
+
         <div class="container">
 
-            <form action="BlogController" class="search-form" method="post" >
-                <div class="form-group">
-                    <div class="icon">
-                        <span class="icon-search"></span>
-                    </div>
-                    <input type="text" class="form-control" name="search" placeholder="Search...">
-                </div>
-            </form>
+
             <div class="row">
-                <c:forEach items="${data}" var="i"> 
-                    <div class="col-md-6 column-style">
-                        <div class="wrap-item">
-                            <a href="BlogController?blogId=${i.getBlog_id()}">
-                                <img class="item-image" src="${i.getBlog_image()}" alt="image">
-                                <div class="item-detail-infor">
-                                    <span>${i.getPost_date()}</span>&ensp;
-                                    <span>${i.getUser().getName()}</span>&ensp;
-                                </div>
-                                <div class="item-title" style="color: gray;">
-                                    <span style="color: gray">${i.getBlog_title()} </span>
-                                </div>
-                            </a>
+                <div class="col-md-8">
+                    <c:forEach items="${data}" var="i"> 
+                        <div class="col-md-12 column-style">
+                            <div class="wrap-item">
+                                <a href="BlogController?blogId=${i.getBlog_id()}">
+                                    <img class="item-image" style=" width: 650px!important;" src="${i.getBlog_image()}" alt="image">
+                                    <div class="item-detail-infor">
+                                        <span class="icon-calendar">${i.getPost_date()}</span>&ensp;
+                                        <span class="icon-person">${i.getUser().getName()}</span>&ensp;
+                                        <span class="icon-type">${i.getSetting().getName()}</span>&ensp;
+                                    </div>
+                                    <div class="item-title" style="color: gray;">
+                                        <h5 style="color: white">${i.getBlog_title()} </h5>
+                                        <span style="color: gray">${i.getDescription()} </span>
+                                    </div>
+                                </a>
+                            </div>
                         </div>
+                    </c:forEach> 
+
+                    <!--<div class="wrap-pagination">
+                </div>
+            </div>-->
+
+                    <div class="wrap-pagination">
+                        <center>
+                            <c:set var="page" value="${requestScope.page}" />
+                            <div>
+                                <c:forEach begin="1" end="${requestScope.numberOfPage}" var="i">
+                                    <a href="Blog?page=${i}">${i}</a>
+                                </c:forEach>
+                            </div>
+                        </center>
                     </div>
-                </c:forEach> 
-
-                <!--                <div class="wrap-pagination">
-                
-                <c:set var="page" value="${requestScope.page}" />
-                <div style=" margin-top: 20px">
-                <c:forEach begin="${1}" end="${requestScope.numberOfPage}" var="i">
-                    <a style="background-color: #d1b33c;
-                       color: black;
-                       border-radius: 5px;
-                       border: 2px inset #e2a222;
-                       margin-left: 5px " href="Blog?page=${i}">${i}    
-                    </a>
-
-                </c:forEach>
-            </div>
-        </div>-->
+                </div>
+                <div class="col-md-4">
+                    <%@include file="SidebarBlog.jsp" %>    
+                </div>        
             </div>
         </div>
-
         <jsp:include page="Footer.jsp"/>
     </body>
 </html>
