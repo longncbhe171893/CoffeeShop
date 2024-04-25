@@ -15,6 +15,7 @@
         <link rel="stylesheet" href="CSSsimple/adminDashbord.css">
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <link href="css/nice-select.css" rel="stylesheet">
+        <link href="CSSsimple/SearchBox.css" rel="stylesheet">
         <title>Coffee</title>     
         <script src="ckeditor/ckeditor.js"></script> 
         <script src="ckfinder/ckfinder.js"></script>
@@ -53,6 +54,7 @@
             .filter{
                 display: flex;
                 margin: 10px;
+                margin-left: 250px;
 
             }
             .filter_date{
@@ -126,34 +128,52 @@
                 </div>
             </nav>
             <!-- NAVBAR -->
-            <button onclick="ShowToast()">Success</button>
-            <div id="toastBox">
 
-            </div>
-            <script>
-                let toastBox = document.getElementById('toastBox');
-
-
-                function ShowToast() {
-                    let toast = document.createElement('div');
-                    toast.classList.add('toast');
-                    toast.innerHTML = 'success';
-                    toastBox.appendChild(toast);
-
-                }
-            </script>
             <!-- MAIN -->
             <main>
                 <div>
-                    <nav>  
-                        <form action="ManageBlog" method="post">
-                            <div class="form-input">
-                                <input type="search" id="myInput" onkeyup="myFunction()" name="search" placeholder="Search by Tittle">
-                                <input type="text" hidden  name="index" value="${index}">
-                                <button type="submit" class="search-btn"><i class='bx bx-search' ></i></button>
-                            </div>
-                        </form>
-                    </nav>
+                    <div id="search">
+                        <svg viewBox="0 0 420 60" xmlns="http://www.w3.org/2000/svg">
+                        <rect class="bar"/>
+
+                        <g class="magnifier">
+                        <circle class="glass"/>
+                        <line class="handle" x1="32" y1="32" x2="44" y2="44"></line>
+                        </g>
+
+                        <g class="sparks">
+                        <circle class="spark"/>
+                        <circle class="spark"/>
+                        <circle class="spark"/>
+                        </g>
+
+                        <g class="burst pattern-one">
+                        <circle class="particle circle"/>
+                        <path class="particle triangle"/>
+                        <circle class="particle circle"/>
+                        <path class="particle plus"/>
+                        <rect class="particle rect"/>
+                        <path class="particle triangle"/>
+                        </g>
+                        <g class="burst pattern-two">
+                        <path class="particle plus"/>
+                        <circle class="particle circle"/>
+                        <path class="particle triangle"/>
+                        <rect class="particle rect"/>
+                        <circle class="particle circle"/>
+                        <path class="particle plus"/>
+                        </g>
+                        <g class="burst pattern-three">
+                        <circle class="particle circle"/>
+                        <rect class="particle rect"/>
+                        <path class="particle plus"/>
+                        <path class="particle triangle"/>
+                        <rect class="particle rect"/>
+                        <path class="particle plus"/>
+                        </g>
+                        </svg>
+                        <input type="search" id="myInput" onkeyup="myFunction()" name=search placeholder="Search blog by tittle ... " aria-label="Search for inspiration"/>
+                    </div> <br>
                 </div>
                 <div class="filter">
                     <div ${hidden}>

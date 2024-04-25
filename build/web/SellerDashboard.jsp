@@ -15,6 +15,28 @@
         <title>Seller Dashboard</title>     
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        <style>
+            /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+            .row.content {
+                height: 550px
+            }
+
+            /* Set gray background color and 100% height */
+            .sidenav {
+                background-color: #f1f1f1;
+                height: 100%;
+            }
+
+            /* On small screens, set height to 'auto' for the grid */
+            @media screen and (max-width: 767px) {
+                .row.content {
+                    height: auto;
+                }
+            }
+        </style>
     </head>
     <body>
         <!-- SIDEBAR -->
@@ -36,65 +58,79 @@
             <!-- NAVBAR -->
 
             <main>
-                <div class="head-title">
-                    <div class="left">
-                        <h1>Seller Manage</h1>
-                        <ul class="breadcrumb">
-                            <li>
-                                <a href="#"></a>
-                            </li>
-                            <li>
-                                <a class="active" href="#"></a>
-                            </li>
-                        </ul>
+                <div class="container-fluid">
+                    <div class="row content">
+
+
+                        <div class="col-sm-9">
+                            <div class="well">
+                                <h4>Dashboard</h4>
+                                <p>Some text..</p>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <div class="well">
+                                        <h4>Users</h4>
+                                        <p>1 Million</p> 
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="well">
+                                        <h4>Pages</h4>
+                                        <p>100 Million</p> 
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="well">
+                                        <h4>Sessions</h4>
+                                        <p>10 Million</p> 
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="well">
+                                        <h4>Bounce</h4>
+                                        <p>30%</p> 
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="well">
+                                        <p>Text</p> 
+                                        <p>Text</p> 
+                                        <p>Text</p> 
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="well">
+                                        <p>Text</p> 
+                                        <p>Text</p> 
+                                        <p>Text</p> 
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="well">
+                                        <p>Text</p> 
+                                        <p>Text</p> 
+                                        <p>Text</p> 
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-8">
+                                    <div class="well">
+                                        <p>Text</p> 
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="well">
+                                        <p>Text</p> 
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-
-                <div class="table-data">
-                    <div class="order">
-                        <div class="head">
-                            <h3>Order confirmation</h3>                   
-                        </div>             
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Name Order</th>
-                                    <th>Date Order</th>
-                                    <th>Notes</th>
-                                    <th>Address Order</th>
-                                    <th>Phone Order</th>
-                                    <th>Status Order</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <c:forEach items="${olist}" var="o">
-                                    <tr>
-                                        <td><p>${o.getOrderName()}</p></td>
-                                        <td>${o.formatDate()}</td>
-                                        <td><textarea class="note" readonly>${o.getNotes()}</textarea></td>
-                                        <td><textarea class="address" readonly>${o.getAddress()}</textarea></td>
-                                        <td>${o.getPhone()}</td>
-                                        <td>
-                                            <form action="updateOrderStatus" method="get">
-                                                <span class="status process">
-
-                                                    <select name="select" style="background-color: var(--yellow); border: solid var(--yellow);" onchange="this.form.submit()">
-                                                        <option value="0">${o.getStatus().getName()}</option> 
-                                                        <c:forEach items="${otlist}" var="ot">
-                                                            <option value="${ot.getId()}&${o.getId()}">${ot.getName()}</option>
-                                                        </c:forEach>
-                                                    </select>   
-                                                </span>
-                                            </form>
-                                        </td>   
-                                    </tr>                               
-                                </c:forEach>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </main>
-            <!-- MAIN -->
         </section>
         <!-- CONTENT -->
         <script src="js/adminDashbord.js"></script>

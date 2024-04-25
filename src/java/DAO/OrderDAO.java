@@ -94,19 +94,34 @@ public class OrderDAO extends DBContext {
         }
     }
 
-    public ArrayList<Order> pagingOrder(int index, int numOrOnPage) {
+    public ArrayList<Order> pagingOrder(int index, int numOrOnPage, int userId, int role) {
         ArrayList<Order> list = new ArrayList<>();
         try {
-            String sql = "SELECT * FROM `Orders` order by order_status asc LIMIT ?, ?;";
-            PreparedStatement ps = connection.prepareStatement(sql);
-            index = (index - 1) * numOrOnPage;
-            ps.setInt(1, index);
-            ps.setInt(2, numOrOnPage);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                list.add(new Order(rs.getInt(1), getUserById(rs.getInt(2)), rs.getString(3), rs.getInt(4), rs.getInt(5), rs.getTimestamp(6),
-                        rs.getString(7), rs.getString(8), rs.getString(9)));
+            if (role == 2) {
+                String sql = "SELECT * FROM `Orders` where `seller_approve` = ? order by order_status asc LIMIT ?, ?;";
+                PreparedStatement ps = connection.prepareStatement(sql);
+                index = (index - 1) * numOrOnPage;
+                ps.setInt(1, userId);
+                ps.setInt(2, index);
+                ps.setInt(3, numOrOnPage);
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    list.add(new Order(rs.getInt(1), getUserById(rs.getInt(2)), rs.getString(3), rs.getInt(4), rs.getInt(5), rs.getTimestamp(6),
+                            rs.getString(7), rs.getString(8), rs.getString(9),getUserById(rs.getInt(10)).getName()));
+                }
+            } else {
+                String sql = "SELECT * FROM `Orders` order by order_status asc LIMIT ?, ?;";
+                PreparedStatement ps = connection.prepareStatement(sql);
+                index = (index - 1) * numOrOnPage;
+                ps.setInt(1, index);
+                ps.setInt(2, numOrOnPage);
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    list.add(new Order(rs.getInt(1), getUserById(rs.getInt(2)), rs.getString(3), rs.getInt(4), rs.getInt(5), rs.getTimestamp(6),
+                            rs.getString(7), rs.getString(8), rs.getString(9),getUserById(rs.getInt(10)).getName()));
+                }
             }
+
         } catch (SQLException e) {
 
         }
@@ -133,7 +148,7 @@ public class OrderDAO extends DBContext {
             while (rs.next()) {
 
                 list.add(new Order(rs.getInt(1), getUserById(rs.getInt(2)), rs.getString(3), rs.getInt(4), rs.getInt(5), rs.getTimestamp(6),
-                        rs.getString(7), rs.getString(8), rs.getString(9)));
+                        rs.getString(7), rs.getString(8), rs.getString(9),getUserById(rs.getInt(10)).getName()));
             }
         } catch (SQLException e) {
 
@@ -168,7 +183,7 @@ public class OrderDAO extends DBContext {
             while (rs.next()) {
 
                 list.add(new Order(rs.getInt(1), getUserById(rs.getInt(2)), rs.getString(3), rs.getInt(4), rs.getInt(5), rs.getTimestamp(6),
-                        rs.getString(7), rs.getString(8), rs.getString(9)));
+                        rs.getString(7), rs.getString(8), rs.getString(9),getUserById(rs.getInt(10)).getName()));
             }
         } catch (SQLException e) {
 
@@ -184,7 +199,7 @@ public class OrderDAO extends DBContext {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 list.add(new Order(rs.getInt(1), getUserById(rs.getInt(2)), rs.getString(3), rs.getInt(4), rs.getInt(5), rs.getTimestamp(6),
-                        rs.getString(7), rs.getString(8), rs.getString(9)));
+                        rs.getString(7), rs.getString(8), rs.getString(9),getUserById(rs.getInt(10)).getName()));
             }
 
         } catch (SQLException e) {
@@ -218,7 +233,7 @@ public class OrderDAO extends DBContext {
             while (rs.next()) {
 
                 list.add(new Order(rs.getInt(1), getUserById(rs.getInt(2)), rs.getString(3), rs.getInt(4), rs.getInt(5), rs.getTimestamp(6),
-                        rs.getString(7), rs.getString(8), rs.getString(9)));
+                        rs.getString(7), rs.getString(8), rs.getString(9),getUserById(rs.getInt(10)).getName()));
             }
         } catch (SQLException e) {
 
@@ -234,7 +249,7 @@ public class OrderDAO extends DBContext {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 return (new Order(rs.getInt(1), getUserById(rs.getInt(2)), rs.getString(3), rs.getInt(4), rs.getInt(5), rs.getTimestamp(6),
-                        rs.getString(7), rs.getString(8), rs.getString(9)));
+                        rs.getString(7), rs.getString(8), rs.getString(9),getUserById(rs.getInt(10)).getName()));
             }
         } catch (SQLException e) {
 
@@ -253,7 +268,7 @@ public class OrderDAO extends DBContext {
             while (rs.next()) {
 
                 list.add(new Order(rs.getInt(1), getUserById(rs.getInt(2)), rs.getString(3), rs.getInt(4), rs.getInt(5), rs.getTimestamp(6),
-                        rs.getString(7), rs.getString(8), rs.getString(9)));
+                        rs.getString(7), rs.getString(8), rs.getString(9),getUserById(rs.getInt(10)).getName()));
             }
         } catch (SQLException e) {
 
@@ -401,7 +416,7 @@ public class OrderDAO extends DBContext {
 
         PreparedStatement ps;
         ResultSet rs;
-        String sql = "select* from `users` where `setting_id` = 3 or `setting_id` = 2;";
+        String sql = "select* from `users` where `setting_id` = 2;";
         try {
             ps = connection.prepareStatement(sql);
 
@@ -428,7 +443,7 @@ public class OrderDAO extends DBContext {
             while (rs.next()) {
 
                 list.add(new Order(rs.getInt(1), getUserById(rs.getInt(2)), rs.getString(3), rs.getInt(4), rs.getInt(5), rs.getTimestamp(6),
-                        rs.getString(7), rs.getString(8), rs.getString(9)));
+                        rs.getString(7), rs.getString(8), rs.getString(9),getUserById(rs.getInt(10)).getName()));
             }
         } catch (SQLException e) {
 
@@ -446,7 +461,7 @@ public class OrderDAO extends DBContext {
             while (rs.next()) {
 
                 list.add(new Order(rs.getInt(1), getUserById(rs.getInt(2)), rs.getString(3), rs.getInt(4), rs.getInt(5), rs.getTimestamp(6),
-                        rs.getString(7), rs.getString(8), rs.getString(9)));
+                        rs.getString(7), rs.getString(8), rs.getString(9),getUserById(rs.getInt(10)).getName()));
             }
         } catch (SQLException e) {
 

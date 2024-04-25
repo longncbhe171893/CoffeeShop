@@ -33,6 +33,7 @@ public class ChangeOrderStatus extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         OrderDAO orDao = new OrderDAO();
         int id = Integer.valueOf(request.getParameter("orderId"));
+        int userId = Integer.valueOf(request.getParameter("user"));
         int index = Integer.valueOf(request.getParameter("index"));
         int status = Integer.valueOf(request.getParameter("ost"));
         switch (status) {
@@ -49,7 +50,7 @@ public class ChangeOrderStatus extends HttpServlet {
                 break;
         }
 
-        response.sendRedirect("./ManageOrder?index="+index);
+        response.sendRedirect("./ManageOrder?index="+index+"&user="+userId);
 
     }
 

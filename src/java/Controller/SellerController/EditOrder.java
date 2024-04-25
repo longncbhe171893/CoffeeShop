@@ -31,19 +31,20 @@ public class EditOrder extends HttpServlet {
 
         OrderDAO oDao = new OrderDAO();
         try {
+            int userId = Integer.valueOf(request.getParameter("user"));
             int orderId = Integer.parseInt(request.getParameter("orderId"));
             int index = Integer.parseInt(request.getParameter("index"));
             int orderDiscount = Integer.parseInt(request.getParameter("orderDiscount"));
             String orderNote = request.getParameter("orderNote");
             oDao.updateOrder(orderId, orderDiscount, orderNote);
             String mess = "Update successfuly";
-            response.sendRedirect("ManageOrder?index=" + index + "&mess=" + mess);
+            response.sendRedirect("ManageOrder?index=" + index + "&mess=" + mess+"&user="+userId);
 
         } catch (NumberFormatException e) {
-
+            int userId = Integer.valueOf(request.getParameter("user"));
             int index = Integer.parseInt(request.getParameter("index"));
             String mess = "Update Failed!";
-            response.sendRedirect("ManageOrder?index=" + index + "&messEdit=" + mess);
+            response.sendRedirect("ManageOrder?index=" + index + "&messEdit=" + mess+"&user="+userId);
         }
 
     }

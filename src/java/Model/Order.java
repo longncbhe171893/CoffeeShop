@@ -16,12 +16,13 @@ public class Order {
     private String notes;
     private String address;
     private String phone;
+    private String seller_approve;
     private ArrayList<OrderDetail> orderdetails; 
 
     public Order() {
     }
 
-    public Order(int id, User user, String orderName, int status, int discount, Timestamp date, String notes, String address, String phone) {
+    public Order(int id, User user, String orderName, int status, int discount, Timestamp date, String notes, String address, String phone, String seller_approve) {
         this.id = id;
         this.user = user;
         this.orderName = orderName;
@@ -31,8 +32,19 @@ public class Order {
         this.notes = notes;
         this.address = address;
         this.phone = phone;
-        
+        this.seller_approve = seller_approve;
     }
+
+
+    public String getSeller_approve() {
+        return seller_approve;
+    }
+
+    public void setSeller_approve(String seller_approve) {
+        this.seller_approve = seller_approve;
+    }
+
+
 
     public int getId() {
         return id;

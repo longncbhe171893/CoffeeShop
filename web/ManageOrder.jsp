@@ -16,6 +16,7 @@
         <!-- My CSS -->
         <link rel="stylesheet" href="CSSsimple/sellerDashbord.css">
         <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="CSSsimple/SearchBox.css" rel="stylesheet">
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
         <title>Manage Order</title>
@@ -52,6 +53,7 @@
             .filter{
                 display: flex;
                 margin: 10px;
+                margin-left: 250px;
 
             }
             .filter_date{
@@ -141,22 +143,52 @@
 
             <!-- MAIN -->
             <main>
-                <div>
-                    <nav>  
-                        <form action="ManageOrder" method="post">
-                            <div class="form-input">
-                                <input type="search" id="myInput" onkeyup="myFunction()" name="search" placeholder="Search by ID or Phone number">
-                                <input type="text" hidden  name="index" value="${index}">
-                                <button type="submit" class="search-btn"><i class='bx bx-search' ></i></button>
+                <div id="search">
+                    <svg viewBox="0 0 420 60" xmlns="http://www.w3.org/2000/svg">
+                    <rect class="bar"/>
 
-                            </div>
-                            <p style="color: red">${mess}</p>
-                        </form>
-                    </nav>
-                </div>
+                    <g class="magnifier">
+                    <circle class="glass"/>
+                    <line class="handle" x1="32" y1="32" x2="44" y2="44"></line>
+                    </g>
+
+                    <g class="sparks">
+                    <circle class="spark"/>
+                    <circle class="spark"/>
+                    <circle class="spark"/>
+                    </g>
+
+                    <g class="burst pattern-one">
+                    <circle class="particle circle"/>
+                    <path class="particle triangle"/>
+                    <circle class="particle circle"/>
+                    <path class="particle plus"/>
+                    <rect class="particle rect"/>
+                    <path class="particle triangle"/>
+                    </g>
+                    <g class="burst pattern-two">
+                    <path class="particle plus"/>
+                    <circle class="particle circle"/>
+                    <path class="particle triangle"/>
+                    <rect class="particle rect"/>
+                    <circle class="particle circle"/>
+                    <path class="particle plus"/>
+                    </g>
+                    <g class="burst pattern-three">
+                    <circle class="particle circle"/>
+                    <rect class="particle rect"/>
+                    <path class="particle plus"/>
+                    <path class="particle triangle"/>
+                    <rect class="particle rect"/>
+                    <path class="particle plus"/>
+                    </g>
+                    </svg>
+                    <input type="search" id="myInput" onkeyup="myFunction()" name=search placeholder="Search customer name ... " aria-label="Search for inspiration"/>
+                </div> <br>
+              
                 <div class="filter">
-                    <div>
-                        <label for="Filter">Order Person :</label>
+                    <div ${sessionScope['account'].getSetting_id()==1?'hidden':''}>
+                        <label for="Filter">Person in charge :</label>
                         <select id="selectBox" name="Filter" onchange="doFilter(value);"> 
                             <option value="">All</option>
                             <c:forEach var="creator" items="${creator}">
@@ -167,13 +199,15 @@
 
                     <div>
 
-                        <label for="Filter">Category :</label>
+                        <label for="Filter">Status :</label>
                         <select id="selectCategory"  name="Category" onchange="doFilterCategory(value);"> 
 
                             <option value="">All</option>
-                            <c:forEach var="categoryBlog" items="${categoryBlog}">
-                                <option value="${categoryBlog.getName()}">${categoryBlog.getName()}</option>
-                            </c:forEach>
+                            <option value="pending">pending</option>
+                            <option value="Approve">Approve</option>
+                            <option value="Paid">Paid</option>
+                            <option value="Cancel">Cancel</option>
+
 
                         </select>
 
@@ -184,7 +218,8 @@
                             <input required type="date" name="firstDate">
                             <label>End Date</label>
                             <input style="margin: 14px" required type="date" name="secondDate">
-
+                            <b><input type="hidden" class="form-control" required  value="${index}" name="index"></b>  
+                            <b><input type="hidden" class="form-control" required  value="${sessionScope['account'].getId()}" name="user"></b>
 
                             <input style="background: var(--blue);
                                    color: white;
@@ -194,6 +229,7 @@
                         </form>
                     </div>
                 </div>
+                <p style="color: red">${mess}</p>
                 <p style="color: red">${messEdit}</p>        
                 <div style="margin-top: 3rem;" class="col-md-12">
                     <table class="table" id="myTable">
@@ -202,10 +238,11 @@
                                 <th scope="col">Order ID</th>
                                 <th scope="col">Order Name</th>
                                 <th scope="col">Order Date</th>
-                                <th scope="col">Note</th>
-                                <th scope="col">Address</th>
+
+                                <th scope="col" ${sessionScope['account'].getSetting_id()==2?'hidden':''}>Person in charge</th>
                                 <th scope="col">Phone</th>
-                                <th scope="col" colspan="3" style="text-align: center">Action</th>
+                                <th scope="col">Status</th>
+                                <th scope="col" colspan="2" style="text-align: center">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -218,17 +255,19 @@
                                     </th>
                                     <td >${o.getOrderName()} </td>
                                     <td>${o.formatDate()}</td>
-                                    <td><textarea class="note" readonly>${o.getNotes()}</textarea></td>
-                                    <td><textarea class="address" readonly>${o.getAddress()}</textarea></td>
+
+                                    <td ${sessionScope['account'].getSetting_id()==2?'hidden':''}><p readonly>${o.getSeller_approve()}</p></td>
                                     <td>${o.getPhone()}</td>
+
+
                                     <td >
                                         <a href="ChangeOrderStatus?orderId=${o.getId()}&ost=${o.getStatus()}&index=${index}" class="btn- btn-danger  btn-lg"  style="pointer-events: ${o.getStatus()==3?'none':''};display: block; background-color: ${o.getStatus()==1?'#f89f3c':o.getStatus()==2?'green':o.getStatus()==4?'blue':'red'};" >${o.getStatus()==1?"Pending":o.getStatus()==2?"Approve":o.getStatus()==4?"Paid":"Cancel"}</a>
                                     </td>
 
-                                    <td> <button type="button" ${o.getStatus()==3?'hidden':o.getStatus()==4?'hidden':''} class="btn btn-success btn-lg" onclick="window.location.href = 'EditOrder?orderId=${o.getId()}&edit=true&index=${index}';"">Edit Order</button></td>
+                                    <td> <button type="button" ${o.getStatus()==3?'hidden':o.getStatus()==4?'hidden':''} class="btn btn-success btn-lg" onclick="window.location.href = 'EditOrder?orderId=${o.getId()}&edit=true&index=${index}&user=${sessionScope['account'].getId()}';"">Edit Order</button></td>
 
                                     <td>
-                                        <button type="button"  ${o.getStatus()==3?'hidden':o.getStatus()==4?'hidden':''} onclick="window.location.href = 'ChangeOrderStatus?index=${index}&orderId=${o.getId()}&ost=3'"style="border-radius: 100%;">
+                                        <button type="button"  ${o.getStatus()==3?'hidden':o.getStatus()==4?'hidden':''} onclick="window.location.href = 'ChangeOrderStatus?orderId=${o.getId()}&ost=3&index=${index}&user=${sessionScope['account'].getId()}'"style="border-radius: 100%;">
                                             <div class="wrapper">
                                                 <div class="arrow">
                                                     <div class="line"></div>
@@ -244,11 +283,11 @@
 
                 </div>
                 <div class="pagination">
-                    <a href="ManageOrder?index=${backPage}">&laquo;</a>
+                    <a href="ManageOrder?index=${backPage}&user=${sessionScope['account'].getId()}">&laquo;</a>
                     <c:forEach begin="1" end="${ePage}" var="i">
-                        <a href="ManageOrder?index=${i}">${i}</a>
+                        <a href="ManageOrder?index=${i}&user=${sessionScope['account'].getId()}">${i}</a>
                     </c:forEach>
-                    <a href="ManageOrder?index=${nextPage}">&raquo;</a>
+                    <a href="ManageOrder?index=${nextPage}&user=${sessionScope['account'].getId()}">&raquo;</a>
                 </div>
             </main>
             <!-- MAIN -->
@@ -292,7 +331,7 @@
                 table = document.getElementById("myTable");
                 tr = table.getElementsByTagName("tr");
                 for (i = 0; i < tr.length; i++) {
-                    td = tr[i].getElementsByTagName("td")[4];
+                    td = tr[i].getElementsByTagName("td")[0];
                     if (td) {
                         txtValue = td.textContent || td.innerText;
                         if (txtValue.toUpperCase().indexOf(filter) > -1) {
@@ -310,7 +349,7 @@
                 table = document.getElementById("myTable");
                 tr = table.getElementsByTagName("tr");
                 for (i = 0; i < tr.length; i++) {
-                    td = tr[i].getElementsByTagName("td")[0];
+                    td = tr[i].getElementsByTagName("td")[2];
                     if (td) {
                         txtValue = td.textContent || td.innerText;
                         if (txtValue.toUpperCase().indexOf(filter) > -1) {

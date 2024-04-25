@@ -19,7 +19,7 @@ public class ManageOrder extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        int numPage = 4;
+        int numPage = 10;
 
         OrderDAO dao = new OrderDAO();
         String mess, messEdit;
@@ -56,7 +56,8 @@ public class ManageOrder extends HttpServlet {
         //set attribute for paging
         request.setAttribute("nextPage", nextPage);
         request.setAttribute("backPage", backPage);
-        ArrayList<Order> orderList = dao.pagingOrder(index, numPage);
+        int userId = Integer.valueOf(request.getParameter("user"));
+        ArrayList<Order> orderList = dao.pagingOrder(index, numPage,userId,dao.getUserById(userId).getSetting_id());
         request.setAttribute("ePage", ePage);
         request.setAttribute("index", index);
         //set list for manage blog page
@@ -86,7 +87,9 @@ public class ManageOrder extends HttpServlet {
         String search = request.getParameter("search");
         String firstDate = request.getParameter("firstDate");
         String secondDate = request.getParameter("secondDate");
-        ArrayList<Order> orderList = orderDao.pagingOrder(1, 4);
+        int index = Integer.valueOf(request.getParameter("index"));
+        int userId = Integer.valueOf(request.getParameter("user"));
+        ArrayList<Order> orderList = orderDao.pagingOrder(index, 10,userId,orderDao.getUserById(userId).getSetting_id());
         try {
             creator = orderDao.getAllCostomer();
 //        List<Model.> status = orderDao.getcategoryBlogByType();
@@ -114,7 +117,7 @@ public class ManageOrder extends HttpServlet {
         } catch (NumberFormatException e) {
 
             String mess = "please input number or phone number";
-            response.sendRedirect("ManageOrder?index=" + 1 + "&mess=" + mess);
+            response.sendRedirect("ManageOrder?index=" + 1 + "&mess=" + mess+"&user="+userId);
         }
 
 //        request.setAttribute("categoryBlog", category);

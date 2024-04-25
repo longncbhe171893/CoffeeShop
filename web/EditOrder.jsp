@@ -185,7 +185,7 @@
                         <b><input type="hidden" class="form-control" required  value="${blog.getBlog_id()}" name="blogId"></b>    
                         <b><input type="hidden" class="form-control" required  value="${sessionScope['account'].getId()}" name="user"></b>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default" onclick="window.location.href = 'ManageOrder?index=${index}'">Close</button>
+                            <button type="button" class="btn btn-default" onclick="window.location.href = 'ManageOrder?index=${index}&user=${sessionScope['account'].getId()}'">Close</button>
                             <button type="submit" class="btn btn-success" value="submit">Submit</button>
                         </div>
                     </form>
