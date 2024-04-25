@@ -197,7 +197,7 @@
                 </div>
 
                 <div style="margin-top: 3rem;" class="col-md-12">
-                    <button class="button" onclick="window.location.href = 'AddBlog';">Add Blog</button>
+                    <button class="button" onclick="window.location.href = 'AddBlog?index=${index}&user=${sessionScope['account'].getId()}';">Add Blog</button>
 
 
 
