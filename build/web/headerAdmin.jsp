@@ -23,6 +23,13 @@
                 <span class="text">Manage Setting</span>
             </a>
         </li>
+        
+        <li class="active">
+            <a href="ContactList">
+                <i class='bx bxs-dashboard' ></i>
+                <span class="text">Manage Contact</span>
+            </a>
+        </li>
         <li class="active">
             <a href="ManagerUser">
                 <i class='bx bxs-dashboard' ></i>

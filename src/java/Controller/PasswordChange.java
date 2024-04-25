@@ -34,18 +34,7 @@ public class PasswordChange extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet PasswordChange</title>");  
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet PasswordChange at " + request.getContextPath () + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
+        request.getRequestDispatcher("ChangePassword.jsp").forward(request, response);
     } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -71,25 +60,32 @@ public class PasswordChange extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
         HttpSession session = request.getSession();
+        
         String oldpass = request.getParameter("oldpass");
         String newpass = request.getParameter("newpass");
         String renewpass = request.getParameter("renewpass");
+        request.setAttribute("oldpass", oldpass);
+        request.setAttribute("newpass", newpass);
+        request.setAttribute("renewpass", renewpass);
         MD5 md5 = new MD5();
         User u = (User) session.getAttribute("account");
+        UserDAO dao = new UserDAO();
         if (!md5.getMd5(oldpass).equals(u.getPassword())) {
             request.setAttribute("mess", "Old password not correct");
+            request.getRequestDispatcher("ChangePassword.jsp").forward(request, response);
+        } else if (!dao.checkPassword(newpass)) {
+            request.setAttribute("mess", "New password must be between 6 and 20 characters long and include both letters and numbers.");
             request.getRequestDispatcher("ChangePassword.jsp").forward(request, response);
         } else if (!newpass.equals(renewpass)) {
             request.setAttribute("mess", "Confirm password not match with new password");
             request.getRequestDispatcher("ChangePassword.jsp").forward(request, response);
         } else {
-            UserDAO dao = new UserDAO();
+
             dao.changePassword(String.valueOf(u.getId()), newpass);
-            
-            session.invalidate();
             response.sendRedirect(request.getContextPath() + "/Login.jsp");
+
         }
     }
 

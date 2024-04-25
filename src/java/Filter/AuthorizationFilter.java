@@ -51,6 +51,9 @@ public class AuthorizationFilter implements Filter {
                             || servletPath.equals("/OrderDetails")
                             || servletPath.equals("/ManageBlog")
                             || servletPath.equals("/ManageOrder")
+                            || servletPath.equals("/AddSetting")
+                            || servletPath.equals("/SettingLists")
+                            || servletPath.equals("/ContactList")
                             || servletPath.equals("/AdminDashbord")) {
                         chain.doFilter(request, response);
                     }

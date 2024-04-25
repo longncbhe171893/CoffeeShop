@@ -5,8 +5,9 @@
 
 package Controller;
 
+import DAO.ContactDAO;
 import DAO.SettingDAO;
-import Model.Setting;
+import Model.Contact;
 import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -15,15 +16,14 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.sql.SQLException;
 import java.util.List;
 
 /**
  *
  * @author HP
  */
-@WebServlet(name="SettingLists", urlPatterns={"/SettingLists"})
-public class SettingLists extends HttpServlet {
+@WebServlet(name="ContactList", urlPatterns={"/ContactList"})
+public class ContactList extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -40,10 +40,10 @@ public class SettingLists extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet SettingLists</title>");  
+            out.println("<title>Servlet ContactList</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet SettingLists at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet ContactList at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -60,17 +60,18 @@ public class SettingLists extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
+        ContactDAO contactDAO = new ContactDAO();       
+        List<Contact> contacts = contactDAO.getAllContacts();
         String search = request.getParameter("search");
-        SettingDAO settingDAO = new SettingDAO();       
-        List<Setting> settings = settingDAO.getAllSettings();
+       
         if (search != null) {
-            settings = settingDAO.searchSetting(search);
+            contacts = contactDAO.searchContact(search);
         }
+       
         
-        request.setAttribute("settings", settings);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("SettingList.jsp");
+        request.setAttribute("contacts", contacts);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("ContactList.jsp");
         dispatcher.forward(request, response);
-        
     } 
 
     /** 
@@ -83,17 +84,16 @@ public class SettingLists extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        
-        String sort = request.getParameter("sort");
-        SettingDAO settingDAO = new SettingDAO();       
-        List<Setting> settings = settingDAO.getAllSettings();
+        String filter = request.getParameter("filter");
+        ContactDAO dao = new ContactDAO();       
+        List<Contact> contacts = dao.getAllContacts();
 
-        if (sort != null) {
-            settings = settingDAO.getAllSettingSort(sort);
+        if (filter != null) {
+            contacts = dao.filterContact(filter);
         }
         
-        request.setAttribute("settings", settings);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("SettingList.jsp");
+        request.setAttribute("contacts", contacts);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("ContactList.jsp");
         dispatcher.forward(request, response);
     }
 

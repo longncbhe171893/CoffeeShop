@@ -106,23 +106,65 @@
     <body>
         <jsp:include page="header.jsp"/>
         <div style="margin-top: 200px; margin-left: 462px" class="ipform">
+    <form method="post" action="UserProfile"  >
+        <h3>My Profile</h3>
+        <!-- Profile Image -->
+        <div class="profile-image-container">
+            <c:choose>
+                <%-- Nếu có dữ liệu ảnh, hiển thị ảnh --%>
+                <c:when test="${not empty sessionScope['account'].getImage()}">
+                    <%-- Chuyển đổi dữ liệu ảnh từ byte array thành chuỗi base64 --%>
+                    <%-- và nhúng ảnh vào mã HTML --%>
+                    <img src="data:image/jpeg;base64,${javax.xml.bind.DatatypeConverter.printBase64Binary(sessionScope['account'].getImage)}" alt="User Image">
+                </c:when>
+                <%-- Nếu không có dữ liệu ảnh, hiển thị thông báo --%>
+                <c:otherwise>
+                    <p>No image available</p>
+                    <label for="image">Upload Image:</label>
+                    <input type="file" id="image" name="image">
+                    <br>
+                </c:otherwise>
+            </c:choose>
+        </div><br/>
+        <!-- Name -->
+        <label class="nameprofile">Name</label><input class="nameprofile1" type="text" value="${sessionScope['account'].getName()}" name="name"><br/>
+        <!-- Email -->
+        <label class="emailprofile">Email</label><input readonly class="emailprofile1" value="${sessionScope['account'].getEmail()}" name="email"><br/>
+        <!-- Gender -->
+        <c:choose>
+                                                <c:when test="${sessionScope['account'].getSex() eq 1}">
+                                                    <input type="radio" id="sex_male" name="sex" value="1" checked>
+                                                    <label for="sex_male">Male</label>
 
-            <form method="post" action="UserProfile" >
-                <h3>My Profile</h3>
-                <label class="nameprofile">Name</label><input class="nameprofile1" type="text" value="${sessionScope['account'].getName()}" name="name"><br/>
-                <label class="emailprofile">Email</label><input readonly class="emailprofile1" value="${sessionScope['account'].getEmail()}" name="email"><br/>
-                <label class="genderprofile">Gender</label><input class="genderprofile1" type="text" value="${sessionScope['account'].getSex()}" name="sex"><br/>
-                <label class="phoneprofile">Phone</label><input class="phoneprofile1" type="number" value="${sessionScope['account'].getPhone()}" name="phone"><br/>
-                <label class="addressprofile">Address</label><input class="addressprofile1" type="text" value="${sessionScope['account'].getAddress()}" name="address"><br/>
-                <a href="ChangePassword.jsp" class="change-container">
-                    <span class="change">Change password</span>
-                </a>
-                <input value="${sessionScope['account'].getId()}" name="id" type="hidden">
-                <p style="color: greenyellow">${mess}</p>
-                <input style="background: #c49b63; color: white" class="editprofile" type="submit" value="Edit"> 
-            </form>
-        </div>
-        <div style="margin-bottom: 100px"></div>
+                                                    <input type="radio" id="sex_female" name="status" value="0">
+                                                    <label for="sex_female">Female</label><br>
+                                                </c:when>
+                                                <c:when test="${sessionScope['account'].getSex() eq 0}">
+                                                    <input type="radio" id="sex_male" name="sex" value="1" >
+                                                    <label for="sex_male">Male</label>
+
+                                                    <input type="radio" id="sex_female" name="status" value="0" checked>
+                                                    <label for="sex_female">Female</label><br>
+                                                </c:when>
+                                            </c:choose>
+        <!-- Phone -->
+        <label class="phoneprofile">Phone</label><input class="phoneprofile1" type="number" value="${sessionScope['account'].getPhone()}" name="phone"><br/>
+        <!-- Address -->
+        <label class="addressprofile">Address</label><input class="addressprofile1" type="text" value="${sessionScope['account'].getAddress()}" name="address"><br/>
+        <!-- Change password link -->
+        <a href="ChangePassword.jsp" class="change-container">
+            <span class="change">Change password</span>
+        </a>
+        <!-- Hidden input for user id -->
+        <input value="${sessionScope['account'].getId()}" name="id" type="hidden">
+        <!-- Success message -->
+        <p style="color: greenyellow">${mess}</p>
+        <!-- Edit button -->
+        <input style="background: #c49b63; color: white" class="editprofile" type="submit" value="Edit"> 
+    </form>
+</div>
+<div style="margin-bottom: 100px"></div>
+
         <jsp:include page="Footer.jsp"/>
 
         <script src="js/jquery.min.js"></script>

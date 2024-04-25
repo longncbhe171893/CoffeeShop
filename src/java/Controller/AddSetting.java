@@ -7,7 +7,6 @@ package Controller;
 
 import DAO.SettingDAO;
 import Model.Setting;
-import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -15,15 +14,15 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.sql.SQLException;
+import jakarta.servlet.http.HttpSession;
 import java.util.List;
 
 /**
  *
  * @author HP
  */
-@WebServlet(name="SettingLists", urlPatterns={"/SettingLists"})
-public class SettingLists extends HttpServlet {
+@WebServlet(name="AddSetting", urlPatterns={"/AddSetting"})
+public class AddSetting extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -40,10 +39,10 @@ public class SettingLists extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet SettingLists</title>");  
+            out.println("<title>Servlet AddSetting</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet SettingLists at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet AddSetting at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -60,17 +59,7 @@ public class SettingLists extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        String search = request.getParameter("search");
-        SettingDAO settingDAO = new SettingDAO();       
-        List<Setting> settings = settingDAO.getAllSettings();
-        if (search != null) {
-            settings = settingDAO.searchSetting(search);
-        }
-        
-        request.setAttribute("settings", settings);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("SettingList.jsp");
-        dispatcher.forward(request, response);
-        
+        processRequest(request, response);
     } 
 
     /** 
@@ -83,18 +72,40 @@ public class SettingLists extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
+        String name = request.getParameter("name");
+        String description = request.getParameter("description");
+        String type = request.getParameter("type");
+        int status = Integer.parseInt(request.getParameter("status"));
+        HttpSession session = request.getSession();
+        request.setAttribute("sname", name);
+        request.setAttribute("sdescription", description);
+        SettingDAO sdao = new SettingDAO();
+        if (name.length() > 50 ) {
+            List<Setting> settings = sdao.getAllSettings();
+            request.setAttribute("settings", settings);
+            request.setAttribute("mess", "Setting name must be less than 50 characters");
+            request.getRequestDispatcher("SettingList.jsp?id=myModalAddNew").forward(request, response);
+        } else
+        if (description.length() > 255) {
+            List<Setting> settings = sdao.getAllSettings();
+            request.setAttribute("settings", settings);
+            request.setAttribute("mess", "Description must be less than 255 characters");
+            request.getRequestDispatcher("SettingList.jsp").forward(request, response);
+        } else
         
-        String sort = request.getParameter("sort");
-        SettingDAO settingDAO = new SettingDAO();       
-        List<Setting> settings = settingDAO.getAllSettings();
-
-        if (sort != null) {
-            settings = settingDAO.getAllSettingSort(sort);
-        }
+        if (sdao.checkSettingNameAndTypeExist(name, type)){
+            List<Setting> settings = sdao.getAllSettings();
+            request.setAttribute("settings", settings);
+            request.setAttribute("mess", "This setting is existed");
+            request.getRequestDispatcher("SettingList.jsp").forward(request, response);
+        } else {
+        sdao.addSetting(name, description, type, status);
+        request.setAttribute("mess", "Add setting successfully");
         
+        List<Setting> settings = sdao.getAllSettings();
         request.setAttribute("settings", settings);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("SettingList.jsp");
-        dispatcher.forward(request, response);
+        request.getRequestDispatcher("SettingList.jsp").forward(request, response);
+        }
     }
 
     /** 

@@ -7,7 +7,6 @@ package Controller;
 
 import DAO.SettingDAO;
 import Model.Setting;
-import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -15,15 +14,14 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.sql.SQLException;
-import java.util.List;
+import jakarta.servlet.http.HttpSession;
 
 /**
  *
  * @author HP
  */
-@WebServlet(name="SettingLists", urlPatterns={"/SettingLists"})
-public class SettingLists extends HttpServlet {
+@WebServlet(name="EditSetting", urlPatterns={"/EditSetting"})
+public class EditSetting extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -40,10 +38,10 @@ public class SettingLists extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet SettingLists</title>");  
+            out.println("<title>Servlet EditSetting</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet SettingLists at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet EditSetting at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -60,17 +58,7 @@ public class SettingLists extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        String search = request.getParameter("search");
-        SettingDAO settingDAO = new SettingDAO();       
-        List<Setting> settings = settingDAO.getAllSettings();
-        if (search != null) {
-            settings = settingDAO.searchSetting(search);
-        }
-        
-        request.setAttribute("settings", settings);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("SettingList.jsp");
-        dispatcher.forward(request, response);
-        
+        processRequest(request, response);
     } 
 
     /** 
@@ -83,18 +71,31 @@ public class SettingLists extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
+        String name = request.getParameter("name");
+        String description = request.getParameter("description");
+        String type = request.getParameter("type");
+        int status = Integer.parseInt(request.getParameter("status"));
+        int id = Integer.parseInt(request.getParameter("id"));
+        HttpSession session = request.getSession();
+        SettingDAO dao = new SettingDAO();
+        dao.checkSettingNameAndTypeExist(name, type);
         
-        String sort = request.getParameter("sort");
-        SettingDAO settingDAO = new SettingDAO();       
-        List<Setting> settings = settingDAO.getAllSettings();
-
-        if (sort != null) {
-            settings = settingDAO.getAllSettingSort(sort);
+        
+        try {
+            dao.updateSetting(id, name, description, type, status);
+            Setting s = new Setting();
+            s.setId(id);
+            s.setName(name);
+            s.setDescription(description);
+            s.setType(type);
+            s.setStatus(status);
+            
+            
+            
+            response.sendRedirect("SettingLists");
+        } catch (Exception e) {
+            response.getWriter().println(e);
         }
-        
-        request.setAttribute("settings", settings);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("SettingList.jsp");
-        dispatcher.forward(request, response);
     }
 
     /** 

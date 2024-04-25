@@ -33,6 +33,18 @@
         <servlet-class>Controller.Home</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>ContactList</servlet-name>
+        <servlet-class>Controller.ContactList</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SettingLists</servlet-name>
+        <servlet-class>Controller.SettingLists</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddSetting</servlet-name>
+        <servlet-class>Controller.AddSetting</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>ProductDetails</servlet-name>
         <servlet-class>Controller.ProductController.ProductDetails</servlet-class>
     </servlet>
@@ -64,6 +76,7 @@
         <servlet-name>AddToCart</servlet-name>
         <servlet-class>Controller.AddToCart</servlet-class>
     </servlet>
+    
     <servlet>
         <servlet-name>ManageProduct</servlet-name>
         <servlet-class>Controller.ManageProduct</servlet-class>
@@ -262,6 +275,18 @@
     </filter-mapping>
     <filter-mapping>
         <filter-name>AuthorizationFilter</filter-name>
+        <url-pattern>/ContactList</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>AuthorizationFilter</filter-name>
+        <url-pattern>/SettingLists</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>AuthorizationFilter</filter-name>
+        <url-pattern>/AddSetting</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>AuthorizationFilter</filter-name>
         <url-pattern>/UsersList</url-pattern>
     </filter-mapping>
     <filter-mapping>
@@ -403,6 +428,18 @@
     <servlet-mapping>
         <servlet-name>ManageBlog</servlet-name>
         <url-pattern>/ManageBlog</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ContactList</servlet-name>
+        <url-pattern>/ContactList</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SettingLists</servlet-name>
+        <url-pattern>/SettingLists</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddSetting</servlet-name>
+        <url-pattern>/AddSetting</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AddBlog</servlet-name>

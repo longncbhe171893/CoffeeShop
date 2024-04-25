@@ -15,6 +15,11 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.Part;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.InputStream;
+import static jdk.nashorn.internal.objects.NativeError.getFileName;
 
 /**
  *
@@ -33,18 +38,7 @@ public class UserProfile extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet UserProfile</title>");  
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet UserProfile at " + request.getContextPath () + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
+        
     } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -58,7 +52,7 @@ public class UserProfile extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        doPost(request, response);
+        processRequest(request, response);
     } 
 
     /** 
@@ -71,24 +65,69 @@ public class UserProfile extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
+        
         String name = request.getParameter("name");
         String email = request.getParameter("email");
-        String sex = request.getParameter("sex");
+        int sex = Integer.parseInt(request.getParameter("sex"));
         String phone = request.getParameter("phone");
         String address = request.getParameter("address");
+        String image = request.getParameter("image");
         String id = request.getParameter("id");
         UserDAO udao = new UserDAO();
+        
         HttpSession session = request.getSession();
+        User u = (User) session.getAttribute("account");
+        
+         // Lấy file ảnh từ request
+//        Part part = request.getPart("image");
+//
+//        String avatarFileName = (String) getFileName(part);
+//        
+//        if (!avatarFileName.isEmpty()) {
+//            // lay duong dan luu tru avatar da tai len
+//            String applicationPath = request.getServletContext().getRealPath("");
+//            String uploadPath = applicationPath + File.separator + "avatars";
+//
+//            // tao thu muc luu tru neu chua co
+//            File uploadDir = new File(uploadPath);
+//            if (!uploadDir.exists()) {
+//                uploadDir.mkdirs();
+//            }
+//
+//            // luu file da tai len
+//            String avatarFilePath = uploadPath + File.separator + avatarFileName;
+//            part.write(avatarFilePath);
+//
+//            // cập nhật đường dẫn avatar trong user
+//            String avatar = "avatars" + File.separator + avatarFileName;
+//            u.setImage(avatar);
+//            
+//        }
+        if (name.length() > 50) {
+            request.setAttribute("mess", "Name must be less than 50 characters");
+            request.getRequestDispatcher("UserProfile.jsp").forward(request, response);
+        } else
+        if (!udao.checkPhonenumber(phone)){
+            request.setAttribute("mess", "Invalid phone number");
+            request.getRequestDispatcher("UserProfile.jsp").forward(request, response);
+        } else
+        if (address.length() > 255) {
+            request.setAttribute("mess", "Address must be less than 255 characters");
+            request.getRequestDispatcher("UserProfile.jsp").forward(request, response);
+        } else
+        
+        
         try {
-            udao.UpdateUser(name, Integer.valueOf(id), sex, phone, address);
-            User u = new User();
+            udao.updateUserProfile(name, Integer.valueOf(id), sex, phone, address, udao.encodeImage(image));
+            
             u.setId(Integer.valueOf(id));
-            u.setName(name);  
+            u.setName(name); 
             u.setEmail(email);
             u.setSex(sex);
             u.setPhone(phone);
             u.setAddress(address);
-            session.removeAttribute("account");
+            u.setImage(image);
+            
             session.setAttribute("account", u);
             request.setAttribute("mess", "Updated Success");
             request.getRequestDispatcher("UserProfile.jsp").forward(request, response);
