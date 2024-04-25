@@ -27,7 +27,7 @@
 
             <div class="row">
                 <div class="col-md-8">
-                    <c:forEach items="${data}" var="i"> 
+                    <c:forEach items="${blist}" var="i"> 
                         <div class="col-md-12 column-style">
                             <div class="wrap-item">
                                 <a href="BlogController?blogId=${i.getBlog_id()}">
@@ -35,16 +35,17 @@
                                     <div class="item-detail-infor">
                                         <span class="icon-calendar">${i.getPost_date()}</span>&ensp;
                                         <span class="icon-person">${i.getUser().getName()}</span>&ensp;
-                                        <span class="icon-type">${i.getSetting().getName()}</span>&ensp;
+                                        <span class="">${i.getSetting().getName()}</span>&ensp;
                                     </div>
                                     <div class="item-title" style="color: gray;">
                                         <h5 style="color: white">${i.getBlog_title()} </h5>
                                         <span style="color: gray">${i.getDescription()} </span>
                                     </div>
-                                </a>
+                                </a>    
                             </div>
                         </div>
                     </c:forEach> 
+
 
                     <!--<div class="wrap-pagination">
                 </div>

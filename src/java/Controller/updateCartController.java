@@ -4,23 +4,22 @@
  */
 package Controller;
 
-import DAO.BlogDao;
-import DAO.ProductDAO;
-import DAO.ProductSizeDao;
-import Model.Product;
 import Model.ProductDTO;
-import Model.ProductSize;
+import java.io.IOException;
+import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
-public class Home extends HttpServlet {
+/**
+ *
+ * @author kienb
+ */
+public class updateCartController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,42 +32,41 @@ public class Home extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        ProductDAO pdao = new ProductDAO();
-        BlogDao blog = new BlogDao();
-        ProductSizeDao pdsizeDAO = new ProductSizeDao();
-
-        ArrayList<Product> plist = pdao.getAllProduct("4", "", 1, "1");
-        ArrayList<Product> plist1 = pdao.getTopSelling();
-        ArrayList<Product> plist12 = pdao.getAllSlideProducts();
-        ArrayList<Model.Blog> bl = blog.recentBlog();
-
-        request.setAttribute("plist", plist);
-        request.setAttribute("plist1", plist1);
-        request.setAttribute("plist12", plist12);
-        request.setAttribute("bl", bl);
-        Cookie[] cookies = request.getCookies();
-        List<ProductDTO> map = new ArrayList<>();
-        if (cookies != null) {
+        response.setContentType("text/html;charset=UTF-8");
+        try ( PrintWriter out = response.getWriter()) {
+            String index = request.getParameter("idx");
+            String quantity = request.getParameter("quantity");
+            HttpSession session = request.getSession();
+            Cookie[] cookies = request.getCookies();
+            List<ProductDTO> map = (List<ProductDTO>) session.getAttribute("map");
             for (Cookie i : cookies) {
                 if (i.getName().equals("map")) {
-                    String value = i.getValue();
-                    String[] list = value.split("/");
-                    for (int idx = 0; idx < list.length; idx += 3) {
-                        Product p = pdao.getProductById(Integer.parseInt(list[idx]));
-                        ProductSize pdsize = null;
-                        if (!list[idx + 1].equals("none")) {
-                            pdsize = pdsizeDAO.getProductSizeById(Integer.parseInt(list[idx + 1]));
-                        }
-                        int quantity = Integer.parseInt(list[idx + 2]);
-                        ProductDTO pdto = new ProductDTO(p, pdsize, quantity);
-                        map.add(pdto);
-                    }
+                    i.setMaxAge(0);
+                    response.addCookie(i);
+                    break;
                 }
             }
+            map.get(Integer.parseInt(index)).setQuantity(Integer.parseInt(quantity));
+            session.setAttribute("map", map);
+        StringBuilder value = new StringBuilder();
+        for (int idx = 0; idx < map.size() - 1; idx++) {
+            value.append(map.get(idx).getProduct().getId());
+            value.append("/");
+            value.append(map.get(idx).getProductSize() != null ? map.get(idx).getProductSize().getId() : "none");
+            value.append("/");
+            value.append(map.get(idx).getQuantity());
+            value.append("/");
         }
-        HttpSession session = request.getSession();
-        session.setAttribute("map", map);
-        request.getRequestDispatcher("Home.jsp").forward(request, response);
+        value.append(map.get(map.size() - 1).getProduct().getId());
+        value.append("/");
+        value.append(map.get(map.size() - 1).getProductSize() != null ? map.get(map.size() - 1).getProductSize().getId() : "none");
+        value.append("/");
+        value.append(map.get(map.size() - 1).getQuantity());
+        Cookie c = new Cookie("map", value.toString());
+        c.setMaxAge(7 * 60 * 60);
+        response.addCookie(c);
+        response.sendRedirect("cart");
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -27,9 +27,9 @@ public class Blog extends HttpServlet {
         BlogDao blog = new BlogDao();
         List<Model.Blog> lst = blog.getBlogs(); // danh sach blog
         int page;
-        int numberForPage = 6; // so blog trong 1 trang
+        int numberForPage = 2; // so blog trong 1 trang
         int size = lst.size(); // tong so luong blog
-        int numberOfPage = (size % 6 == 0 ? (size / 6) : ((size / 6) + 1)); // tong so luong trang
+        int numberOfPage = (size % 2 == 0 ? (size / 2) : ((size / 2) + 1)); // tong so luong trang
         String xPage = request.getParameter("page");
         if (xPage == null) {
             page = 1;
@@ -55,7 +55,23 @@ public class Blog extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String cid = request.getParameter("cid") == null ? "" : request.getParameter("cid");
+        String search = request.getParameter("search2") == null ? "" : request.getParameter("search2");
+        search = search.trim();
+        int c = Integer.parseInt(cid);
+        BlogDao b = new BlogDao();
+        ArrayList<Model.Blog> blist = b.getBlogByCategory(c);
+        ArrayList<Model.Blog> blist1 = b.getBlogBySearchTilte(search);
+        
+        ArrayList<Model.Blog> bl = b.recentBlog();
+        request.setAttribute("bl", bl);
+        request.setAttribute("blist", blist);
+        request.setAttribute("blist1", blist1);
+        request.getRequestDispatcher("SearchBlogList.jsp").forward(request, response);
+    }
 
     /**
      * Returns a short description of the servlet.

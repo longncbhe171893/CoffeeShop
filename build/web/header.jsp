@@ -54,7 +54,7 @@
                             </form>
                         </li>
                         <li class="nav-item"><a href="Home" class="nav-link">Home</a></li>
-                        <li class="nav-item"><a href="#" class="nav-link">Menu</a></li>
+                        <li class="nav-item"><a href="ProductLists" class="nav-link">Menu</a></li>
                         <li class="nav-item"><a href="Blog" class="nav-link">Blog</a></li>
                         <li class="nav-item"><a href="Contact" class="nav-link">Contact</a></li>
                         <li class="nav-item">
@@ -87,7 +87,7 @@
                                 <a href="LogOut" class="nav-link"> <i style="font-size: 23px;" class='bx bxs-log-in-circle' ></i></a>
                                 </c:if>
                         </li>
-                        <li class="nav-item cart"><a href="#" class="nav-link"><span class="icon icon-shopping_cart"></span><span class="bag d-flex justify-content-center align-items-center"><small>${sessionScope.map.size()}</small></span></a></li>
+                        <li class="nav-item cart"><a href="cart" class="nav-link"><span class="icon icon-shopping_cart"></span><span class="bag d-flex justify-content-center align-items-center"><small>${sessionScope.map.size()}</small></span></a></li>
                     </ul>
                 </div>
             </div>
