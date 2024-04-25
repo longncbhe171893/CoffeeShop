@@ -35,6 +35,7 @@ public class ResetPassword extends HttpServlet {
         } else {
             UserDAO dao = new UserDAO(); 
             dao.changePasswordByEmail(u.getEmail(), pass);
+            request.setAttribute("alertTitle", "Change password success. Thank you!");
             request.getRequestDispatcher("Login.jsp").forward(request, response);
         }
     }

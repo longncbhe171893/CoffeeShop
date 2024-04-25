@@ -28,18 +28,19 @@
 
                 <div class="form-group">
                     <i class="far fa-user"></i>
-                    <input type="text" class="form-input" name="name" placeholder="Name" required>
+                    <input type="text" class="form-input" name="name" value="${name}" placeholder="Name" required>
                 </div>
 
                 <div class="form-group">
                     <i class="far fa-user"></i>
-                    <input type="text" class="form-input" name="email" placeholder="Email" required>
+                    <input type="text" class="form-input" name="email" value="${email}" placeholder="Email" required>
                 </div>
 
                 <div class="form-group">
                     <i class="fas fa-key"></i>
                     <input  class="form-input" type="password"
                             name="pass"
+                            value="${pass}"
                             pattern=".{8,20}"
                             title="Password must be at least 8 to 20 characters!!!"
                             placeholder="Password" required/>
@@ -47,7 +48,7 @@
 
                 <div class="form-group">
                     <i class="far fa-user"></i>
-                    <input type="password" class="form-input" name="confirmpass" placeholder="Confirm Password" required>
+                    <input type="password" class="form-input" name="confirmpass" value="${confirmpass}" placeholder="Confirm Password" required>
                 </div>
 
                 <p style="color: red;"> ${messregis}</p>

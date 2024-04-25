@@ -31,25 +31,40 @@ public class Login extends HttpServlet {
         ArrayList<User> userList = udao.getAllUser();
         String mess = "Email or password wrong!";
         User userI = userList.stream()
-                .filter(user -> user.getEmail().equals(email) && user.getUserStatus() == 1 && user.getPassword().equals(md5.getMd5(pass)))
+                .filter(user -> user.getEmail().equals(email))
                 .findFirst().orElse(null);
         if (userI != null) {
-            switch (userI.getSetting_id()) {
-                case 1:
-                    session.setAttribute("account", userI);
-                    response.sendRedirect("Home");
-                    break;
-                case 2:
-                    session.setAttribute("account", userI);
-                    response.sendRedirect("SellerDashboard");
-                    break;
-                case 3:
-                    session.setAttribute("account", userI);
-                    response.sendRedirect("Home");
-                    break;
+            if (userI.getUserStatus() == 0) {
+                mess = "User not allowed to log in!";
+                request.setAttribute("mess", mess);
+                request.setAttribute("email", email); // Giữ lại email đã nhập
+                request.getRequestDispatcher("Login.jsp").forward(request, response);
+            } else {
+                if (!userI.getPassword().equals(md5.getMd5(pass))) {
+                    mess = "Email or password wrong!";
+                    request.setAttribute("mess", mess);
+                    request.setAttribute("email", email); // Giữ lại email đã nhập
+                    request.getRequestDispatcher("Login.jsp").forward(request, response);
+                } else {
+                    switch (userI.getSetting_id()) {
+                        case 1:
+                            session.setAttribute("account", userI);
+                            response.sendRedirect("Home");
+                            break;
+                        case 2:
+                            session.setAttribute("account", userI);
+                            response.sendRedirect("SellerDashboard");
+                            break;
+                        case 3:
+                            session.setAttribute("account", userI);
+                            response.sendRedirect("Home");
+                            break;
+                    }
+                }
             }
         } else {
             request.setAttribute("mess", mess);
+            request.setAttribute("email", email); // Giữ lại email đã nhập
             request.getRequestDispatcher("Login.jsp").forward(request, response);
         }
     }

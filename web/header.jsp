@@ -1,4 +1,5 @@
 
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
@@ -43,7 +44,7 @@
                 <div class="collapse navbar-collapse" id="ftco-nav">
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item">
-                            <form action="#" class="search-form" method="post" >
+                            <form action="Blog" class="search-form" method="post" >
                                 <div class="form-group">
                                     <div class="icon">
                                         <span class="icon-search"></span>
@@ -54,33 +55,36 @@
                         </li>
                         <li class="nav-item"><a href="Home" class="nav-link">Home</a></li>
                         <li class="nav-item"><a href="#" class="nav-link">Menu</a></li>
-                        <li class="nav-item"><a href="#" class="nav-link">Blog</a></li>
+                        <li class="nav-item"><a href="Blog" class="nav-link">Blog</a></li>
+                        <li class="nav-item"><a href="Contact" class="nav-link">Contact</a></li>
                         <li class="nav-item">
-                            <c:if test="${sessionScope['account'].getRole().getId() == 3}">
+                            <c:if test="${sessionScope['account'].getSetting_id() == 3}">
                                 <a href="#" class="nav-link" >MY ORDER</a>
-                            </c:if>
-                        </li>                     
-                        <li class="nav-item">
-                            <c:if test="${sessionScope['account'].getRole().getId() == 1}">
-                                <a href="AdminDashBoard.jsp" class="nav-link" >MANAGER PAGE</a>
-                            </c:if>
-                            <c:if test="${sessionScope['account'].getRole().getId() == 2}">
-                                <a href="ManageBlog?index=1&user=${sessionScope['account'].getId()}" class="nav-link" >MANAGER PAGE</a>
                             </c:if>
                         </li>
                         <li class="nav-item">
+                            <c:if test="${sessionScope['account'].getSetting_id() == 1}">
+                                <a href="AdminDashBoard.jsp" class="nav-link" >MANAGER PAGE</a>
+                            </c:if>
+
+                            <c:if test="${sessionScope['account'].getSetting_id() == 2}">
+                                <a href="SellerDashboard.jsp" class="nav-link" >MANAGER PAGE</a>
+                            </c:if>
+                        </li>
+
+                        <li class="nav-item">
                             <c:if test="${sessionScope['account']!=null}">
-                                <a href="#" class="nav-link"><i class="biolife-icon icon-login"></i>PROFILE</a>
+                                <a href="UserProfile.jsp" class="nav-link"><i class="biolife-icon icon-login"></i>PROFILE</a>
                             </c:if>
                         </li>
                         <li class="nav-item">
                             <c:if test="${sessionScope['account']==null}">
-                                <a href="Login" class="nav-link"><i style="font-size: 23px;" class="icon icon-person"></i></a>
+                                <a href="Login.jsp" class="nav-link"><i style="font-size: 23px;" class="icon icon-person"></i></a>
                                 </c:if>
                         </li>
                         <li class="nav-item">
                             <c:if test="${sessionScope['account']!=null}">
-                                <a href="#" class="nav-link"> <i style="font-size: 23px;" class='bx bxs-log-in-circle' ></i></a>
+                                <a href="LogOut" class="nav-link"> <i style="font-size: 23px;" class='bx bxs-log-in-circle' ></i></a>
                                 </c:if>
                         </li>
                         <li class="nav-item cart"><a href="#" class="nav-link"><span class="icon icon-shopping_cart"></span><span class="bag d-flex justify-content-center align-items-center"><small>${sessionScope.map.size()}</small></span></a></li>
