@@ -19,7 +19,7 @@
 
         <li class="active">
             <a href="SettingLists">
-               <i class='bx bxs-dashboard' ></i>
+                <i class='bx bxs-dashboard' ></i>
                 <span class="text">Manage Setting</span>
             </a>
         </li>
@@ -29,8 +29,15 @@
                 <span class="text">Manage User</span>
             </a>
         </li>
-       
-        
+        <li class="active">
+            <a href="SellerDashboard">
+                <i class='bx bxs-dashboard' ></i>
+                <span class="text">Seller Dashboard</span>
+            </a>
+        </li>
+
+
+
         <li>
             <a href="LogOut" class="logout">
                 <i class='bx bxs-log-out-circle' ></i>

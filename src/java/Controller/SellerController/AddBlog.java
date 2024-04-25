@@ -30,6 +30,7 @@ public class AddBlog extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try {
+            int index = Integer.valueOf(request.getParameter("index"));
             String title = " > Add Blog";
             String action = "AddBlog";
             BlogDao blog = new BlogDao();
@@ -39,7 +40,7 @@ public class AddBlog extends HttpServlet {
             request.setAttribute("categoryBlog", category);
             request.setAttribute("title", title);
             request.setAttribute("action", action);
-
+            request.setAttribute("index", index);
             request.getRequestDispatcher("EditBlog.jsp").forward(request, response);
 
         } catch (ServletException | IOException e) {
@@ -62,8 +63,9 @@ public class AddBlog extends HttpServlet {
         String title = request.getParameter("title");
         Part imagePart = request.getPart("img");
         String content = request.getParameter("content");
-//        int userId = Integer.valueOf(request.getParameter("user"));
-        int userId = 8;
+        int index = Integer.valueOf(request.getParameter("index"));
+        int userId = Integer.valueOf(request.getParameter("user"));
+
 
         String fileName = imagePart.getSubmittedFileName();
         String uploadDirectory = getServletContext().getRealPath("/image");// Thay đổi đường dẫn tới thư mục lưu trữ ảnh trên máy chủ
@@ -94,7 +96,7 @@ public class AddBlog extends HttpServlet {
         } else {
 
         }
-        response.sendRedirect("ManageBlog?index=1");
+        response.sendRedirect("ManageBlog?index="+index+"&user="+userId);
     }
 
     /**
