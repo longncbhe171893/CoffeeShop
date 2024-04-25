@@ -109,9 +109,10 @@
         </select>
             <b>Status:</b>
         <select class="form-control" name="productstatus">
-            <option value="0" ${product.getSatus() == 0 ? "selected" : ""}>All</option>
-            <option value="1" ${product.getSatus() == 1 ? "selected" : ""}>Active</option>
-            <option value="2" ${product.getStatus() == 2 ? "selected" : ""}>Inactive</option>
+            <option value="0" ${product.getProductSatus() == 0 ? "selected" : ""}>All</option>
+            <option value="1" ${product.getProductSatus() == 1 ? "selected" : ""}>Active</option>
+            <option value="2" ${product.getProductStatus() == 2 ? "selected" : ""}>Inactive</option>
+             <option value="2" ${product.getProductStatus() == 3 ? "selected" : ""}>Deactive</option>
         </select>
         <button type="submit" class="btn btn-success" value="submit">Submit</button>
     </div>  

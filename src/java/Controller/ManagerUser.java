@@ -36,13 +36,17 @@ public class ManagerUser extends HttpServlet {
         UserDAO udao = new UserDAO();
         // paging
         int index = Integer.valueOf(request.getParameter("index"));
-        int count = udao.countUser();
+        int sex=0;
+        int userStatus=0;
+        String search ="";
+        
+         ArrayList<User> userlist = udao.pagingUser(index, numPage, sex, userStatus, search);
+          ArrayList<Model.Setting> role = udao.getRole();
+        int count = udao.countUser(sex, userStatus,  search);
         int ePage = count / numPage;
         if (count % 4 != 0) {
             ePage++;
         }
-         ArrayList<User> userlist = udao.pagingUser(index, numPage);
-          ArrayList<Model.Setting> role = udao.getRole();
         int nextPage, backPage;
         if (index == 1) {
             backPage = 1;
@@ -61,7 +65,7 @@ public class ManagerUser extends HttpServlet {
         request.setAttribute("ePage", ePage);
         //set list for manage blog page
         request.setAttribute("userlist", userlist);
-         request.setAttribute("rlist", role);
+        request.setAttribute("rlist", role);
         request.getRequestDispatcher("ManagerUser.jsp").forward(request, response);
     }
 
@@ -70,7 +74,6 @@ public class ManagerUser extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
     }
-
     /**
      * Handles the HTTP <code>POST</code> method.
      *
@@ -82,21 +85,52 @@ public class ManagerUser extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String search = request.getParameter("search");
-        UserDAO udao = new UserDAO();
         int numPage = 4;
-        int index = 1;
-        int count = udao.countUser();
+
+        UserDAO udao = new UserDAO();
+        // paging
+        int index = Integer.valueOf(request.getParameter("index"));
+        int gender =Integer.valueOf(request.getParameter("sex"));
+        int uStatus = Integer.valueOf(request.getParameter("userstatus"));
+        String searchName = request.getParameter("search");
+        int sex=0;
+        int userStatus=0;
+        String search ="";
+        if(gender!=0){
+            sex=gender;
+        }
+        if(uStatus!=0){
+            userStatus = uStatus;
+        }
+        if(searchName != null){
+            search = searchName;
+        }
+         ArrayList<User> userlist = udao.pagingUser(index, numPage,sex, userStatus, search);
+          ArrayList<Model.Setting> role = udao.getRole();
+        int count = udao.countUser(sex, userStatus, searchName);
         int ePage = count / numPage;
         if (count % 4 != 0) {
             ePage++;
         }
-        List<User> userlist = udao.pagingUser(index, numPage);
-         if (search != null) {
-            userlist = udao.searchUser(search);
+        int nextPage, backPage;
+        if (index == 1) {
+            backPage = 1;
+            nextPage=2;
+        } else if ( index == ePage) {
+            backPage=ePage-1;
+            nextPage = ePage;
+        } else {
+            backPage = index - 1;
+            nextPage = index + 1;
         }
+        //set attribute for paging
+        request.setAttribute("nextPage", nextPage);
+        request.setAttribute("backPage", backPage);
+       
         request.setAttribute("ePage", ePage);
+        //set list for manage blog page
         request.setAttribute("userlist", userlist);
+        request.setAttribute("rlist", role);
         request.getRequestDispatcher("ManagerUser.jsp").forward(request, response);
     }
 
@@ -111,4 +145,3 @@ public class ManagerUser extends HttpServlet {
     }// </editor-fold>
 
 }
-

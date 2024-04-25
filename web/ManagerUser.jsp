@@ -36,34 +36,89 @@
                 background-color: #ddd;
                 border-radius: 5px;
             }
+
+      .search-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.form-input {
+    display: flex;
+    align-items: center;
+}
+
+.search-input {
+    width: 200px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.search-btn {
+    padding: 8px 12px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: 8px;
+}
+
+.select-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.select-buttons select {
+    margin-right: 10px;
+}
+
+.select-buttons button {
+    padding: 8px 16px;
+}
             </style>
     </head>
+
     <body>
         <!-- SIDEBAR -->
         <jsp:include page="headerDashbord.jsp"/>
         <!-- SIDEBAR -->
 
         <!-- CONTENT -->
-        <section id="content">
-            <!-- NAVBAR -->
-            <nav>
-                <i class='bx bx-menu' ></i>
-                <form action="ManagerUser" method="post">
-                    <div class="form-input">
-                        <input type="search" name="search" placeholder="Search...">
-                        <button type="submit" class="search-btn"><i class='bx bx-search' ></i></button>
-                    </div>
-                </form>
-            </nav>
-            <!-- NAVBAR -->
-
+        <section id="content"> 
             <!-- MAIN -->
             <main>
                 <div class="head-title">
-                    <div class="left">
-                        <h1>Manage User</h1> 
-                    </div>
-                </div>
+    <div class="left">
+        <h1>Manage User</h1>
+    </div>
+</div>
+
+<form action="ManagerUser" method="post" class="search-form">
+    <input type="hidden" name="index" value="1">
+    <div class="form-input">
+        <input type="search" name="search" placeholder="Search..." class="search-input">
+    </div>
+    <div class="select-buttons">
+            <b>Status:</b>
+            <br>
+        <select class="form-control" name="userstatus">
+            <option value="0" ${user.getUserSatus() == 0 ? "selected" : ""}>All</option>
+            <option value="1" ${user.getUserSatus() == 1 ? "selected" : ""}>Active</option>
+            <option value="2" ${user.getUserStatus() == 2 ? "selected" : ""}>Inactive</option>
+        </select>
+         <b>Sex:</b>
+         <br>
+        <select class="form-control" name="sex">
+            <option value="0" ${user.getSex() == 0 ? "selected" : ""}>All</option>
+            <option value="1" ${user.getSex() == 1 ? "selected" : ""}>Nam</option>
+            <option value="2" ${user.getSex() == 2 ? "selected" : ""}>Nữ</option>
+        </select>
+        <button type="submit" class="btn btn-success" value="submit">Submit</button>
+    </div>  
+</form>
  <!-- Modal -->
                                     
                 <div style="margin-top: 3rem;" class="col-md-12">
@@ -72,11 +127,11 @@
                         <thead >
                             <tr style="font-size: 20px;">
                                 <th scope="col" >ID</th>
-                                <th scope="col" onclick="sortTable(0)">Name</th>
-                                <th scope="col" onclick="sortTable(1)">Email</th>
-                                 <th scope="col" onclick="sortTable(2)">Sex</th>  
-                                <th scope="col" onclick="sortTable(3)">Role</th>
-                                <th scope="col" onclick="sortTable(4)">Status</th>
+                                <th scope="col" >Name</th>
+                                <th scope="col">Email</th>
+                                 <th scope="col" >Sex</th>  
+                                <th scope="col" >Role</th>
+                                <th scope="col" >Status</th>
                                 <th scope="col" >Details</th>
                             </tr>
                         </thead>
@@ -107,7 +162,7 @@
                             </c:choose>
                             </td>
                                     <td><a onclick="return confirm('Do you want to change your account status?')" href="UpdateStatusUser?uid=${p.getId()}&sid=${p.getUserStatus()}">
-                                            ${p.getUserStatus()==1?"Enable":"Disnable"}</a></td>    
+                                            ${p.getUserStatus()==1?"Active":"Inactive"}</a></td>    
                                    <td> <button type="button" class="btn btn-success btn-lg" onclick="window.location.href = 'EditUser?userId=${p.getId()}&UserDetail=false';"">Edit User</button></td>
                                 </tr>   
                             </c:forEach>
@@ -125,62 +180,6 @@
             <!-- MAIN -->
         </section>
         <!-- CONTENT -->
-        <script>
-function sortTable(n) {
-  var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
-  table = document.getElementById("myTable");
-  switching = true;
-  //Set the sorting direction to ascending:
-  dir = "asc"; 
-  /*Make a loop that will continue until
-  no switching has been done:*/
-  while (switching) {
-    //start by saying: no switching is done:
-    switching = false;
-    rows = table.rows;
-    /*Loop through all table rows (except the
-    first, which contains table headers):*/
-    for (i = 1; i < (rows.length - 1); i++) {
-      //start by saying there should be no switching:
-      shouldSwitch = false;
-      /*Get the two elements you want to compare,
-      one from current row and one from the next:*/
-      x = rows[i].getElementsByTagName("TD")[n];
-      y = rows[i + 1].getElementsByTagName("TD")[n];
-      /*check if the two rows should switch place,
-      based on the direction, asc or desc:*/
-      if (dir == "asc") {
-        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
-          //if so, mark as a switch and break the loop:
-          shouldSwitch= true;
-          break;
-        }
-      } else if (dir == "desc") {
-        if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
-          //if so, mark as a switch and break the loop:
-          shouldSwitch = true;
-          break;
-        }
-      }
-    }
-    if (shouldSwitch) {
-      /*If a switch has been marked, make the switch
-      and mark that a switch has been done:*/
-      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
-      switching = true;
-      //Each time a switch is done, increase this count by 1:
-      switchcount ++;      
-    } else {
-      /*If no switching has been done AND the direction is "asc",
-      set the direction to "desc" and run the while loop again.*/
-      if (switchcount == 0 && dir == "asc") {
-        dir = "desc";
-        switching = true;
-      }
-    }
-  }
-}
-</script>
         <script >
 
             CKEDITOR.replace('edit', {
