@@ -76,7 +76,6 @@
         <servlet-name>AddToCart</servlet-name>
         <servlet-class>Controller.AddToCart</servlet-class>
     </servlet>
-    
     <servlet>
         <servlet-name>ManageProduct</servlet-name>
         <servlet-class>Controller.ManageProduct</servlet-class>
@@ -209,6 +208,18 @@
         <servlet-name>UpdateOrderDetail</servlet-name>
         <servlet-class>Controller.SellerController.UpdateOrderDetail</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AddProduct</servlet-name>
+        <servlet-class>Controller.AddProduct</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddUser</servlet-name>
+        <servlet-class>Controller.AddUser</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditUser</servlet-name>
+        <servlet-class>Controller.EditUser</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Register</servlet-name>
         <url-pattern>/Register</url-pattern>
@@ -272,6 +283,14 @@
     <filter-mapping>
         <filter-name>AuthorizationFilter</filter-name>
         <url-pattern>/ManageBlog</url-pattern>
+    </filter-mapping>
+        <filter-mapping>
+        <filter-name>AuthorizationFilter</filter-name>
+        <url-pattern>/ManagerUser</url-pattern>
+    </filter-mapping>
+        <filter-mapping>
+        <filter-name>AuthorizationFilter</filter-name>
+        <url-pattern>/ManageProduct</url-pattern>
     </filter-mapping>
     <filter-mapping>
         <filter-name>AuthorizationFilter</filter-name>
@@ -488,6 +507,18 @@
     <servlet-mapping>
         <servlet-name>UpdateOrderDetail</servlet-name>
         <url-pattern>/UpdateOrderDetail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddProduct</servlet-name>
+        <url-pattern>/AddProduct</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddUser</servlet-name>
+        <url-pattern>/AddUser</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditUser</servlet-name>
+        <url-pattern>/EditUser</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

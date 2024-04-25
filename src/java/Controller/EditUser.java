@@ -7,6 +7,7 @@ package Controller;
 import DAO.UserDAO;
 import Model.User;
 import java.io.IOException;
+import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.http.HttpServlet;
@@ -14,7 +15,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
 import java.io.File;
+import java.sql.Date;
 import java.util.ArrayList;
+import java.util.List;
 
 @MultipartConfig(
         fileSizeThreshold = 524288,
@@ -22,32 +25,8 @@ import java.util.ArrayList;
         maxRequestSize = 4194304,
         location = "/org"
 )
-public class AddUser extends HttpServlet {
- protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try {
-            String title = " > Add User";
-            String action = "AddUser";
-            UserDAO user = new UserDAO();
-             ArrayList<Model.Setting> role = user.getRole();
-            request.setAttribute("title", title);
-            request.setAttribute("action", action);
-            request.setAttribute("rlist", role);
-            request.getRequestDispatcher("EditUser.jsp").forward(request, response);
+public class EditUser extends HttpServlet {
 
-        } catch (ServletException | IOException e) {
-
-        }
-
-    }
-
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-
-    }
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {  
@@ -57,7 +36,7 @@ public class AddUser extends HttpServlet {
             String password = request.getParameter("password");
             String address = request.getParameter("address");
             String phone = request.getParameter("phone");
-            int sex = Integer.valueOf(request.getParameter("sex"));
+             int sex = Integer.valueOf(request.getParameter("sex"));
            Part imagePart = request.getPart("img");
         String fileName = imagePart.getSubmittedFileName();
         String uploadDirectory = getServletContext().getRealPath("/image");// Thay đổi đường dẫn tới thư mục lưu trữ ảnh trên máy chủ
@@ -83,19 +62,54 @@ public class AddUser extends HttpServlet {
             }
             int roleId = Integer.parseInt(request.getParameter("role"));
              double userpoint = Double.valueOf(request.getParameter("point"));
+             int id = Integer.valueOf(request.getParameter("id"));
                 UserDAO udao = new UserDAO();
          
                 
                 // Cập nhật thông tin người dùng
-                udao.addUser(name, email, password, address, phone, sex, relativeImagePath, roleId, userpoint);
+                udao.updateUser(name, email, password, address, phone, sex, relativeImagePath, roleId, userpoint, id);
                  response.sendRedirect("ManagerUser?index=1");
                 // Redirect to user management page
                
         }  
   
     }
+@Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+
+    }
+
     @Override
     public String getServletInfo() {
-       return "Short description";
+        return "Short description";
+    }// </editor-fold>
+
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        try {
+
+            UserDAO userDAO = new UserDAO();
+            User user = userDAO.getUserById(Integer.valueOf(request.getParameter("userId")));
+             ArrayList<Model.Setting> role = userDAO.getRole();
+            if(request.getParameter("UserDetail").equals("true")){
+                request.setAttribute("disable", "disabled");
+            }
+            String title = " > Edit User";
+            String action = "EditUser";
+            
+            request.setAttribute("title", title);
+            request.setAttribute("action", action);
+            request.setAttribute("user", user);
+            request.setAttribute("rlist", role);
+
+            request.getRequestDispatcher("EditUser.jsp").forward(request, response);
+
+        } catch (ServletException | IOException e) {
+
+        }
+
     }
-}
+} 

@@ -13,11 +13,34 @@
         <link href="css/nice-select.css" rel="stylesheet">
         <script src="ckeditor/ckeditor.js"></script> 
         <script src="ckfinder/ckfinder.js"></script>
-        <title>Admin Dashboard</title>     
+        <title>Admin Dashboard</title> 
+        <style>   
+        .pagination {
+                display: inline-block;
+            }
+
+            .pagination a {
+                color: black;
+                float: left;
+                padding: 8px 16px;
+                text-decoration: none;
+            }
+
+            .pagination a.active {
+                background-color: #4CAF50;
+                color: white;
+                border-radius: 5px;
+            }
+
+            .pagination a:hover:not(.active) {
+                background-color: #ddd;
+                border-radius: 5px;
+            }
+            </style>
     </head>
     <body>
         <!-- SIDEBAR -->
-        <jsp:include page="headerDashbord.jsp"/>
+        <jsp:include page="headerAdmin.jsp"/>
         <!-- SIDEBAR -->
 
         <!-- CONTENT -->
@@ -38,98 +61,126 @@
             <main>
                 <div class="head-title">
                     <div class="left">
-                        <h1>Manage User</h1>
-                        <button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#myModalAddNew" >Add User</button>
+                        <h1>Manage User</h1> 
                     </div>
                 </div>
  <!-- Modal -->
-                    <div class="modal fade" id="myModalAddNew" role="dialog">
-                        <div class="modal-dialog">
-
-                            <!-- Modal content-->
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                    <h4 class="modal-title">Add User</h4>
-                                </div>
-                                <form action="AddUser" method="post" enctype="multipart/form-data">
-                                   <div class="modal-body">
-                                     <b>Name: </b><input type="text" class="form-control" value="" required name="name"><br>  
-                                     <b>Email: </b><input type="text" class="form-control" value="" required name="email"><br>  
-                                    <b>Password: </b><input type="password" class="form-control" value="" name="password"><br>
-                                     <b>Address: </b><input type="text" class="form-control" value="" name="address"><br>  
-                                     <b>Phone: </b><input type="text" class="form-control" value="" name="phone"><br>  
-                                     <b>Sex: </b><input type="text" class="form-control" value=""  name="sex"><br>  
-                                     <b>User point: </b><input type="text" class="form-control" value=""  name="userpoint"><br> 
-                                  </div>
-                                    <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-success" value="submit">Submit</button>
-                                </div>
-                             </form>
-                            </div>
-                        </div>
-                    </div>
                                     
                 <div style="margin-top: 3rem;" class="col-md-12">
-                    <table class="table">
+                    <button class="button" onclick="window.location.href = 'AddUser';">Add User</button>
+                    <table class="table" id="myTable">
                         <thead >
                             <tr style="font-size: 20px;">
-                                <th scope="col">ID</th>
-                                <th scope="col">Name</th>
-                                <th scope="col">Email</th>                      
-                                <th scope="col">Role</th>
-                                <th scope="col">Status</th>
-                                <th scope="col">Details</th>
+                                <th scope="col" >ID</th>
+                                <th scope="col" onclick="sortTable(0)">Name</th>
+                                <th scope="col" onclick="sortTable(1)">Email</th>
+                                 <th scope="col" onclick="sortTable(2)">Sex</th>  
+                                <th scope="col" onclick="sortTable(3)">Role</th>
+                                <th scope="col" onclick="sortTable(4)">Status</th>
+                                <th scope="col" >Details</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <c:forEach var="p" items="${pl}">
+                            <c:forEach var="p" items="${userlist}">
                                 <tr>
                                     <th scope="row">${p.getId()}</th>
                                     <td>${p.getName()}</td>
-                                    <td>${p.getEmail()}</td>                                
-                                    <td>${p.getSetting_id()==2?"Seller":"User"}</td>
+                                    <td>${p.getEmail()}</td> 
+                                    <td>
+                           <c:choose>
+                                 <c:when test="${p.getSex() == 1}">
+                                           Nam
+                                 </c:when>
+                                 <c:when test="${p.getSex() == 2}">
+                                            Nữ
+                                 </c:when>
+                            </c:choose>
+                            </td>
+                             <td>
+                           <c:choose>
+                                 <c:when test="${p.getSetting_id()==2}">
+                                           Seller
+                                 </c:when>
+                                 <c:when test="${p.getSetting_id()==3}">
+                                            Customer
+                                 </c:when>
+                            </c:choose>
+                            </td>
                                     <td><a onclick="return confirm('Do you want to change your account status?')" href="UpdateStatusUser?uid=${p.getId()}&sid=${p.getUserStatus()}">
                                             ${p.getUserStatus()==1?"Enable":"Disnable"}</a></td>    
-                                  <td> <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#myModal${p.getId()}">Edit</button></td>
-                                </tr>
-                                 <div class="modal fade" id="myModal${p.getId()}" role="dialog">
-                                <div class="modal-dialog">
-                                    <!-- Modal content-->
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                            <h4 class="modal-title">User details:</h4>
-                                        </div>
-                                        <form action="UserDetails" method="post">
-                                            <div class="modal-body">
-                                                <b>Image:</b><input type="file" class="form-control" required  value="${p.getImage()}" name="image"><br>            
-                                                <b>ID: </b><input type="text" class="form-control" name="id" value="${p.getId()}" readonly=""><br>
-                                                <b>Name: </b><input type="text" class="form-control" value="${p.getName()}" name="name"><br>
-                                                <b>Email: </b><input type="text" class="form-control" value="${p.getEmail()}" name="email" ><br>    
-                                                <b>Password: </b><input type="password" class="form-control" value="${p.getPassword()}" name="password" ><br> 
-                                                <b>Address: </b><input type="text" class="form-control" value="${p.getAddress()}" name="address"><br>
-                                                <b>Phone: </b><input type="text" class="form-control" value="${p.getPhone()}" name="phone"><br>
-                                                <b>Sex: </b><input type="text" class="form-control" value="${p.getSex()}" name="sex"><br>
-                                                <b>User point: </b><input type="text" class="form-control" value="${p.getPoint()}" name="userpoint"><br>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                <button type="submit" class="btn btn-success" value="submit">Submit</button>
-                                            </div>
-                                        </form>                                 
-                                    </div>
-                                </div>
-                            </div>
+                                   <td> <button type="button" class="btn btn-success btn-lg" onclick="window.location.href = 'EditUser?userId=${p.getId()}&UserDetail=false';"">Edit User</button></td>
+                                </tr>   
                             </c:forEach>
                         </tbody>
                     </table>
+                </div>
+ <div class="pagination">
+                    <a href="ManagerUser?index=${backPage}">&laquo;</a>
+                    <c:forEach begin="1" end="${ePage}" var="i">
+                        <a href="ManagerUser?index=${i}">${i}</a>
+                    </c:forEach>
+                    <a href="ManagerUser?index=${nextPage}">&raquo;</a>
                 </div>
             </main>
             <!-- MAIN -->
         </section>
         <!-- CONTENT -->
+        <script>
+function sortTable(n) {
+  var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+  table = document.getElementById("myTable");
+  switching = true;
+  //Set the sorting direction to ascending:
+  dir = "asc"; 
+  /*Make a loop that will continue until
+  no switching has been done:*/
+  while (switching) {
+    //start by saying: no switching is done:
+    switching = false;
+    rows = table.rows;
+    /*Loop through all table rows (except the
+    first, which contains table headers):*/
+    for (i = 1; i < (rows.length - 1); i++) {
+      //start by saying there should be no switching:
+      shouldSwitch = false;
+      /*Get the two elements you want to compare,
+      one from current row and one from the next:*/
+      x = rows[i].getElementsByTagName("TD")[n];
+      y = rows[i + 1].getElementsByTagName("TD")[n];
+      /*check if the two rows should switch place,
+      based on the direction, asc or desc:*/
+      if (dir == "asc") {
+        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+          //if so, mark as a switch and break the loop:
+          shouldSwitch= true;
+          break;
+        }
+      } else if (dir == "desc") {
+        if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+          //if so, mark as a switch and break the loop:
+          shouldSwitch = true;
+          break;
+        }
+      }
+    }
+    if (shouldSwitch) {
+      /*If a switch has been marked, make the switch
+      and mark that a switch has been done:*/
+      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+      switching = true;
+      //Each time a switch is done, increase this count by 1:
+      switchcount ++;      
+    } else {
+      /*If no switching has been done AND the direction is "asc",
+      set the direction to "desc" and run the while loop again.*/
+      if (switchcount == 0 && dir == "asc") {
+        dir = "desc";
+        switching = true;
+      }
+    }
+  }
+}
+</script>
         <script >
 
             CKEDITOR.replace('edit', {

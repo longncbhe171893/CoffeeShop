@@ -13,9 +13,15 @@
         </li>
 
         <li class="active">
-            <a href="ManagerUser">
+            <a href="ManagerUser?index=1">
                 <i class='bx bxs-group' ></i>
                 <span class="text">Manage User</span>
+            </a>
+        </li>
+           <li class="active">
+            <a href="ManageProduct?index=1">
+                <i class='bx bxs-group' ></i>
+                <span class="text">Manage Product</span>
             </a>
         </li>
         <li>
