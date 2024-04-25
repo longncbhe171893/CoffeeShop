@@ -26,18 +26,23 @@ public class ResetPassword extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String pass = request.getParameter("pass");
-        String confirmPass = request.getParameter("confirmpass");
-        MD5 md5 = new MD5();
-        User u = (User) request.getSession().getAttribute("newuser");
-        if (pass.equals(confirmPass) == false) {
-            request.setAttribute("mess", "Confirm Password is not correct");
-            request.getRequestDispatcher("ResetPassword.jsp").forward(request, response);
-        } else {
-            UserDAO dao = new UserDAO(); 
-            dao.changePasswordByEmail(u.getEmail(), pass);
-            request.setAttribute("alertTitle", "Change password success. Thank you!");
-            request.getRequestDispatcher("Login.jsp").forward(request, response);
-        }
+    String confirmPass = request.getParameter("confirmpass");
+    MD5 md5 = new MD5();
+    User u = (User) request.getSession().getAttribute("newuser");
+    if (!pass.equals(confirmPass)) {
+        // Giữ lại giá trị của các ô đã nhập
+        request.setAttribute("pass", pass);
+        request.setAttribute("confirmPass", confirmPass);
+        
+        // Thông báo lỗi
+        request.setAttribute("mess", "Confirm Password is not correct");
+        request.getRequestDispatcher("ResetPassword.jsp").forward(request, response);
+    } else {
+        UserDAO dao = new UserDAO(); 
+        dao.changePasswordByEmail(u.getEmail(), pass);
+        request.setAttribute("alertTitle", "Change password success. Thank you!");
+        request.getRequestDispatcher("Login.jsp").forward(request, response);
+    }
     }
 
     /**

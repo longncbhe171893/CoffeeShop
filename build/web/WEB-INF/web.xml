@@ -17,6 +17,15 @@
         <servlet-class>Controller.VerifyEmail</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>UpdateStatusSlider</servlet-name>
+        <servlet-class>Controller.UpdateStatusSlider</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UpdateStatusSlider</servlet-name>
+        <url-pattern>/UpdateStatusSlider</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
         <servlet-name>Contact</servlet-name>
         <servlet-class>Controller.Contact</servlet-class>
     </servlet>

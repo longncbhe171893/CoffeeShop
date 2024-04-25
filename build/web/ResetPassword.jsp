@@ -1,5 +1,3 @@
-
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
@@ -22,7 +20,7 @@
                 <h1 class="form-heading">NEW PASSWORD</h1>
                 <div class="form-group">
                     <i class="far fa-user"></i>
-                    <input type="password" class="form-input" name="pass"   pattern=".{8,20}"
+                    <input type="password" class="form-input" name="pass" value="${pass}"   pattern=".{8,20}"
                             title="Mật khẩu ít nhất 8 đến 20 kí tự !!!"  placeholder="Create your password">
                 </div>
                 <div class="form-group">
@@ -35,4 +33,3 @@
         </div>
     </body>
 </html>
-
