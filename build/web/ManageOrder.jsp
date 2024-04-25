@@ -228,7 +228,7 @@
                                     <td> <button type="button" ${o.getStatus()==3?'hidden':o.getStatus()==4?'hidden':''} class="btn btn-success btn-lg" onclick="window.location.href = 'EditOrder?orderId=${o.getId()}&edit=true&index=${index}';"">Edit Order</button></td>
 
                                     <td>
-                                        <button type="button"  ${o.getStatus()==3?'hidden':o.getStatus()==4?'hidden':''} onclick="window.location.href = 'ChangeOrderStatus?orderId=${o.getId()}&ost=3'"style="border-radius: 100%;">
+                                        <button type="button"  ${o.getStatus()==3?'hidden':o.getStatus()==4?'hidden':''} onclick="window.location.href = 'ChangeOrderStatus?index=${index}&orderId=${o.getId()}&ost=3'"style="border-radius: 100%;">
                                             <div class="wrapper">
                                                 <div class="arrow">
                                                     <div class="line"></div>

@@ -43,6 +43,12 @@
             </a>
         </li>
         <li class="active">
+            <a href="ManageSlider">
+                <i class='bx bxs-dashboard' ></i>
+                <span class="text">Manage Slider</span>
+            </a>
+        </li>
+        <li class="active">
             <a href="SellerDashboard">
                 <i class='bx bxs-dashboard' ></i>
                 <span class="text">Seller Dashboard</span>
