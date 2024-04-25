@@ -1,10 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
 package Controller;
 
-import DAO.UserDAO;
+import DAO.ProductDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -14,9 +10,9 @@ import jakarta.servlet.http.HttpServletResponse;
 
 /**
  *
- * 
+ * @author Hoàng Vũ
  */
-public class UpdateStatusUser extends HttpServlet {
+public class UpdateStatusProduct extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -29,16 +25,20 @@ public class UpdateStatusUser extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
         response.setContentType("text/html;charset=UTF-8");
-        int uid =Integer.parseInt(request.getParameter("uid"));
-        int sid =Integer.parseInt(request.getParameter("sid"));
-        UserDAO dao = new UserDAO();      
-        if(sid == 1){
-            dao.UpdateStatusUser(2, uid);
+        String pId = request.getParameter("pid");
+        String psId = request.getParameter("psid");
+        int psid = Integer.parseInt(psId);
+        int pid = Integer.parseInt(pId);
+        ProductDAO pdao = new ProductDAO();
+        if(psid == 1){
+            pdao.UpdateProductStatus(2, pid);
+            
         }else{
-            dao.UpdateStatusUser(1, uid);
+            pdao.UpdateProductStatus(1, pid);
         }
-         response.sendRedirect("ManagerUser?index=1");
+        response.sendRedirect("ManageProduct?index=1");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
