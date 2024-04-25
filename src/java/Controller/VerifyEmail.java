@@ -41,7 +41,7 @@ public class VerifyEmail extends HttpServlet{
             User u = (User) req.getSession().getAttribute("newuser");
             UserDAO dao = new UserDAO(); 
             dao.updateUserbyStatus(u.getEmail(), 1);
-            req.setAttribute("alertTitle", "Regist success. Thank you!");
+            req.setAttribute("alertTitle", "Thank you!");
             req.getRequestDispatcher("Login.jsp").forward(req, resp);
         }else{
             req.setAttribute("alertTitle", "The verify code is wrong, please enter again!");
