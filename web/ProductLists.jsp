@@ -81,7 +81,7 @@
                                                     <c:forEach var="p" items="${plist}">
                                                         <div class="col-md-4 text-center">
                                                             <div class="menu-wrap">
-                                                                <a href="./ProductDetails?pid=${p.getId()}&mode=0" class="menu-img img mb-4" style="background-image: url(${p.getImage()});"></a>
+                                                                <a href="./ProductDetails?pid=${p.getId()}" class="menu-img img mb-4" style="background-image: url(${p.getImage()});"></a>
                                                                 <div class="text">
                                                                     <h3><a href="./ProductDetails?pid=${p.getId()}&mode=0">${p.getName()}</a></h3>		
                                                                     <p style="color: #fff" class="price">Price:<span class="priceSpan">${p.getPrice()}</span>đ</p>

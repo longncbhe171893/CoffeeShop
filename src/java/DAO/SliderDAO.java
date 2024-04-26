@@ -16,6 +16,29 @@ import java.util.List;
  * @author Admin
  */
 public class SliderDAO extends DBContext {
+    public ArrayList<Slider> getAllSliderActive() {
+        ArrayList<Slider> sliderList = new ArrayList<>();
+        String sql = "SELECT * FROM swp391.slider s where s.status =1";
+
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                sliderList.add(new Slider(
+                        rs.getInt("slider_id"),
+                        rs.getString("title"),
+                        rs.getString("img"),
+                        rs.getString("url"),
+                        rs.getInt("status")
+                        ));
+
+            }
+        } catch (SQLException e) {
+        }
+
+        return sliderList;
+    }
     public ArrayList<Slider> getAllSlider() {
         ArrayList<Slider> sliderList = new ArrayList<>();
         String sql = "SELECT * FROM swp391.slider";
@@ -239,8 +262,8 @@ public class SliderDAO extends DBContext {
     }
     public static void main(String[] args) {
         SliderDAO slider = new SliderDAO();
-//        List<Slider> listP = slider.getAllSlider();
-//        System.out.println(listP);
+        List<Slider> listP = slider.getAllSliderActive();
+       System.out.println(listP);
         String title = "Slider Title";
     String imagePath = "./ProductDetails?pid=2"; 
     slider.addSlider(title, imagePath);

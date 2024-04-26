@@ -74,7 +74,9 @@
                                 <tbody>
                                     <c:forEach items="${sessionScope.map}" var="i" varStatus="idx">
                                         <tr class="text-center">
-                                            <td class="product-remove"><a href="deleteProduct?idx=${idx.index}"><span class="icon-close"></span></a></td>
+                                            <td class="product-remove">
+                                                <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#myModalStatusActivate${idx.index}">Change</button>
+                                                <a href="deleteProduct?idx=${idx.index}"><span class="icon-close"></span></a></td>
 
                                             <td class="image-prod">
                                                 <div class="img" style="background-image:url(${i.product.image});"></div>
@@ -94,7 +96,29 @@
                                             </td>
                                             <td class="total"><span class="priceSpan">${i.productSize != null ? ((i.productSize.price + i.product.price) * i.quantity) : (i.product.price * i.quantity)}00</span>đ</td>
                                         </tr>
-                                    </c:forEach>
+                                    <div class="modal fade" id="myModalStatusActivate${idx.index}" role="dialog">
+                                        <!-- Modal content -->
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                    <h4 class="modal-title">Change Status:</h4>
+                                                </div>
+                                                <form action="deleteProduct" method="post">
+                                                    <div class="modal-body">
+                                                        <p>Do you want to change status this product</p>
+                                                        <input type="hidden" name="pid" value="${idx.index}">
+                                                        <input type="hidden" name="psid" value="${idx.index}">
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                        <button type="submit" class="btn btn-success" value="submit">Submit</button>
+                                                    </div>
+                                                </form>                                 
+                                            </div>
+                                        </div>
+                                    </div>
+                                </c:forEach>
                                 </tbody>
                             </table>
                         </div>
@@ -146,10 +170,10 @@
         <script src="js/google-map.js"></script>
         <script src="js/main.js"></script>
         <script type="text/javascript">
-        function updateCart(i) {
-            var value = $('#' + i).val();
-            window.location.href = "${pageContext.request.contextPath}/updateCart?idx=" + i + "&quantity=" + value;
-         }
+                                                        function updateCart(i) {
+                                                            var value = $('#' + i).val();
+                                                            window.location.href = "${pageContext.request.contextPath}/updateCart?idx=" + i + "&quantity=" + value;
+                                                        }
         </script>
 
     </body>

@@ -7,9 +7,11 @@ package Controller;
 import DAO.BlogDao;
 import DAO.ProductDAO;
 import DAO.ProductSizeDao;
+import DAO.SliderDAO;
 import Model.Product;
 import Model.ProductDTO;
 import Model.ProductSize;
+import Model.Slider;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
@@ -35,11 +37,12 @@ public class Home extends HttpServlet {
             throws ServletException, IOException {
         ProductDAO pdao = new ProductDAO();
         BlogDao blog = new BlogDao();
+        SliderDAO sdao = new SliderDAO();
         ProductSizeDao pdsizeDAO = new ProductSizeDao();
 
         ArrayList<Product> plist = pdao.getAllProduct("4", "", 1, "1");
         ArrayList<Product> plist1 = pdao.getTopSelling();
-        ArrayList<Product> plist12 = pdao.getAllSlideProducts();
+        ArrayList<Slider> plist12 = sdao.getAllSliderActive();
         ArrayList<Model.Blog> bl = blog.recentBlog();
 
         request.setAttribute("plist", plist);
