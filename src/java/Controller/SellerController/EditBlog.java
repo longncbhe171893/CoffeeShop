@@ -34,9 +34,7 @@ public class EditBlog extends HttpServlet {
 //        try {
 
         String title = request.getParameter("title");
-        String img;
-        img = request.getParameter("img");
-
+        String img = request.getParameter("img");
         Part imagePart = request.getPart("img");
         int index = Integer.valueOf(request.getParameter("index"));
         int userId = Integer.valueOf(request.getParameter("user"));
@@ -47,9 +45,7 @@ public class EditBlog extends HttpServlet {
         int idBlog = Integer.valueOf(request.getParameter("blogId"));
         String fileName = imagePart.getSubmittedFileName();
         String uploadDirectory = getServletContext().getRealPath("/image");// Thay đổi đường dẫn tới thư mục lưu trữ ảnh trên máy chủ
-        if (img == null) {
-            img = request.getParameter("imgSrc");
-        }
+
         // Kiểm tra xem người dùng đã chọn ảnh hay chưa
         if (fileName != null && !fileName.isEmpty()) {
             // Tạo tên file mới
@@ -70,11 +66,7 @@ public class EditBlog extends HttpServlet {
             }
             BlogDao bdao = new BlogDao();
             bdao.updateBlog(idBlog, title, relativeImagePath, userId, content, setting_id, shortDescription);
-            response.sendRedirect("ManageBlog?index=" + index + "&user=" + userId);
-        } else {
-            BlogDao bdao = new BlogDao();
-            bdao.updateBlog(idBlog, title, img, userId, content, setting_id, shortDescription);
-            response.sendRedirect("ManageBlog?index=" + index + "&user=" + userId);
+            response.sendRedirect("ManageBlog?index="+index+"&user="+userId);
         }
     }
 

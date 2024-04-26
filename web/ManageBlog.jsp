@@ -260,7 +260,7 @@
                                     <a href="ChangeStatusBlog?bid=${bl.getBlog_id()}&index=${index}&user=${sessionScope['account'].getId()}" ${hidden} class="btn- btn-danger  btn-lg" style="display: block; background-color: ${bl.getBlog_status()==2?'red':'green'}; " >${bl.getBlog_status()==1?"Public":"Private"}</a>
                                 </td>
 
-                                <td> <button type="button" class="btn btn-success btn-lg" onclick="window.location.href = 'EditBlog?blogId=${bl.getBlog_id()}&user=${sessionScope['account'].getId()}&BlogDetail=false&index=${index}&imgSrc=${bl.getBlog_image()}';"">Edit Blog</button></td>
+                                <td> <button type="button" class="btn btn-success btn-lg" onclick="window.location.href = 'EditBlog?blogId=${bl.getBlog_id()}&user=${sessionScope['account'].getId()}&BlogDetail=false&index=${index}';"">Edit Blog</button></td>
 
                                 <td>
                                     <button class="viewButton" onclick="window.location.href = 'EditBlog?blogId=${bl.getBlog_id()}&BlogDetail=true&index=${index}';"">
