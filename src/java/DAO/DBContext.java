@@ -17,7 +17,7 @@ public class DBContext {
     public DBContext() {
         try {
             String user = "root";
-            String pass = "dangphuhai";
+            String pass = "katsu0139";
             String url = "jdbc:mysql://localhost:3306/swp391";
             Class.forName("com.mysql.jdbc.Driver");
             connection = DriverManager.getConnection(url, user, pass);

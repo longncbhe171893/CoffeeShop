@@ -9,12 +9,13 @@
             <file>file:/D:/Ses5/CoffeeShop/web/cart.jsp</file>
         </group>
         <group name="PE">
-            <file>file:/F:/SWP/maincode/CoffeeShop/src/java/DAO/UserDAO.java</file>
             <file>file:/F:/SWP/maincode/CoffeeShop/web/ManageFeedback.jsp</file>
-            <file>file:/F:/SWP/maincode/CoffeeShop/src/java/Model/Contact.java</file>
-            <file>file:/F:/SWP/maincode/CoffeeShop/src/java/Model/User.java</file>
+            <file>file:/F:/SWP/maincode/CoffeeShop/src/java/Controller/ManageFeedback.java</file>
             <file>file:/F:/SWP/maincode/CoffeeShop/src/java/DAO/FeedbackDAO.java</file>
+            <file>file:/F:/SWP/maincode/CoffeeShop/src/java/Controller/VerifyForgotPassword.java</file>
             <file>file:/F:/SWP/maincode/CoffeeShop/src/java/Controller/ContactDetails.java</file>
+            <file>file:/F:/SWP/maincode/CoffeeShop/src/java/Controller/FeedbackDetails.java</file>
+            <file>file:/F:/SWP/maincode/CoffeeShop/web/FeedbackDetails.jsp</file>
             <file>file:/F:/SWP/maincode/CoffeeShop/src/java/Model/Feedback.java</file>
             <file>file:/F:/SWP/maincode/CoffeeShop/src/java/DAO/DBContext.java</file>
             <file>file:/F:/SWP/maincode/CoffeeShop/src/java/DAO/ContactDAO.java</file>

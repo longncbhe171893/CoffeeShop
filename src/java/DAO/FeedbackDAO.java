@@ -68,22 +68,45 @@ public class FeedbackDAO extends DBContext {
 
     public Feedback getFeedbackDetail(int feedbackId) {
         Feedback feedback = null;
-        String sql = "SELECT * FROM Feedback WHERE feedback_id = ?";
+        String query = "SELECT f.feedback_id, f.user_id, f.content, f.product_id, u.user_name, p.product_name "
+                + "FROM Feedback f "
+                + "INNER JOIN Users u ON f.user_id = u.user_id "
+                + "INNER JOIN Product p ON f.product_id = p.product_id" + " WHERE feedback_id = ?";
 
         try {
-            PreparedStatement ps = connection.prepareStatement(sql);
-            ps.setInt(1, feedbackId);
-            ResultSet rs = ps.executeQuery();
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setInt(1, feedbackId);
+            ResultSet resultSet = statement.executeQuery();
 
-            if (rs.next()) {
-                feedback = new Feedback(
-                        rs.getInt("feedback_id"),
-                        rs.getInt("user_id"),
-                        rs.getString("content"),
-                        rs.getInt("product_id"),
-                        rs.getDate("post_Date")
-                );
+            if (resultSet.next()) {
+                int feedback_id = resultSet.getInt("feedback_id");
+                int user_id = resultSet.getInt("user_id");
+                String content = resultSet.getString("content");
+                int product_id = resultSet.getInt("product_id");
+                
+                String user_name = resultSet.getString("user_name");
+                String product_name = resultSet.getString("product_name");
+
+                User user = new User();
+                user.setId(user_id);
+                user.setName(user_name);
+
+                Product product = new Product();
+                product.setId(product_id);
+                product.setName(product_name);
+
+                feedback = new Feedback();
+                feedback.setFeedback_id(feedback_id);
+                feedback.setUser_id(user_id);
+                feedback.setContent(content);
+                feedback.setProduct_id(product_id);
+                
+                feedback.setUser(user);
+                feedback.setProduct(product);
             }
+
+            resultSet.close();
+            statement.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
