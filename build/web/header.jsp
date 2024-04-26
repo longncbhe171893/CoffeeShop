@@ -79,7 +79,12 @@
                         </li>
                         <li class="nav-item">
                             <c:if test="${sessionScope['account']==null}">
-                                <a href="Login.jsp" class="nav-link"><i style="font-size: 23px;" class="icon icon-person"></i></a>
+                                <a href="Login.jsp" class="nav-link"><i style="font-size: 23px;" class="icon icon-person">LOGIN</i></a>
+                                </c:if>
+                        </li>
+                        <li class="nav-item">
+                            <c:if test="${sessionScope['account']==null}">
+                                <a href="Register.jsp" class="nav-link"><i style="font-size: 23px;" class="icon icon-person">REGISTER</i></a>
                                 </c:if>
                         </li>
                         <li class="nav-item">

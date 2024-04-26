@@ -126,7 +126,7 @@ public class SliderDAO extends DBContext {
         ArrayList<Slider> list = new ArrayList<>();
         String sql = " SELECT *\n"
                 + "FROM `Slider` s\n"
-                + "WHERE s.`title` LIKE ? OR s.`status_id` = ?\n"
+                + "WHERE s.`title` LIKE ? \n"
                 + "ORDER BY s.`slider_id` ASC;";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
