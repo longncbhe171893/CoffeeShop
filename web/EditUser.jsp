@@ -64,6 +64,7 @@
                           <div class="container">
     <div class="row">
         <div class="col-md-6">
+              <p style="color: red;"> ${messregis}</p>
             <!-- First column of form controls -->
             <b>ID: </b><input type="text" ${disable} class="form-control" value="${user.getId()}" required name="id" readonly><br>  
             <b>Name: </b><input type="text" ${disable} class="form-control" value="${user.getName()}" required name="name"><br>  
