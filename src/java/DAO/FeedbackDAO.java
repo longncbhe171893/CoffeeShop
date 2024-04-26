@@ -5,6 +5,8 @@
 package DAO;
 
 import Model.Feedback;
+import Model.Product;
+import Model.User;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -17,28 +19,51 @@ import java.util.List;
  */
 public class FeedbackDAO extends DBContext {
 
-    public ArrayList<Feedback> getAllFeedback() {
-        ArrayList<Feedback> feedbackList = new ArrayList<>();
-        String sql = "SELECT * FROM swp391.Feedback";
+    public List<Feedback> getAllFeedback() {
+        String query = "SELECT f.feedback_id, f.user_id, f.content, f.product_id, u.user_name, p.product_name "
+                + "FROM Feedback f "
+                + "INNER JOIN Users u ON f.user_id = u.user_id "
+                + "INNER JOIN Product p ON f.product_id = p.product_id";
+        List<Feedback> feedbacks = new ArrayList<>();
 
         try {
-            PreparedStatement ps = connection.prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
+            PreparedStatement statement = connection.prepareStatement(query);
+            ResultSet resultSet = statement.executeQuery();
 
-            while (rs.next()) {
-                feedbackList.add(new Feedback(
-                        rs.getInt("feedback_id"),
-                        rs.getInt("user_id"),
-                        rs.getString("content"),
-                        rs.getInt("product_id"),
-                        rs.getDate("post_Date")
-                ));
+            while (resultSet.next()) {
+                int feedback_id = resultSet.getInt("feedback_id");
+                int user_id = resultSet.getInt("user_id");
+                String content = resultSet.getString("content");
+                int product_id = resultSet.getInt("product_id");
+                String user_name = resultSet.getString("user_name");
+                String product_name = resultSet.getString("product_name");
 
+                User user = new User();
+                user.setId(user_id);
+                user.setName(user_name);
+
+                Product product = new Product();
+                product.setId(product_id);
+                product.setName(product_name);
+
+                Feedback feedback = new Feedback();
+                feedback.setFeedback_id(feedback_id);
+                feedback.setUser_id(user_id);
+                feedback.setContent(content);
+                feedback.setProduct_id(product_id);
+                feedback.setUser(user);
+                feedback.setProduct(product);
+
+                feedbacks.add(feedback);
             }
+
+            resultSet.close();
+            statement.close();
         } catch (SQLException e) {
+            e.printStackTrace();
         }
 
-        return feedbackList;
+        return feedbacks;
     }
 
     public Feedback getFeedbackDetail(int feedbackId) {
@@ -96,5 +121,5 @@ public class FeedbackDAO extends DBContext {
         }
         return list;
     }
-    
+
 }

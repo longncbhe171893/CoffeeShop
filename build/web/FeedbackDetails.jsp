@@ -48,9 +48,9 @@
 
                     <form action="FeedbackDetails" method="post" >
                         <div class="modal-body">
-                            <b>Name </b><input type="text"  class="form-control" value="${feedback.getUser_id()}" required name="user_id" readonly><br> 
+                            <b>Name </b><input type="text"  class="form-control" value="${feedback.getUser().getName}" required name="name" readonly><br> 
                             <b>Content </b><input type="text"  class="form-control" value="${feedback.getContent()}" required name="content" readonly><br>  
-                            <b>Product </b><input type="text"  class="form-control" value="${feedback.getProduct_id()}" required name="product_id" readonly><br> 
+                            <b>Product </b><input type="text"  class="form-control" value="${feedback.getProduct().getName}" required name="product" readonly><br> 
                             
                             <b>Note </b>
                             <textarea id="" rows="5"  name="note" class="form-control"  >${contact.getNote()}</textarea>

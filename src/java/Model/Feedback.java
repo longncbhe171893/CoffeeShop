@@ -30,6 +30,20 @@ public class Feedback {
         this.post_Date = post_Date;
     }
 
+    public Feedback(int feedback_id, int user_id, String content, int product_id, User user, Product product, Date post_Date) {
+        this.feedback_id = feedback_id;
+        this.user_id = user_id;
+        this.content = content;
+        this.product_id = product_id;
+        this.user = user;
+        this.product = product;
+        this.post_Date = post_Date;
+    }
+
+    public Feedback(int aInt, User user, String string, Product product, Date date) {
+        throw new UnsupportedOperationException("Not supported yet."); 
+    }
+
     public User getUser() {
         return user;
     }
@@ -90,7 +104,10 @@ public class Feedback {
 
     @Override
     public String toString() {
-        return "Feedback{" + "user_id=" + user_id + ", content=" + content + ", product_id=" + product_id + ", post_Date=" + post_Date + '}';
+        return "Feedback{" + "feedback_id=" + feedback_id + ", user_id=" + user_id + ", content=" + content + ", product_id=" + product_id + ", user=" + user + ", product=" + product + ", post_Date=" + post_Date + '}';
     }
+
+    
+    
      
 }

@@ -381,8 +381,10 @@ public class ContactDAO extends DBContext {
     
     public static void main(String[] args) {
         ContactDAO dao = new ContactDAO();
-        dao.filterContact("1");
-        System.out.print(dao.filterContact("1"));
+//        dao.filterContact("1");
+        List<Contact> listP = dao.getAllContacts();
+        System.out.println(listP);
+//        System.out.print(dao.filterContact("1"));
     }
 }
 

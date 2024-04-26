@@ -139,9 +139,9 @@
                         <c:forEach var="feedback" items="${feedbacks}">
                             <tr>
                                 <td>${feedback.getFeedback_id()}</td>
-                                <td>${feedback.getUser_id()}</td>
+                                <td>${feedback.getUser().getName()}</td>
                                 <td>${feedback.getContent()}</td>
-                                <td>${feedback.getProduct_id()}</td>
+                                <td>${feedback.getProduct().getName()}</td>
                                 
                                 
                                 <td>
