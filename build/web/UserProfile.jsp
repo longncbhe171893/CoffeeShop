@@ -148,7 +148,7 @@
                                                 </c:when>
                                             </c:choose>
         <!-- Phone -->
-        <label class="phoneprofile">Phone</label><input class="phoneprofile1" type="number" value="${sessionScope['account'].getPhone()}" name="phone"><br/>
+        <label class="phoneprofile">Phone</label><input class="phoneprofile1" type="text" value="${sessionScope['account'].getPhone()}" name="phone"><br/>
         <!-- Address -->
         <label class="addressprofile">Address</label><input class="addressprofile1" type="text" value="${sessionScope['account'].getAddress()}" name="address"><br/>
         <!-- Change password link -->
