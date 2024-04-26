@@ -18,7 +18,26 @@
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <link href="css/nice-select.css" rel="stylesheet">
         <title>Add User</title> 
+        <style>
+        .col-md-6 {
+    width: 50%;
+    float: left;
+}
 
+/* Clearing float to prevent overlapping */
+.row::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+.button-container {
+    text-align: center; /* Căn giữa các phần tử bên trong theo chiều ngang */
+}
+
+.button-container button {
+    margin: 0 10px; /* Khoảng cách giữa các nút */
+}
+</style>
     </head>
     <body>
         <!-- SIDEBAR -->
@@ -42,42 +61,46 @@
 
                     <form action="${action}" method="post" enctype="multipart/form-data">
                         <div class="modal-body">
-                            <b>ID: </b><input type="text" ${disable} class="form-control" value="${user.getId()}" required name="id" readonly><br>  
-                            <b>Name: </b><input type="text" ${disable} class="form-control" value="${user.getName()}" required name="name"><br>  
-                            <b>Email : </b><input type="text" ${disable}  class="form-control" value="${user.getEmail()}" required name="email"><br>
-                            <b>Password : </b><input type="password" ${disable}  class="form-control" value="${user.getPassword()}" required name="password"><br> 
-                            <b>Address : </b><input type="text" ${disable}  class="form-control" value="${user.getAddress()}" required name="address"><br>         
-                            <b>Phone : </b><input type="text" ${disable}  class="form-control" value="${user.getPhone()}" required name="phone"><br>
-                           <b>Sex :</b>
-                              <div style="height: 50px; width: 100%">
-                              <select class="form-control" style="display: block;" name="sex">
-                                   <option value="1" ${user.getSex() == 1 ? "selected" : ""}>Nam</option>
-                                   <option value="2" ${user.getSex() == 2 ? "selected" : ""}>Nữ</option>
-                                </select>
-                               </div>
-                               <br>
-                               <b>Role :</b>
-                                <div style="height: 50px; width: 100%">
-                                                    <select  class="form-control" style="display: block;" name="role" >
-                                                        <c:forEach var="r" items="${rlist}">
-                                                            <option value="${r.getId()}" ${user.getSetting_id()==r.getId()?"selected":""} >${r.getName()} </option>
-                                                        </c:forEach>
-                                                    </select>
-                                                </div>  
-                            <b>User point: </b><input type="text"${disable} class="form-control" value="${user.getPoint()}" name="point"><br>
-                          
-                            <div>
-                                <img style="width: 200px;" ${disable} <c:if test = "${user.getImage()==null}">hidden</c:if>  src = "${user.getImage()}"  alt = "Curent image"> <br>
-                                <b>Image:</b><input type="file" ${disable}  class="form-control" src="${user.getImage()}" name="img" accept="image/*"><br>
-                            </div>
+                          <div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <!-- First column of form controls -->
+            <b>ID: </b><input type="text" ${disable} class="form-control" value="${user.getId()}" required name="id" readonly><br>  
+            <b>Name: </b><input type="text" ${disable} class="form-control" value="${user.getName()}" required name="name"><br>  
+            <b>Email : </b><input type="text" ${disable}  class="form-control" value="${user.getEmail()}" required name="email"><br>
+            <b>Password : </b><input type="password" ${disable}  class="form-control" value="${user.getPassword()}" required name="password"><br> 
+            <b>Address : </b><input type="text" ${disable}  class="form-control" value="${user.getAddress()}" required name="address"><br>         
+            <b>Phone : </b><input type="text" ${disable}  class="form-control" value="${user.getPhone()}" required name="phone"><br>
+        </div>
+        <div class="col-md-6">
+            <!-- Second column of form controls -->
+            <b>Sex :</b>
+            <select class="form-control" style="display: block;" name="sex">
+                <option value="1" ${user.getSex() == 1 ? "selected" : ""}>Nam</option>
+                <option value="2" ${user.getSex() == 2 ? "selected" : ""}>Nữ</option>
+            </select><br>
+            <b>Role :</b>
+            <select class="form-control" style="display: block;" name="role">
+                <c:forEach var="r" items="${rlist}">
+                    <option value="${r.getId()}" ${user.getSetting_id()==r.getId()?"selected":""} >${r.getName()} </option>
+                </c:forEach>
+            </select><br>
+            <b>User point: </b><input type="text"${disable} class="form-control" value="${user.getPoint()}" name="point"><br>
+            <div>
+                <img style="width: 200px;" ${disable} <c:if test = "${user.getImage()==null}">hidden</c:if>  src = "${user.getImage()}"  alt = "Curent image"> <br>
+                <b>Image:</b><input type="file" ${disable}  class="form-control" required src="${user.getImage()}" name="img" accept="image/*"><br>
+            </div>
+        </div>
+    </div>
+</div>  
+                        </div>
 
-                            <b><input type="hidden" class="form-control" required  value="${user.getId()}" name="userId"></b>    
-                            <b><input type="hidden" class="form-control" required  value="${sessionScope['account'].getId()}" name="user"></b>
-                        </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default" onclick="window.location.href = 'ManagerUser?index=1'">Close</button>
-                            <button type="submit" class="btn btn-success" value="submit">Submit</button>
-                        </div>
+    <div class="button-container"> 
+        <button type="button" class="btn btn-default" onclick="window.location.href = 'ManagerUser?index=1'">Close</button>
+        <button type="submit" class="btn btn-success" value="submit">Submit</button>
+    </div> 
+</div>
                     </form>
                 </div>
             </main>

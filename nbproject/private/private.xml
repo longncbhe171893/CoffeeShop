@@ -24,34 +24,16 @@
             <file>file:/F:/SWP/ProjectCoffee/CoffeeShop/src/java/Controller/ManageSlider.java</file>
         </group>
         <group>
-            <file>file:/D:/Ses5/CoffeeShop/src/java/DAO/OrderDAO.java</file>
-            <file>file:/D:/Ses5/CoffeeShop/web/SidebarProduct.jsp</file>
-            <file>file:/D:/Ses5/CoffeeShop/web/SidebarBlog.jsp</file>
-            <file>file:/D:/Ses5/CoffeeShop/src/java/DAO/BlogDao.java</file>
-            <file>file:/D:/Ses5/CoffeeShop/web/WEB-INF/web.xml</file>
-            <file>file:/D:/Ses5/CoffeeShop/src/java/DAO/UserDAO.java</file>
-            <file>file:/D:/Ses5/CoffeeShop/web/ManageProduct.jsp</file>
-            <file>file:/D:/Ses5/CoffeeShop/src/java/Controller/ContactDetails.java</file>
-            <file>file:/D:/Ses5/CoffeeShop/src/java/Controller/Blog.java</file>
-            <file>file:/D:/Ses5/CoffeeShop/src/java/Controller/OrderController.java</file>
-            <file>file:/D:/Ses5/CoffeeShop/src/java/Controller/updateCartController.java</file>
-            <file>file:/D:/Ses5/CoffeeShop/web/ProductLists.jsp</file>
-            <file>file:/D:/Ses5/CoffeeShop/web/BlogList.jsp</file>
-            <file>file:/D:/Ses5/CoffeeShop/src/java/Controller/GetPriceBySize.java</file>
-            <file>file:/D:/Ses5/CoffeeShop/web/SearchBlogList.jsp</file>
-            <file>file:/D:/Ses5/CoffeeShop/src/java/DAO/ProductDAO.java</file>
-            <file>file:/D:/Ses5/CoffeeShop/src/java/Controller/SellerController/BlogController.java</file>
-            <file>file:/D:/Ses5/CoffeeShop/web/ProductDetails.jsp</file>
-            <file>file:/D:/Ses5/CoffeeShop/src/java/Controller/Contact.java</file>
-            <file>file:/D:/Ses5/CoffeeShop/web/BlogDetails.jsp</file>
-            <file>file:/D:/Ses5/CoffeeShop/src/java/Controller/AddToCart.java</file>
-            <file>file:/D:/Ses5/CoffeeShop/src/java/Controller/DeleteController.java</file>
-            <file>file:/D:/Ses5/CoffeeShop/web/checkout.jsp</file>
-            <file>file:/D:/Ses5/CoffeeShop/src/java/DAO/DBContext.java</file>
-            <file>file:/D:/Ses5/CoffeeShop/web/cart.jsp</file>
-            <file>file:/D:/Ses5/CoffeeShop/web/Contact.jsp</file>
-            <file>file:/D:/Ses5/CoffeeShop/src/java/Controller/VerifyEmail.java</file>
-            <file>file:/D:/Ses5/CoffeeShop/src/java/Controller/CartDetailController.java</file>
+            <file>file:/C:/Users/admin/IdeaProjects/CoffeeShop/src/java/Controller/AddUser.java</file>
+            <file>file:/C:/Users/admin/IdeaProjects/CoffeeShop/src/java/DAO/ProductDAO.java</file>
+            <file>file:/C:/Users/admin/IdeaProjects/CoffeeShop/src/java/Controller/ManagerUser.java</file>
+            <file>file:/C:/Users/admin/IdeaProjects/CoffeeShop/src/java/Controller/AddProduct.java</file>
+            <file>file:/C:/Users/admin/IdeaProjects/CoffeeShop/src/java/DAO/DBContext.java</file>
+            <file>file:/C:/Users/admin/IdeaProjects/CoffeeShop/web/ManageProduct.jsp</file>
+            <file>file:/C:/Users/admin/IdeaProjects/CoffeeShop/src/java/Controller/ManageProduct.java</file>
+            <file>file:/C:/Users/admin/IdeaProjects/CoffeeShop/web/EditUser.jsp</file>
+            <file>file:/C:/Users/admin/IdeaProjects/CoffeeShop/src/java/DAO/UserDAO.java</file>
+            <file>file:/C:/Users/admin/IdeaProjects/CoffeeShop/web/ManagerUser.jsp</file>
         </group>
     </open-files>
 </project-private>

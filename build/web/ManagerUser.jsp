@@ -35,6 +35,81 @@
                 background-color: #ddd;
                 border-radius: 5px;
             }
+             .search-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.form-input {
+    display: flex;
+    align-items: center;
+}
+
+.search-input {
+    width: 200px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.search-btn {
+    padding: 8px 12px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: 8px;
+}
+
+.select-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.select-buttons select {
+    margin-right: 10px;
+}
+
+.select-buttons button {
+    padding: 8px 16px;
+}
+.add-user-button {
+    background-color: #28a745; /* Green color */
+    color: #fff; /* White text color */
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.add-user-button:hover {
+    background-color: #218838; /* Darker green on hover */
+}
+.btn-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* Add this line to vertically center the buttons */
+}
+
+.btn-container button {
+    flex-grow: 0; /* Prevent buttons from growing */
+    width: auto; /* Auto width based on content */
+    padding: 5px 10px; /* Adjust padding as needed */
+    font-size: 14px; /* Adjust font size as needed */
+}
+
+/* Adjust button size for small screens */
+@media screen and (max-width: 768px) {
+    .btn-container button {
+        padding: 5px 5px; /* Adjust padding for small screens */
+        font-size: 12px; /* Adjust font size for small screens */
+    }
+}
         </style>
     </head>
     <body>
@@ -43,30 +118,41 @@
         <!-- SIDEBAR -->
 
         <!-- CONTENT -->
-        <section id="content">
-            <!-- NAVBAR -->
-            <nav>
-                <i class='bx bx-menu' ></i>
-                <form action="ManagerUser" method="post">
-                    <div class="form-input">
-                        <input type="search" name="search" placeholder="Search...">
-                        <button type="submit" class="search-btn"><i class='bx bx-search' ></i></button>
-                    </div>
-                </form>
-            </nav>
-            <!-- NAVBAR -->
+       <section id="content"> 
+    <main>
+        <div class="head-title">
+            <div class="left">
+                <h1>Manage User</h1>
+            </div>
+            <div class="right">
+                <button class="add-user-button" onclick="window.location.href = 'AddUser';">Add User</button>
+            </div>
+        </div>
 
-            <!-- MAIN -->
-            <main>
-                <div class="head-title">
-                    <div class="left">
-                        <h1>Manage User</h1> 
-                    </div>
-                </div>
-                <!-- Modal -->
+<form action="ManagerUser" method="post" class="search-form">
+    <input type="hidden" name="index" value="1">
+    <div class="form-input">
+        <input type="search" name="search" placeholder="Search..." class="search-input">
+    </div>
+    <div class="select-buttons">
+        <b style="margin-right: 10px;">Role:</b>
+        <select class="form-control" name="role">
+             <option value="0" ${user.getSetting_id() == 0 ? "selected" : ""}>All</option>
+            <c:forEach var="r" items="${rlist}">
+                <option value="${r.getId()}" ${user.getSetting_id()==r.getId()?"selected":""}>${r.getName()}</option>
+            </c:forEach>
+        </select>
+            <b style="margin-right: 10px;">Status:</b>
+        <select class="form-control" name="userstatus">
+            <option value="0" ${user.getUserSatus() == 0 ? "selected" : ""}>All</option>
+            <option value="1" ${user.getUserSatus() == 1 ? "selected" : ""}>Active</option>
+            <option value="2" ${user.getUserStatus() == 2 ? "selected" : ""}>Inactive</option>
+        </select>
+        <button type="submit" class="btn btn-success" value="submit">Submit</button>
+    </div>  
+</form>
 
                 <div style="margin-top: 3rem;" class="col-md-12">
-                    <button class="button" onclick="window.location.href = 'AddUser';">Add User</button>
                     <table class="table" id="myTable">
                         <thead >
                             <tr style="font-size: 20px;">
@@ -81,6 +167,11 @@
                         </thead>
                         <tbody>
                             <c:forEach var="p" items="${userlist}">
+                                  <c:choose>
+        <c:when test="${p.getSetting_id() == 1}">
+
+        </c:when>
+        <c:otherwise>
                                 <tr>
                                     <th scope="row">${p.getId()}</th>
                                     <td>${p.getName()}</td>
@@ -114,9 +205,12 @@
                                                 Inactive
                                             </c:when>
                                         </c:choose>      
-                                    <td>
-                                        <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#myModalStatusActivate${p.getId()}">Change status</button>
-                                        <button type="button" class="btn btn-success btn-lg" onclick="window.location.href = 'EditUser?userId=${p.getId()}&UserDetail=false';"">Edit User</button></td>
+                                   <td>
+    <div class="btn-container">
+        <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#myModalStatusActivate${p.getId()}">Change status</button>
+        <button type="button" class="btn btn-success btn-lg" onclick="window.location.href = 'EditUser?userId=${p.getId()}&UserDetail=false';"">Edit User</button>
+    </div>
+</td>
                                 </tr>
                             <div class="modal fade" id="myModalStatusActivate${p.getId()}" role="dialog">
                                 <!-- Modal content -->
@@ -140,6 +234,8 @@
                                     </div>
                                 </div>
                             </div>
+          </c:otherwise>
+                                </c:choose>
                         </c:forEach>
                         </tbody>
                     </table>

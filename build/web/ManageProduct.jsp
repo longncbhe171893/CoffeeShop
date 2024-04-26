@@ -76,6 +76,40 @@
             .select-buttons button {
                 padding: 8px 16px;
             }
+            .add-user-button {
+    background-color: #28a745; /* Green color */
+    color: #fff; /* White text color */
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.add-user-button:hover {
+    background-color: #218838; /* Darker green on hover */
+}
+.btn-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* Add this line to vertically center the buttons */
+}
+
+.btn-container button {
+    flex-grow: 0; /* Prevent buttons from growing */
+    width: auto; /* Auto width based on content */
+    padding: 5px 10px; /* Adjust padding as needed */
+    font-size: 14px; /* Adjust font size as needed */
+}
+
+/* Adjust button size for small screens */
+@media screen and (max-width: 768px) {
+    .btn-container button {
+        padding: 5px 5px; /* Adjust padding for small screens */
+        font-size: 12px; /* Adjust font size for small screens */
+    }
+}
         </style>
     </head>
 
@@ -92,6 +126,9 @@
                     <div class="left">
                         <h1>Manage Product</h1>
                     </div>
+                     <div class="right">
+                <button class="add-user-button" onclick="window.location.href = 'AddProduct';">Add Product</button>
+            </div>
                 </div>
 
                 <form action="ManageProduct" method="post" class="search-form">
@@ -117,7 +154,6 @@
                     </div>  
                 </form>
                 <div style="margin-top: 3rem;" class="col-md-12">       
-                    <button class="button" onclick="window.location.href = 'AddProduct';">Add Product</button>
 
                     <table class="table" style="margin-top: 20px; margin-bottom: 20px;">
                         <thead >
@@ -135,7 +171,6 @@
                             <c:forEach var="p" items="${productlist}">
                                 <c:choose>
         <c:when test="${p.getProduct_status() == 3}">
-            <!-- Nếu trạng thái là 3, không hiển thị sản phẩm -->
         </c:when>
         <c:otherwise>
                                 <tr>
@@ -160,8 +195,11 @@
                                             </c:when>
                                         </c:choose>      
                                     <td>
+                                         <div class="btn-container">
                                         <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#myModalStatusActivate${p.getId()}">Change status</button>
-                                    <td> <button type="button" class="btn btn-success btn-lg" onclick="window.location.href = 'EditProduct?productId=${p.getId()}&ProductDetail=false';"">Edit Product</button></td>
+                                     <button type="button" class="btn btn-success btn-lg" onclick="window.location.href = 'EditProduct?productId=${p.getId()}&ProductDetail=false';"">Edit Product</button>
+                                         </div>
+                                         </td>
                                 </tr> 
                             <div class="modal fade" id="myModalStatusActivate${p.getId()}" role="dialog">
                                 <!-- Modal content -->
