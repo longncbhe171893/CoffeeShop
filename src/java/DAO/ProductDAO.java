@@ -16,7 +16,7 @@ import java.util.ArrayList;
 public class ProductDAO extends DBContext {
     public ProductSize getProductSizeByID(int id) {
         try {
-            String sql = "SELECT * FROM coffeeshop.productsize WHERE productSize_id =?";
+            String sql = "SELECT * FROM swp391.productsize WHERE productSize_id =?";
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();

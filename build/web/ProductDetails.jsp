@@ -153,24 +153,7 @@
                             </div>
                         </c:if>
 
-                        <div class="pt-5 mt-5">
-                            <h3 class="mb-5">${count} Comments</h3>
-                            <ul class="comment-list">
-                                <c:forEach items="${feedback}" var ="i"> 
-                                    <li class="comment">
-                                        <div class="vcard bio">
-
-                                        </div>
-                                        <div class="comment-body">
-                                            <h3>${i.getUser().getName()}</h3>
-                                            <div class="meta">${i.formatDate()}</div>
-                                            <p>${i.getContent()}</p>
-                                        </div>
-                                    </li>
-                                </c:forEach>
-                            </ul>
-                            <!-- END comment-list -->
-                        </div>
+                       
                     </div> <!-- .col-md-8 -->      
                 </div>
             </div>

@@ -17,7 +17,7 @@ public class BlogDao extends DBContext {
         ArrayList<Blog> list = new ArrayList();
         PreparedStatement ps;
         ResultSet rs;
-        String sql = "SELECT * FROM coffeeshop.blog WHERE blog_title LIKE ?;";
+        String sql = "SELECT * FROM swp391.blog WHERE blog_title LIKE ?;";
         try {
             ps = connection.prepareStatement(sql);
             ps.setString(1, "%" + search + "%");
@@ -41,7 +41,7 @@ public class BlogDao extends DBContext {
         ArrayList<Blog> list = new ArrayList();
         PreparedStatement ps;
         ResultSet rs;
-        String sql = "SELECT * FROM coffeeshop.blog where setting_id=?;";
+        String sql = "SELECT * FROM swp391.blog where setting_id=?;";
         try {
             ps = connection.prepareStatement(sql);
             ps.setInt(1, cat);
@@ -168,7 +168,7 @@ public class BlogDao extends DBContext {
 
     public static void main(String[] args) {
         BlogDao bld = new BlogDao();
-        ArrayList<Blog> bl = bld.pagingBlogs(1, 4, 2, 33);
+        ArrayList<Blog> bl = bld.getBlogBySearchTilte("ngẫm");
         for (Blog blog : bl) {
             System.out.println(blog);
         }

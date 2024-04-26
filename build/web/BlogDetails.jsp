@@ -42,9 +42,11 @@
                         <div class="col-md-8 ftco-animate">
                             <h2 class="mb-3">${blog.blog_title}</h2>
                             <p>
-                                <img src="${blog.blog_image}" alt="" class="img-fluid">
+                                <h4><i>"${blog.description}"</i></h4>
+                                
                             </p>
                             <p>${blog.content}</p>
+                            <p><img src="${blog.blog_image}" alt="" class="img-fluid"></p>
                             <i><h6 class="mb-3 icon-person"> Post by: ${blog.user.name}</h6></i>
                             <i><h6 class="mb-3 icon-calendar"> Post date: ${blog.post_date}</h6></i>
                         </div>

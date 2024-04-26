@@ -9,6 +9,33 @@
 <html>
 
     <body>
+        <form action="ProductLists" class="search-form" method="post" >
+            <div class="form-group">
+                <div class="icon">
+                    <span class="icon-search"></span>
+                </div>
+                <input type="text" class="form-control" name="search1" placeholder="Search...">
+            </div>
+        </form>
+         <form action="ProductLists" method="post" class="my-form">
+            <div class="custom-select-box" style="
+                 background-color: black;
+                 color: wheat;
+                 border-radius: 10px;
+                 margin-left: 7px;
+                 margin-top: 53px;
+                 padding: 10px;
+                 ">
+                <h2>Category</h2>
+                <select name="cid" onchange="this.form.submit()"  style="width: 100%;">
+                    <option value="4" ${param.cid == 4 ? 'selected' : ''}>Coffee</option>
+                    <option value="5" ${param.cid == 5 ? 'selected' : ''}>Tea</option>
+                </select>
+                
+            </div>
+
+
+        </form>
         <form action="ProductLists"  method="get" style="
               margin-top: -14px;
               margin-bottom: -41px;">
@@ -16,7 +43,7 @@
                  background-color: black;
                  color: wheat;
                  border-radius: 10px;
-                 margin-left: 47px;
+                 margin-left: 7px;
                  margin-top: 53px;
                  padding: 10px;">
                 <h2>Sort by</h2>
@@ -27,33 +54,8 @@
             </div>
 
         </form>
-        <form action="ProductLists" method="post" class="my-form">
-            <div class="custom-select-box" style="
-                 background-color: black;
-                 color: wheat;
-                 border-radius: 10px;
-                 margin-left: 47px;
-                 margin-top: 53px;
-                 padding: 10px;
-                 ">
-                <h2>Category</h2>
-                <select name="cid" onchange="this.form.submit()">
-                    <option value="4" ${param.cid == 4 ? 'selected' : ''}>Coffee</option>
-                    <option value="5" ${param.cid == 5 ? 'selected' : ''}>Tea</option>
-                </select>
-                
-            </div>
+       
 
-
-        </form>
-
-        <form action="ProductLists" class="search-form" method="post" >
-            <div class="form-group">
-                <div class="icon">
-                    <span class="icon-search"></span>
-                </div>
-                <input type="text" class="form-control" name="search1" placeholder="Search...">
-            </div>
-        </form>
+        
     </body>
 </html>

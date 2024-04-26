@@ -48,18 +48,18 @@
 
                         <div class="col-md-7 col-sm-12 text-center ftco-animate">
                             <h1 class="mb-3 mt-5 bread">Checkout</h1>
-                            <p class="breadcrumbs"><span class="mr-2"><a href="Home">Home</a></span> <span>Checkout</span></p>
+                            <p class="breadcrumbs"><span class="mr-2"><a href="Home">Home</a></span></p>
                         </div>
 
                     </div>
                 </div>
             </div>
         </section>
-
         <section class="ftco-section">
             <div class="container">
                 <div class="row">
-                    <div class="col-xl-8 ftco-animate">
+                    <div class="col-md-12 ftco-animate">
+
                         <form id="formOrder" action="order" class="billing-form ftco-bg-dark p-3 p-md-5" method="post">
                             <h3 class="mb-4 billing-heading">Billing Details</h3>
                             <div class="row align-items-end">
@@ -98,7 +98,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="emailaddress">Note</label>
-                                        <textarea name="note" class="form-control" rows="10" ></textarea>
+                                        <textarea name="note" class="form-control" rows="3" ></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -120,7 +120,10 @@
                                     </p>
                                 </div>
                             </div>
-                            <p><input type="submit" class="btn btn-primary py-3 px-4" value="Place an order"></p>
+                            <p><input type="submit" class="btn btn-primary py-3 px-4" value="Place an order"> 
+                                <a href="cart" class="btn btn-primary py-3 px-4">Back to Cart</a>
+                            </p>
+
                         </form><!-- END -->
                     </div> <!-- .col-md-8 -->
                 </div>

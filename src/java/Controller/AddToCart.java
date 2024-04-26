@@ -65,6 +65,7 @@ public class AddToCart extends HttpServlet {
         } else {
             map.add(productDTO);
         }
+        
         session.setAttribute("map", map);
         StringBuilder value = new StringBuilder();
         for (int idx = 0; idx < map.size() - 1; idx++) {
