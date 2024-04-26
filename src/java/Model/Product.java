@@ -135,8 +135,10 @@ public class Product {
 
     @Override
     public String toString() {
-        return "Product{" + "id=" + id + ", name=" + name + ", price=" + price + ", setting_id=" + setting_id + ", image=" + image + ", descreption=" + descreption + ", product_status=" + product_status + ", create_date=" + create_date + ", size=" + size + ", quantity=" + quantity + '}';
+        return "Product{" + "id=" + id + ", name=" + name + '}';
     }
+
+   
     
     
     

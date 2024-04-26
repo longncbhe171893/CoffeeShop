@@ -11,20 +11,64 @@ import java.sql.Date;
  * @author Admin
  */
 public class Feedback {
+    private int feedback_id;
      private int user_id;
      private String content;
      private int product_id;
+     private User user;
+     private Product product;
      private Date post_Date;
 
     public Feedback() {
     }
 
-    public Feedback(int user_id, String content, int product_id, Date post_Date) {
+    public Feedback(int feedback_id, int user_id, String content, int product_id, Date post_Date) {
+        this.feedback_id = feedback_id;
         this.user_id = user_id;
         this.content = content;
         this.product_id = product_id;
         this.post_Date = post_Date;
     }
+
+    public Feedback(int feedback_id, int user_id, String content, int product_id, User user, Product product, Date post_Date) {
+        this.feedback_id = feedback_id;
+        this.user_id = user_id;
+        this.content = content;
+        this.product_id = product_id;
+        this.user = user;
+        this.product = product;
+        this.post_Date = post_Date;
+    }
+
+    public Feedback(int aInt, User user, String string, Product product, Date date) {
+        throw new UnsupportedOperationException("Not supported yet."); 
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public int getFeedback_id() {
+        return feedback_id;
+    }
+
+    public void setFeedback_id(int feedback_id) {
+        this.feedback_id = feedback_id;
+    }
+
+    
 
     public int getUser_id() {
         return user_id;
@@ -60,7 +104,10 @@ public class Feedback {
 
     @Override
     public String toString() {
-        return "Feedback{" + "user_id=" + user_id + ", content=" + content + ", product_id=" + product_id + ", post_Date=" + post_Date + '}';
+        return "Feedback{" + "feedback_id=" + feedback_id + ", user_id=" + user_id + ", content=" + content + ", product_id=" + product_id + ", user=" + user + ", product=" + product + ", post_Date=" + post_Date + '}';
     }
+
+    
+    
      
 }
