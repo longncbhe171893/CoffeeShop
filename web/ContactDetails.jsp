@@ -28,7 +28,7 @@
     </head>
     <body>
         <!-- SIDEBAR -->
-        <jsp:include page="headerSeller.jsp"/>
+        <jsp:include page="headerAdmin.jsp"/>
         <!-- SIDEBAR -->
 
         <section id="content">
@@ -63,17 +63,17 @@
                                             <c:choose>
                                                 <c:when test="${contact.getStatus() eq 1}">
                                                     <input type="radio" id="status_enable" name="status" value="1" checked>
-                                                    <label for="status_enable">Active</label>
+                                                    <label for="status_enable">New</label>
 
                                                     <input type="radio" id="status_disable" name="status" value="0">
-                                                    <label for="status_disable">Deactive</label><br>
+                                                    <label for="status_disable">Solved</label><br>
                                                 </c:when>
                                                 <c:when test="${contact.getStatus() eq 0}">
                                                     <input type="radio" id="status_enable" name="status" value="1">
-                                                    <label for="status_enable">Active</label>
+                                                    <label for="status_enable">New</label>
 
                                                     <input type="radio" id="status_disable" name="status" value="0" checked>
-                                                    <label for="status_disable">Deactive</label><br>
+                                                    <label for="status_disable">Solved</label><br>
                                                 </c:when>
                                             </c:choose>
                                         </div>
@@ -81,7 +81,7 @@
 
                             <b><input type="hidden" class="form-control" required  value="${contact.getContact_id()}" name="contact_id"></b>
                             <b><input type="hidden" class="form-control" required  value="${contact.getSetting().getId()}" name="setting_id"></b>
-                            <b><input type="hidden" class="form-control" required  value="${sessionScope['account'].getId()}" name="user"></b>
+                            
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" onclick="window.location.href = 'ContactList'">Close</button>

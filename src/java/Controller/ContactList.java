@@ -84,12 +84,17 @@ public class ContactList extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        String filter = request.getParameter("filter");
+        String filtertype = request.getParameter("filtertype");
+        String filterstatus = request.getParameter("filterstatus");
         ContactDAO dao = new ContactDAO();       
         List<Contact> contacts = dao.getAllContacts();
 
-        if (filter != null) {
-            contacts = dao.filterContact(filter);
+        if (filtertype != null) {
+            contacts = dao.filterContact(filtertype);
+        }
+        
+        if (filterstatus != null) {
+            contacts = dao.filterContactStatus(filterstatus);
         }
         
         request.setAttribute("contacts", contacts);

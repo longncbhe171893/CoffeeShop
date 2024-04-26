@@ -226,7 +226,7 @@
                                         <div class="modal-body">
                                             
                                             <input type="hidden" class="form-control" name="id" value="${setting.getId()}" readonly=""><br>
-                                            <b>Name: </b><input type="text" class="form-control" value="${setting.getName()}"  name="name"><br>
+                                            <b>Name: </b><input type="text" class="form-control" value="${setting.getName()}"  required name="name"><br>
                                             <b>Description: </b><textarea class="form-control"name="description">${setting.getDescription()}</textarea><br>
                                             <b>Type* </b>
                                             <select name="type" class="form-control" required>
