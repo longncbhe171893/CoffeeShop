@@ -28,28 +28,36 @@
 
         <!-- CONTENT -->
         <section id="content">
+            <b><input type="text" hidden class="form-control" required  value="${sessionScope['account'].getId()}" name="user"></b>
             <!-- NAVBAR -->
             <nav>
-                <i class='bx bx-menu'></i>
-                <form action="ManageSlider" method="post">
-                    <div class="form-input">
-                        <input type="search" name="search" placeholder="Search...">
-                        <button type="submit" class="search-btn"><i class='bx bx-search'></i></button>
+                <i class='bx bx-menu' ></i>
+                <div class="head-title">
+                    <div class="left">
+                        <h1>Manage sliders </h1>
                     </div>
-                </form>
+                </div>
             </nav>
             <!-- NAVBAR -->
-            
-                
+
+
             <!-- MAIN -->
             <main>
                 <div class="head-title">
                     <div class="left">
                         <h1>Manage Slider</h1>
                     </div>
-
-                    
+                    <div class="right">
+                    </div>
                 </div>
+
+                <form action="ManageSlider" method="post" class="search-form">
+                    <input type="hidden" name="index" value="1">
+                    <div class="form-input">
+                        <input type="search" name="search" placeholder="Search..." class="search-input">
+                    </div>
+
+                </form>
 
 
                 <div style="margin-top: 3rem;" class="col-md-12">
@@ -172,18 +180,24 @@
         </section>
         <!-- CONTENT -->
 
-        <script>
-            function checkDate() {
-                var firstDate = document.getElementsByName("firstDate")[0].value;
-                var secondDate = document.getElementsByName("secondDate")[0].value;
+        <!-- Hiển thị phân trang -->
+        <ul class="pagination">
+            <c:forEach var="page" begin="1" end="${totalPages}">
+                <li class="${page == currentPage ? 'active' : ''}">
+                    <a href="ManageSlider?page=${page}&search=${param.search}">${page}</a>
+                </li>
+            </c:forEach>
+        </ul>
 
-                if (firstDate && secondDate && new Date(secondDate) < new Date(firstDate)) {
-                    alert("Second date must be after the first date.");
-                    return false;
-                }
-                return true;
-            }
-        </script>
+        <!-- Form tìm kiếm -->
+        <form action="ManageSlider" method="post" class="search-form">
+            <input type="hidden" name="status" value="">
+            <input type="hidden" name="slider_id" value="">
+            <div class="form-input">
+                <input type="text" name="search" value="${param.search}" placeholder="Search">
+                <button type="submit">Search</button>
+            </div>
+        </form>
         <script>
 
             CKEDITOR.replace('edit', {

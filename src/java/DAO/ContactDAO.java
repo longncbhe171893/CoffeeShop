@@ -257,6 +257,73 @@ public class ContactDAO extends DBContext {
             case "3":
                 filterby = "WHERE s.setting_name ='Support'";
                 break;
+            case "4":
+                filterby = "WHERE s.setting_name ='Other'";
+                break;
+            default:
+                filterby = "";
+                break;
+
+        }
+        ArrayList<Contact> list = new ArrayList<>();
+        String sql = " SELECT c.contact_id, c.name, c.email, c.phone, c.subject, c.message, c.setting_id, c.user_id, c.status, c.note, s.setting_name, s.type " +   
+                      "FROM setting s " +
+                      "INNER JOIN contact c ON s.setting_id = c.setting_id " + filterby;
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int contactId = rs.getInt("contact_id");
+                    String name = rs.getString("name");
+                    String email = rs.getString("email");
+                    String phone = rs.getString("phone");
+                    String subject = rs.getString("subject");
+                    String message = rs.getString("message");
+                    int settingId = rs.getInt("setting_id");
+                    int userId = rs.getInt("user_id");
+                    int status = rs.getInt("status");
+                    String note = rs.getString("note");
+                    String settingName = rs.getString("setting_name");
+                    String type = rs.getString("type");
+
+                    // Tạo đối tượng Setting từ thông tin truy vấn
+                    Setting setting = new Setting();
+                    setting.setId(settingId);
+                    setting.setName(settingName);
+                    setting.setType(type);
+
+                    // Tạo đối tượng Contact từ thông tin truy vấn và đối tượng Setting tương ứng
+                    Contact contact = new Contact();
+                    contact.setContact_id(contactId);
+                    contact.setName(name);
+                    contact.setEmail(email);
+                    contact.setPhone(phone);
+                    contact.setSubject(subject);
+                    contact.setMessage(message);
+                    contact.setSetting_id(settingId);
+                    contact.setUser_id(userId);
+                    contact.setStatus(status);
+                    contact.setNote(note);
+                    contact.setSetting(setting);
+                    // Thêm contact vào danh sách
+                    list.add(contact);
+                        
+            }
+        } catch (SQLException e) {
+        }
+        return list;
+    }
+    
+    public ArrayList<Contact> filterContactStatus(String filter) {
+        String filterby = "";
+        switch (filter) {
+            case "1":
+                filterby =  "WHERE c.status = 1";
+                break;
+            case "2":
+                filterby = "WHERE c.status = 0";
+                break;          
             default:
                 filterby = "";
                 break;

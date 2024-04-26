@@ -257,10 +257,10 @@
                                 </td>
                                 <td><b ${sessionScope['account'].getSetting_id()==1?'hidden':''} style="display: block;color: ${bl.getBlog_status()==2?'red':'green'}; " >${bl.getBlog_status()==1?"Public":"Private"}</b></td>
                                 <td>
-                                    <a href="ChangeStatusBlog?bid=${bl.getBlog_id()}&index=${index}&user=${sessionScope['account'].getId()}" ${hidden} id="${bl.getBlog_id()}" class="btn- btn-danger  btn-lg" style="display: block; background-color: ${bl.getBlog_status()==2?'red':'green'}; " >${bl.getBlog_status()==1?"Public":"Private"}</a>
+                                    <a href="ChangeStatusBlog?bid=${bl.getBlog_id()}&index=${index}&user=${sessionScope['account'].getId()}" ${hidden} class="btn- btn-danger  btn-lg" style="display: block; background-color: ${bl.getBlog_status()==2?'red':'green'}; " >${bl.getBlog_status()==1?"Public":"Private"}</a>
                                 </td>
 
-                                <td> <button type="button"  class="btn btn-success btn-lg" onclick="window.location.href = 'EditBlog?blogId=${bl.getBlog_id()}&user=${sessionScope['account'].getId()}&BlogDetail=false&index=${index}&imgSrc=${bl.getBlog_image()}';"">Edit Blog</button></td>
+                                <td> <button type="button" class="btn btn-success btn-lg" onclick="window.location.href = 'EditBlog?blogId=${bl.getBlog_id()}&user=${sessionScope['account'].getId()}&BlogDetail=false&index=${index}';"">Edit Blog</button></td>
 
                                 <td>
                                     <button class="viewButton" onclick="window.location.href = 'EditBlog?blogId=${bl.getBlog_id()}&BlogDetail=true&index=${index}';"">
@@ -284,18 +284,6 @@
             <!-- MAIN -->
         </section>
         <!-- CONTENT -->
-        <script>
-            const elems = document.getElementsByClassName('confirmation');
-            const confirmIt = function (e) {
-                if (!confirm('Are you sure?')) {
-                    e.preventDefault(); // Prevent link from loading
-                }
-            };
-
-            for (let i = 0; i < elems.length; i++) {
-                elems[i].addEventListener('click', confirmIt, false);
-            }
-        </script>
         <script type="text/javascript">
             function myFunction() {
                 var input, filter, table, tr, td, i, txtValue;

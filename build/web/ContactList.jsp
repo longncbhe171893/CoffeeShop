@@ -27,69 +27,9 @@
         <title>Coffee</title>     
         <script src="ckeditor/ckeditor.js"></script> 
         <script src="ckfinder/ckfinder.js"></script>
-        <title>Seller Dashbord</title>   
-        <style>
-            /* Định dạng nút View */
-            .viewButton {
-                margin-top: 10px;
-                background: none;
-                border: none;
-                padding: 0;
-                cursor: pointer;
-            }
-
-            /* Định dạng biểu tượng mắt */
-            .eye-icon {
-                width: 16px;
-                height: 16px;
-                background-image: url("image/eye.jpg");
-                /* Đường dẫn tới ảnh biểu tượng mắt */
-                background-repeat: no-repeat;
-                background-size: cover;
-                display: inline-block;
-                transform: scale(2);
-                border: 2px solid transparent;
-                /* Viền mặc định là trong suốt */
-                border-radius: 50%;
-                /* Bo tròn viền */
-                transition: box-shadow 0.3s ease;
-                /* Hiệu ứng chuyển động mượt mà cho box-shadow */
-            }
-            .viewButton:hover .eye-icon {
-                border: 2px solid limegreen;
-                /* Viền sáng màu xanh lá cây */
-            }
-            .container {
-                display: flex;
-            }
-            #sidebar {
-                flex: 1; /* tỉ lệ 1 */
-                margin-right: 20px; /* khoảng cách giữa sidebar và content */
-            }
-            #content {
-                flex: 3; /* tỉ lệ 3 */
-            }
-        </style>
-        <script>
-    function showToast(message) {
-        var toastElement = document.querySelector('.toast');
-
-        if (!toastElement) {
-            return;
-        }
-
-        var toastBody = toastElement.querySelector('.toast-body');
-        toastBody.textContent = message;
-
-        var toast = new bootstrap.Toast(toastElement);
-        toast.show();
-
-        // Thiết lập thời gian tồn tại của toast là 5 giây (5000 miligiây)
-        setTimeout(function() {
-            toast.hide(); // Ẩn toast sau khi đã đến thời gian quy định
-        }, 5000);
-    }
-</script>
+        <title></title>   
+        
+        
 
     </head>
     <body>
@@ -119,34 +59,45 @@
             
             <!-- MAIN -->
             <main style="
-                  margin-top: 53px; ">
-                <li>
-                    <div>
-                        <form action="ContactList"  method="post" style="
-                          margin-top: -94px;
-                          margin-bottom: -41px;">
-                        <select style="
-                                background-color: #007BFF;
-                                color: white;
-                                height: 40px;
-                                border-radius: 10px;
-                                margin-left: 47px;
-                                margin-top: 60px;" name="filter" class="form-select"  onchange="this.form.submit()">
-                            <option value="" ${param['filter']==null?"selected":""}>All Type</option>
-                            <option value="1" ${param['filter']==1?"selected":""}>Question</option>
-                            <option value="2" ${param['filter']==2?"selected":""}>Feedback</option>
-                            <option value="3" ${param['filter']==3?"selected":""}>Support</option>
-                            
-                            
-                            
-                        </select>
-                    </form>
-                    </div>
+                  margin-top: 0px; ">
+                
+                <ul style="display: flex; list-style-type: none; margin-left: 10px">
+                    <li style="margin-right: 20px;">
+                        <form action="ContactList" method="post">
+                            <select style="
+                                    background-color: #007BFF;
+                                    color: white;
+                                    height: 40px;
+                                    border-radius: 10px;
+                                    " name="filtertype" class="form-select" onchange="this.form.submit()">
+                                <option value="" ${param['filtertype']==null?"selected":""}>All Type</option>
+                                <option value="1" ${param['filtertype']==1?"selected":""}>Question</option>
+                                <option value="2" ${param['filtertype']==2?"selected":""}>Feedback</option>
+                                <option value="3" ${param['filtertype']==3?"selected":""}>Support</option>
+                                <option value="4" ${param['filtertype']==4?"selected":""}>Other</option>
+                            </select>
+                        </form>
+                    </li>
+                    <li>
+                        <form action="ContactList" method="post">
+                            <select style="
+                                    background-color: #007BFF;
+                                    color: white;
+                                    height: 40px;
+                                    border-radius: 10px;
+                                    " name="filterstatus" class="form-select" onchange="this.form.submit()">
+                                <option value="" ${param['filterstatus']==null?"selected":""}>All Status</option>
+                                <option value="1" ${param['filterstatus']==1?"selected":""}>New</option>
+                                <option value="2" ${param['filterstatus']==2?"selected":""}>Solved</option>
+                            </select>
+                        </form>
+                    </li>
+                </ul>
+                    
                 
                 
                             
-                </li>
-                
+                       
 
                 <table class="table" style="margin-top: 60px; margin-bottom: 20px;">
                     <thead>
@@ -155,6 +106,7 @@
                             <th scope="col">Subject</th>
                             <th scope="col">Type</th>
                             <th scope="col">Name</th>
+                            <th scope="col">Status</th>
                             <th scope="col">Action</th>
                             
                         </tr>
@@ -166,7 +118,7 @@
                                 <td>${contact.getSubject()}</td>
                                 <td>${contact.getSetting().getName()}</td>
                                 <td>${contact.getName()}</td>
-                                
+                                <td>${contact.getStatus()==1?"New":"Solved"}</td>
                                 
                                 <td>
                                     <form action="ContactDetails" method="get">

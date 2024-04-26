@@ -5,8 +5,12 @@
 
 package Controller;
 
+import DAO.ContactDAO;
+import DAO.FeedbackDAO;
 import DAO.SettingDAO;
-import Model.Setting;
+import Model.Contact;
+import Model.Feedback;
+import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -14,15 +18,14 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import java.util.List;
 
 /**
  *
  * @author HP
  */
-@WebServlet(name="EditSetting", urlPatterns={"/EditSetting"})
-public class EditSetting extends HttpServlet {
+@WebServlet(name="ManageFeedback", urlPatterns={"/ManageFeedback"})
+public class ManageFeedback extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -39,10 +42,10 @@ public class EditSetting extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet EditSetting</title>");  
+            out.println("<title>Servlet ManageFeedback</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet EditSetting at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet ManageFeedback at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -59,7 +62,18 @@ public class EditSetting extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        FeedbackDAO feedbackDAO = new FeedbackDAO();       
+        List<Feedback> feedbacks = feedbackDAO.getAllFeedback();
+        String search = request.getParameter("search");
+       
+        if (search != null) {
+            feedbacks = feedbackDAO.searchFeedback(search);
+        }
+       
+        
+        request.setAttribute("feedbacks", feedbacks);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("ManageFeedback.jsp");
+        dispatcher.forward(request, response);
     } 
 
     /** 
@@ -72,50 +86,15 @@ public class EditSetting extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        String name = request.getParameter("name");
-        String description = request.getParameter("description");
-        String type = request.getParameter("type");
-        int status = Integer.parseInt(request.getParameter("status"));
-        int id = Integer.parseInt(request.getParameter("id"));
-        HttpSession session = request.getSession();
-        SettingDAO dao = new SettingDAO();
-        if (name.length() > 50 ) {
-            List<Setting> settings = dao.getAllSettings();
-            request.setAttribute("settings", settings);
-            request.setAttribute("mess", "Setting name must be less than 50 characters");
-            request.getRequestDispatcher("SettingList.jsp?id=myModalAddNew").forward(request, response);
-        } else
-        if (description.length() > 255) {
-            List<Setting> settings = dao.getAllSettings();
-            request.setAttribute("settings", settings);
-            request.setAttribute("mess", "Description must be less than 255 characters");
-            request.getRequestDispatcher("SettingList.jsp").forward(request, response);
-        } else
         
-        if (dao.checkSettingNameAndTypeExist(name, type)){
-            List<Setting> settings = dao.getAllSettings();
-            request.setAttribute("settings", settings);
-            request.setAttribute("mess", "The name and type is existed");
-            request.getRequestDispatcher("SettingList.jsp").forward(request, response);
-        } else {
+        FeedbackDAO feedbackDAO = new FeedbackDAO();        
+        List<Feedback> feedbacks = feedbackDAO.getAllFeedback();
+
         
-            dao.updateSetting(id, name, description, type, status);
-            Setting s = new Setting();
-            s.setId(id);
-            s.setName(name);
-            s.setDescription(description);
-            s.setType(type);
-            s.setStatus(status);
-
-            request.setAttribute("mess", "Edit setting successfully");
-
-            List<Setting> settings = dao.getAllSettings();
-            request.setAttribute("settings", settings);
-            request.getRequestDispatcher("SettingList.jsp").forward(request, response);
-
-
-        }
-
+        
+        request.setAttribute("feedbacks", feedbacks);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("ManageFeedback.jsp");
+        dispatcher.forward(request, response);
     }
 
     /** 
