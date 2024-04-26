@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BlogDao extends DBContext {
+
     public ArrayList<Blog> getBlogBySearchTilte(String search) {
         ArrayList<Blog> list = new ArrayList();
         PreparedStatement ps;
@@ -19,7 +20,7 @@ public class BlogDao extends DBContext {
         String sql = "SELECT * FROM coffeeshop.blog WHERE blog_title LIKE ?;";
         try {
             ps = connection.prepareStatement(sql);
-                        ps.setString(1, "%" + search + "%");
+            ps.setString(1, "%" + search + "%");
 
             rs = ps.executeQuery();
 
@@ -35,7 +36,7 @@ public class BlogDao extends DBContext {
         }
         return list;
     }
-    
+
     public ArrayList<Blog> getBlogByCategory(int cat) {
         ArrayList<Blog> list = new ArrayList();
         PreparedStatement ps;
@@ -43,7 +44,7 @@ public class BlogDao extends DBContext {
         String sql = "SELECT * FROM coffeeshop.blog where setting_id=?;";
         try {
             ps = connection.prepareStatement(sql);
-                        ps.setInt(1, cat);
+            ps.setInt(1, cat);
 
             rs = ps.executeQuery();
 
@@ -59,6 +60,7 @@ public class BlogDao extends DBContext {
         }
         return list;
     }
+
     public Blog getBlogByBlogId(int blogId) {
         Blog blog;
         String sql = "SELECT * FROM `blog` "
@@ -195,7 +197,7 @@ public class BlogDao extends DBContext {
 
     public void updateBlog(int blogId, String title, String img, int userId, String content, int setting_id, String short_descreption) {
         String sql = "UPDATE `Blog`\n"
-                + "SET `blog_title` = ?, `blog_image` = ?,`user_id` =?, `content` = ?, `post_date` = NOW(),`setting_id`=?,`short_descreption`=?\n"
+                + "SET `blog_title` = ?, `blog_image` = ?,`user_id` =?`,blog_status`=2, `content` = ?, `post_date` = NOW(),`setting_id`=?,`short_descreption`=?\n"
                 + "WHERE `blog_id` = ?;";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
@@ -374,7 +376,7 @@ public class BlogDao extends DBContext {
         if (setting_id == 2) {
 
             try {
-                    String sql = " select count(*) from `blog` where `user_id`=?";
+                String sql = " select count(*) from `blog` where `user_id`=?";
                 PreparedStatement ps = connection.prepareStatement(sql);
                 ps.setInt(1, userId);
                 ResultSet rs = ps.executeQuery();
