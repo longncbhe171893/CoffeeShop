@@ -197,7 +197,7 @@ public class BlogDao extends DBContext {
 
     public void updateBlog(int blogId, String title, String img, int userId, String content, int setting_id, String short_descreption) {
         String sql = "UPDATE `Blog`\n"
-                + "SET `blog_title` = ?, `blog_image` = ?,`user_id` =?`,blog_status`=2, `content` = ?, `post_date` = NOW(),`setting_id`=?,`short_descreption`=?\n"
+                + "SET `blog_title` = ?, `blog_image` = ?,`user_id` =?,`blog_status`=2, `content` = ?, `post_date` = NOW(),`setting_id`=?,`short_descreption`=?\n"
                 + "WHERE `blog_id` = ?;";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);

@@ -10,13 +10,17 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <!-- Boxicons -->
         <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <script src="ckeditor/ckeditor.js"></script> 
         <script src="ckfinder/ckfinder.js"></script>
+        <script src="js/Toast.js"></script>
         <!-- My CSS -->
+        <link href="scss/ToastCss.css" rel="stylesheet">
         <link rel="stylesheet" href="CSSsimple/adminDashbord.css">
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <link href="css/nice-select.css" rel="stylesheet">
+
         <title>Add Blog</title> 
 
     </head>
@@ -24,7 +28,7 @@
         <!-- SIDEBAR -->
         <jsp:include page="headerSeller.jsp"/>
         <!-- SIDEBAR -->
-
+        <div id="toast"></div>
         <section id="content">
             <!-- NAVBAR -->
             <nav>
@@ -40,7 +44,7 @@
                 <div class="formAddBlog" >   
 
 
-                    <form action="${action}" method="post" enctype="multipart/form-data">
+                    <form id="myForm" action="${action}" method="post" enctype="multipart/form-data">
                         <div class="modal-body">
                             <b>Title: </b><input type="text" ${disable} class="form-control" value="${blog.getBlog_title()}" required name="title"><br>  
                             <b>Content: </b>
@@ -66,14 +70,32 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" onclick="window.location.href = 'ManageBlog?index=${index}&user=${sessionScope['account'].getId()}'">Close</button>
-                            <button type="submit" ${hidden} class="btn btn-success" value="submit">Submit</button>
+                            <button type="button" ${hidden} class="btn btn-success"  onclick="showSuccessToast();">Submit</button>
                         </div>
                     </form>
                 </div>
             </main>
         </section>
-        
 
+        <script>
+            var form = document.getElementById("myForm");
+            function showSuccessToast() {
+
+                toast({
+                    title: "Update Blog successfully!",
+                    message: "Now you will back to Blog Management",
+                    type: "success",
+                    duration: 5000
+                });
+                reloadPageAfterXSeconds(3);
+            }
+            function reloadPageAfterXSeconds(seconds) {
+                setTimeout(function () {
+                    form.submit();
+                }, seconds * 1000); // Convert seconds to milliseconds
+            }
+
+        </script>
         <script >
 
             CKEDITOR.replace('edit', {
