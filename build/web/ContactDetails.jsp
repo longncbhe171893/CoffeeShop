@@ -58,7 +58,7 @@
 
                             <br>
                             <b>Note </b>
-                            <textarea id="" rows="5"  name="note" class="form-control"  >${contact.getNote()}</textarea>
+                            <textarea id="" rows="5"  name="note" class="form-control"  value="${contact.getNote()}">${contact.getNote()}</textarea>
                             <b>Status </b>
                                             <c:choose>
                                                 <c:when test="${contact.getStatus() eq 1}">
