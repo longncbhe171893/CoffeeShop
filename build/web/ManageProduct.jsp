@@ -133,6 +133,11 @@
                         </thead>
                         <tbody>
                             <c:forEach var="p" items="${productlist}">
+                                <c:choose>
+        <c:when test="${p.getProduct_status() == 3}">
+            <!-- Nếu trạng thái là 3, không hiển thị sản phẩm -->
+        </c:when>
+        <c:otherwise>
                                 <tr>
                                     <th scope="row">${p.getId()}</th>
                                     <td>${p.getName()}</td>
@@ -180,6 +185,8 @@
                                     </div>
                                 </div>
                             </div>
+         </c:otherwise>
+                                </c:choose>
                         </c:forEach>
                         </tbody>
                     </table>
