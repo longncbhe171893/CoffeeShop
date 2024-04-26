@@ -36,8 +36,7 @@
                 background-color: #ddd;
                 border-radius: 5px;
             }
-
-      .search-form {
+   .search-form {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -78,6 +77,20 @@
 .select-buttons button {
     padding: 8px 16px;
 }
+.add-user-button {
+    background-color: #28a745; /* Green color */
+    color: #fff; /* White text color */
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.add-user-button:hover {
+    background-color: #218838; /* Darker green on hover */
+}
             </style>
     </head>
 
@@ -87,14 +100,16 @@
         <!-- SIDEBAR -->
 
         <!-- CONTENT -->
-        <section id="content"> 
-            <!-- MAIN -->
-            <main>
-                <div class="head-title">
-    <div class="left">
-        <h1>Manage User</h1>
-    </div>
-</div>
+<section id="content"> 
+    <main>
+        <div class="head-title">
+            <div class="left">
+                <h1>Manage User</h1>
+            </div>
+            <div class="right">
+                <button class="add-user-button" onclick="window.location.href = 'AddUser';">Add User</button>
+            </div>
+        </div>
 
 <form action="ManagerUser" method="post" class="search-form">
     <input type="hidden" name="index" value="1">
@@ -102,27 +117,25 @@
         <input type="search" name="search" placeholder="Search..." class="search-input">
     </div>
     <div class="select-buttons">
-            <b>Status:</b>
-            <br>
+        <b style="margin-right: 10px;">Role:</b>
+        <select class="form-control" name="role">
+             <option value="0" ${user.getSetting_id() == 0 ? "selected" : ""}>All</option>
+            <c:forEach var="r" items="${rlist}">
+                <option value="${r.getId()}" ${user.getSetting_id()==r.getId()?"selected":""}>${r.getName()}</option>
+            </c:forEach>
+        </select>
+            <b style="margin-right: 10px;">Status:</b>
         <select class="form-control" name="userstatus">
             <option value="0" ${user.getUserSatus() == 0 ? "selected" : ""}>All</option>
             <option value="1" ${user.getUserSatus() == 1 ? "selected" : ""}>Active</option>
             <option value="2" ${user.getUserStatus() == 2 ? "selected" : ""}>Inactive</option>
-        </select>
-         <b>Sex:</b>
-         <br>
-        <select class="form-control" name="sex">
-            <option value="0" ${user.getSex() == 0 ? "selected" : ""}>All</option>
-            <option value="1" ${user.getSex() == 1 ? "selected" : ""}>Nam</option>
-            <option value="2" ${user.getSex() == 2 ? "selected" : ""}>Nữ</option>
         </select>
         <button type="submit" class="btn btn-success" value="submit">Submit</button>
     </div>  
 </form>
  <!-- Modal -->
                                     
-                <div style="margin-top: 3rem;" class="col-md-12">
-                    <button class="button" onclick="window.location.href = 'AddUser';">Add User</button>
+                <div  class="col-md-12" style="margin-top: 20px;">  
                     <table class="table" id="myTable">
                         <thead >
                             <tr style="font-size: 20px;">
@@ -137,6 +150,11 @@
                         </thead>
                         <tbody>
                             <c:forEach var="p" items="${userlist}">
+                                  <c:choose>
+        <c:when test="${p.getSetting_id() == 1}">
+
+        </c:when>
+        <c:otherwise>
                                 <tr>
                                     <th scope="row">${p.getId()}</th>
                                     <td>${p.getName()}</td>
@@ -164,7 +182,9 @@
                                     <td><a onclick="return confirm('Do you want to change your account status?')" href="UpdateStatusUser?uid=${p.getId()}&sid=${p.getUserStatus()}">
                                             ${p.getUserStatus()==1?"Active":"Inactive"}</a></td>    
                                    <td> <button type="button" class="btn btn-success btn-lg" onclick="window.location.href = 'EditUser?userId=${p.getId()}&UserDetail=false';"">Edit User</button></td>
-                                </tr>   
+                                </tr>
+                                  </c:otherwise>
+                                </c:choose>
                             </c:forEach>
                         </tbody>
                     </table>

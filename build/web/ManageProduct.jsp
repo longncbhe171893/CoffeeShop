@@ -76,6 +76,20 @@
 .select-buttons button {
     padding: 8px 16px;
 }
+.add-user-button {
+    background-color: #28a745; /* Green color */
+    color: #fff; /* White text color */
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.add-user-button:hover {
+    background-color: #218838; /* Darker green on hover */
+}
             </style>
     </head>
 
@@ -85,14 +99,16 @@
         <!-- SIDEBAR -->
 
         <!-- CONTENT -->
-        <section id="content"> 
-            <!-- MAIN -->
-            <main>
-                <div class="head-title">
-    <div class="left">
-        <h1>Manage Product</h1>
-    </div>
-</div>
+       <section id="content"> 
+    <main>
+        <div class="head-title">
+            <div class="left">
+                <h1>Manage Product</h1>
+            </div>
+            <div class="right">
+                <button class="add-user-button" onclick="window.location.href = 'AddProduct';">Add Product</button>
+            </div>
+        </div>
 
 <form action="ManageProduct" method="post" class="search-form">
     <input type="hidden" name="index" value="1">
@@ -100,25 +116,23 @@
         <input type="search" name="search" placeholder="Search..." class="search-input">
     </div>
     <div class="select-buttons">
-        <b>Category:</b>
+        <b style="margin-right: 10px;">Category:</b>
         <select class="form-control" name="category">
              <option value="0" ${product.getSetting_id() == 0 ? "selected" : ""}>All</option>
             <c:forEach var="c" items="${clist}">
                 <option value="${c.getId()}" ${product.getSetting_id()==c.getId()?"selected":""}>${c.getName()}</option>
             </c:forEach>
         </select>
-            <b>Status:</b>
+            <b style="margin-right: 10px;">Status:</b>
         <select class="form-control" name="productstatus">
             <option value="0" ${product.getProductSatus() == 0 ? "selected" : ""}>All</option>
             <option value="1" ${product.getProductSatus() == 1 ? "selected" : ""}>Active</option>
             <option value="2" ${product.getProductStatus() == 2 ? "selected" : ""}>Inactive</option>
-             <option value="2" ${product.getProductStatus() == 3 ? "selected" : ""}>Deactive</option>
         </select>
         <button type="submit" class="btn btn-success" value="submit">Submit</button>
     </div>  
 </form>
                 <div style="margin-top: 3rem;" class="col-md-12">       
-                   <button class="button" onclick="window.location.href = 'AddProduct';">Add Product</button>
 
                     <table class="table" style="margin-top: 20px; margin-bottom: 20px;">
                         <thead >

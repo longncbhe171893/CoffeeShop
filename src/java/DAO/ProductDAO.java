@@ -62,7 +62,7 @@ public class ProductDAO extends DBContext {
                 sql += " `product_name` LIKE ? ";
             }
         }
-        sql += " ORDER BY create_date ASC LIMIT ?, ?";
+        sql += " ORDER BY create_date DESC LIMIT ?, ?";
         
         PreparedStatement ps = connection.prepareStatement(sql);
         int parameterIndex = 1;

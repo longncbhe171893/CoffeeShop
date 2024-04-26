@@ -90,21 +90,23 @@ public void addUser(String name, String email, String password, String address, 
         }
         return null;
     }
-public int countUser(int sex, int userStatus,  String searchUserName) {
+     public int countUser(int settingId, int userStatus, String searchUserName) {
     int count = 0;
     try {
-        String sql = "SELECT COUNT(*) FROM `Users` where `setting_id`=2 or `setting_id`=3";
-        // Thêm điều kiện WHERE nếu có bất kỳ tham số nào khác null hoặc searchUserName không rỗng
+        String sql = "SELECT COUNT(*) FROM `Users`";
+        // Thêm điều kiện WHERE nếu có bất kỳ tham số nào khác 0 hoặc searchProductName không rỗng
+        if (settingId != 0 || userStatus != 0 || !searchUserName.isEmpty()) {
+            sql += " WHERE ";
             boolean isFirstCondition = true;
-            // Thêm điều kiện cho sex
-            if (sex != 0) {
+            // Thêm điều kiện cho setting_id
+            if (settingId != 0) {
                 if (!isFirstCondition) {
                     sql += " AND ";
                 }
-                sql += " `sex` = ? ";
+                sql += " `setting_id` = ? ";
                 isFirstCondition = false;
             }
-            // Thêm điều kiện cho user_status
+            // Thêm điều kiện cho product_status
             if (userStatus != 0) {
                 if (!isFirstCondition) {
                     sql += " AND ";
@@ -112,34 +114,33 @@ public int countUser(int sex, int userStatus,  String searchUserName) {
                 sql += " `user_status` = ? ";
                 isFirstCondition = false;
             }
-            // Thêm điều kiện cho setting_id
-            // Thêm điều kiện cho tìm kiếm theo tên người dùng
+            // Thêm điều kiện cho tìm kiếm theo tên sản phẩm
             if (!searchUserName.isEmpty()) {
                 if (!isFirstCondition) {
                     sql += " AND ";
                 }
                 sql += " `user_name` LIKE ? ";
             }
-        
+        }
         
         PreparedStatement ps = connection.prepareStatement(sql);
         int parameterIndex = 1;
         // Đặt các giá trị tham số nếu chúng không 0 hoặc không rỗng
-        if (sex != 0) {
-            ps.setInt(parameterIndex++, sex);
+        if (settingId != 0) {
+            ps.setInt(parameterIndex++, settingId);
         }
         if (userStatus != 0) {
             ps.setInt(parameterIndex++, userStatus);
         }
-
-        // Đặt giá trị tham số cho tìm kiếm theo tên người dùng nếu có
+        // Đặt giá trị tham số cho tìm kiếm theo tên sản phẩm nếu có
         if (!searchUserName.isEmpty()) {
             ps.setString(parameterIndex++, "%" + searchUserName + "%");
         }
         
         ResultSet rs = ps.executeQuery();
-        rs.next();
-        count = rs.getInt(1);
+        if (rs.next()) {
+            count = rs.getInt(1);
+        }
     } catch (SQLException e) {
         // Xử lý ngoại lệ nếu cần
     }
@@ -164,22 +165,24 @@ public int countUser(int sex, int userStatus,  String searchUserName) {
         }
         return null;
     } 
-     public ArrayList<User> pagingUser(int index, int numOrOnPage, int sex, int userStatus, String searchUserName) {
+     public ArrayList<User> pagingUser(int index, int numOrOnPage, int settingId, int userStatus, String searchUserName) {
     ArrayList<User> list = new ArrayList<>();
     try {
-        String sql = "SELECT * FROM `Users` where `setting_id`=2 or `setting_id`=3";
+        String sql = "SELECT * FROM `Users` ";
         // Thêm điều kiện WHERE nếu có bất kỳ tham số nào khác null hoặc searchUserName không rỗng
         
+             if (settingId != 0 || userStatus != 0 || !searchUserName.isEmpty()) {
+            sql += " WHERE ";
             boolean isFirstCondition = true;
-            // Thêm điều kiện cho sex
-            if (sex != 0) {
+            // Thêm điều kiện cho setting_id
+            if (settingId != 0) {
                 if (!isFirstCondition) {
                     sql += " AND ";
                 }
-                sql += " `sex` = ? ";
+                sql += " `setting_id` = ? ";
                 isFirstCondition = false;
             }
-            // Thêm điều kiện cho user_status
+            // Thêm điều kiện cho product_status
             if (userStatus != 0) {
                 if (!isFirstCondition) {
                     sql += " AND ";
@@ -187,22 +190,20 @@ public int countUser(int sex, int userStatus,  String searchUserName) {
                 sql += " `user_status` = ? ";
                 isFirstCondition = false;
             }
-            // Thêm điều kiện cho setting_id
-            
-            // Thêm điều kiện cho tìm kiếm theo tên người dùng
+            // Thêm điều kiện cho tìm kiếm theo tên sản phẩm
             if (!searchUserName.isEmpty()) {
                 if (!isFirstCondition) {
                     sql += " AND ";
                 }
                 sql += " `user_name` LIKE ? ";
             }
-        sql += " ORDER BY user_id ASC LIMIT ?, ?";
-        
+        }
+        sql += " ORDER BY setting_id DESC LIMIT ?, ?";
         PreparedStatement ps = connection.prepareStatement(sql);
         int parameterIndex = 1;
         // Đặt các giá trị tham số nếu chúng không 0 hoặc không rỗng
-        if (sex != 0) {
-            ps.setInt(parameterIndex++, sex);
+        if (settingId != 0) {
+            ps.setInt(parameterIndex++, settingId);
         }
         if (userStatus != 0) {
             ps.setInt(parameterIndex++, userStatus);
@@ -347,62 +348,7 @@ public int countUser(int sex, int userStatus,  String searchUserName) {
         }
     }
 
-    public ArrayList<User> searchUser(String nameOrrole) {
-        ArrayList<User> list = new ArrayList<>();
-        String sql;
-        int settingid;
-        PreparedStatement ps;
-        try {
-            if (getSettingidbyString(nameOrrole) != -1) {
-                settingid = getSettingidbyString(nameOrrole);
-                sql = "SELECT * FROM users WHERE setting_id = ?";
-                ps = connection.prepareStatement(sql);
-                ps.setInt(1, settingid);
-            } else {
-                sql = "SELECT * FROM users WHERE user_name LIKE ?";
-                ps = connection.prepareStatement(sql);
-                ps.setString(1, "%" + nameOrrole + "%");
-            }
-
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                list.add(new User(
-                        rs.getInt(1),
-                        rs.getString(2),
-                        rs.getString(3),
-                        rs.getString(4),
-                        rs.getString(5),
-                        rs.getString(6),
-                        rs.getInt(7),
-                        rs.getString(8),
-                        rs.getInt("setting_id"),
-                        rs.getInt(10),
-                        rs.getDouble(11)
-                ));
-            }
-        } catch (SQLException e) {
-            // Xử lý ngoại lệ nếu cần
-        }
-        return list;
-    }
-
-
-    private int getSettingidbyString(String srole) {
-        String sql = "select * from `Setting` where `setting_name`like ?";
-        int settingid;
-
-        try {
-            PreparedStatement ps = connection.prepareStatement(sql);
-            ps.setString(1, srole);
-            ResultSet rs = ps.executeQuery();
-            rs.next();
-            settingid = rs.getInt(1);
-
-            return settingid;
-        } catch (SQLException e) {
-            return -1;
-        }
-    }
+   
     
     public void UpdateUser(String name, int userid, int sex, String phone, String address, String image) {
         String sql = "UPDATE `Users` SET `user_name`=?, `sex`=?, `phone`=?, `address`=?, `user_image`=? WHERE `user_id`=?";

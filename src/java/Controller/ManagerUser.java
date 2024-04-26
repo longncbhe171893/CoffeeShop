@@ -36,13 +36,13 @@ public class ManagerUser extends HttpServlet {
         UserDAO udao = new UserDAO();
         // paging
         int index = Integer.valueOf(request.getParameter("index"));
-        int sex=0;
+        int settingId=0;
         int userStatus=0;
         String search ="";
         
-         ArrayList<User> userlist = udao.pagingUser(index, numPage, sex, userStatus, search);
+         ArrayList<User> userlist = udao.pagingUser(index, numPage, settingId, userStatus, search);
           ArrayList<Model.Setting> role = udao.getRole();
-        int count = udao.countUser(sex, userStatus,  search);
+        int count = udao.countUser(settingId, userStatus,  search);
         int ePage = count / numPage;
         if (count % 4 != 0) {
             ePage++;
@@ -90,14 +90,14 @@ public class ManagerUser extends HttpServlet {
         UserDAO udao = new UserDAO();
         // paging
         int index = Integer.valueOf(request.getParameter("index"));
-        int gender =Integer.valueOf(request.getParameter("sex"));
+        int rId =Integer.valueOf(request.getParameter("role"));
         int uStatus = Integer.valueOf(request.getParameter("userstatus"));
         String searchName = request.getParameter("search");
-        int sex=0;
+        int roleId=0;
         int userStatus=0;
         String search ="";
-        if(gender!=0){
-            sex=gender;
+        if(rId!=0){
+            roleId=rId;
         }
         if(uStatus!=0){
             userStatus = uStatus;
@@ -105,9 +105,9 @@ public class ManagerUser extends HttpServlet {
         if(searchName != null){
             search = searchName;
         }
-         ArrayList<User> userlist = udao.pagingUser(index, numPage,sex, userStatus, search);
+         ArrayList<User> userlist = udao.pagingUser(index, numPage,roleId, userStatus, search);
           ArrayList<Model.Setting> role = udao.getRole();
-        int count = udao.countUser(sex, userStatus, searchName);
+        int count = udao.countUser(roleId, userStatus, searchName);
         int ePage = count / numPage;
         if (count % 4 != 0) {
             ePage++;
