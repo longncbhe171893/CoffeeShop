@@ -10,14 +10,17 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <!-- Boxicons -->
         <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <script src="ckeditor/ckeditor.js"></script> 
         <script src="ckfinder/ckfinder.js"></script>
+        <script src="js/Toast.js"></script>
         <!-- My CSS -->
         <link rel="stylesheet" href="CSSsimple/adminDashbord.css">
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <link href="css/nice-select.css" rel="stylesheet">
+        <link href="scss/ToastCss.css" rel="stylesheet">
         <title>Edit Order </title> 
         <style>
             #productDetails {
@@ -87,13 +90,32 @@
                 }
 
             }
+            .modal {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.5);
+            }
+            .modal-content {
+                background-color: #fff;
+                width: 300px;
+                padding: 20px;
+                border-radius: 5px;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+            }
         </style>
     </head>
     <body>
         <!-- SIDEBAR -->
         <jsp:include page="headerSeller.jsp"/>
         <!-- SIDEBAR -->
-
+        <div id="toast"></div>
         <section id="content">
             <!-- NAVBAR -->
             <nav>
@@ -106,8 +128,9 @@
             </nav>
             <!-- NAVBAR -->
             <main>
+
                 <div class="formAddBlog" id="customers">   
-                    <form action="EditOrder" method="post">
+                    <form id="myForm" action="EditOrder" method="post">
                         <div class="modal-body" >
                             <b>Order ID : </b><input type="text" class="form-control" value="${order.getId()}" name="orderId"><br>
                             <b>Order name : </b><input type="text"  class="form-control" disabled value="${order.getOrderName()}" name="orderName"><br> 
@@ -186,12 +209,34 @@
                         <b><input type="hidden" class="form-control" required  value="${sessionScope['account'].getId()}" name="user"></b>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" onclick="window.location.href = 'ManageOrder?index=${index}&user=${sessionScope['account'].getId()}'">Close</button>
-                            <button type="submit" class="btn btn-success" value="submit">Submit</button>
+
+                            <button type="button" class="btn btn-success" onclick="showSuccessToast();">Submit</button>
                         </div>
                     </form>
+
                 </div>
             </main>
         </section>
+
+        <script>
+            var form = document.getElementById("myForm");
+            function showSuccessToast() {
+
+                toast({
+                    title: "Update Order successfully!",
+                    message: "Now you will back to Order Management",
+                    type: "success",
+                    duration: 5000
+                });
+                reloadPageAfterXSeconds(3);
+            }
+            function reloadPageAfterXSeconds(seconds) {
+                setTimeout(function () {
+                    form.submit();
+                }, seconds * 1000); // Convert seconds to milliseconds
+            }
+
+        </script>
         <script src="js/adminDashbord.js"></script>
         <script src="js/jquery-3.4.1.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
