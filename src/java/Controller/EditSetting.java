@@ -15,6 +15,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  *
@@ -78,10 +79,26 @@ public class EditSetting extends HttpServlet {
         int id = Integer.parseInt(request.getParameter("id"));
         HttpSession session = request.getSession();
         SettingDAO dao = new SettingDAO();
-        dao.checkSettingNameAndTypeExist(name, type);
+        if (name.length() > 50 ) {
+            List<Setting> settings = dao.getAllSettings();
+            request.setAttribute("settings", settings);
+            request.setAttribute("mess", "Setting name must be less than 50 characters");
+            request.getRequestDispatcher("SettingList.jsp?id=myModalAddNew").forward(request, response);
+        } else
+        if (description.length() > 255) {
+            List<Setting> settings = dao.getAllSettings();
+            request.setAttribute("settings", settings);
+            request.setAttribute("mess", "Description must be less than 255 characters");
+            request.getRequestDispatcher("SettingList.jsp").forward(request, response);
+        } else
         
+        if (dao.checkSettingNameAndTypeExist(name, type)){
+            List<Setting> settings = dao.getAllSettings();
+            request.setAttribute("settings", settings);
+            request.setAttribute("mess", "The name and type is existed");
+            request.getRequestDispatcher("SettingList.jsp").forward(request, response);
+        } else {
         
-        try {
             dao.updateSetting(id, name, description, type, status);
             Setting s = new Setting();
             s.setId(id);
@@ -89,13 +106,16 @@ public class EditSetting extends HttpServlet {
             s.setDescription(description);
             s.setType(type);
             s.setStatus(status);
-            
-            
-            
-            response.sendRedirect("SettingLists");
-        } catch (Exception e) {
-            response.getWriter().println(e);
+
+            request.setAttribute("mess", "Edit setting successfully");
+
+            List<Setting> settings = dao.getAllSettings();
+            request.setAttribute("settings", settings);
+            request.getRequestDispatcher("SettingList.jsp").forward(request, response);
+
+
         }
+
     }
 
     /** 
