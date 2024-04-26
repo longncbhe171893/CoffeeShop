@@ -178,7 +178,7 @@ public class BlogDao extends DBContext {
         String sql = "INSERT INTO `Blog`\n"
                 + "  (`blog_title`, `blog_image`, `user_id`, `post_date`, `content`, `setting_id`, `blog_status`,`short_descreption`)\n"
                 + "VALUES\n"
-                + "  (?, ?, ?, NOW(), ?,?,1,?);";
+                + "  (?, ?, ?, NOW(), ?,?,2,?);";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, title);
