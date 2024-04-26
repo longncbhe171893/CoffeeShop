@@ -24,14 +24,6 @@
                 <span class="text">Manage Order</span>
             </a>
         </li>
-        
-       
-                <li class="active">
-            <a href="ManageFeedback">
-                <i class='bx bxs-dashboard' ></i>
-                <span class="text">Manage Feedback</span>
-            </a>
-        </li>
        
         
         <li>
