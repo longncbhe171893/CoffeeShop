@@ -15,6 +15,15 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Properties;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 
 @MultipartConfig(
         fileSizeThreshold = 524288,
@@ -49,16 +58,16 @@ public class AddUser extends HttpServlet {
 
     }
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {  
-            // Get information from request
-            String name = request.getParameter("name");
-            String email = request.getParameter("email");
-            String password = request.getParameter("password");
-            String address = request.getParameter("address");
-            String phone = request.getParameter("phone");
-            int sex = Integer.valueOf(request.getParameter("sex"));
-           Part imagePart = request.getPart("img");
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+        throws ServletException, IOException {
+    try {
+        String name = request.getParameter("name");
+        String email = request.getParameter("email");
+        String password = request.getParameter("password");
+        String address = request.getParameter("address");
+        String phone = request.getParameter("phone");
+        int sex = Integer.valueOf(request.getParameter("sex"));
+        Part imagePart = request.getPart("img");
         String fileName = imagePart.getSubmittedFileName();
         String uploadDirectory = getServletContext().getRealPath("/image");// Thay đổi đường dẫn tới thư mục lưu trữ ảnh trên máy chủ
 
@@ -73,7 +82,7 @@ public class AddUser extends HttpServlet {
             // Xử lý đường dẫn tương đối
             String relativeImagePath = "./image/" + uniqueFileName; // Thay đổi đường dẫn tương đối đến ảnh lưu trữ trên máy chủ
             // Xóa file cũ (nếu tồn tại)
-        
+
             String oldImage = request.getParameter("oldImage");
             if (oldImage != null && !oldImage.isEmpty()) {
                 File oldImageFile = new File(uploadDirectory, oldImage);
@@ -82,17 +91,111 @@ public class AddUser extends HttpServlet {
                 }
             }
             int roleId = Integer.parseInt(request.getParameter("role"));
-             double userpoint = Double.valueOf(request.getParameter("point"));
-                UserDAO udao = new UserDAO();
-         
-                
-                // Cập nhật thông tin người dùng
-                udao.addUser(name, email, password, address, phone, sex, relativeImagePath, roleId, userpoint);
-                 response.sendRedirect("ManagerUser?index=1");
-                // Redirect to user management page
-               
-        }  
-  
+            double userpoint = Double.valueOf(request.getParameter("point"));
+            // Kiểm tra email
+            if (!isValidEmail(email)) {
+                throw new IllegalArgumentException("Invalid email format");
+            }
+
+            // Kiểm tra số điện thoại
+            if (!isValidPhoneNumber(phone)) {
+                throw new IllegalArgumentException("Invalid phone number");
+            }
+            // Gửi email
+            
+
+            UserDAO udao = new UserDAO();
+             ArrayList<Model.Setting> role = udao.getRole();
+                         request.setAttribute("rlist", role);
+if (udao.getUserByEmail(email) != null) {
+                throw new IllegalArgumentException("Email already exists");
+            }
+            sendEmail(name, email, password, phone);
+            // Cập nhật thông tin người dùng
+            udao.addUser(name, email, password, address, phone, sex, relativeImagePath, roleId, userpoint);
+            response.sendRedirect("ManagerUser?index=1");
+
+        }
+    } catch (IllegalArgumentException e) {
+        request.setAttribute("messregis", "Invalid data format. Please enter again.");
+        request.getRequestDispatcher("EditUser.jsp").forward(request, response);
+    } catch (Exception e) {
+        request.setAttribute("messregis", " ");
+        request.getRequestDispatcher("EditUser.jsp").forward(request, response);
+    }
+}
+
+    /**
+     * Trả về mô tả ngắn về servlet.
+     *
+     * @return một chuỗi chứa mô tả servlet
+     */
+
+    private void sendEmail(String name, String email, String password,String phone) throws MessagingException {
+        // Địa chỉ email của người nhận
+        String to = email;
+
+        // Địa chỉ email của người gửi
+        String from = "manhld2k3@gmail.com";
+
+        // Cài đặt thuộc tính hệ thống
+        Properties properties = System.getProperties();
+
+        // Cài đặt máy chủ SMTP
+        properties.put("mail.smtp.host", "smtp.gmail.com");
+        properties.put("mail.smtp.port", "587");
+        properties.put("mail.smtp.starttls.enable", "true");
+        properties.put("mail.smtp.auth", "true");
+
+        // Tạo một phiên làm việc với email
+        Session session = Session.getInstance(properties, new javax.mail.Authenticator() {
+            @Override
+            protected javax.mail.PasswordAuthentication getPasswordAuthentication() {
+                return new javax.mail.PasswordAuthentication("lbao62258@gmail.com", "nxdm jgny bosb ibom"); // Thay thế bằng email và mật khẩu của bạn
+            }
+        });
+
+        // Tạo một đối tượng MimeMessage
+        MimeMessage mimeMessage = new MimeMessage(session);
+
+        // Cài đặt địa chỉ email người gửi
+        mimeMessage.setFrom(new InternetAddress(from));
+
+        // Cài đặt địa chỉ email người nhận
+        mimeMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
+
+        // Cài đặt chủ đề email
+        mimeMessage.setSubject("Message from admin");
+
+        // Tạo nội dung email
+        String emailContent = "Name: " + name + "\n"
+                + "Email: " + email + "\n"
+                + "Password: " + password + "\n"
+                + "Phone: " + phone + "\n";
+        // Thiết lập nội dung email
+        mimeMessage.setText(emailContent);
+
+        // Gửi email
+        Transport.send(mimeMessage);
+        System.out.println("Đã gửi email thành công...");
+    }
+
+    // Kiểm tra số điện thoại có phải là dãy gồm 10 hoặc 11 số
+    private boolean isValidPhoneNumber(String phone) {
+        // Biểu thức chính quy kiểm tra số điện thoại có 10 hoặc 11 chữ số
+        String regex = "^(\\+\\d{1,2})?(0|84)\\d{9,10}$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(phone);
+        return matcher.matches();
+    }
+
+    // Kiểm tra định dạng email
+    private boolean isValidEmail(String email) {
+        // Biểu thức chính quy kiểm tra định dạng email
+        String regex = "^(.+)@(.+)$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
     }
     @Override
     public String getServletInfo() {
