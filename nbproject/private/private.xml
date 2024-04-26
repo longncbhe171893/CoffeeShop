@@ -23,6 +23,18 @@
             <file>file:/F:/SWP/ProjectCoffee/CoffeeShop/web/Success.jsp</file>
             <file>file:/F:/SWP/ProjectCoffee/CoffeeShop/src/java/Controller/ManageSlider.java</file>
         </group>
-        <group/>
+        <group>
+            <file>file:/D:/SWP391/project-real/CoffeeShop/CoffeeShop/web/ManageOrder.jsp</file>
+            <file>file:/D:/SWP391/project-real/CoffeeShop/CoffeeShop/web/FeedBackProduct.jsp</file>
+            <file>file:/D:/SWP391/project-real/CoffeeShop/CoffeeShop/web/EditOrder.jsp</file>
+            <file>file:/D:/SWP391/project-real/CoffeeShop/CoffeeShop/web/FeedbackDetails.jsp</file>
+            <file>file:/D:/SWP391/project-real/CoffeeShop/CoffeeShop/src/java/Controller/SellerController/SendFeedback.java</file>
+            <file>file:/D:/SWP391/project-real/CoffeeShop/CoffeeShop/src/java/Model/OrderDetail.java</file>
+            <file>file:/D:/SWP391/project-real/CoffeeShop/CoffeeShop/src/java/Controller/SellerController/FeedbackDetail.java</file>
+            <file>file:/D:/SWP391/project-real/CoffeeShop/CoffeeShop/src/java/Controller/SellerController/EditOrder.java</file>
+            <file>file:/D:/SWP391/project-real/CoffeeShop/CoffeeShop/src/java/Controller/SellerController/OrderHistory.java</file>
+            <file>file:/D:/SWP391/project-real/CoffeeShop/CoffeeShop/src/java/Model/Product.java</file>
+            <file>file:/D:/SWP391/project-real/CoffeeShop/CoffeeShop/src/java/DAO/OrderDAO.java</file>
+        </group>
     </open-files>
 </project-private>

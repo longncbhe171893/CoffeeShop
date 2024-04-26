@@ -20,11 +20,22 @@
         <servlet-name>UpdateStatusSlider</servlet-name>
         <servlet-class>Controller.UpdateStatusSlider</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>OrderHistory</servlet-name>
+        <servlet-class>Controller.SellerController.OrderHistory</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SendFeedback</servlet-name>
+        <servlet-class>Controller.SellerController.SendFeedback</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>FeedbackDetail</servlet-name>
+        <servlet-class>Controller.SellerController.FeedbackDetail</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>UpdateStatusSlider</servlet-name>
         <url-pattern>/UpdateStatusSlider</url-pattern>
     </servlet-mapping>
-    
     <servlet>
         <servlet-name>Contact</servlet-name>
         <servlet-class>Controller.Contact</servlet-class>
@@ -45,22 +56,18 @@
         <servlet-name>AddSlider</servlet-name>
         <servlet-class>Controller.AddSlider</servlet-class>
     </servlet>
-
     <servlet-mapping>
         <servlet-name>AddSlider</servlet-name>
         <url-pattern>/AddSlider</url-pattern>
     </servlet-mapping>
-
     <servlet>
         <servlet-name>EditSlider</servlet-name>
         <servlet-class>Controller.EditSlider</servlet-class>
     </servlet>
-
     <servlet-mapping>
         <servlet-name>EditSlider</servlet-name>
         <url-pattern>/EditSlider</url-pattern>
     </servlet-mapping>
-    
     <servlet>
         <servlet-name>ForgotPassword</servlet-name>
         <servlet-class>Controller.ForgotPassword</servlet-class>
@@ -564,6 +571,18 @@
     <servlet-mapping>
         <servlet-name>EditUser</servlet-name>
         <url-pattern>/EditUser</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>OrderHistory</servlet-name>
+        <url-pattern>/OrderHistory</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SendFeedback</servlet-name>
+        <url-pattern>/SendFeedback</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>FeedbackDetail</servlet-name>
+        <url-pattern>/FeedbackDetail</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
