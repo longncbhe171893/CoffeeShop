@@ -57,6 +57,8 @@ public class AuthorizationFilter implements Filter {
                             || servletPath.equals("/ContactList")
                             || servletPath.equals("/AdminDashbord")) {
                         chain.doFilter(request, response);
+                    }else{            sendAuthor(response);
+
                     }
                     break;
                 case 2: {
@@ -68,8 +70,13 @@ public class AuthorizationFilter implements Filter {
                             || servletPath.equals("/SellerDashboard")) {
                         chain.doFilter(request, response);
                         
+                    }else{            sendAuthor(response);
+
                     }
                     break;
+                }
+                case 3: {
+                                sendAuthor(response);
                 }
             }
         } else {
