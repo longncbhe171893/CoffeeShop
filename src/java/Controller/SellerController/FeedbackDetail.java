@@ -77,7 +77,7 @@ public class FeedbackDetail extends HttpServlet {
         request.setAttribute("product", product);
         request.setAttribute("orderId", orderId);
         request.setAttribute("index", index);
-        request.getRequestDispatcher("FeedbackDetails.jsp").forward(request, response);
+        request.getRequestDispatcher("FeedbackDetail.jsp").forward(request, response);
 
     }
 

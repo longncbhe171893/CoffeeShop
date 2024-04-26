@@ -52,7 +52,6 @@
         <servlet-name>ManageSlider</servlet-name>
         <url-pattern>/ManageSlider</url-pattern>
     </servlet-mapping>
-    
     <servlet>
         <servlet-name>ManageFeedback</servlet-name>
         <servlet-class>Controller.ManageFeedback</servlet-class>
