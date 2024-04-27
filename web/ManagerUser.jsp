@@ -167,11 +167,7 @@
                         </thead>
                         <tbody>
                             <c:forEach var="p" items="${userlist}">
-                                  <c:choose>
-        <c:when test="${p.getSetting_id() == 1}">
-
-        </c:when>
-        <c:otherwise>
+                                 
                                 <tr>
                                     <th scope="row">${p.getId()}</th>
                                     <td>${p.getName()}</td>
@@ -188,6 +184,9 @@
                                     </td>
                                     <td>
                                         <c:choose>
+                                             <c:when test="${p.getSetting_id()==1}">
+                                                Admin
+                                            </c:when>
                                             <c:when test="${p.getSetting_id()==2}">
                                                 Seller
                                             </c:when>
@@ -234,8 +233,7 @@
                                     </div>
                                 </div>
                             </div>
-          </c:otherwise>
-                                </c:choose>
+        
                         </c:forEach>
                         </tbody>
                     </table>

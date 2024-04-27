@@ -59,7 +59,7 @@ public class UserDAO extends DBContext {
     }
  public ArrayList<Setting> getRole() {
         ArrayList<Setting> list = new ArrayList<>();
-        String sql = "  select `setting_id`,`setting_name` from `Setting` where `type`='User' and `setting_name` not like 'Admin'";
+        String sql = "  select `setting_id`,`setting_name` from `Setting` where `type`='User' ";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
@@ -178,7 +178,7 @@ public class UserDAO extends DBContext {
                 sql += " `user_name` LIKE ? ";
             }
         }
-        sql += " ORDER BY setting_id DESC LIMIT ?, ?";
+        sql += " ORDER BY setting_id ASC LIMIT ?, ?";
         PreparedStatement ps = connection.prepareStatement(sql);
         int parameterIndex = 1;
         // Đặt các giá trị tham số nếu chúng không 0 hoặc không rỗng
