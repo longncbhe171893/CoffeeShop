@@ -20,7 +20,7 @@ import java.util.List;
 public class FeedbackDAO extends DBContext {
 
     public List<Feedback> getAllFeedback() {
-        String query = "SELECT f.feedback_id, f.user_id, f.content, f.product_id, u.user_name, p.product_name "
+        String query = "SELECT f.feedback_id, f.user_id, f.content, f.product_id, u.user_name, p.product_name, f.note  "
                 + "FROM Feedback f "
                 + "INNER JOIN Users u ON f.user_id = u.user_id "
                 + "INNER JOIN Product p ON f.product_id = p.product_id";
@@ -37,7 +37,8 @@ public class FeedbackDAO extends DBContext {
                 int product_id = resultSet.getInt("product_id");
                 String user_name = resultSet.getString("user_name");
                 String product_name = resultSet.getString("product_name");
-
+                String note = resultSet.getString("note");
+                
                 User user = new User();
                 user.setId(user_id);
                 user.setName(user_name);
@@ -45,12 +46,13 @@ public class FeedbackDAO extends DBContext {
                 Product product = new Product();
                 product.setId(product_id);
                 product.setName(product_name);
-
+                
                 Feedback feedback = new Feedback();
                 feedback.setFeedback_id(feedback_id);
                 feedback.setUser_id(user_id);
                 feedback.setContent(content);
                 feedback.setProduct_id(product_id);
+                feedback.setNote(note);
                 feedback.setUser(user);
                 feedback.setProduct(product);
 
@@ -68,7 +70,7 @@ public class FeedbackDAO extends DBContext {
 
     public Feedback getFeedbackDetail(int feedbackId) {
         Feedback feedback = null;
-        String query = "SELECT f.feedback_id, f.user_id, f.content, f.product_id, u.user_name, p.product_name "
+        String query = "SELECT f.feedback_id, f.user_id, f.content, f.product_id, u.user_name, p.product_name , f.note "
                 + "FROM Feedback f "
                 + "INNER JOIN Users u ON f.user_id = u.user_id "
                 + "INNER JOIN Product p ON f.product_id = p.product_id" + " WHERE feedback_id = ?";
@@ -83,7 +85,8 @@ public class FeedbackDAO extends DBContext {
                 int user_id = resultSet.getInt("user_id");
                 String content = resultSet.getString("content");
                 int product_id = resultSet.getInt("product_id");
-                
+                String note = resultSet.getString("note");
+
                 String user_name = resultSet.getString("user_name");
                 String product_name = resultSet.getString("product_name");
 
@@ -100,7 +103,7 @@ public class FeedbackDAO extends DBContext {
                 feedback.setUser_id(user_id);
                 feedback.setContent(content);
                 feedback.setProduct_id(product_id);
-                
+                feedback.setNote(note);
                 feedback.setUser(user);
                 feedback.setProduct(product);
             }
@@ -116,6 +119,8 @@ public class FeedbackDAO extends DBContext {
 
     public static void main(String[] args) {
         FeedbackDAO fe = new FeedbackDAO();
+//        Feedback listP = fe.getFeedbackDetail(1);
+
         List<Feedback> listP = fe.getAllFeedback();
         System.out.println(listP);
 
@@ -138,11 +143,25 @@ public class FeedbackDAO extends DBContext {
                         rs.getInt("user_id"),
                         rs.getString("content"),
                         rs.getInt("product_id"),
-                        rs.getDate("post_Date")));
+                        rs.getDate("post_Date"),
+                        rs.getString("note")));
+
             }
         } catch (Exception e) {
         }
         return list;
+    }
+
+    public void updateFeedbackNote(String note, int feedback_id) {
+        String sql = "UPDATE `Feedback` SET `note` = ? WHERE `feedback_id` = ?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, note);
+            ps.setInt(2, feedback_id);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
 }

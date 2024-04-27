@@ -73,13 +73,27 @@ public class FeedbackDetails extends HttpServlet {
         String user_id = request.getParameter("user_id");
         String content = request.getParameter("content");
         String product_id = request.getParameter("product_id");
+        String note = request.getParameter("note");
 
         
         FeedbackDAO dao = new FeedbackDAO();
-        Feedback feedback = dao.getFeedbackDetail(feedback_id);
-
-        request.setAttribute("feedback", feedback);
-        request.getRequestDispatcher("FeedbackDetails.jsp").forward(request, response);
+        if (note.length() > 255){
+            request.setAttribute("mess", "The note must be less than 255 character");
+            Feedback feedback = new Feedback();
+            request.setAttribute("note", note);
+            feedback = dao.getFeedbackDetail(feedback_id);
+            request.setAttribute("feedback", feedback);
+            request.getRequestDispatcher("FeedbackDetails.jsp").forward(request, response);
+        } else {
+        
+        
+        dao.updateFeedbackNote(note, feedback_id);
+        request.setAttribute("mess", "Update successfully");
+        Feedback feedback = new Feedback();
+        feedback = dao.getFeedbackDetail(feedback_id);
+            request.setAttribute("feedback", feedback);
+            request.getRequestDispatcher("FeedbackDetails.jsp").forward(request, response);
+        }
 
     }
 

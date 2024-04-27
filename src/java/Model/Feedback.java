@@ -18,19 +18,25 @@ public class Feedback {
      private User user;
      private Product product;
      private Date post_Date;
+     private String note;
 
     public Feedback() {
     }
 
-    public Feedback(int feedback_id, int user_id, String content, int product_id, Date post_Date) {
+    public Feedback(int feedback_id, int user_id, String content, int product_id, Date post_Date, String note) {
         this.feedback_id = feedback_id;
         this.user_id = user_id;
         this.content = content;
         this.product_id = product_id;
         this.post_Date = post_Date;
+        this.note = note;
     }
 
-    public Feedback(int feedback_id, int user_id, String content, int product_id, User user, Product product, Date post_Date) {
+    
+
+    
+
+    public Feedback(int feedback_id, int user_id, String content, int product_id, User user, Product product, Date post_Date, String note) {
         this.feedback_id = feedback_id;
         this.user_id = user_id;
         this.content = content;
@@ -38,12 +44,20 @@ public class Feedback {
         this.user = user;
         this.product = product;
         this.post_Date = post_Date;
+        this.note = note;
     }
 
-    public Feedback(int aInt, User user, String string, Product product, Date date) {
-        throw new UnsupportedOperationException("Not supported yet."); 
+    public String getNote() {
+        return note;
     }
 
+    public void setNote(String note) {
+        this.note = note;
+    }
+
+    
+
+    
     public User getUser() {
         return user;
     }
@@ -104,8 +118,10 @@ public class Feedback {
 
     @Override
     public String toString() {
-        return "Feedback{" + "feedback_id=" + feedback_id + ", user_id=" + user_id + ", content=" + content + ", product_id=" + product_id + ", user=" + user + ", product=" + product + ", post_Date=" + post_Date + '}';
+        return "Feedback{" + "feedback_id=" + feedback_id + ", user_id=" + user_id + ", content=" + content + ", product_id=" + product_id + ", user=" + user + ", product=" + product + ", post_Date=" + post_Date + ", note=" + note + '}';
     }
+
+    
 
     
     

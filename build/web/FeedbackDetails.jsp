@@ -53,7 +53,7 @@
                             <b>Product </b><input type="text"  class="form-control" value="${feedback.getProduct().getName()}" required name="product" readonly><br> 
                             
                             <b>Note </b>
-                            <textarea id="" rows="5"  name="note" class="form-control"  >${contact.getNote()}</textarea>
+                            <textarea id="" rows="5"  name="note" class="form-control"  >${feedback.getNote()}</textarea>
                             
                                         </div>
                             <p style="color: red">${mess}</p>
