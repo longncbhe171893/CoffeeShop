@@ -23,6 +23,10 @@
             <file>file:/F:/SWP/ProjectCoffee/CoffeeShop/web/Success.jsp</file>
             <file>file:/F:/SWP/ProjectCoffee/CoffeeShop/src/java/Controller/ManageSlider.java</file>
         </group>
-        <group/>
+        <group>
+            <file>file:/C:/Users/PHU%20HAI/OneDrive/Documents/NetBeansProjects/CoffeeShop%20(1)/CoffeeShop/src/java/DAO/DBContext.java</file>
+            <file>file:/C:/Users/PHU%20HAI/OneDrive/Documents/NetBeansProjects/CoffeeShop%20(1)/CoffeeShop/src/java/Controller/Home.java</file>
+            <file>file:/C:/Users/PHU%20HAI/OneDrive/Documents/NetBeansProjects/CoffeeShop%20(1)/CoffeeShop/src/java/DAO/ProductDAO.java</file>
+        </group>
     </open-files>
 </project-private>

@@ -31,6 +31,20 @@
         <link rel="stylesheet" href="css/flaticon.css">
         <link rel="stylesheet" href="css/icomoon.css">
         <link rel="stylesheet" href="css/style.css">
+        <style>
+            .button {
+                background-color: #fde19a;
+                border: none;
+                color: #151111;
+                padding: 15px 32px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 16px;
+                margin: 4px 2px;
+                cursor: pointer;
+            }
+        </style>
     </head>
 
     <body>
@@ -56,14 +70,13 @@
 
         <section class="ftco-section ftco-cart">
             <div class="container">
+                <a href="OrderHistory?index=1&user=${sessionScope['account'].getId()}"  class="button">Order history</a>
                 <div class="row">
                     <div class="col-md-12 ftco-animate">
                         <div class="cart-list">
                             <table class="table">
                                 <thead class="thead-primary">
                                     <tr class="text-center">
-                                        <th>&nbsp;</th>
-                                        <th>&nbsp;</th>
                                         <th>Product</th>
                                         <th>Size</th>
                                         <th>Price</th>
@@ -146,10 +159,10 @@
         <script src="js/google-map.js"></script>
         <script src="js/main.js"></script>
         <script type="text/javascript">
-        function updateCart(i) {
-            var value = $('#' + i).val();
-            window.location.href = "${pageContext.request.contextPath}/updateCart?idx=" + i + "&quantity=" + value;
-         }
+                                                        function updateCart(i) {
+                                                            var value = $('#' + i).val();
+                                                            window.location.href = "${pageContext.request.contextPath}/updateCart?idx=" + i + "&quantity=" + value;
+                                                        }
         </script>
 
     </body>

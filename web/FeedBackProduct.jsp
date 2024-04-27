@@ -6,7 +6,7 @@
 <html lang="en">
 
     <head>
-        <title>Coffee - Free Bootstrap 4 Template by Colorlib</title>
+        <title>Feedback Products</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -59,7 +59,7 @@
                     <div class="row slider-text justify-content-center align-items-center">
 
                         <div class="col-md-7 col-sm-12 text-center ftco-animate">
-                            <h1 class="mb-3 mt-5 bread">Cart</h1>
+                            <h1 class="mb-3 mt-5 bread">Feedback Product</h1>
                             <p class="breadcrumbs"><span class="mr-2"><a href="Home">Home</a></span> <span>Cart</span>
                             </p>
                         </div>
@@ -77,56 +77,42 @@
                             <table class="table">
                                 <thead class="thead-primary">
                                     <tr class="text-center">
-                                        <th>Product</th>
-                                        <th>Size</th>
-                                        <th>Price</th>
-                                        <th>Quantity</th>
-                                        <th>Total</th>
+                                        <th style="padding-top: 12px;
+                                            padding-bottom: 12px;
+                                            padding-left: 300px;
+                                            color: black;
+                                            text-align: left;
+                                            background-color: #fde19a;
+                                            "><p style="color: black;font-weight: bold;">Products in order</p></th>
+                                        <th style="padding-top: 12px;
+                                            padding-bottom: 12px;
+                                            text-align: left;
+                                            background-color: #fde19a;
+                                            color: black;"><p style="color: black;font-weight: bold;">Description</p></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <c:forEach items="${sessionScope.map}" var="i" varStatus="idx">
-                                        <tr class="text-center">
-                                            <td class="product-remove"><a href="deleteProduct?idx=${idx.index}"><span class="icon-close"></span></a></td>
+                                    <c:forEach items="${lod}" var="lod" >
 
+                                        <tr class="text-center">
                                             <td class="image-prod">
-                                                <div class="img" style="background-image:url(${i.product.image});"></div>
+                                                <h3>${lod.getProduct().getName()}</h3>
+                                                <a href="FeedbackDetail?orderId=${orderId}&index=${index}&productId=${lod.getProduct().getId()}"  class="button"><div class="img" style="background-image:url(${lod.getProduct().getImage()});"></div></a>
+
+                                                <p>Price</p> <h3>${lod.getProduct().getPrice()}</h3>
                                             </td>
 
                                             <td class="product-name">
-                                                <h3>${i.product.name}</h3>
+                                                <h3>${lod.getProduct().getDescreption()}</h3>
                                             </td>
-                                            <td style="color: white">${i.productSize != null ? i.productSize.name : ''}</td>
-                                            <td class="price"><span class="priceSpan">$ ${i.productSize != null ? i.productSize.price + i.product.price : i.product.price}00</span></td>
-
-                                            <td class="quantity">
-                                                <div class="input-group mb-3">
-                                                    <input type="number" name="quantity" id="${idx.index}" onchange="updateCart(${idx.index})"
-                                                           class="quantity form-control input-number" value="${i.quantity}" min="1" max="100">
-                                                </div>
-                                            </td>
-                                            <td class="total"><span class="priceSpan">${i.productSize != null ? ((i.productSize.price + i.product.price) * i.quantity) : (i.product.price * i.quantity)}00</span>đ</td>
                                         </tr>
+
                                     </c:forEach>
                                 </tbody>
                             </table>
                         </div>
                     </div>
-                </div>
-                <p style="color: red" >${mess}</p>
-                <div class="row justify-content-end">
-                    <div class="col col-lg-3 col-md-6 mt-5 cart-wrap ftco-animate">
-                        <div class="cart-total mb-3">
-                            <h3>Totals Amount</h3>
-                            <p class="d-flex total-price">
-                                <span>Total</span>
-                                <span class="priceSpan">${requestScope.total}00đ</span>
-                            </p>
-                        </div>
-                        <p class="text-center"><a href="order" class="btn btn-primary py-3 px-4">Proceed to
-                                Checkout</a></p>
-                    </div>
-                </div>
+                </div>               
             </div>
         </section>
 
@@ -158,12 +144,6 @@
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
         <script src="js/google-map.js"></script>
         <script src="js/main.js"></script>
-        <script type="text/javascript">
-                                                        function updateCart(i) {
-                                                            var value = $('#' + i).val();
-                                                            window.location.href = "${pageContext.request.contextPath}/updateCart?idx=" + i + "&quantity=" + value;
-                                                        }
-        </script>
 
     </body>
 

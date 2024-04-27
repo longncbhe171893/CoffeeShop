@@ -22,6 +22,18 @@ public class Order {
     public Order() {
     }
 
+    public Order(int id, User user, String orderName, int status, int discount, Timestamp date, String notes, String address, String phone) {
+        this.id = id;
+        this.user = user;
+        this.orderName = orderName;
+        this.status = status;
+        this.discount = discount;
+        this.date = date;
+        this.notes = notes;
+        this.address = address;
+        this.phone = phone;
+    }
+
     public Order(int id, User user, String orderName, int status, int discount, Timestamp date, String notes, String address, String phone, String seller_approve) {
         this.id = id;
         this.user = user;
